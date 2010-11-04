@@ -1,0 +1,46 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20101104035209) do
+
+  create_table "carrying_bills", :force => true do |t|
+    t.date     "bill_date",                                                                             :null => false
+    t.string   "bill_no",                 :limit => 30,                                                 :null => false
+    t.string   "goods_no",                :limit => 30,                                                 :null => false
+    t.integer  "from_customer_id"
+    t.string   "from_customer_name"
+    t.string   "from_customer_phone"
+    t.integer  "to_customer_id"
+    t.integer  "to_customer_name"
+    t.string   "to_customer_phone"
+    t.integer  "from_org_id"
+    t.integer  "transit_org_id"
+    t.integer  "to_org_id"
+    t.string   "to_area",                 :limit => 20
+    t.decimal  "insured_amount",                        :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "insured_rate",                          :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "insured_fee",                           :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "carrying_fee",                          :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "goods_fee",                             :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "from_short_carrying_fee",               :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "to_short_carrying_fee",                 :precision => 10, :scale => 2, :default => 0.0
+    t.string   "pay_type",                :limit => 20,                                                 :null => false
+    t.integer  "goods_num",                                                            :default => 0
+    t.text     "goods_info"
+    t.string   "type",                    :limit => 20
+    t.string   "state",                   :limit => 20
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+end

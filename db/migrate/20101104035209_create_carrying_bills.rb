@@ -1,0 +1,50 @@
+class CreateCarryingBills < ActiveRecord::Migration
+  def self.up
+    create_table :carrying_bills do |t|
+      t.date :bill_date,:null => false
+      t.string :bill_no,:limit => 30,:null => false
+      t.string :goods_no,:limit => 30,:null => false
+      t.integer :from_customer_id   #发货人id
+      t.string :from_customer_name  #手工录入的发货人姓名
+      t.string :from_customer_phone
+      t.integer :to_customer_id #收货人id
+      t.integer :to_customer_name #手工录入的收货人姓名
+      t.string :to_customer_phone
+      t.references :from_org  #发货分理处
+      t.references :transit_org #中转分理处 只对中转运单有用
+      t.references :to_org #到货分理处
+      t.string :to_area,:limit => 20  #到货地点,对于不是内部中转的票据,可能需要手工录入到货地点
+
+      t.decimal :insured_amount,:scale => 2,:precision => 10,:default => 0 #保价金额
+      t.decimal :insured_rate,:scale => 2,:precision => 10,:default => 0  #保价比例
+      t.decimal :insured_fee,:scale => 2,:precision => 10,:default => 0  #保价比例
+
+      t.decimal :carrying_fee,:scale => 2,:precision => 10,:default => 0 #运费
+      t.decimal :goods_fee,:scale => 2,:precision => 10,:default => 0 #代收货款
+      t.decimal :goods_fee,:scale => 2,:precision => 10,:default => 0 #代收货款
+      t.decimal :from_short_carrying_fee,:scale => 2,:precision => 10,:default => 0 #发货地短途运费
+      t.decimal :to_short_carrying_fee,:scale => 2,:precision => 10,:default => 0 #到货地短途运费
+      
+      t.string :pay_type,:limit => 20,:null => false #运费支付方式
+      t.integer :goods_num,:default => 0 #货物件数
+      t.text :goods_info #货物信息描述
+
+      #票据类别分为以下几种
+      #普通机打运单
+      #普通手工运单
+      #普通机打中转运单
+      #普通手工中转运单
+      #退货运单
+      t.string :type,:limit => 20 #票据类别,rails使用
+      t.string :state,:limit => 20 #票据状态
+      t.references :user
+
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :carrying_bills
+  end
+end
