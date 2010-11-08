@@ -1,0 +1,149 @@
+<div class="block">
+  <div class="secondary-navigation">
+    <ul class="wat-cf">
+      <li class="first"><%= link_to "#{t("web-app-theme.list", :default => "List")}", computer_bills_path  %></li>
+      <li><%= link_to "#{t("web-app-theme.new", :default => "New")}", new_computer_bill_path %></li>
+      <li class="active"><%= link_to "#{t("web-app-theme.show", :default => "Show")}", computer_bill_path %></li>
+    </ul>
+  </div>          
+  <div class="content">
+    <div class="inner">
+      
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.bill_date", :default => t("activerecord.labels.bill_date", :default => "Bill date")) %>:</b>
+          <%= @computer_bill.bill_date %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.bill_no", :default => t("activerecord.labels.bill_no", :default => "Bill no")) %>:</b>
+          <%= @computer_bill.bill_no %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.goods_no", :default => t("activerecord.labels.goods_no", :default => "Goods no")) %>:</b>
+          <%= @computer_bill.goods_no %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.from_customer_id", :default => t("activerecord.labels.from_customer_id", :default => "From customer")) %>:</b>
+          <%= @computer_bill.from_customer_id %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.from_customer_name", :default => t("activerecord.labels.from_customer_name", :default => "From customer name")) %>:</b>
+          <%= @computer_bill.from_customer_name %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.from_customer_phone", :default => t("activerecord.labels.from_customer_phone", :default => "From customer phone")) %>:</b>
+          <%= @computer_bill.from_customer_phone %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.to_customer_id", :default => t("activerecord.labels.to_customer_id", :default => "To customer")) %>:</b>
+          <%= @computer_bill.to_customer_id %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.to_customer_name", :default => t("activerecord.labels.to_customer_name", :default => "To customer name")) %>:</b>
+          <%= @computer_bill.to_customer_name %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.to_customer_phone", :default => t("activerecord.labels.to_customer_phone", :default => "To customer phone")) %>:</b>
+          <%= @computer_bill.to_customer_phone %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.from_org_id", :default => t("activerecord.labels.from_org_id", :default => "From org")) %>:</b>
+          <%= @computer_bill.from_org_id %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.transit_org_id", :default => t("activerecord.labels.transit_org_id", :default => "Transit org")) %>:</b>
+          <%= @computer_bill.transit_org_id %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.to_org_id", :default => t("activerecord.labels.to_org_id", :default => "To org")) %>:</b>
+          <%= @computer_bill.to_org_id %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.to_area", :default => t("activerecord.labels.to_area", :default => "To area")) %>:</b>
+          <%= @computer_bill.to_area %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.insured_amount", :default => t("activerecord.labels.insured_amount", :default => "Insured amount")) %>:</b>
+          <%= @computer_bill.insured_amount %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.insured_rate", :default => t("activerecord.labels.insured_rate", :default => "Insured rate")) %>:</b>
+          <%= @computer_bill.insured_rate %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.insured_fee", :default => t("activerecord.labels.insured_fee", :default => "Insured fee")) %>:</b>
+          <%= @computer_bill.insured_fee %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.carrying_fee", :default => t("activerecord.labels.carrying_fee", :default => "Carrying fee")) %>:</b>
+          <%= @computer_bill.carrying_fee %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.goods_fee", :default => t("activerecord.labels.goods_fee", :default => "Goods fee")) %>:</b>
+          <%= @computer_bill.goods_fee %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.from_short_carrying_fee", :default => t("activerecord.labels.from_short_carrying_fee", :default => "From short carrying fee")) %>:</b>
+          <%= @computer_bill.from_short_carrying_fee %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.to_short_carrying_fee", :default => t("activerecord.labels.to_short_carrying_fee", :default => "To short carrying fee")) %>:</b>
+          <%= @computer_bill.to_short_carrying_fee %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.pay_type", :default => t("activerecord.labels.pay_type", :default => "Pay type")) %>:</b>
+          <%= @computer_bill.pay_type %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.goods_num", :default => t("activerecord.labels.goods_num", :default => "Goods num")) %>:</b>
+          <%= @computer_bill.goods_num %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.goods_info", :default => t("activerecord.labels.goods_info", :default => "Goods info")) %>:</b>
+          <%= @computer_bill.goods_info %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.type", :default => t("activerecord.labels.type", :default => "Type")) %>:</b>
+          <%= @computer_bill.type %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.state", :default => t("activerecord.labels.state", :default => "State")) %>:</b>
+          <%= @computer_bill.state %>
+        </p>
+
+        <p>
+          <b><%= t("activerecord.attributes.computer_bill.user_id", :default => t("activerecord.labels.user_id", :default => "User")) %>:</b>
+          <%= @computer_bill.user_id %>
+        </p>
+      <div class="wat-cf">
+        <%= link_to image_tag("web-app-theme/icons/application_edit.png", :alt => "#{t("web-app-theme.edit", :default=> "Edit")}") + " " + t("web-app-theme.edit", :default=> "Edit"), edit_computer_bill_path(@computer_bill), :class => "button" %> 
+        <%= link_to image_tag("web-app-theme/icons/cross.png", :alt => "#{t("web-app-theme.delete", :default=> "Delete")}") + " " + t("web-app-theme.delete", :default => "Delete"), computer_bill_path(@computer_bill), :method => "delete", :class => "button", :confirm => "#{t("web-app-theme.confirm", :default => "Are you sure?")}" %>
+      </div>      
+    </div>
+  </div>
+</div>
+
+<% content_for :sidebar, render(:partial => 'sidebar') -%>

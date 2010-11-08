@@ -1,3 +1,4 @@
+#coding: utf-8
 class BaseController < ApplicationController
   before_filter :get_model_klazz,:create_search
   # GET /the_models
@@ -50,7 +51,7 @@ class BaseController < ApplicationController
     instance_variable_set("@#{@param_name}",the_model)
     respond_to do |format|
       if the_model.save
-        flash[:notice] = "#{@model_klazz.human_name} 保存成功."
+        flash[:notice] = "#{@model_klazz.human_name}更新成功."
         format.html { redirect_to(:action => :index) }
         format.xml  { render :xml => the_model, :status => :created, :location => the_model }
       else
@@ -67,7 +68,7 @@ class BaseController < ApplicationController
     instance_variable_set("@#{@param_name}",the_model)
     respond_to do |format|
       if the_model.update_attributes(params[@param_name])
-        flash[:notice] = "#{@model_klazz.human_name} 更新成功."
+        flash[:notice] = "#{@model_klazz.human_name}更新成功."
         format.html { redirect_to(:action => :index) }
         format.xml  { head :ok }
       else

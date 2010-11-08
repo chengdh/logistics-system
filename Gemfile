@@ -4,6 +4,13 @@ gem 'rails', '3.0.1'
 gem 'mysql2'
 gem "will_paginate", "~> 3.0.pre2"
 gem "meta_search"
+#表单中的树形结构选择
+gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
+gem 'tree_select', :git => 'git://github.com/jeznet/tree_select.git'
+#客户端验证框架,需要使用到jquery
+gem 'client_side_validations'
+#form 显示组件
+gem 'formtastic', '~>1.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -34,6 +41,7 @@ gem "meta_search"
 group :development do
   gem 'rspec-rails','2.0.1'
   gem 'annotate-models', '1.0.4'
+  gem 'jquery-rails'
 end
 group :development, :test do
     gem 'web-app-theme', '>= 0.6.2'
@@ -41,5 +49,6 @@ end
 group :test do
   gem 'rspec','2.0.1'
   gem 'factory_girl_rails', '1.0'
-  #gem 'webrat','0.7.2'
+  gem 'faker'
+  #gem 'webrat'
 end
