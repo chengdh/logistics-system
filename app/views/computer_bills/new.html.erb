@@ -8,7 +8,7 @@
   <div class="content">            
     <h2 class="title"><%= t("web-app-theme.new", :default => "New")%>  ComputerBill</h2>
     <div class="inner">
-      <% semantic_form_for @computer_bill do |f| %>
+      <%= semantic_form_for @computer_bill do |f| %>
         <%= render "form", :f => f %>
       <% end -%>
     </div>

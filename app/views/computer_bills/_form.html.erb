@@ -1,7 +1,9 @@
-<% f.inputs do %>
-  <%= f.input :bill_date, :label => 'Bill date' %>
+<%= f.inputs do %>
+  <%= f.input :bill_date,:as => :string %>
   <%= f.input :bill_no, :label => 'Bill no' %>
   <%= f.input :goods_no, :label => 'Goods no' %>
+  <%= f.autocompleted_input :from_org, :url => "",:id_element => 'from_org_id' %>
+
   <%= f.input :from_customer_name, :label => 'From customer name' %>
   <%= f.input :from_customer_phone, :label => 'From customer phone' %>
   <%= f.input :to_customer_name, :label => 'To customer name' %>
@@ -19,3 +21,7 @@
   <%= f.input :goods_info, :label => 'Goods info' %>
   <%= f.input :state, :label => 'State' %>
 <% end %>
+<%= f.buttons%>
+<script type='text/javascript'>
+  $('#computer_bill_bill_date').datepicker();
+</script>

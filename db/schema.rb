@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20101108143124) do
 
   create_table "orgs", :force => true do |t|
     t.string   "name",            :limit => 60,                   :null => false
+    t.string   "simp_name",       :limit => 20
     t.integer  "parent_id"
     t.string   "phone",           :limit => 60
     t.boolean  "is_active",                     :default => true, :null => false

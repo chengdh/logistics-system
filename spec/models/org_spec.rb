@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Org do
   before(:each) do 
-    @attr = Factory.attributes_for(:org_zz)
+    @attr = Factory.attributes_for(:org)
   end
   it "应能够成功新建机构信息" do 
     Org.create!(@attr)

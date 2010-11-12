@@ -7,10 +7,12 @@ gem "meta_search"
 #表单中的树形结构选择
 gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
 gem 'tree_select', :git => 'git://github.com/jeznet/tree_select.git'
-#客户端验证框架,需要使用到jquery
-gem 'client_side_validations'
 #form 显示组件
+gem "validation_reflection"
 gem 'formtastic', '~>1.1.0'
+gem 'rails3-jquery-autocomplete'
+#gem 'formtastic_jquery_ui'
+gem 'formtastic_validation'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -51,4 +53,5 @@ group :test do
   gem 'factory_girl_rails', '1.0'
   gem 'faker'
   #gem 'webrat'
+  gem 'spork', '0.8.4'
 end
