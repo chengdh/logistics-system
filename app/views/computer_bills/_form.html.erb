@@ -1,25 +1,27 @@
 <%= f.inputs do %>
   <%= f.input :bill_date,:as => :string %>
-  <%= f.input :bill_no, :label => 'Bill no' %>
-  <%= f.input :goods_no, :label => 'Goods no' %>
-  <%= f.autocompleted_input :from_org, :url => "",:id_element => 'from_org_id' %>
+  <%= f.input :bill_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
+  <%= f.input :goods_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
+  <%= f.autocompleted_input :from_org_name, :url =>  autocomplete_org_py_computer_bills_path, :id_element => '#computer_bill_from_org_id',:name => "select_from_org" %>
+  <%= f.input :from_org_id,:as => :hidden %>
+  <%= f.autocompleted_input :to_org_name, :url => autocomplete_org_py_computer_bills_path, :id_element => '#computer_bill_to_org_id',:name => :select_to_org %>
+  <%= f.input :to_org_id,:as => :hidden %>
 
-  <%= f.input :from_customer_name, :label => 'From customer name' %>
-  <%= f.input :from_customer_phone, :label => 'From customer phone' %>
-  <%= f.input :to_customer_name, :label => 'To customer name' %>
-  <%= f.input :to_customer_phone, :label => 'To customer phone' %>
-  <%= f.input :to_area, :label => 'To area' %>
-  <%= f.input :insured_amount, :label => 'Insured amount' %>
-  <%= f.input :insured_rate, :label => 'Insured rate' %>
-  <%= f.input :insured_fee, :label => 'Insured fee' %>
-  <%= f.input :carrying_fee, :label => 'Carrying fee' %>
-  <%= f.input :goods_fee, :label => 'Goods fee' %>
-  <%= f.input :from_short_carrying_fee, :label => 'From short carrying fee' %>
-  <%= f.input :to_short_carrying_fee, :label => 'To short carrying fee' %>
-  <%= f.input :pay_type, :label => 'Pay type' %>
-  <%= f.input :goods_num, :label => 'Goods num' %>
-  <%= f.input :goods_info, :label => 'Goods info' %>
-  <%= f.input :state, :label => 'State' %>
+  <%= f.input :from_customer_name %>
+  <%= f.input :from_customer_phone %>
+  <%= f.input :to_customer_name %>
+  <%= f.input :to_customer_phone %>
+  <%= f.input :to_area %>
+  <%= f.input :insured_amount %>
+  <%= f.input :insured_rate  %>
+  <%= f.input :insured_fee %>
+  <%= f.input :carrying_fee %>
+  <%= f.input :goods_fee %>
+  <%= f.input :from_short_carrying_fee %>
+  <%= f.input :to_short_carrying_fee %>
+  <%= f.input :pay_type,:as => :select,:include_blank => false,:collection => CarryingBill.pay_types %>
+  <%= f.input :goods_num %>
+  <%= f.input :goods_info,:as => :string %>
 <% end %>
 <%= f.buttons%>
 <script type='text/javascript'>

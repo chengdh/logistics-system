@@ -12,4 +12,8 @@ describe Org do
     no_name_org = Org.new(@attr.merge(:name => ""))
     no_name_org.should_not be_valid
   end
+  it "应能够自动生成拼音简写" do
+    org = Org.create!(@attr.merge(:name => "郑州"))
+    org.py.should == 'zz'
+  end
 end

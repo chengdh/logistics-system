@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101108143124) do
+ActiveRecord::Schema.define(:version => 20101113133212) do
 
   create_table "carrying_bills", :force => true do |t|
     t.date     "bill_date",                                                                             :null => false
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20101108143124) do
     t.string   "type",            :limit => 20
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "py",              :limit => 20
   end
 
 end

@@ -44,6 +44,7 @@ group :development do
   gem 'rspec-rails','2.0.1'
   gem 'annotate-models', '1.0.4'
   gem 'jquery-rails'
+  gem 'faker','0.3.1'
 end
 group :development, :test do
     gem 'web-app-theme', '>= 0.6.2'
@@ -51,7 +52,6 @@ end
 group :test do
   gem 'rspec','2.0.1'
   gem 'factory_girl_rails', '1.0'
-  gem 'faker'
   #gem 'webrat'
   gem 'spork', '0.8.4'
 end
