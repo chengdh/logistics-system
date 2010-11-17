@@ -1,0 +1,37 @@
+<%= semantic_form_for form ,:html => {:id => "carrying_bill_form",:class => "carrying-bill"} do |f|%>
+  <%= f.inputs do %>
+    <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:class => 'datepicker'} %>
+    <%= f.input :bill_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
+    <%= f.input :goods_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
+    <%= f.autocompleted_input :from_org_name, :url =>  autocomplete_org_py_computer_bills_path, :id_element => '#computer_bill_from_org_id',:name => "select_from_org" %>
+    <%= f.input :from_org_id,:as => :hidden %>
+    <%= f.autocompleted_input :to_org_name, :url => autocomplete_org_py_computer_bills_path, :id_element => '#computer_bill_to_org_id',:name => :select_to_org %>
+    <%= f.input :to_org_id,:as => :hidden %>
+
+    <%= f.input :from_customer_name %>
+    <%= f.input :from_customer_phone %>
+    <%= f.input :to_customer_name %>
+    <%= f.input :to_customer_phone %>
+    <%= f.input :to_area %>
+    <%= f.input :insured_amount ,:input_html => {:id => "insured_amount"}%>
+    <%= f.input :insured_rate  ,:input_html => {:id => "insured_rate"}%>
+    <%= f.input :insured_fee,:input_html => {:readonly => true,:id => "insured_fee" } %>
+    <%= f.input :pay_type,:as => :select,:include_blank => false,:collection => CarryingBill.pay_types %>
+    <%= f.input :carrying_fee ,:input_html => {:id => "carrying_fee"}%>
+    <%= f.input :from_short_carrying_fee,:input_html => {:id => "from_short_carrying_fee"} %>
+    <%= f.input :to_short_carrying_fee,:input_html => {:id => "to_short_carrying_fee"}  %>
+    <li>
+      <label>合计运费</label>
+      <p id='sum_carrying_fee'>0.0</p>
+    </li>
+
+    <%= f.input :goods_fee,:input_html => {:id => "goods_fee"} %>
+    <li>
+      <label>总计</label>
+      <p id='sum_fee'>0.0</p>
+    </li>
+
+    <%= f.input :goods_num %>
+    <%= f.input :goods_info,:as => :string %>
+  <% end %>
+<% end%>
