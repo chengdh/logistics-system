@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101113133212) do
+ActiveRecord::Schema.define(:version => 20101118081317) do
 
   create_table "carrying_bills", :force => true do |t|
     t.date     "bill_date",                                                                             :null => false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20101113133212) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "original_bill_id"
   end
 
   create_table "orgs", :force => true do |t|

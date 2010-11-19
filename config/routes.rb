@@ -1,5 +1,7 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :return_bills
+
   resources :departments
 
   resources :branches

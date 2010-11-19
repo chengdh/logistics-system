@@ -13,6 +13,8 @@ gem 'formtastic', '~>1.1.0'
 gem 'rails3-jquery-autocomplete'
 #gem 'formtastic_jquery_ui'
 gem 'formtastic_validation'
+#state_machine
+gem 'state_machine'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

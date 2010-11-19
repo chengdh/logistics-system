@@ -109,6 +109,7 @@ GEM
     rspec-rails (2.0.1)
       rspec (~> 2.0.0)
     spork (0.8.4)
+    state_machine (0.9.4)
     thor (0.14.3)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
@@ -135,6 +136,7 @@ DEPENDENCIES
   rspec (= 2.0.1)
   rspec-rails (= 2.0.1)
   spork (= 0.8.4)
+  state_machine
   tree_select!
   validation_reflection
   web-app-theme (>= 0.6.2)
