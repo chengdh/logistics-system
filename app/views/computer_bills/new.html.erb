@@ -1,27 +1,14 @@
 <div class="block">
-  <div class="secondary-navigation">
-    <ul class="wat-cf">
-      <li><%= link_to image_tag('/stylesheets/SexyButtons/images/icons/silk/application_cascade.png',:alt => "票据列表",:title => "票据列表"), computer_bills_path  %></li>
-      <li><%= link_to image_tag('/stylesheets/SexyButtons/images/icons/silk/application_form_add.png',:alt => "录入新票据",:title => "录入新票据"), new_computer_bill_path %></li>
-      <li><%= link_to_function image_tag('/stylesheets/SexyButtons/images/icons/silk/disk.png',:alt => '保存'), "$('#carrying_bill_form').submit()",:title => "保存当前票据" %></li>
-    </ul>
-  </div>          
-  <div id='pop_div'></div>
+  <%= render "shared/dynamic_toolbar" %>
   <div class="content">            
     <script type='text/javascript'>
     </script>
     <h2 class="title"></h2>
     <div class="inner">
-      <%= render :partial => "shared/carrying_bills/form",:object => @computer_bill %>
+      <%= render "shared/carrying_bills/form",:bill => @computer_bill %>
     </div>
   </div>
-  <div class="secondary-navigation">
-    <ul class="wat-cf">
-      <li><%= link_to image_tag('/stylesheets/SexyButtons/images/icons/silk/application_cascade.png',:alt => "票据列表",:title => "票据列表"), computer_bills_path  %></li>
-      <li><%= link_to image_tag('/stylesheets/SexyButtons/images/icons/silk/application_form_add.png',:alt => "录入新票据",:title => "录入新票据"), new_computer_bill_path %></li>
-      <li><%= link_to_function image_tag('/stylesheets/SexyButtons/images/icons/silk/disk.png',:alt => '保存'), "$('#carrying_bill_form').submit()",:title => "保存当前票据" %></li>
-    </ul>
-  </div>      
+  <%= render "shared/dynamic_toolbar" %>
 </div>
 
 <% content_for :sidebar, render(:partial => 'sidebar') -%>

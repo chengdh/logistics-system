@@ -82,6 +82,8 @@ Factory.define :computer_bill,:class =>ComputerBill,:parent => :carrying_bill do
 end
 #手工票
 Factory.define :hand_bill,:class =>HandBill,:parent => :carrying_bill do |bill|
+  bill.bill_no "hand_bill_bill_no"
+  bill.goods_no "hand_bill_goods_no"
   bill.goods_info "手工运单"
 end
 #中转票
@@ -93,6 +95,8 @@ Factory.define :transit_bill,:class =>TransitBill,:parent => :carrying_bill do |
 end
 #手工中转票
 Factory.define :hand_transit_bill,:class =>HandTransitBill,:parent => :carrying_bill do |bill|
+  bill.bill_no "hand_transit_bill_bill_no"
+  bill.goods_no "hand_transit_bill_goods_no"
   bill.goods_info "手工中转运单"
   bill.association :from_org,:factory => :ay
   bill.association :transit_org,:factory => :zz

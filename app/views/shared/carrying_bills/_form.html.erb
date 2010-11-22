@@ -1,4 +1,4 @@
-<%= semantic_form_for form ,:html => {:id => "carrying_bill_form",:class => "carrying-bill"} do |f|%>
+<%= semantic_form_for bill ,:html => {:id => "carrying_bill_form",:class => "carrying-bill"} do |f|%>
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:class => 'datepicker'} %>
     <%= f.input :bill_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>

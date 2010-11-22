@@ -89,6 +89,18 @@ class CarryingBill < ActiveRecord::Base
       ""
       self.to_org.name unless self.to_org.nil?
     end
+    #得到提货应收金额
+    def th_amount
+      amount = carrying_fee
+      amount += goods_fee if pay_type == CarryingBill::PAY_TYPE_TH
+      amount += to_short_carrying_fee
+      amount
+    end
+    #运费总计
+    def carrying_fee_total
+      carrying_fee + insured_fee + from_short_carrying_fee + to_short_carrying_fee
+    end
+
     protected
     #生成退货单据
     #录入原运单编号后回车，可显示原票信息退货信息：

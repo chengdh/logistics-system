@@ -1,0 +1,104 @@
+<h2>郑州市燕赵货运服务有限公司运输协议内容</h2>
+<table class='table'>
+  <tr>
+    <td>发货站:</td>
+    <td colspan='2'><%=bill.from_org_name%></td>
+    <td>到货站:</td>
+    <td colspan='2'><%=bill.to_org_name%></td>
+    <td>运单编号</td>
+    <td><%=bill.bill_no%></td>
+  </tr>
+
+  <tr>
+    <td>卡号</td>
+    <td colspan='3'>&nbsp;</td>
+    <td colspan='3'>货号:<%=bill.goods_no%></td>
+    <td><%=bill.bill_date.strftime('%Y年%m月%d日')%></td>
+  </tr>
+
+  <tr>
+    <td colspan='8'>
+      <table class='table'>
+        <tr>
+          <td>发货人</td>
+          <td><%=bill.from_customer_name%></td>
+          <td rowspan='2'>电话</td>
+          <td><%=bill.from_customer_phone%></td>
+          <td rowspan='2'>手机</td>
+          <td><%=%></td>
+          <td>何地付运费</td>
+        </tr>
+        <tr>
+          <td>收货人</td>
+          <td><%=bill.to_customer_name%></td>
+          <td><%=bill.to_customer_phone%></td>
+          <td><%=%></td>
+          <td><%=pay_type_des(bill.pay_type)%></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td>货物名称</td>
+    <td>包装</td>
+    <td>数量</td>
+    <td>重量</td>
+    <td>体积</td>
+    <td>运费单价</td>
+    <td>运费合计</td>
+    <td>备注</td>
+  </tr>
+  <tr>
+    <td><%=bill.goods_info%></td>
+    <td></td>
+    <td><%=bill.goods_num%></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td><%=bill.carrying_fee%></td>
+    <td></td>
+  </tr>
+
+  <tr>
+    <td>提货应收金额</td>
+    <td colspan='6'>提货应收金额</td>
+    <td>&yen;:<%=bill.th_amount %></td>
+  </tr>
+  <tr>
+    <td>保值</td>
+    <td colspan='6'>保价金额: <%=bill.insured_amount%>&times;3‰=<%=bill.insured_fee%></td>
+    <td>&yen;:<%=bill.insured_fee %></td>
+  </tr>
+  <tr>
+    <td>发货地短途运费</td>
+    <td colspan='4'><%=bill.from_short_carrying_fee%></td>
+    <td>到货地短途运费</td>
+    <td colspan='4'><%=bill.to_short_carrying_fee%></td>
+  </tr>
+  <tr>
+    <td>运费总计</td>
+    <td colspan='6'><%=bill.carrying_fee_total%></td>
+    <td>&yen;:<%=bill.carrying_fee_total%></td>
+  </tr>
+  <tr>
+    <td>代收货款总计</td>
+    <td colspan='6'><%=bill.goods_fee%></td>
+    <td>&yen;:<%=bill.goods_fee%></td>
+  </tr>
+  <tr>
+    <td>委托人:</td>
+    <td>&nbsp;</td>
+    <td>收货人:</td>
+    <td>&nbsp;</td>
+    <td>证件号码:</td>
+    <td colspan='3'>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>开票人:</td>
+    <td>&nbsp;</td>
+    <td>代理收货人:</td>
+    <td>&nbsp;</td>
+    <td>证件号码:</td>
+    <td colspan='3'>&nbsp;</td>
+  </tr>
+</table>

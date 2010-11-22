@@ -34,5 +34,7 @@ namespace :db do
     邢台].each do |name|
       Branch.create!(:name => name,:simp_name => name.first,:location => name)
     end
+    #生成示例票据数据
+    [:computer_bill,:hand_bill,:transit_bill,:hand_transit_bill].each {|bill_type| Factory(bill_type)}
   end
 end

@@ -1,0 +1,22 @@
+<!--动态toolbar-->
+<div class="secondary-navigation">
+  <ul class="wat-cf">
+    <li class="first"><%= link_to "列表", self.send("#{@param_name.tableize}_path"),:title => "列表"  %></li>
+    <li><%= link_to "新建", self.send("new_#{@param_name}_path"),:title => "新建"  %></li>
+    <li><%= link_to "查询", "",:title => "查询"  %></li>
+    <% if params[:action] == "new"%>
+      <li><%= link_to_function "保存", "document.forms[0].submit()",:title => "保存"  %></li>
+    <%end%>
+
+    <% if params[:action] == "edit"%>
+      <li><%= link_to_function "保存", "document.forms[0].submit()",:title => "保存"  %></li>
+      <li><%= link_to "删除", instance_variable_get("@#{@param_name}"),:method => :delete,:title => "删除",:confirm => "你确定要删除吗?" %></li>
+    <%end%>
+
+    <% if params[:action] == "show"%>
+      <li><%= link_to "修改",  self.send("edit_#{@param_name}_path",instance_variable_get("@#{@param_name}")),:title => "修改" %></li>
+      <li><%= link_to "打印",  "",:title => "打印" %></li>
+    <%end%>
+    <li><%= link_to "导出EXCEL",  "",:title => "导出EXCEL" %></li>
+  </ul>
+</div>          

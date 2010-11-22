@@ -5,11 +5,14 @@ class CreateCarryingBills < ActiveRecord::Migration
       t.string :bill_no,:limit => 30,:null => false
       t.string :goods_no,:limit => 30,:null => false
       t.integer :from_customer_id   #发货人id
-      t.string :from_customer_name  #手工录入的发货人姓名
-      t.string :from_customer_phone
+      t.string :from_customer_name,:null => false,:limit => 60  #手工录入的发货人姓名
+      t.string :from_customer_phone,:limit => 60
+      t.string :from_customer_mobile,:limit => 60
       t.integer :to_customer_id #收货人id
-      t.integer :to_customer_name #手工录入的收货人姓名
+      t.string :to_customer_name,:null => false,:limit => 60 #手工录入的收货人姓名
       t.string :to_customer_phone
+      t.string :to_customer_mobile,:limit => 60
+
       t.references :from_org  #发货分理处
       t.references :transit_org #中转分理处 只对中转运单有用
       t.references :to_org #到货分理处
@@ -26,8 +29,12 @@ class CreateCarryingBills < ActiveRecord::Migration
       t.decimal :to_short_carrying_fee,:scale => 2,:precision => 10,:default => 0 #到货地短途运费
       
       t.string :pay_type,:limit => 20,:null => false #运费支付方式
-      t.integer :goods_num,:default => 0 #货物件数
-      t.text :goods_info #货物信息描述
+      t.integer :goods_num,:default => 1 #货物件数
+
+      t.decimal :goods_weight,:scale => 2,:precision => 10,:default => 0 #货物重量
+      t.decimal :goods_volume,:scale => 2,:precision => 10,:default => 0 #货物体积
+      t.string :goods_info #货物信息描述
+      t.text :note
 
       #票据类别分为以下几种
       #普通机打运单
