@@ -9,7 +9,8 @@ namespace :db do
                                :manager => "李保庆",
                                :location => "南四环十八里河")
     ('A'..'Z').each do |n|
-      zz_branch.children.create(:name => n,:simp_name => n)
+      branch = Branch.new(:name => n,:simp_name => n)
+      zz_branch.children << branch
     end
     %w[
     邱县 焦作 永年 馆陶 三门峡 洛阳 周口 肥乡 广平 成安 长治 石家庄 水冶 偃师 许昌 曲周 濮阳 新乡

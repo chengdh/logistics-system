@@ -26,15 +26,25 @@ describe ComputerBill do
     @computer_bill.should be_billed
   end
   it "票据进行装车后,状态应变为'已装车'" do
+    load_list = Factory(:load_list)
+    @computer_bill.load_list = load_list
     @computer_bill.standard_process
     @computer_bill.should be_loaded
   end
   it "票据进行发车操作后,其状态应被修改为'已发出'" do
+
+    load_list = Factory(:load_list)
+
+    @computer_bill.load_list = load_list
     @computer_bill.standard_process
     @computer_bill.standard_process
     @computer_bill.should be_shipped
   end
   it "票据进行到货确认操作后,其状态应被修改为'已到货'" do
+
+    load_list = Factory(:load_list)
+
+    @computer_bill.load_list = load_list
     @computer_bill.standard_process
     @computer_bill.standard_process
     @computer_bill.standard_process
@@ -45,11 +55,19 @@ describe ComputerBill do
     @computer_bill.should be_returned
   end
   it "在已货物已发出或货物已到达状态下进行退货操作,则运单状态应被修改为'已退货状态',并会生成一张退货运单" do
+    load_list = Factory(:load_list)
+
+    @computer_bill.load_list = load_list
+
     @computer_bill.standard_process
     @computer_bill.standard_process
     @computer_bill.standard_process
     @computer_bill.return
     @computer_bill.should be_returned
     @computer_bill.return_bill.should_not be_blank
+  end
+  it "进行装车操作,如果运单的load_bill为空,则无法装车" do
+    @computer_bill.standard_process
+    @computer_bill.should_not be_loaded
   end
 end

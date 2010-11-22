@@ -1,5 +1,13 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :load_lists
+
+  resources :hand_transit_bills
+
+  resources :transit_bills
+
+  resources :hand_bills
+
   resources :return_bills
 
   resources :departments
@@ -7,7 +15,7 @@ IlYanzhao::Application.routes.draw do
   resources :branches
 
   resources :computer_bills do
-    get :autocomplete_org_py,:on => :collection
+    get :autocomplete_branch_py,:on => :collection
   end
 
   # The priority is based upon order of creation:

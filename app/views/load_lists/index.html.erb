@@ -1,0 +1,37 @@
+<h1>Listing load_lists</h1>
+
+<table>
+  <tr>
+    <th>Bill date</th>
+    <th>Bill no</th>
+    <th>From org</th>
+    <th>To org</th>
+    <th>State</th>
+    <th>Note</th>
+    <th>Driver</th>
+    <th>Vehicle no</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @load_lists.each do |load_list| %>
+  <tr>
+    <td><%= load_list.bill_date %></td>
+    <td><%= load_list.bill_no %></td>
+    <td><%= load_list.from_org_id %></td>
+    <td><%= load_list.to_org_id %></td>
+    <td><%= load_list.state %></td>
+    <td><%= load_list.note %></td>
+    <td><%= load_list.driver %></td>
+    <td><%= load_list.vehicle_no %></td>
+    <td><%= link_to 'Show', load_list %></td>
+    <td><%= link_to 'Edit', edit_load_list_path(load_list) %></td>
+    <td><%= link_to 'Destroy', load_list, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Load list', new_load_list_path %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101118081317) do
+ActiveRecord::Schema.define(:version => 20101121040633) do
 
   create_table "carrying_bills", :force => true do |t|
     t.date     "bill_date",                                                                             :null => false
@@ -42,6 +42,20 @@ ActiveRecord::Schema.define(:version => 20101118081317) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "original_bill_id"
+    t.integer  "load_list_id"
+  end
+
+  create_table "load_lists", :force => true do |t|
+    t.date     "bill_date"
+    t.string   "bill_no",     :limit => 20
+    t.integer  "from_org_id",               :null => false
+    t.integer  "to_org_id",                 :null => false
+    t.string   "state",       :limit => 20
+    t.text     "note"
+    t.string   "driver",      :limit => 20
+    t.string   "vehicle_no",  :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "orgs", :force => true do |t|

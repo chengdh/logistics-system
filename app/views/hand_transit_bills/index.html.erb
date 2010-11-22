@@ -1,0 +1,21 @@
+<h1>Listing hand_transit_bills</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @hand_transit_bills.each do |hand_transit_bill| %>
+  <tr>
+    <td><%= link_to 'Show', hand_transit_bill %></td>
+    <td><%= link_to 'Edit', edit_hand_transit_bill_path(hand_transit_bill) %></td>
+    <td><%= link_to 'Destroy', hand_transit_bill, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Hand transit bill', new_hand_transit_bill_path %>

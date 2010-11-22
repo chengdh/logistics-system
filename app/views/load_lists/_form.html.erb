@@ -1,0 +1,49 @@
+<%= form_for(@load_list) do |f| %>
+  <% if @load_list.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@load_list.errors.count, "error") %> prohibited this load_list from being saved:</h2>
+
+      <ul>
+      <% @load_list.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :bill_date %><br />
+    <%= f.date_select :bill_date %>
+  </div>
+  <div class="field">
+    <%= f.label :bill_no %><br />
+    <%= f.text_field :bill_no %>
+  </div>
+  <div class="field">
+    <%= f.label :from_org_id %><br />
+    <%= f.text_field :from_org_id %>
+  </div>
+  <div class="field">
+    <%= f.label :to_org_id %><br />
+    <%= f.text_field :to_org_id %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="field">
+    <%= f.label :driver %><br />
+    <%= f.text_field :driver %>
+  </div>
+  <div class="field">
+    <%= f.label :vehicle_no %><br />
+    <%= f.text_field :vehicle_no %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

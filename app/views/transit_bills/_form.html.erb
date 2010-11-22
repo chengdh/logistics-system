@@ -1,0 +1,17 @@
+<%= form_for(@transit_bill) do |f| %>
+  <% if @transit_bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transit_bill.errors.count, "error") %> prohibited this transit_bill from being saved:</h2>
+
+      <ul>
+      <% @transit_bill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

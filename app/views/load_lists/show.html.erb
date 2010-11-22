@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Bill date:</b>
+  <%= @load_list.bill_date %>
+</p>
+
+<p>
+  <b>Bill no:</b>
+  <%= @load_list.bill_no %>
+</p>
+
+<p>
+  <b>From org:</b>
+  <%= @load_list.from_org_id %>
+</p>
+
+<p>
+  <b>To org:</b>
+  <%= @load_list.to_org_id %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @load_list.state %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @load_list.note %>
+</p>
+
+<p>
+  <b>Driver:</b>
+  <%= @load_list.driver %>
+</p>
+
+<p>
+  <b>Vehicle no:</b>
+  <%= @load_list.vehicle_no %>
+</p>
+
+
+<%= link_to 'Edit', edit_load_list_path(@load_list) %> |
+<%= link_to 'Back', load_lists_path %>
