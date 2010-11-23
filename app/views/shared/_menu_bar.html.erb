@@ -1,0 +1,18 @@
+<div id='menu_bar' class="block">
+  <h3><%=link_to "运单管理",'#'%></h3>
+  <div>
+    <ul class="navigation">
+      <li><%= link_to "机打票管理", computer_bills_path %></li>
+      <li><%= link_to "手工票管理", hand_bills_path %></li>
+      <li><%= link_to "中转票管理", transit_bills_path %></li>
+      <li><%= link_to "手工中转票管理", hand_transit_bills_path %></li>
+    </ul>
+  </div>
+  <h3><%= link_to "装车", "#" %></h3>
+
+  <div>
+    <ul class="navigation">
+      <li><%= link_to "装车单", load_lists_path %></li>
+    </ul>
+  </div>
+</div>

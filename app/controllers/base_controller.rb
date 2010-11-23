@@ -1,11 +1,12 @@
 #coding: utf-8
 class BaseController < ApplicationController
+  helper_method :sort_column,:sort_direction
   respond_to :html,:xml,:js
   before_filter :get_model_klazz,:create_search
   # GET /the_models
   # GET /the_models.xml
   def index
-    the_models = @search.paginate :page => params[:page],:order => "created_at DESC"
+    the_models = @search.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page])
 
     instance_variable_set("@#{@param_name.tableize}",the_models)
     respond_with the_models
@@ -77,4 +78,15 @@ class BaseController < ApplicationController
   def create_search
     @search = @model_klazz.search(params[:search])
   end
+  private
+  #排序方法
+  #见http://asciicasts.com/episodes/228-sortable-table-columns
+
+
+  def sort_direction  
+    %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"  
+  end  
+  def sort_column  
+    @model_klazz.column_names.include?(params[:sort]) ? params[:sort] : "created_at"  
+  end  
 end

@@ -1,14 +1,14 @@
 <table class="table">
   <tr>             
     <th class="first">序号</th>
-    <th>票据日期</th>
-    <th>票号</th>
-    <th>货号</th>
-    <th>发货地</th>
-    <th>到货地</th>
+    <th><%=sortable "bill_date","票据日期" %></th>
+    <th><%=sortable "bill_no","票号" %></th>
+    <th><%=sortable "goods_no","货号" %></th>
+    <th><%=sortable "from_org_id","发货地" %></th>
+    <th><%=sortable "to_org_id","到货地" %></th>
     <th>发货人</th>
     <th>收货人</th>
-    <th>付款方式</th>
+    <th><%=sortable "pay_type","付款方式" %></th>
     <th>运费</th>
     <th>代收货款</th>
     <th>保价费</th>
@@ -54,8 +54,8 @@
         <%=bill.insured_fee %>
       </td>
       <td>
-        <%= link_to "查看",bill %> |
-        <%= link_to "修改", self.send("edit_#{@param_name}_path",bill) %> 
+        <%= link_to image_tag("application-document.png"),bill,:title => "查看或打印该运单",:class => "vtip" %> |
+        <%= link_to image_tag("application--pencil.png"), self.send("edit_#{@param_name}_path",bill),:title => "修改该运单",:class => "vtip" %> 
       </td>
     </tr>          
   <% end -%>

@@ -1,5 +1,12 @@
 #coding: utf-8
 module ApplicationHelper
+  #排序辅助方法
+  def sortable(column, title = nil)  
+    title ||= column.titleize  
+    css_class = (column == sort_column) ? "current_sort_column #{sort_direction}" : nil  
+    direction = (column == sort_column && sort_direction == "desc") ? "asc" : "desc"  
+    link_to title, {:sort => column, :direction => direction}, {:class => css_class}  
+  end  
   #运费支付方式显示
   def pay_type_des(pay_type)
     pay_type_des = ""
