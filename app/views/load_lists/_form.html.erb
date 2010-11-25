@@ -1,4 +1,4 @@
-<%= semantic_form_for load_list ,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
+<%= semantic_form_for resource ,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
     <%= f.input :bill_no,:hint => "装车单编号" %>

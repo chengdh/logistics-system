@@ -2,18 +2,18 @@
 <table class='table'>
   <tr>
     <td>发货站:</td>
-    <td colspan='2'><%=bill.from_org_name%></td>
+    <td colspan='2'><%=resource.from_org_name%></td>
     <td>到货站:</td>
-    <td colspan='2'><%=bill.to_org_name%></td>
+    <td colspan='2'><%=resource.to_org_name%></td>
     <td>运单编号</td>
-    <td><%=bill.bill_no%></td>
+    <td><%=resource.bill_no%></td>
   </tr>
 
   <tr>
     <td>卡号</td>
     <td colspan='3'>&nbsp;</td>
-    <td colspan='3'>货号:<%=bill.goods_no%></td>
-    <td><%=bill.bill_date.strftime('%Y年%m月%d日')%></td>
+    <td colspan='3'>货号:<%=resource.goods_no%></td>
+    <td><%=resource.bill_date.strftime('%Y年%m月%d日')%></td>
   </tr>
 
   <tr>
@@ -21,19 +21,19 @@
       <table class='table'>
         <tr>
           <td>发货人</td>
-          <td><%=bill.from_customer_name%></td>
+          <td><%=resource.from_customer_name%></td>
           <td rowspan='2'>电话</td>
-          <td><%=bill.from_customer_phone%></td>
+          <td><%=resource.from_customer_phone%></td>
           <td rowspan='2'>手机</td>
           <td><%=%></td>
           <td>何地付运费</td>
         </tr>
         <tr>
           <td>收货人</td>
-          <td><%=bill.to_customer_name%></td>
-          <td><%=bill.to_customer_phone%></td>
+          <td><%=resource.to_customer_name%></td>
+          <td><%=resource.to_customer_phone%></td>
           <td><%=%></td>
-          <td><%=pay_type_des(bill.pay_type)%></td>
+          <td><%=pay_type_des(resource.pay_type)%></td>
         </tr>
       </table>
     </td>
@@ -49,41 +49,41 @@
     <td>备注</td>
   </tr>
   <tr>
-    <td><%=bill.goods_info%></td>
+    <td><%=resource.goods_info%></td>
     <td></td>
-    <td><%=bill.goods_num%></td>
+    <td><%=resource.goods_num%></td>
     <td></td>
     <td></td>
     <td></td>
-    <td><%=bill.carrying_fee%></td>
+    <td><%=resource.carrying_fee%></td>
     <td></td>
   </tr>
 
   <tr>
     <td>提货应收金额</td>
     <td colspan='6'>提货应收金额</td>
-    <td>&yen;:<%=bill.th_amount %></td>
+    <td>&yen;:<%=resource.th_amount %></td>
   </tr>
   <tr>
     <td>保值</td>
-    <td colspan='6'>保价金额: <%=bill.insured_amount%>&times;3‰=<%=bill.insured_fee%></td>
-    <td>&yen;:<%=bill.insured_fee %></td>
+    <td colspan='6'>保价金额: <%=resource.insured_amount%>&times;3‰=<%=resource.insured_fee%></td>
+    <td>&yen;:<%=resource.insured_fee %></td>
   </tr>
   <tr>
     <td>发货地短途运费</td>
-    <td colspan='4'><%=bill.from_short_carrying_fee%></td>
+    <td colspan='4'><%=resource.from_short_carrying_fee%></td>
     <td>到货地短途运费</td>
-    <td colspan='4'><%=bill.to_short_carrying_fee%></td>
+    <td colspan='4'><%=resource.to_short_carrying_fee%></td>
   </tr>
   <tr>
     <td>运费总计</td>
-    <td colspan='6'><%=bill.carrying_fee_total%></td>
-    <td>&yen;:<%=bill.carrying_fee_total%></td>
+    <td colspan='6'><%=resource.carrying_fee_total%></td>
+    <td>&yen;:<%=resource.carrying_fee_total%></td>
   </tr>
   <tr>
     <td>代收货款总计</td>
-    <td colspan='6'><%=bill.goods_fee%></td>
-    <td>&yen;:<%=bill.goods_fee%></td>
+    <td colspan='6'><%=resource.goods_fee%></td>
+    <td>&yen;:<%=resource.goods_fee%></td>
   </tr>
   <tr>
     <td>委托人:</td>

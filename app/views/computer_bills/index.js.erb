@@ -1,1 +1,2 @@
-$('#bills').html('<%= escape_javascript(render("shared/carrying_bills/bills",:bills => @computer_bills)) %>')
+$.fancybox.close()
+$('#<%=resource_class.name.underscore.pluralize %>_index_table').html('<%= escape_javascript(render("shared/carrying_bills/table")) %>')

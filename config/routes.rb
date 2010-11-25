@@ -22,6 +22,7 @@ IlYanzhao::Application.routes.draw do
   end
 
   resources :computer_bills do
+    get :search,:on => :collection
   end
 
   # The priority is based upon order of creation:
