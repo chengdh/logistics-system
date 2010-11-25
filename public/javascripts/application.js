@@ -40,5 +40,12 @@ jQuery(function($) {
 	//初始化左侧菜单树,icon显示有问题
 	$('#menu_bar').accordion({event : 'mouseover'});
         $('#menu_bar .ui-icon').attr('style',"display : none;");
+        $('.fancybox').fancybox({scrolling : 'no',padding : 20,onComplete : function(){$('.datepicker').datepicker();}});
+
+        //运单列表表头点击事件
+        $('#bills th a,#bills .pagination a').live('click',function(){
+            $.getScript(this.href);
+            return false;
+            });
 });
 

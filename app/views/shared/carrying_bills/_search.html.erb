@@ -1,0 +1,17 @@
+<%= semantic_form_for search,:remote => true,:html => {:method => :get,:style => "width : 300px;" } do |f|%>
+  <%= hidden_field_tag :direction,params[:direction] %>
+  <%= hidden_field_tag :sort,params[:sort] %>
+  <%= f.inputs do %>
+    <%= f.input :bill_date_gte,:label => "票据日期",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true} %>
+    <%= f.input :bill_date_lte,:label => " ",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true} %>
+    <%= f.input :bill_no_or_goods_no_or_from_customer_name_or_to_customer_name_or_from_customer_phone_or_to_customer_phone_or_goods_info_like,:label =>"关键字",:hint => "票据号/货号/发货人/收货人/电话",:input_html => {:size => 30,:id => "keyword"} %>
+    <%= f.autocompleted_input :from_org_name_eq,:label =>"收货地",:hint => "可录入拼音简写", :url =>  autocomplete_branch_py_computer_bills_path, :id_element => '#from_org_id',:name => "select_from_org",:size => 30 %>
+    <%= f.input :from_org_id_eq,:as => :hidden,:input_html => {:id => :from_org_id} %>
+    <%= f.autocompleted_input :to_org_name_eq,:label => "到货地", :url => autocomplete_branch_py_computer_bills_path,:hint => "可录入拼音简写", :id_element => '#to_org_id',:name => :select_to_org,:size => 30 %>
+    <%= f.input :to_org_id_eq,:as => :hidden,:input_html => {:id => :to_org_id} %>
+    <%= f.input :pay_type_eq,:label => "支付方式",:as => :select,:collection => CarryingBill.pay_types %>
+  <% end %>
+  <%=f.buttons do %>
+    <%=submit_tag "查询运单",:class => "sexybutton sexysimple sexyblue" %>
+  <% end %>
+<% end%>

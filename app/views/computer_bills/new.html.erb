@@ -1,14 +1,10 @@
 <div class="block">
   <%= render "shared/dynamic_toolbar" %>
   <div class="content">            
-    <script type='text/javascript'>
-    </script>
-    <h2 class="title"></h2>
+    <h2 class="title">录入新运单</h2>
     <div class="inner">
       <%= render "shared/carrying_bills/form",:bill => @computer_bill %>
     </div>
   </div>
   <%= render "shared/dynamic_toolbar" %>
 </div>
-
-<% content_for :sidebar, render(:partial => 'sidebar') -%>

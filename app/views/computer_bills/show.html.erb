@@ -1,13 +1,9 @@
 <div class="block">
-
   <%= render "shared/dynamic_toolbar" %>
   <div class="content">
     <div class="inner">
       <%= render "shared/carrying_bills/show",:bill => @computer_bill %>
     </div>
   </div>
-
   <%= render "shared/dynamic_toolbar" %>
 </div>
-
-<% content_for :sidebar, render(:partial => 'sidebar') -%>

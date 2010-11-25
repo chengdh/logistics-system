@@ -4,7 +4,7 @@
     <li class="first"><%= link_to image_tag("grid.png") , self.send("#{@param_name.tableize}_path"),:title => "#{@model_klazz.model_name.human}列表",:class => "vtip"  %></li>
     <li><%= link_to image_tag("application--plus.png"), self.send("new_#{@param_name}_path"),:title => "新建#{@model_klazz.model_name.human}",:class => "vtip"  %></li>
     <%if self.respond_to?("search_#{@param_name.tableize}_path")%>
-      <li><%= link_to image_tag("application-search-result.png"),self.send("search_#{@param_name.tableize}_path"),:title => "查询#{@model_klazz.model_name.human}",:class => "vtip" %></li>
+      <li><%= link_to image_tag("application-search-result.png"),self.send("search_#{@param_name.tableize}_path"),:title => "查询#{@model_klazz.model_name.human}",:class => "fancybox" %></li>
     <%end%>
     <% if params[:action] == "new" || params[:action] == "edit" || params[:action] == "create" || params[:action] == "update" %>
       <li><%= link_to_function image_tag("disk-black.png"), "document.forms[0].submit()",:title => "保存#{@model_klazz.model_name.human}",:class => "vtip"  %></li>

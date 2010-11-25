@@ -114,4 +114,14 @@ describe ComputerBillsController do
       response.should redirect_to(computer_bills_url)
     end
   end
+  describe "GET search" do
+    it "should be success" do 
+      get :search
+      response.should be_success
+    end
+    it "should render '/shared/carrying_bills/search'" do
+      get :search
+      response.should render_template('shared/carrying_bills/_search')
+    end
+  end
 end

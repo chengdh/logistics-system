@@ -12,10 +12,16 @@ IlYanzhao::Application.routes.draw do
 
   resources :departments
 
-  resources :branches
+  resources :branches do
+    #autocomplete
+    get :autocomplete_branch_py,:on => :collection
+  end
+  #添加carrying_biils路由
+  resources :carrying_bills do
+    get :search,:on => :collection
+  end
 
   resources :computer_bills do
-    get :autocomplete_branch_py,:on => :collection
   end
 
   # The priority is based upon order of creation:

@@ -36,5 +36,13 @@ namespace :db do
     end
     #生成示例票据数据
     [:computer_bill,:hand_bill,:transit_bill,:hand_transit_bill].each {|bill_type| Factory(bill_type)}
+    #各种票据声称50张
+    50.times do |i|
+      computer_bill = Factory.build(:computer_bill)
+      transit_bill = Factory.build(:transit_bill)
+      computer_bill.save!
+      transit_bill.save!
+    end
+
   end
 end

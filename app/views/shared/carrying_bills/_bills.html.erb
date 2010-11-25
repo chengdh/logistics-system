@@ -17,7 +17,7 @@
   <% bills.each_with_index do |bill,index| %>
     <tr class="<%= cycle("odd", "even") %>">
       <td>
-        <%= order_no(index,params[:cur_page]) %>
+        <%= order_no(index,params[:page]) %>
       </td>
       <td>
         <%=bill.bill_date.strftime('%Y-%m-%d')%>
@@ -65,3 +65,4 @@
     <%=will_paginate bills%>
   </div>
 </div>
+

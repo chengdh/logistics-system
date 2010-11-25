@@ -147,6 +147,6 @@ class CarryingBill < ActiveRecord::Base
     private
     #获取当日发货单序列
     def today_sequence
-      CarryingBill.where(:bill_date => Date.today,:from_org_id => from_org.id,:to_org_id => to_org.id).joins(:from_org,:to_org).count + 1
+      CarryingBill.where(:bill_date => Date.today,:from_org_id => from_org_id,:to_org_id => to_org_id).count + 1
     end
   end

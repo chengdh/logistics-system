@@ -1,49 +1,14 @@
-<%= form_for(@load_list) do |f| %>
-  <% if @load_list.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@load_list.errors.count, "error") %> prohibited this load_list from being saved:</h2>
+<%= semantic_form_for load_list ,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
+  <%= f.inputs do %>
+    <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
+    <%= f.input :bill_no,:hint => "装车单编号" %>
+    <%= f.autocompleted_input :from_org_name, :url =>  autocomplete_branch_py_branches_path, :id_element => '#computer_bill_from_org_id',:name => "select_from_org" %>
+    <%= f.input :from_org_id,:as => :hidden %>
+    <%= f.autocompleted_input :to_org_name, :url => autocomplete_branch_py_branches_path, :id_element => '#computer_bill_to_org_id',:name => :select_to_org %>
+    <%= f.input :to_org_id,:as => :hidden %>
 
-      <ul>
-      <% @load_list.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
+    <%= f.input :driver %>
+    <%= f.input :vehicle_no %>
+    <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
   <% end %>
-
-  <div class="field">
-    <%= f.label :bill_date %><br />
-    <%= f.date_select :bill_date %>
-  </div>
-  <div class="field">
-    <%= f.label :bill_no %><br />
-    <%= f.text_field :bill_no %>
-  </div>
-  <div class="field">
-    <%= f.label :from_org_id %><br />
-    <%= f.text_field :from_org_id %>
-  </div>
-  <div class="field">
-    <%= f.label :to_org_id %><br />
-    <%= f.text_field :to_org_id %>
-  </div>
-  <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </div>
-  <div class="field">
-    <%= f.label :note %><br />
-    <%= f.text_area :note %>
-  </div>
-  <div class="field">
-    <%= f.label :driver %><br />
-    <%= f.text_field :driver %>
-  </div>
-  <div class="field">
-    <%= f.label :vehicle_no %><br />
-    <%= f.text_field :vehicle_no %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<% end%>
