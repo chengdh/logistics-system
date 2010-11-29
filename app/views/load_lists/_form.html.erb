@@ -12,3 +12,7 @@
     <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
   <% end %>
 <% end%>
+<div class = "actions-bar text-right">
+  <%=link_to image_tag("blog--plus.png") + "添加运单",search_carrying_bills_path,:class => "fancybox tipsy big-font",:title => "添加运单"%>
+</div>
+<div id="table_wrap"></div>

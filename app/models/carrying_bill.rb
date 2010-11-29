@@ -132,6 +132,8 @@ class CarryingBill < ActiveRecord::Base
         :goods_fee => 0,
         :carrying_fee => (pay_type == PAY_TYPE_CASH ? self.carrying_fee : 2*self.carrying_fee)
       }
+      #如果是中转票据,则将中转站与始发站调换
+      override_attr.merge!(:from_org_id => self.transit_org_id,:to_org_id => self.from_org_id) unless self.transit_org_id.blank?
       self.create_return_bill(self.attributes.merge(override_attr))
     end
     #生成票据编号

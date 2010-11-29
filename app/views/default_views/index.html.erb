@@ -3,7 +3,7 @@
   <div class="content">          
     <h2 class="title"><%=resource_name%></h2>
     <div class="inner">
-      <div id='<%= resource_class.name.underscore.pluralize %>_index_table'><%= render_partial_or_default 'table' %></div>
+      <div id='table_wrap'><%= render_partial_or_default 'table' %></div>
     </div>
   </div>
   <%= render_partial_or_default "dynamic_toolbar" %>

@@ -35,14 +35,12 @@ namespace :db do
       Branch.create!(:name => name,:simp_name => name.first,:location => name)
     end
     #生成示例票据数据
-    [:computer_bill,:hand_bill,:transit_bill,:hand_transit_bill].each {|bill_type| Factory(bill_type)}
-    #各种票据声称50张
-    50.times do |i|
-      computer_bill = Factory.build(:computer_bill)
-      transit_bill = Factory.build(:transit_bill)
-      computer_bill.save!
-      transit_bill.save!
+    #各种票据生成50张
+    50.times do |index|
+      Factory(:computer_bill,:from_org => Branch.first,:to_org => Branch.last)
+      Factory(:hand_bill,:from_org => Branch.first,:to_org => Branch.last,:bill_no => "hand_bill_no_#{index}",:goods_no => "hand_goods_no_#{index}")
+      Factory(:transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last)
+      Factory(:hand_transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last,:bill_no => "hand_transit_bill_no_#{index}",:goods_no => "hand_transit_goods_no_#{index}")
     end
-
   end
 end
