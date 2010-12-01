@@ -3,10 +3,10 @@
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:class => 'datepicker'} %>
     <%= f.input :bill_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
     <%= f.input :goods_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
-    <%= f.autocompleted_input :from_org_name, :url =>  autocomplete_branch_py_branches_path, :id_element => '#computer_bill_from_org_id',:name => "select_from_org" %>
-    <%= f.input :from_org_id,:as => :hidden %>
-    <%= f.autocompleted_input :to_org_name, :url =>  autocomplete_branch_py_branches_path, :id_element => '#computer_bill_to_org_id',:name => :select_to_org %>
-    <%= f.input :to_org_id,:as => :hidden %>
+
+    <%= f.input :from_org_id,:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "可录入拼音简写查询发货地(例如:安阳,可录入ay)"} %>
+
+    <%= f.input :to_org_id,:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "可录入拼音简写查询到货地(例如:安阳,可录入ay)"} %>
 
     <%= f.input :from_customer_name %>
     <%= f.input :from_customer_phone %>

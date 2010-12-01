@@ -4,8 +4,8 @@ class BaseController < InheritedViews::Base
   respond_to :html,:xml,:js,:json
   protected
   def collection
-    search = end_of_association_chain.search(params[:search])
-    get_collection_ivar || set_collection_ivar(search.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
+    @search = end_of_association_chain.search(params[:search])
+    get_collection_ivar || set_collection_ivar(@search.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
   end
   private
   #排序方法

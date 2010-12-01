@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/jeznet/tree_select.git
-  revision: ed592da6efc5f01c034fb833a1646bd64a239fde
-  specs:
-    tree_select ()
-      acts_as_tree (>= 1.2.3)
-
-GIT
   remote: git://github.com/parasew/acts_as_tree.git
   revision: ed52495d1671c99e1add582628403bf8104e9077
   specs:
@@ -97,7 +90,6 @@ GEM
       activesupport (= 3.0.1)
       bundler (~> 1.0.0)
       railties (= 3.0.1)
-    rails3-jquery-autocomplete (0.5.0)
     railties (3.0.1)
       actionpack (= 3.0.1)
       activesupport (= 3.0.1)
@@ -143,12 +135,10 @@ DEPENDENCIES
   meta_search
   mysql2
   rails (= 3.0.1)
-  rails3-jquery-autocomplete
   rspec (= 2.0.1)
   rspec-rails (= 2.0.1)
   spork (= 0.8.4)
   state_machine
-  tree_select!
   validation_reflection
   web-app-theme (>= 0.6.2)
   will_paginate (~> 3.0.pre2)

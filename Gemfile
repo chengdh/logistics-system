@@ -6,11 +6,11 @@ gem "will_paginate", "~> 3.0.pre2"
 gem "meta_search"
 #表单中的树形结构选择
 gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
-gem 'tree_select', :git => 'git://github.com/jeznet/tree_select.git'
+#gem 'tree_select', :git => 'git://github.com/jeznet/tree_select.git'
 #form 显示组件
 gem "validation_reflection"
 gem 'formtastic', '~>1.1.0'
-gem 'rails3-jquery-autocomplete'
+#gem 'rails3-jquery-autocomplete'
 #gem 'formtastic_jquery_ui'
 gem 'formtastic_validation'
 #state_machine

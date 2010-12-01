@@ -40,9 +40,15 @@ jQuery(function($) {
 	//初始化左侧菜单树,icon显示有问题
 	$('#menu_bar').accordion({event : 'mouseover'});
         $('#menu_bar .ui-icon').attr('style',"display : none;");
+
         $('.fancybox').fancybox({scrolling : 'no',padding : 20,onComplete : function(){$('.datepicker').datepicker();}});
+        //初始化区域选择
+        $('.select_org').ufd();
         //初始化tip
-        $('a.tipsy').tipsy({gravity : 's'});
+        $('.tipsy').tipsy({gravity : 's'});
+        //将回车转换为tab
+
+
 
         //运单列表表头点击事件
         $('#table_wrap th a,#table_wrap .pagination a').live('click',function(){

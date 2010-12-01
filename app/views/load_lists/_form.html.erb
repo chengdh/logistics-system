@@ -1,18 +1,24 @@
 <%= semantic_form_for resource ,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
+  <%=f.semantic_errors %>
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
-    <%= f.input :bill_no,:hint => "装车单编号" %>
-    <%= f.autocompleted_input :from_org_name, :url =>  autocomplete_branch_py_branches_path, :id_element => '#computer_bill_from_org_id',:name => "select_from_org" %>
-    <%= f.input :from_org_id,:as => :hidden %>
-    <%= f.autocompleted_input :to_org_name, :url => autocomplete_branch_py_branches_path, :id_element => '#computer_bill_to_org_id',:name => :select_to_org %>
-    <%= f.input :to_org_id,:as => :hidden %>
-
-    <%= f.input :driver %>
-    <%= f.input :vehicle_no %>
+    <%= f.input :bill_no,:hint => "装车单编号",:input_html => {:title => "必填字段"} %>
+    <%= f.input :from_org_id,:label =>"发货地" ,:hint => "可录入拼音简写查询发货地(例如:安阳,可录入ay)",:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org"} %>
+    <%= f.input :to_org_id,:label => "到货地",:as => :select,:hint => "可录入拼音简写查询地区(例如:安阳,可录入ay)",:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org"} %>
     <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
   <% end %>
 <% end%>
 <div class = "actions-bar text-right">
-  <%=link_to image_tag("blog--plus.png") + "添加运单",search_carrying_bills_path,:class => "fancybox tipsy big-font",:title => "添加运单"%>
+  <%=link_to image_tag("blog--plus.png") + "添加票据" ,carrying_bills_path,:class => "sexybutton sexysimple sexyblue tipsy",:remote => true,:title => "添加尚未装车的运单",:id => "add_bills" %>
 </div>
 <div id="table_wrap"></div>
+<script>
+  $('#add_bills').bind("ajax:before",function(){
+   var attach_obj = {
+      "search[from_org_id_eq]" : $('#load_list_from_org_id').val(),
+      "search[to_org_id_eq]" : $('#load_list_to_org_id').val()
+    };
+
+    $('#add_bills').data('params',attach_obj);
+  });
+</script>

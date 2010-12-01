@@ -39,11 +39,11 @@ jQuery(function($) {
 			} else {
 				if (el.triggerAndReturn('ajax:before')) {
 					//#FIXME 处理附加参数
-					var data_attach = el.data('attach');
-					var data = "";
-					if (typeof(data_attach) != 'undefined') data = $.param(data_attach);
+					var data_params = el.data('params');
+					var params = "";
+					if (typeof(data_params) != 'undefined') params = $.param(data_params);
 
-					data = el.is('form') ? (data + '&' + $.param(el.serializeArray())) : data;
+					data = el.is('form') ? (params + '&' + $.param(el.serializeArray())) : params;
 					$.ajax({
 						url: url,
 						data: data,
