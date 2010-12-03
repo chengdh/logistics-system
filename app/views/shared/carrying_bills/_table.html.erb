@@ -1,5 +1,18 @@
-<table class="table">
+<table class="table" id="test_table" data-ids='<%=search_ids%>' data-sum = '<%=search_sum%>'>
+  <tr>
+    <td colspan="6">
+      选择:
+      <%=link_to_function "全选",'',:id => "btn_select_all",:title => "选中全部票据",:class => 'tipsy'%> |
+      <%=link_to_function "不选",'',:id => "btn_unselect_all",:title => "取消选中的票据",:class => 'tipsy'%>
+    
+    </td>
+    <td><span id="bill_count"></span></td>
+    <td><span id="sum_carrying_fee"></span></td>
+    <td><span id="sum_goods_fee"></span></td>
+    <td><span id="sum_insured_fee"></span></td>
+  </tr>
   <tr class='text-center'>             
+    <th>&nbsp;</th>
     <th class="first">序号</th>
     <th><%=sortable "bill_date","票据日期" %></th>
     <th><%=sortable "bill_no","票号" %>/<%=sortable "goods_no","货号" %></th>
@@ -12,6 +25,9 @@
   </tr>
   <% collection.each_with_index do |bill,index| %>
     <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>'>
+      <td>
+        <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json}" %>
+      </td>
       <td>
         <%= order_no(index,params[:page]) %>
       </td>
@@ -47,8 +63,7 @@
   <% end -%>
   <tfoot>
     <tr>
-      <td>总计</td>
-      <td colspan='4'>&nbsp;</td>
+      <td colspan='6'>总计</td>
       <td><%=@search.count%>票</td>
       <td><%=@search.relation.sum(:carrying_fee)%></td>
       <td><%=@search.relation.sum(:goods_fee)%></td>

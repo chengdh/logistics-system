@@ -3,6 +3,7 @@
 #sidebar {float : left;}
 /* reset */
 
+
 /* layout */
 .text-right {text-align : right;}
 .text-center {text-align : center;}
@@ -14,6 +15,7 @@ small-font {font-size : 0.8em;}
 normal-font {font-size : 1em;}
 big-font {font-size : 1.2em;}
 bigger-font {font-size : 1.5em;}
+.tipsy {font-size : 1em;}
 
 /* color */
 

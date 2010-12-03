@@ -1,5 +1,5 @@
-<%= semantic_form_for resource ,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
-  <%=f.semantic_errors %>
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
+  <%=f.semantic_errors :bill_no,:from_org_id,:to_org_id %>
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
     <%= f.input :bill_no,:hint => "装车单编号",:input_html => {:title => "必填字段"} %>
@@ -8,17 +8,36 @@
     <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
   <% end %>
 <% end%>
-<div class = "actions-bar text-right">
-  <%=link_to image_tag("blog--plus.png") + "添加票据" ,carrying_bills_path,:class => "sexybutton sexysimple sexyblue tipsy",:remote => true,:title => "添加尚未装车的运单",:id => "add_bills" %>
-</div>
+<hr/>
 <div id="table_wrap"></div>
 <script>
-  $('#add_bills').bind("ajax:before",function(){
-   var attach_obj = {
+  $('#load_list_form').bind("ajax:before",function(){
+    if(typeof(selector.selected_ids) == 'undefined' || selector.selected_ids.length == 0 )
+    {
+      $.prompt('当前未添加任何运单,请添加运单后再保存!',{show : 'slideDown'});
+      return false;
+    }
+    else{
+      //将选择的运单ids附加到form上
+      var attach_params = {"bill_ids[]" : selector.selected_ids};
+      $('#load_list_form').data('params',attach_params);
+    }
+    return true;
+  
+  });
+  //发货地和到货地变化时,自动刷新待装车票据
+  var attach_params = {};
+  var selector = new util.BillSelector('#test_table',{});
+  var search_bills = function(){
+   attach_params = {
       "search[from_org_id_eq]" : $('#load_list_from_org_id').val(),
       "search[to_org_id_eq]" : $('#load_list_to_org_id').val()
     };
-
-    $('#add_bills').data('params',attach_obj);
+    $.get('<%=carrying_bills_path%>',attach_params,function(){selector.reset();},'script');
+  };
+  $('#load_list_form').change(function(evt){
+    if(evt.target.id == 'load_list_from_org_id' || evt.target.id == 'load_list_to_org_id')
+      search_bills.apply();
   });
+  search_bills.apply();
 </script>

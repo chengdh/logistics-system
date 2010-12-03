@@ -3,9 +3,9 @@ module ApplicationHelper
   #排序辅助方法
   def sortable(column, title = nil)  
     title ||= column.titleize  
-    css_class = (column == sort_column) ? "current_sort_column #{sort_direction}" : nil  
+    css_class = (column == sort_column) ? "current_sort_column #{sort_direction}" : nil 
     direction = (column == sort_column && sort_direction == "desc") ? "asc" : "desc"  
-    link_to title, params.merge(:sort => column, :direction => direction,:page => nil), {:class => css_class}  
+    link_to title, params.merge(:sort => column, :direction => direction,:page => nil), {:class => css_class,:title => "点击可排序"}  
   end  
   #运费支付方式显示
   def pay_type_des(pay_type)
@@ -86,5 +86,13 @@ module ApplicationHelper
     cur_page = cur_page.to_i if cur_page.kind_of?(String)
     rows_per_page = cur_page.to_i if rows_per_page.kind_of?(String) 
     index+1 + rows_per_page*(cur_page - 1) 
+  end
+  #得到查询对象的id数组
+  def search_ids
+    @search.select(:id).map {|bill| bill.id }.to_json
+  end
+  #得到票据合计信息
+  def search_sum
+    {:count => @search.count,:sum_carrying_fee => @search.relation.sum(:carrying_fee),:sum_goods_fee => @search.relation.sum(:goods_fee),:sum_insured_fee => @search.relation.sum(:insured_fee),:sum_from_short_carrying_fee => @search.relation.sum(:from_short_carrying_fee),:sum_to_short_carrying_fee => @search.relation.sum(:to_short_carrying_fee),:sum_goods_num => @search.relation.sum(:goods_num)}.to_json
   end
 end

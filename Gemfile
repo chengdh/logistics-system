@@ -16,7 +16,8 @@ gem 'formtastic_validation'
 #state_machine
 gem 'state_machine'
 gem 'inherited_resources', '1.1.2'
-gem 'inherited_views'
+#gem 'inherited_views'
+gem 'inherited_resources_views'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
