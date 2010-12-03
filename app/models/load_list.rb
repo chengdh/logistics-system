@@ -4,7 +4,7 @@ class LoadList < ActiveRecord::Base
   has_many :carrying_bills
 
 
-  validates_presence_of :from_org_id,:to_org_id,:from_org,:to_org
+  validates_presence_of :from_org_id,:to_org_id,:bill_no
   #定义状态机
   state_machine :initial => :loaded do
     after_transition do |load_list,transition|

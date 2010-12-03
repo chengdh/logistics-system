@@ -3,7 +3,9 @@
   <div class="content">            
     <h2 class="title">修改<%=resource_name%></h2>
     <div class="inner">
-      <%= render_partial_or_default "form" %>
+      <div id='<%="#{resource_class.name.underscore}_form_wrap" %>' />
+        <%= render_partial_or_default "form" %>
+      </div>
     </div>
   </div>
   <%= render_partial_or_default "dynamic_toolbar" %>
