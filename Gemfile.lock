@@ -58,10 +58,8 @@ GEM
     inherited_resources (1.1.2)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
-    inherited_views (0.0.2)
-      formtastic (>= 0.9.8)
-      inherited_resources (>= 1.0.6)
-      will_paginate (>= 2.3.12)
+    inherited_resources_views (0.4.1)
+      inherited_resources (>= 1.0)
     jquery-rails (0.2.4)
       rails (~> 3.0)
     mail (2.2.9)
@@ -130,7 +128,7 @@ DEPENDENCIES
   formtastic (~> 1.1.0)
   formtastic_validation
   inherited_resources (= 1.1.2)
-  inherited_views
+  inherited_resources_views
   jquery-rails
   meta_search
   mysql2

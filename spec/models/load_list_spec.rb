@@ -13,18 +13,28 @@ describe LoadList do
     @load_list.to_org = nil
     @load_list.should_not be_valid
   end
+  it "装车单保存后,其状态应为'已开票'" do
+    @load_list.save!
+    @load_list.should be_billed
+  end
+
   it "装车单保存后,其状态应为'已装车'" do
     @load_list.save!
+    @load_list.process
     @load_list.should be_loaded
   end
   it "装车单发出后,其状态应为'已发出'" do
     @load_list.save!
+    @load_list.process
+
     @load_list.process
     @load_list.should be_shipped
   end
   it "装车单到货确认后,其状态应变为'已到货'" do
     @load_list.save!
     @load_list.process
+    @load_list.process
+
     @load_list.process
     @load_list.should be_reached
 

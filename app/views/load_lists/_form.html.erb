@@ -3,10 +3,17 @@
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
     <%= f.input :bill_no,:hint => "装车单编号",:input_html => {:title => "必填字段"} %>
-    <%= f.input :from_org_id,:label =>"发货地" ,:hint => "可录入拼音简写查询发货地(例如:安阳,可录入ay)",:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org"} %>
-    <%= f.input :to_org_id,:label => "到货地",:as => :select,:hint => "可录入拼音简写查询地区(例如:安阳,可录入ay)",:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org"} %>
+    <%= f.input :from_org_id,:label =>"发货地" ,:hint => "可录入拼音简写查询发货地(例如:安阳,可录入ay)",:as => :select,:collection => branches_for_select,:include_blank => true,:input_html => {:class => "select_org"} %>
+    <%= f.input :to_org_id,:label => "到货地",:as => :select,:hint => "可录入拼音简写查询地区(例如:安阳,可录入ay)",:collection => branches_for_select,:include_blank => true,:input_html => {:class => "select_org"} %>
     <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
   <% end %>
+  <%=f.inputs do %>
+    <li class='radio'>
+      <%=label_tag :bill_date,"运单日期选择"%>
+      <%=radio_button_tag :bill_date,Date.today,true,:id => "bill_date_today" %>只显示当日未装车运单
+      <%=radio_button_tag :bill_date,nil,false,:id => "bill_date_all" %>显示所有未装车运单
+    </li>
+  <%end%>
 <% end%>
 <hr/>
 <div id="table_wrap"></div>
@@ -23,21 +30,29 @@
       $('#load_list_form').data('params',attach_params);
     }
     return true;
-  
+
   });
   //发货地和到货地变化时,自动刷新待装车票据
   var attach_params = {};
   var selector = new util.BillSelector('#test_table',{});
   var search_bills = function(){
-   attach_params = {
+    attach_params = {
       "search[from_org_id_eq]" : $('#load_list_from_org_id').val(),
-      "search[to_org_id_eq]" : $('#load_list_to_org_id').val()
+      "search[to_org_id_eq]" : $('#load_list_to_org_id').val(),
+      "search[state_eq]" : "billed",
+      "search[type_in][]" : ["ComputerBill","HandBill","TransitBill","HandTransitBill","ReturnBill"],   //要查询的运单类型
+      "search[bill_date_eq]" : ""
     };
+    //判断用户是否选择了筛选运单的日期
+    if($('#bill_date_today').attr('checked'))
+    attach_params["search[bill_date_eq]"] = $('#bill_date_today').val();
+    else
+    attach_params["search[bill_date_eq]"] = "";
     $.get('<%=carrying_bills_path%>',attach_params,function(){selector.reset();},'script');
   };
   $('#load_list_form').change(function(evt){
-    if(evt.target.id == 'load_list_from_org_id' || evt.target.id == 'load_list_to_org_id')
-      search_bills.apply();
+    if(evt.target.id == 'load_list_from_org_id' || evt.target.id == 'load_list_to_org_id' || evt.target.id == 'bill_date_today' || evt.target.id == 'bill_date_all')
+    search_bills.apply();
   });
-  search_bills.apply();
+  //search_bills.apply();
 </script>

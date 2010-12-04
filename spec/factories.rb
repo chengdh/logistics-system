@@ -108,3 +108,9 @@ Factory.define :load_list do |load_list|
   load_list.association :from_org,:factory => :zz
   load_list.association :to_org,:factory => :ay
 end
+Factory.define :loaded_list,:class => LoadList do |load_list|
+  load_list.bill_no "load_list_bill_no_001"
+  load_list.association :from_org,:factory => :zz
+  load_list.association :to_org,:factory => :ay
+  load_list.carrying_bills {|list| [list.association(:computer_bill)]}
+end

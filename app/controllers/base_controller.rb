@@ -1,6 +1,7 @@
 #coding: utf-8
-class BaseController < InheritedViews::Base
-  helper_method :sort_column,:sort_direction
+class BaseController < InheritedResources::Base
+  helper_method :sort_column,:sort_direction,:resource_name,:resources_name,:show_view_columns
+
   respond_to :html,:xml,:js,:json
   protected
   def collection
@@ -16,4 +17,15 @@ class BaseController < InheritedViews::Base
   def sort_column  
     resource_class.column_names.include?(params[:sort]) ? params[:sort] : "created_at"  
   end  
+  def show_view_columns
+    resource_class.columns.collect{|column| column.name.to_sym  }
+  end
+
+  def resource_name
+    resource_class.human_name
+  end
+
+  def resources_name
+    resource_name.pluralize
+  end
 end

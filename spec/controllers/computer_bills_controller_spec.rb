@@ -103,13 +103,11 @@ describe ComputerBillsController do
   describe "DELETE destroy" do
     it "destroys the requested computer_bill" do
       lambda do
-        request.env["HTTP_REFERER"] = computer_bills_url
         delete :destroy, :id => @computer_bill 
       end.should change(ComputerBill,:count).by(-1)
     end
 
     it "redirects to the computer_bills list" do
-      request.env["HTTP_REFERER"] = computer_bills_url
       delete :destroy, :id => @computer_bill 
       response.should redirect_to(computer_bills_url)
     end

@@ -1,126 +1,101 @@
+#coding：utf-8
 require 'spec_helper'
 
 describe LoadListsController do
+  render_views
 
-  def mock_load_list(stubs={})
-    (@mock_load_list ||= mock_model(LoadList).as_null_object).tap do |load_list|
-      load_list.stub(stubs) unless stubs.empty?
-    end
+  before(:each) do
+    @computer_bill = Factory(:computer_bill)
+    @bill_ids =[@computer_bill.id] 
+    @load_list = Factory(:load_list)
   end
 
   describe "GET index" do
-    it "assigns all load_lists as @load_lists" do
-      LoadList.stub(:all) { [mock_load_list] }
+    it "should be success" do
       get :index
-      assigns(:load_lists).should eq([mock_load_list])
+      response.should be_success
     end
   end
 
   describe "GET show" do
-    it "assigns the requested load_list as @load_list" do
-      LoadList.stub(:find).with("37") { mock_load_list }
-      get :show, :id => "37"
-      assigns(:load_list).should be(mock_load_list)
+    it "should render 'show'" do
+      get :show, :id => @load_list
+      response.should render_template('show')
     end
   end
 
   describe "GET new" do
-    it "assigns a new load_list as @load_list" do
-      LoadList.stub(:new) { mock_load_list }
+    it "should be sucesss" do
       get :new
-      assigns(:load_list).should be(mock_load_list)
+      response.should be_success
+    end
+    it "should render template 'new'" do
+      get :new
+      response.should render_template('new')
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested load_list as @load_list" do
-      LoadList.stub(:find).with("37") { mock_load_list }
-      get :edit, :id => "37"
-      assigns(:load_list).should be(mock_load_list)
+    it "should be success" do
+      get :edit, :id => @load_list 
+      response.should be_success
     end
   end
 
   describe "POST create" do
 
     describe "with valid params" do
-      it "assigns a newly created load_list as @load_list" do
-        LoadList.stub(:new).with({'these' => 'params'}) { mock_load_list(:save => true) }
-        post :create, :load_list => {'these' => 'params'}
-        assigns(:load_list).should be(mock_load_list)
+      it "the load_list should success create" do
+        lambda do
+          post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => @bill_ids
+        end.should change(LoadList,:count).by(1)
       end
 
       it "redirects to the created load_list" do
-        LoadList.stub(:new) { mock_load_list(:save => true) }
-        post :create, :load_list => {}
-        response.should redirect_to(load_list_url(mock_load_list))
+        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => @bill_ids
+        response.should redirect_to(load_list_url(assigns(:load_list)))
+      end
+
+      it "after created the contained carrying_bill state is 'loaded'" do
+        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => @bill_ids
+        @computer_bill.reload
+        @computer_bill.should be_loaded
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved load_list as @load_list" do
-        LoadList.stub(:new).with({'these' => 'params'}) { mock_load_list(:save => false) }
-        post :create, :load_list => {'these' => 'params'}
-        assigns(:load_list).should be(mock_load_list)
-      end
-
       it "re-renders the 'new' template" do
-        LoadList.stub(:new) { mock_load_list(:save => false) }
-        post :create, :load_list => {}
-        response.should render_template("new")
+        post :create, :load_list => {:bill_no => "bill_no"},:bill_ids => @bill_ids
+        response.should render_template('new')
       end
+
     end
 
   end
 
-  describe "PUT update" do
-
-    describe "with valid params" do
-      it "updates the requested load_list" do
-        LoadList.should_receive(:find).with("37") { mock_load_list }
-        mock_load_list.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :load_list => {'these' => 'params'}
-      end
-
-      it "assigns the requested load_list as @load_list" do
-        LoadList.stub(:find) { mock_load_list(:update_attributes => true) }
-        put :update, :id => "1"
-        assigns(:load_list).should be(mock_load_list)
-      end
-
-      it "redirects to the load_list" do
-        LoadList.stub(:find) { mock_load_list(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(load_list_url(mock_load_list))
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the load_list as @load_list" do
-        LoadList.stub(:find) { mock_load_list(:update_attributes => false) }
-        put :update, :id => "1"
-        assigns(:load_list).should be(mock_load_list)
-      end
-
-      it "re-renders the 'edit' template" do
-        LoadList.stub(:find) { mock_load_list(:update_attributes => false) }
-        put :update, :id => "1"
-        response.should render_template("edit")
-      end
-    end
-
-  end
 
   describe "DELETE destroy" do
     it "destroys the requested load_list" do
-      LoadList.should_receive(:find).with("37") { mock_load_list }
-      mock_load_list.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      lambda do
+        delete :destroy ,:id => @load_list
+      end.should change(LoadList,:count).by(-1)
     end
 
     it "redirects to the load_lists list" do
-      LoadList.stub(:find) { mock_load_list }
-      delete :destroy, :id => "1"
+      delete :destroy, :id => @load_list
       response.should redirect_to(load_lists_url)
+    end
+  end
+  #启动流程处理
+  describe "PUT process" do
+    it "load_list state should become shipped" do
+      loaded_list = Factory(:loaded_list)
+      put :process,:id =>loaded_list 
+      response.should be_success
+      loaded_list.reload
+      loaded_list.should be_shipped
+      @computer_bill.reload
+      @computer_bill.should be_shipped
     end
   end
 

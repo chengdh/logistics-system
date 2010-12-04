@@ -49,7 +49,6 @@ class CarryingBill < ActiveRecord::Base
 
     #退货单处理流程
     #退货处理中,根据当前票据状态产生退货票据
-    #TODO 中转退货如何处理?
     after_transition :on => :return,[:shipped,:reached,:distributed] => :returned,:do => :generate_return_bill
     event :return do
       #未发出已退货
