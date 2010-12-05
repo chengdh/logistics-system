@@ -1,0 +1,17 @@
+<table class='table'>
+  <tr>
+    <td>日期:</td>
+    <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
+    <td>单据号:</td>
+    <td><%=resource.bill_no%></td>
+    <td>发货地:</td>
+    <td><%=resource.from_org_name%></td>
+    <td>到货地:</td>
+    <td><%=resource.to_org_name%></td>
+  </tr>
+</table>
+<div id="table_wrap"></div>
+<script>
+  //获取清单明细数据
+    $.get('<%=load_list_carrying_bills_path(resource)%>',null,null,'script');
+</script>

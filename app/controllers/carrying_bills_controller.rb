@@ -1,5 +1,7 @@
 #coding: utf-8
 class CarryingBillsController < BaseController
+   belongs_to :load_list, :optional => true
+
   #GET search
   #显示查询窗口
   def search

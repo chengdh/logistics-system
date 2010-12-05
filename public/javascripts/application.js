@@ -63,6 +63,7 @@ jQuery(function($) {
 
 	});
 	//将回车转换为tab
+        $('form input').livequery(function(){$(this).tabEnter();});
 	//运单列表表头点击事件
 	$('#table_wrap th a,#table_wrap .pagination a').live('click', function() {
 		$.getScript(this.href);

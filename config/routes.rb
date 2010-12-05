@@ -1,6 +1,8 @@
 IlYanzhao::Application.routes.draw do
 
-  resources :load_lists
+  resources :load_lists do
+    resources :carrying_bills
+  end
 
   resources :hand_transit_bills
 

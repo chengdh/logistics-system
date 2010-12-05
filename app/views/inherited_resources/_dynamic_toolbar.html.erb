@@ -28,6 +28,7 @@
     <%if self.respond_to?("export_#{controller_name.tableize}_path")%>
       <li><%= link_to "导出",self.send("export_#{controller_name.tableize}_path"),:title => "导出#{resource_class.model_name.human}",:class => "tipsy" %></li>
     <%end%>
-
+    <%#添加其他功能按钮%>
+    <%= render "extra_toolbar" %>
   </ul>
 </div>   

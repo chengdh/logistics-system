@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Web App</title>
-    <%= stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/default/style","jquery-ui-css/ui-lightness/jquery-ui-1.8.6.custom","SexyButtons/sexybuttons","fancybox/jquery.fancybox-1.3.4",'tipsy','ufd/ufd-base','ufd/plain/plain','impromptu',"web-app-theme/override" %>
+    <%= stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/default/style","jquery-ui-css/ui-lightness/jquery-ui-1.8.6.custom","SexyButtons/sexybuttons","fancybox/jquery.fancybox-1.3.4",'tipsy','ufd/ufd-base','ufd/plain/plain','impromptu','jquery.notifyBar',"web-app-theme/override" %>
     <%= formtastic_stylesheet_link_tag %>
     <%= javascript_include_tag :defaults %>
     <%= javascript_include_tag 'jquery-ui-1.8.6.custom.min'%>
@@ -14,6 +14,8 @@
     <%= javascript_include_tag 'jquery.ui.ufd' %>
     <%= javascript_include_tag 'jquery-impromptu.3.1.min' %>
     <%= javascript_include_tag 'jquery.livequery' %>
+    <%= javascript_include_tag 'jquery.notifyBar' %>
+    <%= javascript_include_tag 'enter2tab' %>
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -36,14 +38,6 @@
       </div>    
       <div id="wrapper" class="wat-cf">
         <div id="main">
-          <div class="flash">
-            <% flash.each do |type, message| -%>
-              <div class="message <%= type %>">
-                <p><%= message %></p>
-              </div>
-            <% end -%>
-          </div>
-
           <%= yield %>
           <div id="footer">
             <div class="block">
@@ -59,4 +53,4 @@
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
-
+<%= notify_bar :flash => [:notice,:success,:error],:delay => 4500, :animation_speed => 'slow'%>
