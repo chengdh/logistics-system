@@ -3,6 +3,7 @@ class CarryingBill < ActiveRecord::Base
   belongs_to :from_org,:class_name => "Org" 
   belongs_to :transit_org,:class_name => "Org" 
   belongs_to :to_org,:class_name => "Org" 
+
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"
   #对于原始单据来讲,有一个对应的退货单据
@@ -10,6 +11,7 @@ class CarryingBill < ActiveRecord::Base
 
   #票据对应的装车清单
   belongs_to :load_list
+  belongs_to :distribution_list
 
   validates :bill_no,:goods_no,:uniqueness => true
   validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id,:to_org_id
@@ -61,6 +63,10 @@ class CarryingBill < ActiveRecord::Base
       validates_presence_of :load_list_id
     end
     #TODO 添加其他处理时的验证处理
+    state :distributed do
+      validates_presence_of :distribution_list_id
+    end
+
 
     end
     #字段默认值

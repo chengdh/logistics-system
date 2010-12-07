@@ -1,6 +1,6 @@
 #coding: utf-8
 class CarryingBillsController < BaseController
-   belongs_to :load_list, :optional => true
+   belongs_to :load_list,:distribution_list,:polymorphic => true,:optional => true
 
   #GET search
   #显示查询窗口

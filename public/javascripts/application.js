@@ -57,13 +57,24 @@ jQuery(function($) {
 	});
 	//初始化tip
 	$('.tipsy').livequery(function() {
-		$('.tipsy').tipsy({
-			gravity: 's',
+		$('.tipsy').tipSwift({
+			gravity: $.tipSwift.gravity.autoWE,
+			live: true,
+			plugins: [
+			$.tipSwift.plugins.tip({
+				offset: 5,
+				gravity: 's',
+				opacity: 0.6,
+				showEffect: $.tipSwift.effects.fadeIn,
+				hideEffect: $.tipSwift.effects.fadeOut
+			})]
 		});
 
 	});
 	//将回车转换为tab
-        $('form input').livequery(function(){$(this).tabEnter();});
+	$('form input').livequery(function() {
+		$(this).tabEnter();
+	});
 	//运单列表表头点击事件
 	$('#table_wrap th a,#table_wrap .pagination a').live('click', function() {
 		$.getScript(this.href);
