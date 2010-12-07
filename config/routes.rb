@@ -1,6 +1,7 @@
 IlYanzhao::Application.routes.draw do
 
   resources :load_lists do
+    get :process_handle,:on => :member
     resources :carrying_bills
   end
 

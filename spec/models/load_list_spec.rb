@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe LoadList do
   before(:each) do
-    @load_list = Factory.build(:load_list)
+    @load_list = Factory(:load_list_with_bills)
   end
   it "应能正确保存装车清单" do
     @load_list.save!
@@ -14,30 +14,28 @@ describe LoadList do
     @load_list.should_not be_valid
   end
   it "装车单保存后,其状态应为'已开票'" do
-    @load_list.save!
     @load_list.should be_billed
   end
 
   it "装车单保存后,其状态应为'已装车'" do
-    @load_list.save!
     @load_list.process
     @load_list.should be_loaded
+    @load_list.carrying_bills.first.should be_loaded
   end
   it "装车单发出后,其状态应为'已发出'" do
-    @load_list.save!
     @load_list.process
 
     @load_list.process
     @load_list.should be_shipped
+    @load_list.carrying_bills.first.should be_shipped
   end
   it "装车单到货确认后,其状态应变为'已到货'" do
-    @load_list.save!
     @load_list.process
     @load_list.process
 
     @load_list.process
     @load_list.should be_reached
 
+    @load_list.carrying_bills.first.should be_reached
   end
-
 end

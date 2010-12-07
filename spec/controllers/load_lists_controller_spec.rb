@@ -4,13 +4,11 @@ require 'spec_helper'
 describe LoadListsController do
   render_views
 
-  before(:each) do
-    @computer_bill = Factory(:computer_bill)
-    @bill_ids =[@computer_bill.id] 
-    @load_list = Factory(:load_list)
-  end
-
   describe "GET index" do
+    before(:each) do
+      @load_list ||= Factory(:load_list_with_bills)
+    end
+
     it "should be success" do
       get :index
       response.should be_success
@@ -18,6 +16,10 @@ describe LoadListsController do
   end
 
   describe "GET show" do
+    before(:each) do
+      @load_list ||= Factory(:load_list_with_bills)
+    end
+
     it "should render 'show'" do
       get :show, :id => @load_list
       response.should render_template('show')
@@ -36,31 +38,33 @@ describe LoadListsController do
   end
 
   describe "GET edit" do
+    before(:each) do
+      @load_list ||= Factory(:load_list_with_bills)
+    end
+
     it "should be success" do
+
       get :edit, :id => @load_list 
       response.should be_success
     end
   end
 
   describe "POST create" do
-
+    before(:each) do
+      @computer_bill = Factory(:computer_bill)
+    end
     describe "with valid params" do
       it "the load_list should success create" do
         lambda do
-          post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => @bill_ids
+          post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids=> [@computer_bill.id]
         end.should change(LoadList,:count).by(1)
       end
 
       it "redirects to the created load_list" do
-        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => @bill_ids
-        response.should redirect_to(load_list_url(assigns(:load_list)))
+        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => [@computer_bill.id]
+        response.should redirect_to(assigns[:load_list])
       end
 
-      it "after created the contained carrying_bill state is 'loaded'" do
-        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => @bill_ids
-        @computer_bill.reload
-        @computer_bill.should be_loaded
-      end
     end
 
     describe "with invalid params" do
@@ -68,13 +72,15 @@ describe LoadListsController do
         post :create, :load_list => {:bill_no => "bill_no"},:bill_ids => @bill_ids
         response.should render_template('new')
       end
-
     end
-
   end
 
 
   describe "DELETE destroy" do
+    before(:each) do
+      @load_list ||= Factory(:load_list_with_bills)
+    end
+
     it "destroys the requested load_list" do
       lambda do
         delete :destroy ,:id => @load_list
@@ -87,16 +93,19 @@ describe LoadListsController do
     end
   end
   #启动流程处理
-  describe "PUT process" do
+  describe "PUT process_handle" do
+    before(:each) do
+      @load_list ||= Factory(:load_list_with_bills)
+    end
     it "load_list state should become shipped" do
-      loaded_list = Factory(:loaded_list)
-      put :process,:id =>loaded_list 
-      response.should be_success
-      loaded_list.reload
-      loaded_list.should be_shipped
-      @computer_bill.reload
-      @computer_bill.should be_shipped
+      put :process_handle,:id =>@load_list 
+      response.should redirect_to(@load_list)
+    end
+
+    it "load_list state should become 'reached' after reach process" do
+      shipped_list = Factory(:load_list_shipped)
+      put :process_handle,:id =>shipped_list 
+      response.should redirect_to(shipped_list)
     end
   end
-
 end

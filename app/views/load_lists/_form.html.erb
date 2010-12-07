@@ -1,4 +1,5 @@
 <%= semantic_form_for resource ,:remote => true,:html => {:id => "load_list_form",:class => "load_list"} do |f|%>
+  <%=f.object.errors%>
   <%=f.semantic_errors :bill_no,:from_org_id,:to_org_id %>
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>

@@ -58,7 +58,8 @@ Factory.define :kf,:parent => :branch do |org|
   org.lock_input_time  "23:59"
 end
 
-Factory.define :carrying_bill do |bill|
+#机打票
+Factory.define :computer_bill do |bill|
   bill.bill_date Date.today
   bill.from_customer_name "发货人"
   bill.from_customer_phone "13676997527"
@@ -74,27 +75,66 @@ Factory.define :carrying_bill do |bill|
   bill.to_short_carrying_fee 20
   bill.pay_type CarryingBill::PAY_TYPE_CASH
   bill.goods_num 20
-end
-
-#机打票
-Factory.define :computer_bill,:class =>ComputerBill,:parent => :carrying_bill do |bill|
   bill.goods_info "机打运单"
 end
+
 #手工票
-Factory.define :hand_bill,:class =>HandBill,:parent => :carrying_bill do |bill|
+Factory.define :hand_bill do |bill|
+  bill.bill_date Date.today
+  bill.from_customer_name "发货人"
+  bill.from_customer_phone "13676997527"
+  bill.to_customer_name "收货人"
+  bill.to_customer_phone "15138665197"
+  bill.association :from_org,:factory => :zz
+  bill.association :to_org,:factory => :sjz
+  bill.insured_amount 1000
+  bill.insured_rate 0.001
+  bill.carrying_fee 200
+  bill.goods_fee 5000
+  bill.from_short_carrying_fee 20
+  bill.to_short_carrying_fee 20
+  bill.pay_type CarryingBill::PAY_TYPE_CASH
+  bill.goods_num 20
   bill.bill_no "hand_bill_bill_no"
   bill.goods_no "hand_bill_goods_no"
   bill.goods_info "手工运单"
 end
 #中转票
-Factory.define :transit_bill,:class =>TransitBill,:parent => :carrying_bill do |bill|
+Factory.define :transit_bill do |bill|
+  bill.bill_date Date.today
+  bill.from_customer_name "发货人"
+  bill.from_customer_phone "13676997527"
+  bill.to_customer_name "收货人"
+  bill.to_customer_phone "15138665197"
+  bill.insured_amount 1000
+  bill.insured_rate 0.001
+  bill.carrying_fee 200
+  bill.goods_fee 5000
+  bill.from_short_carrying_fee 20
+  bill.to_short_carrying_fee 20
+  bill.pay_type CarryingBill::PAY_TYPE_CASH
+  bill.goods_num 20
+
   bill.goods_info "中转运单"
   bill.association :from_org,:factory => :ay
   bill.association :transit_org,:factory => :zz
   bill.association :to_org,:factory => :kf
 end
 #手工中转票
-Factory.define :hand_transit_bill,:class =>HandTransitBill,:parent => :carrying_bill do |bill|
+Factory.define :hand_transit_bill do |bill|
+  bill.bill_date Date.today
+  bill.from_customer_name "发货人"
+  bill.from_customer_phone "13676997527"
+  bill.to_customer_name "收货人"
+  bill.to_customer_phone "15138665197"
+  bill.insured_amount 1000
+  bill.insured_rate 0.001
+  bill.carrying_fee 200
+  bill.goods_fee 5000
+  bill.from_short_carrying_fee 20
+  bill.to_short_carrying_fee 20
+  bill.pay_type CarryingBill::PAY_TYPE_CASH
+
   bill.bill_no "hand_transit_bill_bill_no"
   bill.goods_no "hand_transit_bill_goods_no"
   bill.goods_info "手工中转运单"
@@ -102,15 +142,28 @@ Factory.define :hand_transit_bill,:class =>HandTransitBill,:parent => :carrying_
   bill.association :transit_org,:factory => :zz
   bill.association :to_org,:factory => :kf
 end
-#大车装车单
+#大车装车单,还未装车
 Factory.define :load_list do |load_list|
   load_list.bill_no "load_list_bill_no_001"
   load_list.association :from_org,:factory => :zz
   load_list.association :to_org,:factory => :ay
 end
-Factory.define :loaded_list,:class => LoadList do |load_list|
-  load_list.bill_no "load_list_bill_no_001"
-  load_list.association :from_org,:factory => :zz
-  load_list.association :to_org,:factory => :ay
-  load_list.carrying_bills {|list| [list.association(:computer_bill)]}
+Factory.define :load_list_with_bills,:parent => :load_list do |load_list|
+  load_list.after_create do |load|
+    load.carrying_bills << Factory(:computer_bill)
+  end
+end
+#大车装车单,已装车
+Factory.define :load_list_loaded,:parent => :load_list_with_bills do |load_list|
+  load_list.after_create do |load|
+    load.process
+  end
+end
+#大车装车单,已发货
+Factory.define :load_list_shipped,:parent => :load_list_with_bills do |load_list|
+  load_list.after_create do |load|
+    load.process
+    load.process
+  end
+
 end
