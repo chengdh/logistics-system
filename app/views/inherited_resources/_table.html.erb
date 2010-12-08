@@ -1,33 +1,18 @@
-<%if !collection.blank?%>
-  <table id="<%= resource_class.name.underscore.pluralize %>_index_table" class="table">
-    <thead>
-      <tr>
-        <% collection.first.attributes.each_pair do |field, value| %>
-          <% next if ['id', 'created_at', 'updated_at'].include?(field) %>
-          <th><%= field.titleize %></th>
-        <% end %>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% collection.each do |r| %>
-        <tr class="<%=cycle 'odd','even'%>">
-          <% r.attributes.each_pair do |field, value| %>
-            <% next if ['id', 'created_at', 'updated_at'].include?(field) %>
-            <td><%= value %></td>
-          <% end %>
-          <td><%= link_to "Show", resource_url(r) %></td>
-          <td><%= link_to "Edit", edit_resource_url(r) %></td>
-          <td><%= link_to "Destroy", resource_url(r), :confirm => 'Are you sure?', :method => :delete %></td>
-        </tr>
+<table id="<%= resource_class.name.underscore.pluralize %>_index_table" class="table">
+  <tr>
+    <% index_table_columns.each do |column| %>
+      <th><%= column.to_s.titlecase %></th>
+    <% end %>
+  </tr>
+  <% collection.each do |resource| %>
+    <tr class="<%= cycle 'odd', 'even' %>">
+      <% index_table_columns.each do |column| %>
+        <td><%= resource.send(column.to_sym) %></td>
       <% end %>
-    </tbody>
-  </table>
-  <div class="actions-bar wat-cf">
-    <div class="actions">
-      <%=will_paginate collection %>
-    </div>
-  </div>
-<%end%>
+      <td>
+        <%= link_to "Edit", edit_resource_path(resource) %> | 
+        <%= link_to "Delete", resource_path(resource), :method => :delete, :confirm => "Are you sure you want to delete this?" %>
+      </td>
+    </tr>
+  <% end %>
+</table>

@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20101207030217) do
   end
 
   create_table "distribution_lists", :force => true do |t|
+    t.date     "bill_date"
     t.integer  "user_id"
     t.integer  "org_id",     :null => false
     t.text     "note"
