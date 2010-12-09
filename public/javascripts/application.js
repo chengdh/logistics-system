@@ -80,5 +80,13 @@ jQuery(function($) {
 		$.getScript(this.href);
 		return false;
 	});
-        $('form.bill_selector').livequery(function(){$(this).form_with_select_bills();});
+	$('form.bill_selector').livequery(function() {
+		$(this).form_with_select_bills();
+	});
+	$('#container').ajaxStart(function() {
+            $(this).activity({segments: 12, width: 3, space: 2, length: 2, color: '#030303', speed: 1.5});
+	}).ajaxStop(function() {
+		$(this).activity(false);
+	}).appendTo('body');
 });
+

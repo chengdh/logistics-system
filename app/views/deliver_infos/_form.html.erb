@@ -1,0 +1,14 @@
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "deliver_info_form"} do |f|%>
+  <%=f.semantic_errors :customer_name,:deliver_date %>
+  <%= f.inputs do %>
+    <%= f.input :deliver_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
+    <%= f.input :customer_name,:label => "提货人姓名" %>
+    <%= f.input :customer_no,:label => "身份证号" %>
+    <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
+  <% end %>
+<% end%>
+<hr/>
+<div class='actions-bar text-right'>
+  <%=link_to image_tag("cards-bind-address.png")+"单票提货",carrying_bills_path,:remote => true,:class => "sexybutton sexysimple sexyblue"%>
+</div>
+<div id="table_wrap"></div>

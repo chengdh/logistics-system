@@ -200,6 +200,11 @@ Factory.define :load_list_shipped,:parent => :load_list_with_bills do |load_list
     load.process
   end
 end
+#分货单
 Factory.define :distribution_list do |dl|
   dl.association :org,:factory => :ay
+end
+#提货单据
+Factory.define :deliver_info do |deliver|
+  deliver.customer_name "提货人"
 end

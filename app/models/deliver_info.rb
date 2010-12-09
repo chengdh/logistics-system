@@ -11,8 +11,6 @@ class DeliverInfo < ActiveRecord::Base
       transition :billed =>:deliveried
     end
   end
-
-
   default_value_for :deliver_date,Date.today
 
 end
