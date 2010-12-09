@@ -1,0 +1,2 @@
+class DeliverInfosController < BaseController
+end

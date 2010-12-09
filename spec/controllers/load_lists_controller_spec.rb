@@ -69,7 +69,7 @@ describe LoadListsController do
 
     describe "with invalid params" do
       it "re-renders the 'new' template" do
-        post :create, :load_list => {:bill_no => "bill_no"},:bill_ids => @bill_ids
+        post :create, :load_list => {:bill_no => "bill_no"},:bill_ids => [@computer_bill.id]
         response.should render_template('new')
       end
     end

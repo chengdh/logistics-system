@@ -1,0 +1,13 @@
+<table class='table'>
+  <tr>
+    <td>日期:</td>
+    <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
+    <td>分理处/分公司:</td>
+    <td><%=resource.org.name%></td>
+  </tr>
+</table>
+<div id="table_wrap"></div>
+<script>
+  //获取清单明细数据
+    $.get('<%=distribution_list_carrying_bills_path(resource)%>',null,null,'script');
+</script>

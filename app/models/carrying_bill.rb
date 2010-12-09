@@ -3,6 +3,7 @@ class CarryingBill < ActiveRecord::Base
   belongs_to :from_org,:class_name => "Org" 
   belongs_to :transit_org,:class_name => "Org" 
   belongs_to :to_org,:class_name => "Org" 
+  belongs_to :deliver_info
 
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"
@@ -62,10 +63,10 @@ class CarryingBill < ActiveRecord::Base
     state :loaded,:shipped,:reached do
       validates_presence_of :load_list_id
     end
-    #TODO 添加其他处理时的验证处理
     state :distributed do
       validates_presence_of :distribution_list_id
     end
+    #TODO 添加其他处理时的验证处理
 
 
     end

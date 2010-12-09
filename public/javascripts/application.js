@@ -80,5 +80,5 @@ jQuery(function($) {
 		$.getScript(this.href);
 		return false;
 	});
-        $('form.bill_selector').form_with_select_bills();
+        $('form.bill_selector').livequery(function(){$(this).form_with_select_bills();});
 });

@@ -77,6 +77,40 @@ Factory.define :computer_bill do |bill|
   bill.goods_num 20
   bill.goods_info "机打运单"
 end
+#已装车机打票
+Factory.define :computer_bill_loaded,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.after_create {|bill| bill.standard_process }  #装车操作
+end
+#已发货机打票
+Factory.define :computer_bill_shipped,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+  end
+end
+#已到货机打票
+Factory.define :computer_bill_reached,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+    bill.standard_process   #到货操作
+  end
+end
+#已分货机打票
+Factory.define :computer_bill_distributed,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.distribution_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+    bill.standard_process   #到货操作
+    bill.standard_process   #分货操作
+  end
+end
+
 
 #手工票
 Factory.define :hand_bill do |bill|
@@ -165,5 +199,7 @@ Factory.define :load_list_shipped,:parent => :load_list_with_bills do |load_list
     load.process
     load.process
   end
-
+end
+Factory.define :distribution_list do |dl|
+  dl.association :org,:factory => :ay
 end

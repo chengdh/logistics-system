@@ -2,6 +2,8 @@
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
     <%= f.input :org_id,:label => "到货地",:as => :select,:hint => "可录入拼音简写查询地区(例如:安阳,可录入ay)",:collection => branches_for_select,:include_blank => true,:input_html => {:class => "select_org",:id => "to_org_id"} %>
+    <%=hidden_field_tag :state_eq,:reached%>
+    <%=hidden_field_tag :type_in,"","data-type" => ['ComputerBill','HandBill','ReturnBill','TransitBill','HandTransitBill'].to_json %>
   <% end %>
 <% end%>
 <hr/>

@@ -11,7 +11,8 @@
       <%=check_box_tag "bill_date_eq",Date.today,false,:onclick => "$(this).attr('checked') ? $(this).val('') : $(this).val('#{Date.today}')"%>显示所有未装车运单
       <p class='inline-hints'>默认只显示当日未装车运单</p>
     </li>
-
+    <%=hidden_field_tag :state_eq,:billed%>
+    <%=hidden_field_tag :type_in,"","data-type" => ['ComputerBill','HandBill','ReturnBill','TransitBill','HandTransitBill'].to_json %>
   <% end %>
 <% end%>
 <hr/>

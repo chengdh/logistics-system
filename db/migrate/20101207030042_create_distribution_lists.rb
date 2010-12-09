@@ -5,6 +5,7 @@ class CreateDistributionLists < ActiveRecord::Migration
       t.references :user
       t.integer :org_id,:null => false
       t.text :note
+      t.string :state,:limit => 20
 
       t.timestamps
     end

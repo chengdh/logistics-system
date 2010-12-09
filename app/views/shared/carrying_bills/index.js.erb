@@ -1,2 +1,6 @@
-$.fancybox.close();
-$('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/table")) %>');
+<%if params[:show_single]%>
+  $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
+<%else%>
+  $.fancybox.close();
+  $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/table")) %>');
+<%end%>

@@ -1,5 +1,7 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :deliver_infos
+
   resources :distribution_lists do
     resources :carrying_bills
   end

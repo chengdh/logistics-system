@@ -9,10 +9,19 @@
     </ul>
   </div>
   <h3><%= link_to "装车", "#" %></h3>
-
   <div>
     <ul class="navigation">
       <li><%= link_to "装车单", load_lists_path %></li>
+      <li><%= link_to "待发车", load_lists_path("search[state_eq]" => "loaded") %></li>
+      <li><%= link_to "到货确认", load_lists_path("search[state_eq]" => "shipped") %></li>
     </ul>
   </div>
+
+  <h3><%= link_to "分货处理", "#" %></h3>
+  <div>
+    <ul class="navigation">
+      <li><%= link_to "分货", new_distribution_list_path %></li>
+      <li><%= link_to "分货记录", distribution_lists_path %></li>
+  </div>
+
 </div>
