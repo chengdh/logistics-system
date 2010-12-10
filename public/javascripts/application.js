@@ -60,7 +60,6 @@ jQuery(function($) {
 	$('.tipsy').livequery(function() {
 		$('.tipsy').tipSwift({
 			gravity: $.tipSwift.gravity.autoWE,
-			live: true,
 			plugins: [
 			$.tipSwift.plugins.tip({
 				offset: 5,
@@ -142,10 +141,43 @@ jQuery(function($) {
 					var bill_id = $(this).data('bill').id;
 					bill_ids.push(bill_id);
 				});
-				$(this).data('params', {"bill_ids[]" : bill_ids});
+				$(this).data('params', {
+					"bill_ids[]": bill_ids
+				});
 			}
 			return true;
 		})
+	});
+	//对票据进行操作时,计算合计值
+	var cal_sum = function() {
+		var sum_carrying_fee = 0;
+		var sum_goods_fee = 0;
+		var sum_from_short_carrying_fee = 0;
+		var sum_to_short_carrying_fee = 0;
+		var sum_insured_fee = 0;
+
+		$('[data-bill]').each(function() {
+			var the_bill = $(this).data('bill');
+			sum_carrying_fee += parseFloat(the_bill.carrying_fee);
+			sum_goods_fee += parseFloat(the_bill.goods_fee);
+			sum_from_short_carrying_fee += parseFloat(the_bill.from_short_carrying_fee);
+			sum_to_short_carrying_fee += parseFloat(the_bill.to_short_carrying_fee);
+			sum_insured_fee += parseFloat(the_bill.insured_fee);
+
+		});
+
+		$('#count').html($('[data-bill]').length + '票');
+		$('#sum_carrying_fee').html(sum_carrying_fee);
+		$('#sum_goods_fee').html(sum_goods_fee);
+		$('#sum_insured_fee').html(sum_insured_fee);
+
+	};
+
+	$('.bill_cal_sum').livequery(function() {
+		cal_sum();
+	},
+	function() {
+		cal_sum();
 	});
 });
 

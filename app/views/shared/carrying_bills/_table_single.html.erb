@@ -1,0 +1,33 @@
+<tr id='<%="bill_#{bill.id}" %>' data-bill='<%=bill.to_json%>' class='bill_cal_sum'>
+  <td>
+    <%=bill.bill_date.strftime('%y-%m-%d')%>
+  </td>
+  <td>
+    <%=bill.bill_no%>/<%=bill.goods_no%>
+  </td>
+  <td>
+    <%=bill.from_org_name%>--<%=bill.to_org_name%>
+  </td>
+  <td>
+    <%=bill.from_customer_name%>
+    <%="(#{bill.from_customer_phone})"%>
+    --
+    <%=bill.to_customer_name%>
+    <%="(#{bill.to_customer_phone})"%>
+  </td>
+  <td>
+    <%=pay_type_des(bill.pay_type) %>
+  </td>
+  <td>
+    <%=bill.carrying_fee %>
+  </td>
+  <td>
+    <%=bill.goods_fee %>
+  </td>
+  <td>
+    <%=bill.insured_fee %>
+  </td>
+  <td>
+    <%=link_to_function  image_tag("mouse--minus.png"),"$('#bill_#{bill.id}').remove()" %>
+  </td>
+</tr>          
