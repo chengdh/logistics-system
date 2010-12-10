@@ -3,8 +3,11 @@
   <div class="content">            
     <h2 class="title">修改<%=resource_name%></h2>
     <div class="inner">
-      <div id='<%="#{resource_class.name.underscore}_form_wrap" %>' />
+      <div id='<%="#{resource_class.name.underscore}_form_wrap" %>'>
         <%= render "form" %>
+      </div>
+      <div id='<%="#{resource_class.name.underscore}_form_after_wrap" %>'>
+        <%= render "form_after" %>
       </div>
     </div>
   </div>

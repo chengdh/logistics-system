@@ -137,9 +137,13 @@
 		//绑定ajax:before事件
 		var ajax_before = function() {
 			if (typeof($.bill_selector.selected_ids) == 'undefined' || $.bill_selector.selected_ids.length == 0) {
-				$.prompt('当前未添加任何运单,请添加运单后再保存!', {
-					show: 'slideDown'
+				$.notifyBar({
+					html: "当前未选择任何要处理的运单,请先选择要处理的运单",
+					delay: 3000,
+					animationSpeed: "normal",
+					cls: 'error'
 				});
+
 				return false;
 			}
 			else {

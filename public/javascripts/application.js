@@ -55,6 +55,7 @@ jQuery(function($) {
 	$('.select_org').livequery(function() {
 		$(this).ufd();
 	});
+
 	//初始化tip
 	$('.tipsy').livequery(function() {
 		$('.tipsy').tipSwift({
@@ -84,9 +85,67 @@ jQuery(function($) {
 		$(this).form_with_select_bills();
 	});
 	$('#container').ajaxStart(function() {
-            $(this).activity({segments: 12, width: 3, space: 2, length: 2, color: '#030303', speed: 1.5});
+		$(this).activity({
+			segments: 12,
+			width: 3,
+			space: 2,
+			length: 2,
+			color: '#030303',
+			speed: 1.5
+		});
 	}).ajaxStop(function() {
 		$(this).activity(false);
-	}).appendTo('body');
+	});
+	//search box
+	$('.search_box').livequery(function() {
+		$(this).watermark('录入运单编号查询', {
+			userNative: false
+		}).tipSwift({
+			gravity: $.tipSwift.gravity.autoWE,
+			live: true,
+			plugins: [
+			$.tipSwift.plugins.tip({
+				offset: 5,
+				gravity: 'e',
+				title: function() {
+					return "回车查询要处理的运单"
+				},
+				opacity: 0.6,
+				showEffect: $.tipSwift.effects.fadeIn,
+				hideEffect: $.tipSwift.effects.fadeOut
+			})]
+		}).change(function() {
+			if ($(this).val() == "") return;
+			var params = $(this).data('params');
+			$.extend(params, {
+				"search[bill_no_eq]": $(this).val()
+			});
+			$.get('/carrying_bills', params, null, 'script');
+		})
+	});
+	//绑定提货处理的ajax:before
+	$('#deliver_info_form').livequery(function() {
+		$(this).bind('ajax:before', function() {
+			var bill_els = $('[data-bill]');
+			var bill_ids = [];
+			if (bill_els.length == 0) {
+				$.notifyBar({
+					html: "未查找到任何运单,请先查询要处理的运单",
+					delay: 3000,
+					animationSpeed: "normal",
+					cls: 'error'
+				});
+				return false;
+			}
+			else {
+				bill_els.each(function() {
+					var bill_id = $(this).data('bill').id;
+					bill_ids.push(bill_id);
+				});
+				$(this).data('params', {"bill_ids[]" : bill_ids});
+			}
+			return true;
+		})
+	});
 });
 

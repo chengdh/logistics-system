@@ -16,6 +16,16 @@ normal-font {font-size : 1em;}
 big-font {font-size : 1.2em;}
 bigger-font {font-size : 1.5em;}
 .tipsy {font-size : 1em;}
+/*watermark style*/
+.watermark {
+  color : gray;
+  font-style : italic;
+}
+.search_box {
+  width : 200px;
+  height : 20px;
+  background :  url(/images/magnifier-left.png) no-repeat 180px ;
+}
 
 /* color */
 

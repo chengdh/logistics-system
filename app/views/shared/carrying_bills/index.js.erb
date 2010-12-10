@@ -1,6 +1,15 @@
-<%if params[:show_single]%>
-  $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
+<%if params[:show_single].present?%>
+  <%if collection.blank?%>
+    $.notifyBar({
+    html: "未查询的符合条件的运单,请修改运单号重新查询!",
+    delay: 3000,
+    animationSpeed: "normal",
+    cls : 'error'
+});
+  <%else%>
+    $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
+  <%end%>
 <%else%>
-  $.fancybox.close();
   $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/table")) %>');
 <%end%>
+$.fancybox.close();
