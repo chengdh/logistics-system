@@ -198,5 +198,42 @@ jQuery(function($) {
 		});
 
 	});
+
+	//生成返款清单时,收款单位变化时,列出结算清单
+	$('#to_org_id').change(function() {
+		$.get('/settlements', {
+			"search[carrying_bills_from_org_id_eq]": $(this).val(),
+			"search[carrying_bills_type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
+			"search[carrying_bills_state_eq]": "settlemented",
+			"search[carrying_bills_goods_fee_or_carrying_bills_carrying_fee_gt]": 0,
+			"search[carrying_bills_pay_type_eq]": "TH"
+		},
+		null, 'script')
+	});
+	//全选结算清单
+	$('#settlement_check_all').live('click', function() {
+		$('input[name^="settlement_selector"]').each(function() {
+			$(this).attr('checked', $('#settlement_check_all').attr('checked'));
+		});
+
+	});
+	//绑定声称支付清单按钮
+	$('#btn_generate_refound').bind('ajax:before', function() {
+		var selected_settlement_ids = [];
+		$('input[name^="settlement_selector"]').each(function() {
+			if ($(this).attr('checked')) selected_settlement_ids.push($(this).val());
+		});
+
+		var params = {
+			"search[from_org_id_eq]": $('#refound_form').val(),
+			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
+			"search[state_eq]": "settlemented",
+			"search[goods_fee_or_carrying_fee_gt]": 0,
+			"search[pay_type_eq]": "TH",
+			"search[settlement_id_in][]": selected_settlement_ids
+		};
+		$(this).data('params', params);
+
+	});
 });
 

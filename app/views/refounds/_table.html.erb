@@ -1,0 +1,23 @@
+<table id="<%= resource_class.name.underscore.pluralize %>_index_table" class="table">
+  <tr>
+    <th><%=check_box_tag "settlement_check_all",2,true,:title => "选择/不选全部",:class => "tipsy" %></th>
+      <th>序号</th>
+      <th>结算日期</th>
+      <th>结算机构</th>
+      <th>结算员</th>
+      <th>返程运费</th>
+      <th>代收货款</th>
+      <th>合计</th>
+  </tr>
+  <% collection.each_with_index do |resource,index| %>
+    <tr class="<%= cycle 'odd', 'even' %>">
+      <td><%=check_box_tag "settlement_selector_#{resource.id}",resource.id %></td>
+      <td><%= order_no(index,params[:page]) %></td>
+      <td><%= resource.created_at.strftime('%Y-%m-%d') %></td>
+      <td>&nbsp;</td>
+      <td><%= resource.sum_goods_fee %></td>
+      <td><%= resource.sum_carrying_fee %></td>
+      <td><%= resource.sum_fee %></td>
+    </tr>
+  <% end %>
+</table>

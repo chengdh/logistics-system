@@ -5,6 +5,7 @@ class CarryingBill < ActiveRecord::Base
   belongs_to :to_org,:class_name => "Org" 
   belongs_to :deliver_info
   belongs_to :settlement
+  belongs_to :refound
 
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"
@@ -38,9 +39,9 @@ class CarryingBill < ActiveRecord::Base
         :loaded => :shipped,#发货
         :shipped => :reached,#到货
         :deliveried => :settlemented,#日结清单
-        :settlemented => :rebated,#返款
-        :rebated => :rebate_confirmed,#返款确认
-        :rebate_confirmed => :payment_listed,#支付清单
+        :settlemented => :refunded,#返款
+        :refunded => :refunded_confirmed,#返款确认
+        :refunded_confirmed => :payment_listed,#支付清单
         :payment_listed => :paid,#货款已支付
         :paid => :posted #过帐结束
 
@@ -49,6 +50,8 @@ class CarryingBill < ActiveRecord::Base
 
       #中转运单处理流程
       transition :reached => :transited,:transited => :deliveried,:if => lambda {|bill| !bill.transit_org.blank?}
+
+      #TODO 现金付运费,不存在代收货款的运单,提货后处理流程如何?
     end
 
 

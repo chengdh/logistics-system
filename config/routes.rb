@@ -1,5 +1,10 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :refounds do
+    resources :carrying_bills
+  end
+
+
   resources :settlements do
     resources :carrying_bills
   end
