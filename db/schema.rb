@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101209081449) do
+ActiveRecord::Schema.define(:version => 20101215010508) do
 
   create_table "carrying_bills", :force => true do |t|
     t.date     "bill_date",                                                                             :null => false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20101209081449) do
     t.integer  "load_list_id"
     t.integer  "distribution_list_id"
     t.integer  "deliver_info_id"
+    t.integer  "settlement_id"
   end
 
   create_table "deliver_infos", :force => true do |t|
@@ -100,6 +101,18 @@ ActiveRecord::Schema.define(:version => 20101209081449) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "py",              :limit => 20
+  end
+
+  create_table "settlements", :force => true do |t|
+    t.string   "title",            :limit => 60
+    t.integer  "org_id",                                                                         :null => false
+    t.decimal  "sum_goods_fee",                  :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "sum_carrying_fee",               :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "user_id"
+    t.text     "note"
+    t.string   "state",            :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

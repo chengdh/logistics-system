@@ -4,6 +4,7 @@ class CarryingBill < ActiveRecord::Base
   belongs_to :transit_org,:class_name => "Org" 
   belongs_to :to_org,:class_name => "Org" 
   belongs_to :deliver_info
+  belongs_to :settlement
 
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"

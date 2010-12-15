@@ -110,6 +110,20 @@ Factory.define :computer_bill_distributed,:parent => :computer_bill do |bill|
     bill.standard_process   #分货操作
   end
 end
+#已提货运单
+Factory.define :computer_bill_deliveried,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.distribution_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.deliver_info_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+    bill.standard_process   #到货操作
+    bill.standard_process   #分货操作
+    bill.standard_process   #提货操作
+  end
+end
+
 
 
 #手工票
@@ -207,4 +221,8 @@ end
 #提货单据
 Factory.define :deliver_info do |deliver|
   deliver.customer_name "提货人"
+end
+#返程运单结算
+Factory.define :settlement do |s|
+  s.association :org,:factory => :zz
 end

@@ -1,0 +1,23 @@
+<table class='table'>
+  <tr>
+    <td>提货日期:</td>
+    <td><%= resource.deliver_date.strftime('%Y-%m-%d') %></td>
+    <td>提货人:</td>
+    <td>
+      <%=resource.customer_name %>
+    </td>
+    <td>身份证号:</td>
+    <td> <%=resource.customer_no %></td>
+  </tr>
+  <tr>
+    <td>备注</td>
+    <td colspan='5'>
+      <%=resource.note %>
+    </td>
+  </tr>
+</table>
+<div id="table_wrap"></div>
+<script>
+  //获取清单明细数据
+  $.get('<%=deliver_info_carrying_bills_path(resource)%>',null,null,'script');
+</script>

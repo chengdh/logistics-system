@@ -179,5 +179,24 @@ jQuery(function($) {
 	function() {
 		cal_sum();
 	});
+	//生成结算清单时,绑定查询条件
+	$('#btn_generate_settlement').bind('ajax:before', function() {
+		var params = {
+			"search[to_org_id_or_transit_org_id_eq]": $('#to_org_id').val(),
+			"search[state_eq]": 'deliveried',
+			"search[type_in][]": ['ComputerBill', 'HandBill', 'ReturnBill', 'TransitBill', 'HandTransitBill']
+		};
+		$(this).data('params', params);
+	}).bind('ajax:complete', function() {
+		if ($('#bills_table').length == 0) return;
+		var sum_info = $('#bills_table').data('sum');
+		var ids = $('#bills_table').data('ids');
+		$('#settlement_sum_carrying_fee').val(sum_info.sum_carrying_fee);
+		$('#settlement_sum_goods_fee').val(sum_info.sum_goods_fee);
+		$('#settlement_form').data('params', {
+			'bill_ids[]': ids
+		});
+
+	});
 });
 

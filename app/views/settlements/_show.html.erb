@@ -1,0 +1,31 @@
+<table class='table'>
+  <tr>
+    <td>结算员:</td>
+    <td></td>
+    <td>结算单位:</td>
+    <td>
+      <%=resource.org.name %>
+    </td>
+    <td>结算日期:</td>
+    <td> <%=resource.created_at.strftime('%Y-%m-%d')%></td>
+  </tr>
+  <tr>
+    <td>返程货款:</td>
+    <td><%=resource.sum_goods_fee %></td>
+    <td>提货付运费:</td>
+    <td><%=resource.sum_carrying_fee%></td>
+    <td>合计:</td>
+    <td><%=resource.sum_fee %></td>
+  </tr>
+  <tr>
+    <td>备注</td>
+    <td colspan='5'>
+      <%=resource.note %>
+    </td>
+  </tr>
+</table>
+<div id="table_wrap"></div>
+<script>
+  //获取清单明细数据
+  $.get('<%=settlement_carrying_bills_path(resource)%>',null,null,'script');
+</script>

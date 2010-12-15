@@ -1,6 +1,13 @@
 IlYanzhao::Application.routes.draw do
 
-  resources :deliver_infos
+  resources :settlements do
+    resources :carrying_bills
+  end
+
+  resources :deliver_infos do
+    resources :carrying_bills
+  end
+
 
   resources :distribution_lists do
     resources :carrying_bills
