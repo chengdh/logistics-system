@@ -1,10 +1,11 @@
 <%if collection.blank?%>
   $.notifyBar({
-html: "未查询的符合条件的运单,请修改运单号重新查询!",
+html: "未查询的符合条件的运单,请修改修改查询条件后重新查询!",
 delay: 3000,
 animationSpeed: "normal",
 cls : 'error'
 });
+  $('#table_wrap').html('');
 <%else%>
   <%if params[:show_multi]%>
     <%if params[:show_multi].present?%>

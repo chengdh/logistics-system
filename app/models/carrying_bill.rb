@@ -40,7 +40,8 @@ class CarryingBill < ActiveRecord::Base
         :settlemented => :rebated,#返款
         :rebated => :rebate_confirmed,#返款确认
         :rebate_confirmed => :payment_listed,#支付清单
-        :payment_listed => :paid#货款已支付
+        :payment_listed => :paid,#货款已支付
+        :paid => :posted #过帐结束
 
       #普通运单到货后有分发操作,中转运单不存在分发操作
       transition :reached => :distributed,:distributed => :deliveried,:if => lambda {|bill| bill.transit_org.blank?}

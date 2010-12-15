@@ -1,13 +1,13 @@
-<%= semantic_form_for search,:remote => true,:html => {:method => :get,:style => "width : 300px;" } do |f|%>
+<%= semantic_form_for search,:remote => true,:html => {:id => "search_bill_form",:method => :get,:style => "width : 300px;" } do |f|%>
   <%= hidden_field_tag :direction,params[:direction] %>
   <%= hidden_field_tag :sort,params[:sort] %>
   <%= f.inputs do %>
-    <%= f.input :bill_date_gte,:label => "票据日期",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true} %>
-    <%= f.input :bill_date_lte,:label => " ",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true} %>
     <%= f.input :bill_no_or_goods_no_or_from_customer_name_or_to_customer_name_or_from_customer_phone_or_to_customer_phone_or_goods_info_like,:label =>"关键字",:hint => "票据号/货号/发货人/收货人/电话",:input_html => {:size => 30,:id => "keyword"} %>
-    <%= f.input :from_org_id_eq,:as => :select,:collection => branches_for_select,:input_html => {:class => "select_org",:title => "可录入拼音简写查询发货地(例如:安阳,可录入ay)"} %>
+    <%= f.input :bill_date_gte,:label => "票据日期",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true,:value => Date.today} %>
+    <%= f.input :bill_date_lte,:label => "~",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true,:value => Date.today} %>
+    <%= f.input :from_org_id_eq,:label => "发货地",:as => :select,:collection => branches_for_select,:input_html => {:class => "select_org",:title => "可录入拼音简写查询发货地(例如:安阳,可录入ay)"} %>
 
-    <%= f.input :to_org_id_eq,:as => :select,:collection => branches_for_select,:input_html => {:class => "select_org",:title => "可录入拼音简写查询到货地(例如:安阳,可录入ay)"} %>
+    <%= f.input :to_org_id_eq,:label =>"到货地",:as => :select,:collection => branches_for_select,:input_html => {:class => "select_org",:title => "可录入拼音简写查询到货地(例如:安阳,可录入ay)"} %>
 
     <%= f.input :pay_type_eq,:label => "支付方式",:as => :select,:collection => CarryingBill.pay_types %>
   <% end %>

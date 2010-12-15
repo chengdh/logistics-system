@@ -164,25 +164,40 @@
 			},
 			'script');
 		};
-		var form_change = function(evt) {
-			if (jQuery.inArray(evt.target.id, options["listen_change_els"]) > - 1) search_bills();
-		};
+		//自动将默认参数传递给search_form
+		var set_search_form = function() {
+			var default_values = options["search_bill_params"]();
+			//判断是否传递了发货地与到货地
+			if (default_values["from_org_id_eq"] != "") {
+				$('#search_from_org_id_eq').val(default_values["from_org_id_eq"]).trigger('change');
+				$('#search_from_org_id_eq').attr('disabled', true);
+                                jQuery.extend(default_values,{"search[from_org_id_eq]" : default_values["from_org_id_eq"]});
+			}
+			if (default_values["search[to_org_id_eq]"] != "") {
+				$('#search_to_org_id_eq').val(default_values["to_org_id_eq"]).trigger('change');
+				$('#search_to_org_id_eq').attr('disabled', true);
+                                jQuery.extend(default_values,{"search[to_org_id_eq]" : default_values["to_org_id_eq"]});
+			}
+			$('#search_bill_form').data('params', default_values);
 
-		//绑定数据变化时触发查询事件
-		return $(this).change(form_change);
-		//首先初始化一下
-		search_bills();
+		};
+		$('#search_bill_form').livequery(function() {
+			set_search_form();
+		});
+		return this;
 	};
 	//默认设置
 	$.fn.form_with_select_bills.defaults = {
 		//运单列表table
 		bills_table: '#bills_table',
+		//是否与search_bill_form关联
+		with_search_bill_form: true,
 		//form提交时附加到form上的已选择的运单数组 
 		search_bill_params: function() {
 			return {
-				"search[from_org_id_eq]": ($('#from_org_id').length == 0) ? "": $('#from_org_id').val(),
-				"search[to_org_id_eq]": ($('#to_org_id').length == 0) ? "": $('#to_org_id').val(),
-				"search[transit_org_id_eq]": ($('#transit_org_id').length == 0) ? "": $('#transit_org_id').val(),
+				"from_org_id_eq": ($('#from_org_id').length == 0) ? "": $('#from_org_id').val(),
+				"to_org_id_eq": ($('#to_org_id').length == 0) ? "": $('#to_org_id').val(),
+				"transit_org_id_eq": ($('#transit_org_id').length == 0) ? "": $('#transit_org_id').val(),
 				"search[bill_date_eq]": ($('#bill_date_eq').length == 0) ? "": $('#bill_date_eq').val(),
 				"search[state_eq]": ($('#state_eq').length == 0) ? "": $('#state_eq').val(),
 				"search[type_in][]": ($('#type_in').length == 0) ? ['ComputerBill', 'HandBill', 'ReturnBill', 'TransitBill', 'HandTransitBill'] : $('#type_in').data('type') //要查询的运单类型
