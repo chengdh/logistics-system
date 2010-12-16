@@ -4,29 +4,28 @@
     <tr>
       <td>返款日期:</td>
       <td> <%=f.text_field :bill_date,:class => "datepicker",:size => 10%></td>
-      <td>付款单位:</td>
-      <td>
-        <%=f.select :from_org_id,branches_for_select,{},{:class => "select_org",:id => "from_org_id"} %>
-      </td>
-
-      <td>收款单位:</td>
-      <td>
-        <%=f.select :to_org_id,branches_for_select,{},{:class => "select_org",:id => "to_org_id"} %>
-      </td>
       <td>结算员:</td>
       <td>添加结算员信息</td>
     </tr>
     <tr>
-      <td>返程货款:</td>
-      <td><%=f.text_field :sum_goods_fee ,:readonly => true,:size => 10 %></td>
-      <td>提货付运费:</td>
-      <td><%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
+      <td>付款单位:</td>
+      <td>
+        <%=f.select :from_org_id,branches_for_select,{},{:class => "select_org",:id => "from_org_id"} %>
+      </td>
+      <td>收款单位:</td>
+      <td>
+        <%=f.select :to_org_id,branches_for_select,{:prompt => "--选择收款单位--"},:class => "select_org",:id => "to_org_id" %>
+      </td>
+    </tr>
+    <tr>
+      <td>返程货款:<%=f.text_field :sum_goods_fee ,:readonly => true,:size => 10 %></td>
+      <td>提货付运费:<%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
       <td>合计:</td>
-      <td colspan='3'><%=resource.sum_fee %></td>
+      <td colspan='2' id='refound_sum_fee'><%=resource.sum_fee %></td>
     </tr>
     <tr>
       <td>备注</td>
-      <td colspan='7'>
+      <td colspan='4'>
         <%=f.text_field :note,:size => 50 %>
       </td>
     </tr>

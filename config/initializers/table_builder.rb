@@ -1,6 +1,5 @@
 module InheritedResources
   module TableBuilder
-
     def self.included(base)
       base.extend ClassMethods
       base.class_inheritable_accessor :table_config
@@ -61,4 +60,3 @@ module InheritedResources
   end
 end
 InheritedResources::Base.send(:include,InheritedResources::TableBuilder)
-

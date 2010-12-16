@@ -200,7 +200,8 @@ jQuery(function($) {
 	});
 
 	//生成返款清单时,收款单位变化时,列出结算清单
-	$('#to_org_id').change(function() {
+	$('#to_org_id').live('change', function() {
+		if ($(this).val() == "") return;
 		$.get('/settlements', {
 			"search[carrying_bills_from_org_id_eq]": $(this).val(),
 			"search[carrying_bills_type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
@@ -217,12 +218,22 @@ jQuery(function($) {
 		});
 
 	});
-	//绑定声称支付清单按钮
+	//绑定生成支付清单按钮
 	$('#btn_generate_refound').bind('ajax:before', function() {
 		var selected_settlement_ids = [];
 		$('input[name^="settlement_selector"]').each(function() {
 			if ($(this).attr('checked')) selected_settlement_ids.push($(this).val());
 		});
+		if (selected_settlement_ids.length == 0) {
+			$.notifyBar({
+				html: "请选择要返款的结算清单!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+                        return false;
+
+		}
 
 		var params = {
 			"search[from_org_id_eq]": $('#refound_form').val(),
@@ -233,6 +244,12 @@ jQuery(function($) {
 			"search[settlement_id_in][]": selected_settlement_ids
 		};
 		$(this).data('params', params);
+		//选定单据改变时,修改对应返款清单相关金额字段
+		$($.bill_selector).bind('select:change', function() {
+			$('#refound_sum_goods_fee').val($.bill_selector.sum_info.sum_goods_fee);
+			$('#refound_sum_carrying_fee').val($.bill_selector.sum_info.sum_carrying_fee);
+			$('#refound_sum_fee').html(parseFloat($.bill_selector.sum_info.sum_carrying_fee) + parseFloat($.bill_selector.sum_info.sum_goods_fee));
+		});
 
 	});
 });

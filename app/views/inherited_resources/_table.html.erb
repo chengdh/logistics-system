@@ -5,7 +5,7 @@
     <% end %>
   </tr>
   <% collection.each do |resource| %>
-    <tr class="<%= cycle 'odd', 'even' %>">
+    <tr class="<%= cycle 'odd', 'even' %>",title="test test">
       <% index_table_columns.each do |column| %>
         <td><%= resource.send(column.to_sym) %></td>
       <% end %>

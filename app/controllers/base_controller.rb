@@ -6,7 +6,7 @@ class BaseController < InheritedResources::Base
   protected
   def collection
     @search = end_of_association_chain.search(params[:search])
-    get_collection_ivar || set_collection_ivar(@search.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
+    get_collection_ivar || set_collection_ivar(@search.select("DISTINCT #{resource_class.table_name}.*").order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
   end
   private
   #排序方法
@@ -15,7 +15,7 @@ class BaseController < InheritedResources::Base
     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "desc"  
   end  
   def sort_column  
-    resource_class.column_names.include?(params[:sort]) ? params[:sort] : "created_at"  
+    resource_class.column_names.include?(params[:sort]) ? params[:sort] : "#{resource_class.table_name}.created_at"  
   end  
   def show_view_columns
     resource_class.columns.collect{|column| column.name.to_sym  }

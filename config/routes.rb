@@ -1,5 +1,9 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :customers
+
+  resources :banks
+
   resources :refounds do
     resources :carrying_bills
     get :process_handle,:on => :member

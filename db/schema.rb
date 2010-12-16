@@ -10,7 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101215104808) do
+ActiveRecord::Schema.define(:version => 20101216080319) do
+
+  create_table "banks", :force => true do |t|
+    t.string   "name",                                       :null => false
+    t.string   "code",       :limit => 20,                   :null => false
+    t.boolean  "is_active",                :default => true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "carrying_bills", :force => true do |t|
     t.date     "bill_date",                                                                             :null => false
@@ -52,6 +60,24 @@ ActiveRecord::Schema.define(:version => 20101215104808) do
     t.integer  "deliver_info_id"
     t.integer  "settlement_id"
     t.integer  "refound_id"
+  end
+
+  create_table "customers", :force => true do |t|
+    t.integer  "org_id"
+    t.string   "name",          :limit => 60,                                                   :null => false
+    t.string   "phone",         :limit => 20
+    t.string   "mobile",        :limit => 20
+    t.string   "address",       :limit => 60
+    t.string   "company",       :limit => 60
+    t.string   "code",          :limit => 20
+    t.string   "id_number",     :limit => 30
+    t.integer  "bank_id"
+    t.string   "bank_card",     :limit => 30
+    t.boolean  "is_active",                                                  :default => true
+    t.decimal  "hand_fee_rate",               :precision => 10, :scale => 3, :default => 0.001
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "deliver_infos", :force => true do |t|

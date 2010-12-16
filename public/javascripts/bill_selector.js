@@ -114,10 +114,12 @@
 		update_html: function() {
 			$($.bill_selector.options.count).html($.bill_selector.sum_info.count + "票");
 			$($.bill_selector.options.sum_carrying_fee).html($.bill_selector.sum_info.sum_carrying_fee);
-			$($.bill_selector.options.sum_goods_fee).html($.bill_selector.sum_info.sum_carrying_fee);
+			$($.bill_selector.options.sum_goods_fee).html($.bill_selector.sum_info.sum_goods_fee);
 			$($.bill_selector.options.sum_insured_fee).html($.bill_selector.sum_info.sum_insured_fee);
 			$($.bill_selector.options.sum_from_short_carrying_fee).html($.bill_selector.sum_info.sum_from_short_carrying_fee);
 			$($.bill_selector.options.sum_to_short_carrying_fee).html($.bill_selector.sum_info.sum_to_short_carrying_fee);
+                        //触发选择改变事件
+                        $($.bill_selector).trigger('select:change');
 
 		}
 
