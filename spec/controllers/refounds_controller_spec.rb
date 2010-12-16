@@ -1,70 +1,58 @@
 require 'spec_helper'
 
 describe RefoundsController do
-
-  def mock_refound(stubs={})
-    (@mock_refound ||= mock_model(Refound).as_null_object).tap do |refound|
-      refound.stub(stubs) unless stubs.empty?
-    end
-  end
-
+  render_views
   describe "GET index" do
-    it "assigns all refounds as @refounds" do
-      Refound.stub(:all) { [mock_refound] }
+    it "should be success" do
+      Factory(:refound_with_bills)
       get :index
-      assigns(:refounds).should eq([mock_refound])
+      response.should be_success
     end
   end
 
   describe "GET show" do
     it "assigns the requested refound as @refound" do
-      Refound.stub(:find).with("37") { mock_refound }
-      get :show, :id => "37"
-      assigns(:refound).should be(mock_refound)
+      refound = Factory(:refound_with_bills)
+      get :show, :id => refound
+      assigns(:refound).should == refound
     end
   end
 
   describe "GET new" do
-    it "assigns a new refound as @refound" do
-      Refound.stub(:new) { mock_refound }
+    it "should be success" do
       get :new
-      assigns(:refound).should be(mock_refound)
+      response.should be_success
     end
   end
 
   describe "GET edit" do
     it "assigns the requested refound as @refound" do
-      Refound.stub(:find).with("37") { mock_refound }
-      get :edit, :id => "37"
-      assigns(:refound).should be(mock_refound)
+      refound = Factory(:refound_with_bills)
+      get :edit, :id => refound
+      assigns(:refound).should == refound
     end
   end
 
   describe "POST create" do
+    before(:each) do
+      @computer_bill = Factory(:computer_bill_settlemented)
+    end
 
     describe "with valid params" do
-      it "assigns a newly created refound as @refound" do
-        Refound.stub(:new).with({'these' => 'params'}) { mock_refound(:save => true) }
-        post :create, :refound => {'these' => 'params'}
-        assigns(:refound).should be(mock_refound)
+      it "should success create refound" do
+        lambda do
+          post :create,:refound => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => [@computer_bill.id]
+        end.should change(Refound,:count).by(1)
       end
 
       it "redirects to the created refound" do
-        Refound.stub(:new) { mock_refound(:save => true) }
-        post :create, :refound => {}
-        response.should redirect_to(refound_url(mock_refound))
+        post :create,:refound => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => [@computer_bill.id]
+        response.should redirect_to(assigns[:refound])
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved refound as @refound" do
-        Refound.stub(:new).with({'these' => 'params'}) { mock_refound(:save => false) }
-        post :create, :refound => {'these' => 'params'}
-        assigns(:refound).should be(mock_refound)
-      end
-
       it "re-renders the 'new' template" do
-        Refound.stub(:new) { mock_refound(:save => false) }
         post :create, :refound => {}
         response.should render_template("new")
       end
@@ -72,56 +60,6 @@ describe RefoundsController do
 
   end
 
-  describe "PUT update" do
 
-    describe "with valid params" do
-      it "updates the requested refound" do
-        Refound.should_receive(:find).with("37") { mock_refound }
-        mock_refound.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :refound => {'these' => 'params'}
-      end
-
-      it "assigns the requested refound as @refound" do
-        Refound.stub(:find) { mock_refound(:update_attributes => true) }
-        put :update, :id => "1"
-        assigns(:refound).should be(mock_refound)
-      end
-
-      it "redirects to the refound" do
-        Refound.stub(:find) { mock_refound(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(refound_url(mock_refound))
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the refound as @refound" do
-        Refound.stub(:find) { mock_refound(:update_attributes => false) }
-        put :update, :id => "1"
-        assigns(:refound).should be(mock_refound)
-      end
-
-      it "re-renders the 'edit' template" do
-        Refound.stub(:find) { mock_refound(:update_attributes => false) }
-        put :update, :id => "1"
-        response.should render_template("edit")
-      end
-    end
-
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested refound" do
-      Refound.should_receive(:find).with("37") { mock_refound }
-      mock_refound.should_receive(:destroy)
-      delete :destroy, :id => "37"
-    end
-
-    it "redirects to the refounds list" do
-      Refound.stub(:find) { mock_refound }
-      delete :destroy, :id => "1"
-      response.should redirect_to(refounds_url)
-    end
-  end
 
 end

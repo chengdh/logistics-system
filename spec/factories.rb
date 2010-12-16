@@ -123,6 +123,22 @@ Factory.define :computer_bill_deliveried,:parent => :computer_bill do |bill|
     bill.standard_process   #提货操作
   end
 end
+#已结算运单
+Factory.define :computer_bill_settlemented,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.distribution_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.deliver_info_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.settlement_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+    bill.standard_process   #到货操作
+    bill.standard_process   #分货操作
+    bill.standard_process   #提货操作
+    bill.standard_process   #结算操作
+  end
+end
+
 
 
 
@@ -222,7 +238,28 @@ end
 Factory.define :deliver_info do |deliver|
   deliver.customer_name "提货人"
 end
+Factory.define :deliver_info_with_bills,:parent => :deliver_info do |deliver|
+  deliver.after_create do |dl|
+    dl.carrying_bills << Factory(:computer_bill_distributed)
+  end
+end
+
 #返程运单结算
 Factory.define :settlement do |s|
   s.association :org,:factory => :zz
+end
+Factory.define :settlement_with_bills,:parent => :settlement do |s|
+  s.after_create do |st|
+    st.carrying_bills << Factory(:computer_bill_deliveried)
+  end
+end
+#返款清单
+Factory.define :refound do |r|
+  r.association :from_org,:factory => :zz
+  r.association :to_org,:factory => :ay
+end
+Factory.define :refound_with_bills,:parent => :refound do |r|
+  r.after_create do |rf|
+    rf.carrying_bills << Factory(:computer_bill_settlemented)
+  end
 end

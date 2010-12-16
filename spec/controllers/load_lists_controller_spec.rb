@@ -64,7 +64,6 @@ describe LoadListsController do
         post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => [@computer_bill.id]
         response.should redirect_to(assigns[:load_list])
       end
-
     end
 
     describe "with invalid params" do

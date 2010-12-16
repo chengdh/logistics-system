@@ -2,6 +2,7 @@ IlYanzhao::Application.routes.draw do
 
   resources :refounds do
     resources :carrying_bills
+    get :process_handle,:on => :member
   end
 
 

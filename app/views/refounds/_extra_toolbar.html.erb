@@ -1,0 +1,5 @@
+<%if params[:action] == "show" && resource.refounded? %>
+  <li class="first">
+    <%= link_to image_tag("auction-hammer--arrow.png") , process_handle_refound_path(resource),:title => "收款确认",:class => "tipsy"  %>
+  </li>
+<%end%>
