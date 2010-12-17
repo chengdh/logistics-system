@@ -28,7 +28,17 @@ jQuery(function($) {
 		$('#sum_fee').text(sum_fee);
 
 	};
+	//根据客户编号查询查询客户信息
+	var search_customer_by_code = function() {
+		var code = $(this).val();
+		if (code == "") return;
+		$.get('/customers', {
+			"search[code_eq]": code
+		},
+		null, 'script');
 
+	};
+	$('#customer_code').live('change', search_customer_by_code);
 	$('form.carrying_bill').live("change", calculate_carrying_bill);
 	//绑定所有日期选择框
 	$.datepicker.setDefaults({
@@ -231,7 +241,7 @@ jQuery(function($) {
 				animationSpeed: "normal",
 				cls: 'error'
 			});
-                        return false;
+			return false;
 
 		}
 

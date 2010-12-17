@@ -1,0 +1,19 @@
+<%if collection.blank?%>
+  $.notifyBar({
+  html: "未查询到客户信息,请检查客户编号!",
+delay: 3000,
+animationSpeed: "normal",
+cls : 'error'
+});
+$('#customer_code').html('');
+$('#from_customer_id').val('');
+$('#from_customer_name').val('');
+$('#from_customer_phone').val('');
+$('#customer_code').html('');
+$('#customer_code').focus();
+<%else%>
+  //更新对应的运单相关字段
+$('#from_customer_id').val('<%=collection.first.id%>');
+$('#from_customer_name').val('<%=collection.first.name%>');
+$('#from_customer_phone').val('<%=collection.first.phone%>');
+<%end%>

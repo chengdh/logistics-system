@@ -77,6 +77,10 @@ Factory.define :computer_bill do |bill|
   bill.goods_num 20
   bill.goods_info "机打运单"
 end
+#带有VIP客户信息的票据
+Factory.define :computer_bill_with_vip ,:parent => :computer_bill do |bill|
+  bill.association :from_customer,:factory => :vip
+end
 #已装车机打票
 Factory.define :computer_bill_loaded,:parent => :computer_bill do |bill|
   bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
@@ -138,9 +142,6 @@ Factory.define :computer_bill_settlemented,:parent => :computer_bill do |bill|
     bill.standard_process   #结算操作
   end
 end
-
-
-
 
 #手工票
 Factory.define :hand_bill do |bill|
@@ -262,4 +263,28 @@ Factory.define :refound_with_bills,:parent => :refound do |r|
   r.after_create do |rf|
     rf.carrying_bills << Factory(:computer_bill_settlemented)
   end
+end
+#客户信息
+Factory.define :customer do |c|
+  c.name "0000001"
+  c.code "0000001"
+  c.phone "0000001"
+end
+#银行信息
+Factory.define :bank do |b|
+  b.name "银行"
+  b.code '0'
+end
+Factory.define :icbc,:parent => :bank do |b|
+  b.name "中国工商银行"
+  b.code '1'
+end
+#VIP客户信息
+Factory.define :vip do |vip|
+  vip.name "张三"
+  vip.phone "1763636634343"
+  vip.association :org,:factory => :zz
+  vip.association :bank,:factory => :icbc
+  vip.bank_card "6222032031714562349"
+  vip.id_number "410221197510020418"
 end

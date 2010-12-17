@@ -7,9 +7,10 @@ namespace :db do
     zz_branch = Branch.create!(:name => "郑州公司",
                                :simp_name => "郑",
                                :manager => "李保庆",
+                               :code => "zz",
                                :location => "南四环十八里河")
     ('A'..'Z').each do |n|
-      branch = Branch.new(:name => n,:simp_name => n)
+      branch = Branch.new(:name => n,:simp_name => n,:code => n)
       zz_branch.children << branch
     end
     %w[
@@ -31,16 +32,27 @@ namespace :db do
     峰峰
     武安
     邯郸
-    邢台].each do |name|
-      Branch.create!(:name => name,:simp_name => name.first,:location => name)
+    邢台].each_with_index do |name,index|
+      Branch.create!(:name => name,:simp_name => name.first,:location => name,:code => index + 1)
     end
+    #银行信息
+    %w[建设银行 工商银行 交通银行 光大银行].each_with_index do  |bank,index|
+      Bank.create!(:name => bank,:code => index + 1)
+    end
+    #客户资料
+    50.times do |index|
+      Vip.create!(:name => "vip_#{index}",:phone => ("%07d" % index),:bank => Bank.first,:bank_card =>"%019d" % (index + 1),:org => Branch.first,:id_number => "%018d" % (index + 1) )
+    end
+
     #生成示例票据数据
     #各种票据生成50张
     50.times do |index|
       Factory(:computer_bill,:from_org => Branch.first,:to_org => Branch.last)
+      Factory(:computer_bill,:pay_type =>"TH",:from_org => Branch.first,:to_org => Branch.last,:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
       Factory(:hand_bill,:from_org => Branch.first,:to_org => Branch.last,:bill_no => "hand_bill_no_#{index}",:goods_no => "hand_goods_no_#{index}")
       Factory(:transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last)
       Factory(:hand_transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last,:bill_no => "hand_transit_bill_no_#{index}",:goods_no => "hand_transit_goods_no_#{index}")
     end
+
   end
 end

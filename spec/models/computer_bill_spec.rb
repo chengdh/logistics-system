@@ -13,8 +13,10 @@ describe ComputerBill do
     @computer_bill.bill_no.should_not be_blank
     @computer_bill.goods_no.should_not be_blank
   end
-  it "机打票必须录入票据日期字段" do
-    @computer_bill.bill_date = nil
+  it "客户编号与客户姓名不匹配时,验证不通过" do
+    customer = Factory(:customer)
+    @computer_bill.customer_code = '00001'
+    @computer_bill.from_customer_name = 'test'
     @computer_bill.should_not be_valid
   end
   it "机打票必须录入发货地和到货地" do

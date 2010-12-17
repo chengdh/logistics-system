@@ -1,5 +1,7 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :vips
+
   resources :customers
 
   resources :banks

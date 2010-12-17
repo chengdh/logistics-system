@@ -1,7 +1,7 @@
 /* Override here any style defined by web-app-theme */
+/* reset */
 #main {float : right;}
 #sidebar {float : left;}
-/* reset */
 
 
 /* layout */
@@ -9,6 +9,7 @@
 .text-center {text-align : center;}
 .float-left {float : left;}
 .float-right {float : right;}
+.box {padding : 5px;}
 
 /*error display*/
 .field_with_errors {

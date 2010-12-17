@@ -1,36 +1,43 @@
-<%= semantic_form_for resource ,:html => {:id => "carrying_bill_form",:class => "carrying_bill"} do |f|%>
-  <%= f.inputs do %>
-    <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:class => 'datepicker'} %>
-    <%= f.input :bill_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
-    <%= f.input :goods_no,:hint => "保存票据后系统自动生成",:input_html => {:readonly => true} %>
-
+<%= semantic_form_for resource ,:remote=> true,:html => {:id => "carrying_bill_form",:class => "wat-cf carrying_bill"} do |f|%>
+  <%=f.error_messages %>
+  <%= f.inputs "票据基础信息"  do %>
+    <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:class => 'datepicker',:size => 10} %>
+    <%= f.input :bill_no,:input_html => {:readonly => true} %>
+    <%= f.input :goods_no,:input_html => {:readonly => true} %>
     <%= f.input :from_org_id,:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "可录入拼音简写查询发货地(例如:安阳,可录入ay)"} %>
 
     <%= f.input :to_org_id,:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "可录入拼音简写查询到货地(例如:安阳,可录入ay)"} %>
 
-    <%= f.input :from_customer_name %>
-    <%= f.input :from_customer_phone %>
+    <%= f.input :to_area %>
+  <%end%>
+
+  <%= f.inputs "收货人/发货人信息"  do %>
+    <%=f.input :customer_code,:input_html => { :id => "customer_code"}%>
+    <%= f.input :from_customer_name,:input_html => {:id => "from_customer_name"} %>
+    <%= f.input :from_customer_phone,:input_html => {:id => "from_customer_phone"} %>
     <%= f.input :to_customer_name %>
     <%= f.input :to_customer_phone %>
-    <%= f.input :to_area %>
+  <%end%>
+
+  <%= f.inputs "运费及代收货款"  do %>
+    <%= f.input :pay_type,:as => :select,:include_blank => false,:collection => CarryingBill.pay_types %>
+    <%= f.input :carrying_fee ,:input_html => {:id => "carrying_fee"}%>
     <%= f.input :insured_amount ,:input_html => {:id => "insured_amount"}%>
     <%= f.input :insured_rate  ,:input_html => {:id => "insured_rate"}%>
     <%= f.input :insured_fee,:input_html => {:readonly => true,:id => "insured_fee" } %>
-    <%= f.input :pay_type,:as => :select,:include_blank => false,:collection => CarryingBill.pay_types %>
-    <%= f.input :carrying_fee ,:input_html => {:id => "carrying_fee"}%>
     <%= f.input :from_short_carrying_fee,:input_html => {:id => "from_short_carrying_fee"} %>
     <%= f.input :to_short_carrying_fee,:input_html => {:id => "to_short_carrying_fee"}  %>
     <li>
       <label>合计运费</label>
       <p id='sum_carrying_fee'>0.0</p>
     </li>
-
     <%= f.input :goods_fee,:input_html => {:id => "goods_fee"} %>
     <li>
       <label>总计</label>
       <p id='sum_fee'>0.0</p>
     </li>
-
+  <%end%>
+  <%= f.inputs "货物信息"  do %>
     <%= f.input :goods_num %>
     <%= f.input :goods_info,:as => :string %>
   <% end %>

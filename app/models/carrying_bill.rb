@@ -1,11 +1,20 @@
 #coding: utf-8
+class CustomerCodeValidator < ActiveModel::EachValidator
+  def validate_each(object,attribute,value)
+    if value.present?
+      object.errors[attribute] <<(options[:message] || "客户编号与姓名不匹配" ) unless Customer.exists?(:code => value,:name => object.from_customer_name,:is_active => true)
+    end
+  end
+end
 class CarryingBill < ActiveRecord::Base
+  before_validation :set_customer
   belongs_to :from_org,:class_name => "Org" 
   belongs_to :transit_org,:class_name => "Org" 
   belongs_to :to_org,:class_name => "Org" 
   belongs_to :deliver_info
   belongs_to :settlement
   belongs_to :refound
+  belongs_to :from_customer,:class_name => "Customer"
 
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"
@@ -19,6 +28,7 @@ class CarryingBill < ActiveRecord::Base
   validates :bill_no,:goods_no,:uniqueness => true
   validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id,:to_org_id
   validates_numericality_of :insured_amount,:insured_rate,:insured_fee,:carrying_fee,:goods_fee,:from_short_carrying_fee,:to_short_carrying_fee,:goods_num
+  validates :customer_code,:customer_code => true
   #定义state_machine
   #已开票
   #已装车
@@ -100,6 +110,10 @@ class CarryingBill < ActiveRecord::Base
       ""
       self.to_org.name unless self.to_org.nil?
     end
+    #代收货款支付方式,无客户编号时,为现金支付
+    def goods_fee_cash?
+      self.from_customer.blank?
+    end
     #得到提货应收金额
     def th_amount
       amount = carrying_fee
@@ -111,7 +125,13 @@ class CarryingBill < ActiveRecord::Base
     def carrying_fee_total
       carrying_fee + insured_fee + from_short_carrying_fee + to_short_carrying_fee
     end
-
+    #定义customer_code虚拟属性
+    def customer_code
+      @customer_code || self.from_customer.try(:code)
+    end
+    def customer_code=(customer_code)
+      @customer_code = customer_code
+    end
     protected
     #生成退货单据
     #录入原运单编号后回车，可显示原票信息退货信息：
@@ -157,9 +177,17 @@ class CarryingBill < ActiveRecord::Base
       #6位年月日+始发地市+到达地市+始发组织机构代码（如返程货则为到达地组织机构代码）+序列号+“-”+件数
       self.goods_no ="#{bill_date.strftime('%y%m%d')}#{from_org.simp_name}#{to_org.simp_name}#{today_sequence}-#{goods_num}"
     end
+
     private
     #获取当日发货单序列
     def today_sequence
       CarryingBill.where(:bill_date => Date.today,:from_org_id => from_org_id,:to_org_id => to_org_id).count + 1
+    end
+    #设置发货人关联信息
+    def set_customer
+      self.from_customer = nil if customer_code.blank?
+      if Customer.exists?(:code => customer_code,:name => from_customer_name,:is_active => true)
+        self.from_customer = Customer.where(:is_active => true).find_by_code(customer_code)
+      end
     end
   end
