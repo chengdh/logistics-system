@@ -47,7 +47,6 @@ namespace :db do
     #生成示例票据数据
     #各种票据生成50张
     50.times do |index|
-      Factory(:computer_bill,:from_org => Branch.first,:to_org => Branch.last)
       Factory(:computer_bill,:pay_type =>"TH",:from_org => Branch.first,:to_org => Branch.last,:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
       Factory(:hand_bill,:from_org => Branch.first,:to_org => Branch.last,:bill_no => "hand_bill_no_#{index}",:goods_no => "hand_goods_no_#{index}")
       Factory(:transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last)

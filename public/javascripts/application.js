@@ -262,5 +262,32 @@ jQuery(function($) {
 		});
 
 	});
+	//生成代收货款支付清单
+	var gen_payment_list = function(evt) {
+		var params = {
+			"search[state_eq]": "refounded_confirmed",
+			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
+			"search[goods_fee_gt]": 0
+		};
+		if (evt.data.is_cash) {
+			params["search[from_customer_id_is_null"] = "1";
+			params["search[from_org_id_eq]"] = $('#from_org_id').val();
+		}
+		else {
+			params["search[from_customer_id_is_not_null"] = "1";
+			params["search[from_customer_bank_id_eq]"] = $('#bank_id').val();
+		}
+
+		$.get('/carrying_bills', params, null, 'script');
+
+	};
+	$('#btn_generate_cash_payment_list').click({
+		is_cash: true
+	},
+	gen_payment_list);
+	$('#btn_generate_transfer_payment_list').click({
+		is_cash: false
+	},
+	gen_payment_list);
 });
 

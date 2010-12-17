@@ -1,2 +1,2 @@
-class TransferPaymentListsController < InheritedResources::Base
+class TransferPaymentListsController < BaseController
 end
