@@ -1,5 +1,9 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :transfer_payment_lists
+
+  resources :cash_payment_lists
+
   resources :vips
 
   resources :customers

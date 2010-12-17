@@ -210,7 +210,7 @@ jQuery(function($) {
 	});
 
 	//生成返款清单时,收款单位变化时,列出结算清单
-	$('#to_org_id').live('change', function() {
+	$('[name="refound[to_org_id]"]').live('change', function() {
 		if ($(this).val() == "") return;
 		$.get('/settlements', {
 			"search[carrying_bills_from_org_id_eq]": $(this).val(),

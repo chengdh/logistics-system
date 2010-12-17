@@ -1,0 +1,2 @@
+class CashPaymentListsController < BaseController
+end
