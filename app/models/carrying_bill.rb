@@ -17,6 +17,7 @@ class CarryingBill < ActiveRecord::Base
   belongs_to :settlement
   belongs_to :refound
   belongs_to :payment_list
+  belongs_to :pay_info
 
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"

@@ -129,11 +129,18 @@ jQuery(function($) {
 			$.extend(params, {
 				"search[bill_no_eq]": $(this).val()
 			});
+			//添加发货站或到货站id
+			if ($('#from_org_id').length > 0) $.extend(params, {
+				"search[from_org_id_eq]": $('#from_org_id').val()
+			});
+			if ($('#to_org_id').length > 0) $.extend(params, {
+				"search[to_org_id_eq]": $('#to_org_id').val()
+			});
 			$.get('/carrying_bills', params, null, 'script');
 		})
 	});
 	//绑定提货处理的ajax:before
-	$('#deliver_info_form').livequery(function() {
+	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info').livequery(function() {
 		$(this).bind('ajax:before', function() {
 			var bill_els = $('[data-bill]');
 			var bill_ids = [];
@@ -222,21 +229,21 @@ jQuery(function($) {
 		null, 'script')
 	});
 	//全选结算清单
-	$('#settlement_check_all').live('click', function() {
-		$('input[name^="settlement_selector"]').each(function() {
-			$(this).attr('checked', $('#settlement_check_all').attr('checked'));
+	$('#check_all').live('click', function() {
+		$('input[name^="bill_selector"]').each(function() {
+			$(this).attr('checked', $('#check_all').attr('checked'));
 		});
 
 	});
 	//绑定生成支付清单按钮
 	$('#btn_generate_refound').bind('ajax:before', function() {
-		var selected_settlement_ids = [];
-		$('input[name^="settlement_selector"]').each(function() {
-			if ($(this).attr('checked')) selected_settlement_ids.push($(this).val());
+		var selected_bill_ids = [];
+		$('input[name^="bill_selector"]').each(function() {
+			if ($(this).attr('checked')) selected_bill_ids.push($(this).val());
 		});
-		if (selected_settlement_ids.length == 0) {
+		if (selected_bill_ids.length == 0) {
 			$.notifyBar({
-				html: "请选择要返款的结算清单!",
+				html: "请选择要生成支付清单的结算清单!",
 				delay: 3000,
 				animationSpeed: "normal",
 				cls: 'error'
@@ -250,7 +257,7 @@ jQuery(function($) {
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[state_eq]": "settlemented",
 			"search[goods_fee_or_carrying_fee_gt]": 0,
-			"search[settlement_id_in][]": selected_settlement_ids
+			"search[settlement_id_in][]": selected_bill_ids
 		};
 		$(this).data('params', params);
 		//选定单据改变时,修改对应返款清单相关金额字段
@@ -288,5 +295,29 @@ jQuery(function($) {
 		is_cash: false
 	},
 	gen_payment_list);
+
+        //批量提款,银行转账界面,绑定声称批量提款清单按钮功能
+	$('#btn_generate_transfer_pay_info').bind('ajax:before', function() {
+		var selected_bill_ids = [];
+		$('input[name^="bill_selector"]').each(function() {
+			if ($(this).attr('checked')) selected_bill_ids.push($(this).val());
+		});
+		if (selected_bill_ids.length == 0) {
+			$.notifyBar({
+				html: "请选择要批量提款的代收货款支付清单!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+			return false;
+
+		}
+		var params = {
+			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
+			"search[state_eq]": "payment_listed",
+			"search[payment_list_id_in][]": selected_bill_ids
+		};
+		$(this).data('params', params);
+	});
 });
 

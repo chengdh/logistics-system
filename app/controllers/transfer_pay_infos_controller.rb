@@ -1,0 +1,2 @@
+class TransferPayInfosController < BaseController
+end

@@ -1,0 +1,26 @@
+<table id="<%= resource_class.name.underscore.pluralize %>_index_table" class="table">
+  <tr>
+    <th><%=check_box_tag "check_all",1,false,:title => "选择/不选全部",:class => "tipsy" %></th>
+      <th>序号</th>
+      <th>清单日期</th>
+      <th>银行</th>
+      <th>结算员</th>
+      <th>应支付货款</th>
+      <th>扣运费</th>
+      <th>扣手续费</th>
+      <th>应付合计</th>
+  </tr>
+  <% collection.each_with_index do |resource,index| %>
+    <tr class="<%= cycle 'odd', 'even' %>">
+      <td><%=check_box_tag "bill_selector_#{resource.id}",resource.id %></td>
+      <td><%= order_no(index,params[:page]) %></td>
+      <td><%= resource.bill_date.strftime('%Y-%m-%d') %></td>
+      <td><%= resource.bank.try(:name) %></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  <% end %>
+</table>

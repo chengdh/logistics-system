@@ -1,8 +1,23 @@
 IlYanzhao::Application.routes.draw do
 
-  resources :transfer_payment_lists
+  resources :transfer_pay_infos do
+    resources :carrying_bills
+  end
 
-  resources :cash_payment_lists
+
+  resources :cash_pay_infos do
+    resources :carrying_bills
+  end
+
+
+  resources :transfer_payment_lists do
+    resources :carrying_bills
+  end
+
+
+  resources :cash_payment_lists do
+    resources :carrying_bills
+  end
 
   resources :vips
 

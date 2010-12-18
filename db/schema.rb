@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101217120625) do
+ActiveRecord::Schema.define(:version => 20101218110657) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20101217120625) do
     t.integer  "settlement_id"
     t.integer  "refound_id"
     t.integer  "payment_list_id"
+    t.integer  "pay_info_id"
   end
 
   create_table "customers", :force => true do |t|
@@ -132,6 +133,18 @@ ActiveRecord::Schema.define(:version => 20101217120625) do
     t.string   "py",              :limit => 20
   end
 
+  create_table "pay_infos", :force => true do |t|
+    t.integer  "org_id"
+    t.integer  "user_id"
+    t.string   "customer_name", :limit => 30, :null => false
+    t.string   "id_number",     :limit => 30
+    t.string   "state",         :limit => 20
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.date     "bill_date",                   :null => false
+  end
+
   create_table "payment_lists", :force => true do |t|
     t.integer  "bank_id"
     t.integer  "org_id"
@@ -141,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20101217120625) do
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "bill_date",                :null => false
   end
 
   create_table "refounds", :force => true do |t|
@@ -166,6 +180,7 @@ ActiveRecord::Schema.define(:version => 20101217120625) do
     t.string   "state",            :limit => 20
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.date     "bill_date",                                                                      :null => false
   end
 
 end

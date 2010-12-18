@@ -12,6 +12,8 @@ class Settlement < ActiveRecord::Base
       transition :billed =>:settlemented
     end
   end
+
+  default_value_for :bill_date,Date.today
   def sum_fee
     self.sum_carrying_fee + self.sum_goods_fee
   end

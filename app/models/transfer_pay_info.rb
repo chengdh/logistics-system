@@ -1,0 +1,2 @@
+class TransferPayInfo < PayInfo
+end
