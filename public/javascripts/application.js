@@ -210,14 +210,14 @@ jQuery(function($) {
 	});
 
 	//生成返款清单时,收款单位变化时,列出结算清单
-	$('[name="refound[to_org_id]"]').live('change', function() {
+	$('[name="refound[to_org_id]"],[name="refound[from_org_id]"]').live('change', function() {
 		if ($(this).val() == "") return;
 		$.get('/settlements', {
-			"search[carrying_bills_from_org_id_eq]": $(this).val(),
+			"search[carrying_bills_from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
+			"search[carrying_bills_to_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
 			"search[carrying_bills_type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[carrying_bills_state_eq]": "settlemented",
-			"search[carrying_bills_goods_fee_or_carrying_bills_carrying_fee_gt]": 0,
-			"search[carrying_bills_pay_type_eq]": "TH"
+			"search[carrying_bills_goods_fee_or_carrying_bills_carrying_fee_gt]": 0
 		},
 		null, 'script')
 	});
@@ -246,11 +246,10 @@ jQuery(function($) {
 		}
 
 		var params = {
-			"search[from_org_id_eq]": $('#refound_form').val(),
+			"search[from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[state_eq]": "settlemented",
 			"search[goods_fee_or_carrying_fee_gt]": 0,
-			"search[pay_type_eq]": "TH",
 			"search[settlement_id_in][]": selected_settlement_ids
 		};
 		$(this).data('params', params);
@@ -265,7 +264,7 @@ jQuery(function($) {
 	//生成代收货款支付清单
 	var gen_payment_list = function(evt) {
 		var params = {
-			"search[state_eq]": "refounded_confirmed",
+			"search[state_eq]": "refunded_confirmed",
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[goods_fee_gt]": 0
 		};

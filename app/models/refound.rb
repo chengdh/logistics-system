@@ -10,7 +10,7 @@ class Refound < ActiveRecord::Base
       refound.carrying_bills.each {|bill| bill.standard_process}
     end
     event :process do
-      transition :billed =>:refounded,:refounded => :refounded_confirmed
+      transition :billed =>:refunded,:refunded => :refunded_confirmed
     end
   end
 
