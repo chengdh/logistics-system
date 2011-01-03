@@ -209,4 +209,3 @@
 		listen_change_els: ["from_org_id", "to_org_id", "org_id", "bill_date_eq"] //值发生变化时触发运单查询的元素
 	}
 })(jQuery);
-

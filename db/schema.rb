@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20101218110657) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "bill_date",                   :null => false
+    t.string   "type",          :limit => 20
   end
 
   create_table "payment_lists", :force => true do |t|

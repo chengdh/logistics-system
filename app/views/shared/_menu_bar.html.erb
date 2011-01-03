@@ -38,6 +38,20 @@
     <ul class="navigation">
       <li><%= link_to "返款清单", refounds_path %></li>
   </div>
+  <h3><%= link_to "代收货款支付", "#" %></h3>
+  <div>
+    <ul class="navigation">
+      <li><%= link_to "现金-代收货款支付清单", new_cash_payment_list_path %></li>
+      <li><%= link_to "转账-代收货款支付清单", new_transfer_payment_list_path %></li>
+  </div>
+  <h3><%= link_to "客户提款", "#" %></h3>
+  <div>
+    <ul class="navigation">
+      <li><%= link_to "现金-客户提款", new_cash_pay_info_path %></li>
+      <li><%= link_to "转账-客户提款", new_transfer_pay_info_path %></li>
+  </div>
+
+
 
 
 

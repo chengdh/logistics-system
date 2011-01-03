@@ -296,7 +296,7 @@ jQuery(function($) {
 	},
 	gen_payment_list);
 
-        //批量提款,银行转账界面,绑定声称批量提款清单按钮功能
+        //批量提款,银行转账界面,绑定生成批量提款清单按钮功能
 	$('#btn_generate_transfer_pay_info').bind('ajax:before', function() {
 		var selected_bill_ids = [];
 		$('input[name^="bill_selector"]').each(function() {
