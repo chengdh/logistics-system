@@ -160,8 +160,48 @@ Factory.define :computer_bill_refounded_confirmed,:parent => :computer_bill do |
     bill.standard_process   #返款确认
   end
 end
-
-
+#已做付款清单运单
+Factory.define :computer_bill_payment_listed,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.distribution_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.deliver_info_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.settlement_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.refound_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.payment_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+    bill.standard_process   #到货操作
+    bill.standard_process   #分货操作
+    bill.standard_process   #提货操作
+    bill.standard_process   #结算操作
+    bill.standard_process   #返款操作
+    bill.standard_process   #返款确认
+    bill.standard_process   #结算清单
+  end
+end
+#已支付货款运单
+Factory.define :computer_bill_paid,:parent => :computer_bill do |bill|
+  bill.load_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.distribution_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的装车单id
+  bill.deliver_info_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.settlement_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.refound_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.payment_list_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.pay_info_id 1  #FIXME 为避免state_machine错误此处设置其对应的提货单id
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发货操作
+    bill.standard_process   #到货操作
+    bill.standard_process   #分货操作
+    bill.standard_process   #提货操作
+    bill.standard_process   #结算操作
+    bill.standard_process   #返款操作
+    bill.standard_process   #返款确认
+    bill.standard_process   #代收货款支付清单
+    bill.standard_process   #代收货款提款
+  end
+end
 
 #手工票
 Factory.define :hand_bill do |bill|
@@ -308,12 +348,51 @@ Factory.define :vip do |vip|
   vip.bank_card "6222032031714562349"
   vip.id_number "410221197510020418"
 end
-#现金代收货款转账清单
+#现金代收货款支付清单
 Factory.define :cash_payment_list do |p_list|
   p_list.association :org,:factory => :zz
 end
 Factory.define :cash_payment_list_with_bills,:parent => :cash_payment_list do |p_list|
   p_list.after_create do |pl|
     pl.carrying_bills << Factory(:computer_bill_refounded_confirmed)
+  end
+end
+#银行代收货款转账清单
+Factory.define :transfer_payment_list do |p_list|
+  p_list.association :org,:factory => :zz
+  p_list.association :bank,:factory => :icbc 
+end
+Factory.define :transfer_payment_list_with_bills,:parent => :transfer_payment_list do |p_list|
+  p_list.after_create do |pl|
+    pl.carrying_bills << Factory(:computer_bill_refounded_confirmed)
+  end
+end
+#客户提款-现金
+Factory.define :cash_pay_info do |p|
+  p.association :org,:factory => :zz
+  p.customer_name "张三"
+end
+Factory.define :cash_pay_info_with_bills,:parent => :cash_pay_info do |p|
+  p.after_create do |pi|
+    pi.carrying_bills << Factory(:computer_bill_payment_listed)
+  end
+end
+#客户提款-转账
+Factory.define :transfer_pay_info do |p|
+  p.association :org,:factory => :zz
+  p.customer_name "张三"
+end
+Factory.define :transfer_pay_info_with_bills,:parent => :transfer_pay_info do |p|
+  p.after_create do |pi|
+    pi.carrying_bills << Factory(:computer_bill_payment_listed)
+  end
+end
+#每日过帐信息汇总
+Factory.define :post_info do |p|
+  p.association :org,:factory => :zz
+end
+Factory.define :post_info_with_bills,:parent => :post_info do |p|
+  p.after_create do |pi|
+    pi.carrying_bills << Factory(:computer_bill_paid)
   end
 end

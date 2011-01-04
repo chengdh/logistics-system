@@ -25,14 +25,6 @@ describe RefoundsController do
     end
   end
 
-  describe "GET edit" do
-    it "assigns the requested refound as @refound" do
-      refound = Factory(:refound_with_bills)
-      get :edit, :id => refound
-      assigns(:refound).should == refound
-    end
-  end
-
   describe "POST create" do
     before(:each) do
       @computer_bill = Factory(:computer_bill_settlemented)
@@ -59,7 +51,4 @@ describe RefoundsController do
     end
 
   end
-
-
-
 end

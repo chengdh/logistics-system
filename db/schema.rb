@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101218110657) do
+ActiveRecord::Schema.define(:version => 20110104064858) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20101218110657) do
     t.integer  "refound_id"
     t.integer  "payment_list_id"
     t.integer  "pay_info_id"
+    t.integer  "post_info_id"
+    t.decimal  "k_hand_fee",                            :precision => 15, :scale => 2, :default => 0.0
   end
 
   create_table "customers", :force => true do |t|
@@ -156,6 +158,17 @@ ActiveRecord::Schema.define(:version => 20101218110657) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "bill_date",                :null => false
+  end
+
+  create_table "post_infos", :force => true do |t|
+    t.integer  "org_id"
+    t.integer  "user_id"
+    t.text     "note"
+    t.date     "bill_date",                                                                :null => false
+    t.decimal  "amount_fee",               :precision => 15, :scale => 2, :default => 0.0
+    t.string   "state",      :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "refounds", :force => true do |t|

@@ -1,5 +1,9 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :post_infos do
+    resources :carrying_bills
+  end
+
   resources :transfer_pay_infos do
     resources :carrying_bills
   end

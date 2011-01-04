@@ -1,6 +1,7 @@
 class PayInfo < ActiveRecord::Base
   has_many :carrying_bills
   belongs_to :org
+  validates_presence_of :customer_name
   #belongs_to :user
   #定义状态机
   state_machine :initial => :billed do

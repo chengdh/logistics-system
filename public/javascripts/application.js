@@ -296,7 +296,7 @@ jQuery(function($) {
 	},
 	gen_payment_list);
 
-        //批量提款,银行转账界面,绑定生成批量提款清单按钮功能
+	//批量提款,银行转账界面,绑定生成批量提款清单按钮功能
 	$('#btn_generate_transfer_pay_info').bind('ajax:before', function() {
 		var selected_bill_ids = [];
 		$('input[name^="bill_selector"]').each(function() {
@@ -319,5 +319,40 @@ jQuery(function($) {
 		};
 		$(this).data('params', params);
 	});
+
+	//客户提款结算清单
+        //实领金额变化时,更新余额
+        var cal_rest_fee = function(){
+          var amount_fee = parseFloat($('#post_info_amount_fee').val());
+          var sum_pay_fee = parseFloat($('#sum_pay_fee').val());
+          var rest_fee = amount_fee - sum_pay_fee;
+          $('#sum_rest_fee').val(rest_fee);
+
+        };
+
+	$('#btn_generate_post_info').bind('ajax:before', function() {
+		var params = {
+			"search[from_org_id_eq]": $('#from_org_id').val(),
+			"search[state_eq]": 'paid',
+			"search[from_customer_id_is_null]" :  1,
+			"search[type_in][]": ['ComputerBill', 'HandBill', 'TransitBill', 'HandTransitBill']
+		};
+		$(this).data('params', params);
+	}).bind('ajax:complete', function() {
+		if ($('#bills_table').length == 0) return;
+		var sum_info = $('#bills_table').data('sum');
+		var ids = $('#bills_table').data('ids');
+		$('#sum_goods_fee').val(sum_info.sum_goods_fee);
+		$('#sum_k_carrying_fee').val(sum_info.sum_k_carrying_fee);
+		$('#sum_k_hand_fee').val(sum_info.sum_k_hand_fee);
+                //计算实际提款及余额
+		$('#sum_pay_fee').val(sum_info.sum_pay_fee);
+		$('#pay_info_form').data('params', {
+			'bill_ids[]': ids
+		});
+                cal_rest_fee();
+	});
+        //绑定实领金额变化事件
+        $('#post_info_amount_fee').change(cal_rest_fee);
 });
 
