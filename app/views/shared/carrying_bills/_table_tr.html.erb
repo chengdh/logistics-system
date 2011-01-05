@@ -1,0 +1,42 @@
+<tr id='<%="bill_#{bill.id}" %>' data-bill='<%=bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])%>' class='bill_cal_sum'>
+  <td>
+    <%=bill.bill_date.strftime('%y-%m-%d')%>
+  </td>
+  <td>
+    <%=bill.bill_no%>/<%=bill.goods_no%>
+  </td>
+  <td>
+    <%=bill.from_org_name%>--<%=bill.to_org_name%>
+  </td>
+  <td>
+    <%=bill.from_customer_name%>
+    <%="(#{bill.from_customer_phone})"%>
+    --
+    <%=bill.to_customer_name%>
+    <%="(#{bill.to_customer_phone})"%>
+  </td>
+  <td>
+    <%=pay_type_des(bill.pay_type) %>
+  </td>
+  <td class="carrying_fee">
+    <%=bill.carrying_fee %>
+  </td>
+  <td class="carrying_fee_th" style='display : none;'>
+    <%=bill.carrying_fee_th %>
+  </td>
+  <td class="goods_fee">
+    <%=bill.goods_fee %>
+  </td>
+  <td class="th_amount" style='display : none;'>
+    <%=bill.th_amount %>
+  </td>
+  <td class="k_hand_fee" style='display : none;'><%=bill.k_hand_fee%></td>
+  <td class="k_carrying_fee" style='display : none;'><%= bill.k_carrying_fee %></td>
+  <td class="act_pay_fee" style='display : none;'><%= bill.act_pay_fee %></td>
+  <td class="insured_fee"><%=bill.insured_fee%></td>
+  <td class="from_short_carrying_fee" style='display : none;'><%= bill.from_short_carrying_fee %></td>
+  <td class="to_short_carrying_fee" style='display : none;'><%= bill.to_short_carrying_fee %></td>
+  <td>
+    <%=link_to_function  image_tag("mouse--minus.png"),"$('#bill_#{bill.id}').remove()" %>
+  </td>
+</tr>      

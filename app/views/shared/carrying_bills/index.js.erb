@@ -1,16 +1,16 @@
 <%if collection.blank?%>
   $.notifyBar({
-html: "未查询的符合条件的运单,请修改查询条件!",
-delay: 3000,
-animationSpeed: "normal",
-cls : 'error'
-});
+      html: "未查询的符合条件的运单,请修改查询条件!",
+      delay: 3000,
+      animationSpeed: "normal",
+      cls : 'error'
+  });
   $('#table_wrap').html('');
 <%else%>
   <%if params[:show_multi]%>
     <%if params[:show_multi].present?%>
       if($('#bill_<%=collection.first.id%>').length == 0)
-      $('#bills_table_body').after('<%= escape_javascript(render("shared/carrying_bills/table_single",:bill => collection.first)) %>');
+      $('#bills_table_body').after('<%= escape_javascript(render("shared/carrying_bills/table_tr",:bill => collection.first)) %>');
     <%else%>
       $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
     <%end%>
@@ -18,4 +18,7 @@ cls : 'error'
     $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/table")) %>');
   <%end%>
 <%end%>
+//以下设定显示字段
+$('<%=params[:hide_fields]%>').hide();
+$('<%=params[:show_fields]%>').show();
 $.fancybox.close();

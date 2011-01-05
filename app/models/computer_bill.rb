@@ -2,5 +2,5 @@
 #机打票
 class ComputerBill < CarryingBill
   #创建数据前声称票据编号和货号
-  before_save :generate_bill_no,:generate_goods_no
+  before_create :generate_bill_no,:generate_goods_no
 end

@@ -113,15 +113,30 @@ class CarryingBill < ActiveRecord::Base
       ""
       self.to_org.name unless self.to_org.nil?
     end
+    #提付运费,付款方式为提货付时,等于运费,其他为0
+    def carrying_fee_th
+      ret = 0
+      ret = self.carrying_fee if self.pay_type == CarryingBill::PAY_TYPE_TH
+      ret
+    end
+    #扣运费,运费支付方式为从货款扣除时等于运费,否则为0
+    def k_carrying_fee
+      ret = 0
+      ret = self.carrying_fee if self.pay_type == CarryingBill::PAY_TYPE_K_GOODSFEE
+      ret
+    end
+    #实提货款 原货款 - 扣运费 - 扣手续费
+    def act_pay_fee
+      ret = self.goods_fee - self.k_hand_fee - self.k_carrying_fee
+    end
+
     #代收货款支付方式,无客户编号时,为现金支付
     def goods_fee_cash?
       self.from_customer.blank?
     end
     #得到提货应收金额
     def th_amount
-      amount = carrying_fee
-      amount += goods_fee if pay_type == CarryingBill::PAY_TYPE_TH
-      amount += to_short_carrying_fee
+      amount = self.carrying_fee_th + self.goods_fee + self.to_short_carrying_fee
       amount
     end
     #运费总计

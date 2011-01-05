@@ -1,35 +1,9 @@
 <div class='actions-bar text-right'>
-  <input type='text' size="10" class="search_box" data-params = '{"search[state_eq]" : "distributed","search[type_in][]" : ["ComputerBill","HandBill","ReturnBill"],"show_multi" : "<%=params[:show_multi].present? ? 1 : ""%>"}'/>
+  <input type='text' size="10" class="search_box" data-params = '{"search[state_eq]" : "distributed","search[type_in][]" : ["ComputerBill","HandBill","ReturnBill"],"hide_fields" : ".carrying_fee,.insured_fee","show_fields" : ".carrying_fee_th,.th_amount","show_multi" : "<%=params[:show_multi].present? ? 1 : ""%>"}'/>
 </div>
 <hr />
 <%if params[:show_multi].blank?%>
   <div id="table_wrap"></div>
 <%else%>
-  <table class="table" id="bills_table">
-    <thead>
-      <tr class='text-center'>             
-        <th>票据日期</th>
-        <th>票号</th>
-        <th>发货地--到货地</th>
-        <th>发货人-收货人</th>
-        <th>付款方式</th>
-        <th>运费</th>
-        <th>代收货款</th>
-        <th>保价费</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody id='bills_table_body'>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td colspan='4'>总计</td>
-        <td id='count'></td>
-        <td id='sum_carrying_fee'></td>
-        <td id='sum_goods_fee'></td>
-        <td id='sum_insured_fee'></td>
-        <td></td>
-      </tr>
-    </tfoot>
-  </table>
+  <%= render "shared/carrying_bills/table_no_paginate" %>
 <%end%>

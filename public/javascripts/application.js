@@ -169,13 +169,23 @@ jQuery(function($) {
 	var cal_sum = function() {
 		var sum_carrying_fee = 0;
 		var sum_goods_fee = 0;
+		var sum_carrying_fee_th = 0;
+		var sum_k_carrying_fee = 0;
+		var sum_k_hand_fee = 0;
+		var sum_act_pay_fee = 0;
 		var sum_from_short_carrying_fee = 0;
 		var sum_to_short_carrying_fee = 0;
 		var sum_insured_fee = 0;
+                var sum_th_amount = 0;
 
 		$('[data-bill]').each(function() {
 			var the_bill = $(this).data('bill');
 			sum_carrying_fee += parseFloat(the_bill.carrying_fee);
+			sum_carrying_fee_th += parseFloat(the_bill.carrying_fee_th);
+			sum_k_carrying_fee += parseFloat(the_bill.k_carrying_fee);
+			sum_th_amount += parseFloat(the_bill.th_amount);
+			sum_k_hand_fee += parseFloat(the_bill.k_hand_fee);
+			sum_act_pay_fee += parseFloat(the_bill.act_pay_fee);
 			sum_goods_fee += parseFloat(the_bill.goods_fee);
 			sum_from_short_carrying_fee += parseFloat(the_bill.from_short_carrying_fee);
 			sum_to_short_carrying_fee += parseFloat(the_bill.to_short_carrying_fee);
@@ -185,7 +195,12 @@ jQuery(function($) {
 
 		$('#count').html($('[data-bill]').length + '票');
 		$('#sum_carrying_fee').html(sum_carrying_fee);
+		$('#sum_k_carrying_fee').html(sum_k_carrying_fee);
+		$('#sum_carrying_fee_th').html(sum_carrying_fee_th);
+		$('#sum_hand_fee').html(sum_k_hand_fee);
+		$('#sum_act_pay_fee').html(sum_act_pay_fee);
 		$('#sum_goods_fee').html(sum_goods_fee);
+		$('#sum_th_amount').html(sum_th_amount);
 		$('#sum_insured_fee').html(sum_insured_fee);
 
 	};
@@ -201,19 +216,21 @@ jQuery(function($) {
 		var params = {
 			"search[to_org_id_or_transit_org_id_eq]": $('#to_org_id').val(),
 			"search[state_eq]": 'deliveried',
-			"search[type_in][]": ['ComputerBill', 'HandBill', 'ReturnBill', 'TransitBill', 'HandTransitBill']
+			"search[type_in][]": ['ComputerBill', 'HandBill', 'ReturnBill', 'TransitBill', 'HandTransitBill'],
+                        //以下设定运单列表中的显示及隐藏字段,设定为css选择符
+                        "hide_fields" : ".carrying_fee",
+                        "show_fields" : ".carrying_fee_th"
 		};
 		$(this).data('params', params);
 	}).bind('ajax:complete', function() {
 		if ($('#bills_table').length == 0) return;
 		var sum_info = $('#bills_table').data('sum');
 		var ids = $('#bills_table').data('ids');
-		$('#settlement_sum_carrying_fee').val(sum_info.sum_carrying_fee);
+		$('#settlement_sum_carrying_fee').val(sum_info.sum_carrying_fee_th);
 		$('#settlement_sum_goods_fee').val(sum_info.sum_goods_fee);
 		$('#settlement_form').data('params', {
 			'bill_ids[]': ids
 		});
-
 	});
 
 	//生成返款清单时,收款单位变化时,列出结算清单
@@ -221,7 +238,7 @@ jQuery(function($) {
 		if ($(this).val() == "") return;
 		$.get('/settlements', {
 			"search[carrying_bills_from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
-			"search[carrying_bills_to_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
+			"search[carrying_bills_to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
 			"search[carrying_bills_type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[carrying_bills_state_eq]": "settlemented",
 			"search[carrying_bills_goods_fee_or_carrying_bills_carrying_fee_gt]": 0
@@ -230,7 +247,7 @@ jQuery(function($) {
 	});
 	//全选结算清单
 	$('#check_all').live('click', function() {
-		$('input[name^="bill_selector"]').each(function() {
+		$('input[name^="selector"]').each(function() {
 			$(this).attr('checked', $('#check_all').attr('checked'));
 		});
 
@@ -238,7 +255,7 @@ jQuery(function($) {
 	//绑定生成支付清单按钮
 	$('#btn_generate_refound').bind('ajax:before', function() {
 		var selected_bill_ids = [];
-		$('input[name^="bill_selector"]').each(function() {
+		$('input[name^="selector"]').each(function() {
 			if ($(this).attr('checked')) selected_bill_ids.push($(this).val());
 		});
 		if (selected_bill_ids.length == 0) {
@@ -254,16 +271,19 @@ jQuery(function($) {
 
 		var params = {
 			"search[from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
+			"search[to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[state_eq]": "settlemented",
 			"search[goods_fee_or_carrying_fee_gt]": 0,
-			"search[settlement_id_in][]": selected_bill_ids
+			"search[settlement_id_in][]": selected_bill_ids,
+                        "hide_fields" : ".carrying_fee",
+                        'show_fields' : ".carrying_fee_th"
 		};
 		$(this).data('params', params);
 		//选定单据改变时,修改对应返款清单相关金额字段
 		$($.bill_selector).bind('select:change', function() {
 			$('#refound_sum_goods_fee').val($.bill_selector.sum_info.sum_goods_fee);
-			$('#refound_sum_carrying_fee').val($.bill_selector.sum_info.sum_carrying_fee);
+			$('#refound_sum_carrying_fee').val($.bill_selector.sum_info.sum_carrying_fee_th);
 			$('#refound_sum_fee').html(parseFloat($.bill_selector.sum_info.sum_carrying_fee) + parseFloat($.bill_selector.sum_info.sum_goods_fee));
 		});
 
@@ -273,7 +293,10 @@ jQuery(function($) {
 		var params = {
 			"search[state_eq]": "refunded_confirmed",
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
-			"search[goods_fee_gt]": 0
+			"search[goods_fee_gt]": 0,
+                        //运单列表显示的字段
+                        "hide_fields" : ".carrying_fee,.insured_fee",
+                        "show_fields" : ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
 		};
 		if (evt.data.is_cash) {
 			params["search[from_customer_id_is_null"] = "1";
@@ -315,7 +338,9 @@ jQuery(function($) {
 		var params = {
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[state_eq]": "payment_listed",
-			"search[payment_list_id_in][]": selected_bill_ids
+			"search[payment_list_id_in][]": selected_bill_ids,
+                        "hide_fields" : ".carrying_fee,.insured_fee",
+                        "show_fields" : ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
 		};
 		$(this).data('params', params);
 	});
@@ -335,7 +360,10 @@ jQuery(function($) {
 			"search[from_org_id_eq]": $('#from_org_id').val(),
 			"search[state_eq]": 'paid',
 			"search[from_customer_id_is_null]" :  1,
-			"search[type_in][]": ['ComputerBill', 'HandBill', 'TransitBill', 'HandTransitBill']
+			"search[type_in][]": ['ComputerBill', 'HandBill', 'TransitBill', 'HandTransitBill'],
+                        "hide_fields" : ".carrying_fee,.insured_fee",
+                        "show_fields" : ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
+
 		};
 		$(this).data('params', params);
 	}).bind('ajax:complete', function() {

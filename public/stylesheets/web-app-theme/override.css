@@ -59,7 +59,8 @@ bigger-font {font-size : 1.5em;}
 .search_box {
   width : 200px;
   height : 20px;
-  background :  url(/images/magnifier-left.png) no-repeat 180px ;
+  text-indent : 20px;
+  background :  url(/images/magnifier-left.png) no-repeat left center ;
 }
 
 /* color */

@@ -7,12 +7,6 @@ module ApplicationHelper
     direction = (column == sort_column && sort_direction == "desc") ? "asc" : "desc"  
     link_to title, params.merge(:sort => column, :direction => direction,:page => nil), {:class => css_class,:title => "点击可排序"}  
   end  
-  #运费支付方式显示
-  def pay_type_des(pay_type)
-    pay_type_des = ""
-    CarryingBill.pay_types.each {|des,code| pay_type_des = des if code == pay_type }
-    pay_type_des
-  end
   #金额转中文大写
   def convertNumToChinese(num)
     chineseNumArr=['零','壹','贰','叁','肆','伍','陆','柒','捌','玖']
@@ -86,35 +80,5 @@ module ApplicationHelper
     cur_page = cur_page.to_i if cur_page.kind_of?(String)
     rows_per_page = cur_page.to_i if rows_per_page.kind_of?(String) 
     index+1 + rows_per_page*(cur_page - 1) 
-  end
-  #得到查询对象的id数组
-  def search_ids
-    @search.select(:id).map {|bill| bill.id }.to_json
-  end
-  #得到票据合计信息
-  def search_sum
-    sum_info = {
-      :count => @search.count,
-      :sum_carrying_fee => @search.relation.sum(:carrying_fee),
-      #TODO 
-      #现金付运费合计
-      :sum_carrying_fee_cash => @search.where(:pay_type => CarryingBill::PAY_TYPE_CASH).sum(:carrying_fee),
-      #提货付运费合计
-      :sum_carrying_fee_th => @search.where(:pay_type => CarryingBill::PAY_TYPE_TH).sum(:carrying_fee),
-      #回执付运费合计
-      :sum_carrying_fee_re => @search.where(:pay_type => CarryingBill::PAY_TYPE_RETURN).sum(:carrying_fee),
-      #自货款扣除运费合计
-      :sum_k_carrying_fee => @search.where(:pay_type => CarryingBill::PAY_TYPE_K_GOODSFEE).sum(:carrying_fee),
-      #扣手续费合计
-      :sum_k_hand_fee => @search.relation.sum(:k_hand_fee),
-      :sum_goods_fee => @search.relation.sum(:goods_fee),
-      :sum_insured_fee => @search.relation.sum(:insured_fee),
-      :sum_from_short_carrying_fee => @search.relation.sum(:from_short_carrying_fee),
-      :sum_to_short_carrying_fee => @search.relation.sum(:to_short_carrying_fee),
-      :sum_goods_num => @search.relation.sum(:goods_num)
-    }
-    #实提货款合计
-    sum_info[:sum_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
-    sum_info.to_json
   end
 end
