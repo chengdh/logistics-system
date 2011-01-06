@@ -1,18 +1,23 @@
 <table id="<%= resource_class.name.underscore.pluralize %>_index_table" class="table">
-  <tr>
-    <% index_table_columns.each do |column| %>
-      <th><%= column.to_s.titlecase %></th>
-    <% end %>
-  </tr>
-  <% collection.each do |resource| %>
-    <tr class="<%= cycle 'odd', 'even' %>",title="test test">
+  <thead>
+    <tr>
       <% index_table_columns.each do |column| %>
-        <td><%= resource.send(column.to_sym) %></td>
+        <th><%= column.to_s.titlecase %></th>
       <% end %>
-      <td>
-        <%= link_to "Edit", edit_resource_path(resource) %> | 
-        <%= link_to "Delete", resource_path(resource), :method => :delete, :confirm => "Are you sure you want to delete this?" %>
-      </td>
+      <th>&nbsp;</th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% collection.each do |resource| %>
+      <tr class="<%= cycle 'odd', 'even' %>",title="双击显示详细信息" class='tipsy' data-url="<%=resource_path(resource)%>">
+        <% index_table_columns.each do |column| %>
+          <td><%= resource.send(column.to_sym) %></td>
+        <% end %>
+        <td>
+          <%= link_to "Edit", edit_resource_path(resource) %> | 
+          <%= link_to "Delete", resource_path(resource), :method => :delete, :confirm => "Are you sure you want to delete this?" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

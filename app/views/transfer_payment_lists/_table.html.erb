@@ -12,7 +12,7 @@
   </tr>
   <% collection.each_with_index do |resource,index| %>
     <tr class="<%= cycle 'odd', 'even' %>">
-      <td><%=check_box_tag "bill_selector_#{resource.id}",resource.id %></td>
+      <td><%=check_box_tag "selector_#{resource.id}",resource.id %></td>
       <td><%= order_no(index,params[:page]) %></td>
       <td><%= resource.bill_date.strftime('%Y-%m-%d') %></td>
       <td><%= resource.bank.try(:name) %></td>

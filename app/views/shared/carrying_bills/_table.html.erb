@@ -1,83 +1,87 @@
 <table class="table" id="bills_table" data-ids='<%=search_ids%>' data-sum = '<%=search_sum.to_json%>'>
-  <tr class='select_bill_bar' style='display : none;'>
-    <td colspan="6">
-      选择:
-      <%=link_to_function "全选",'',:id => "btn_select_all",:title => "选中全部票据",:class => 'tipsy'%> |
-      <%=link_to_function "不选",'',:id => "btn_unselect_all",:title => "取消选中的票据",:class => 'tipsy'%>
-    </td>
-    <td><span id="bill_count"></span></td>
-    <td class="carrying_fee"><span id="sum_carrying_fee"></span></td>
-    <td class="carrying_fee_th" style='display : none;'><span id="sum_carrying_fee_th"></span></td>
-    <td class="goods_fee"><span id="sum_goods_fee"></span></td>
-    <td class="k_hand_fee" style='display : none;'><span id="sum_k_hand_fee"></span></td>
-    <td class="k_carrying_fee" style='display : none;'><span id="sum_k_carrying_fee"></span></td>
-    <td class="act_pay_fee" style='display : none;'><span id="sum_act_pay_fee"></span></td>
-    <td class="insured_fee"><span id="sum_insured_fee"></span></td>
-    <td class="from_short_carrying_fee" style='display : none;'><span id="sum_from_short_carrying_fee"></span></td>
-    <td class="to_short_carrying_fee" style='display : none;'><span id="sum_to_short_carrying_fee"></span></td>
-  </tr>
-  <tr class='text-center'>             
-    <th class="cbx_select_bill" style='display : none;'>&nbsp;</th>
-    <th class="first">序号</th>
-    <th><%=sortable "bill_date","票据日期" %></th>
-    <th><%=sortable "bill_no","票号" %>/<%=sortable "goods_no","货号" %></th>
-    <th><%=sortable "from_org_id","发货地" %>--<%=sortable "to_org_id","到货地" %></th>
-    <th>发货人-收货人</th>
-    <th><%=sortable "pay_type","付款方式" %></th>
-    <th class="carrying_fee">运费</th>
-    <th class="carrying_fee_th" style='display : none;'>提付运费</th>
-    <th class="goods_fee">代收货款</th>
-    <th class="k_hand_fee" style='display : none;'>扣手续费</th>
-    <th class="k_carrying_fee" style='display : none;'>扣运费</th>
-    <th class="act_pay_fee" style='display : none;'>实提货款</th>
-    <th class="insured_fee">保价费</th>
-    <th class="from_short_carrying_fee" style='display : none;'>发货地短途运费</th>
-    <th class="to_short_carrying_fee" style='display : none;'>到货地短途运费</th>
-  </tr>
-  <% collection.each_with_index do |bill,index| %>
-    <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>'>
-      <td class='cbx_select_bill' style='display : none;'>
-        <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])}" %>
-      </td>
-      <td>
-        <%= order_no(index,params[:page]) %>
-      </td>
-      <td>
-        <%=bill.bill_date.strftime('%y-%m-%d')%>
-      </td>
-      <td>
-        <%=bill.bill_no%>/<%=bill.goods_no%>
-      </td>
-      <td>
-        <%=bill.from_org_name%>--<%=bill.to_org_name%>
-      </td>
-      <td>
-        <%=bill.from_customer_name%>
-        <%="(#{bill.from_customer_phone})"%>
-        --
-        <%=bill.to_customer_name%>
-        <%="(#{bill.to_customer_phone})"%>
-      </td>
-      <td>
-        <%=pay_type_des(bill.pay_type) %>
-      </td>
-      <td class="carrying_fee">
-        <%=bill.carrying_fee %>
-      </td>
-      <td class="carrying_fee_th" style='display : none;'>
-        <%=bill.carrying_fee_th %>
-      </td>
-      <td class="goods_fee">
-        <%=bill.goods_fee %>
-      </td>
-      <td class="k_hand_fee" style='display : none;'><%=bill.k_hand_fee%></td>
-      <td class="k_carrying_fee" style='display : none;'><%= bill.k_carrying_fee %></td>
-      <td class="act_pay_fee" style='display : none;'><%= bill.act_pay_fee %></td>
-      <td class="insured_fee"><%=bill.insured_fee%></td>
-      <td class="from_short_carrying_fee" style='display : none;'><%= bill.from_short_carrying_fee %></td>
-      <td class="to_short_carrying_fee" style='display : none;'><%= bill.to_short_carrying_fee %></td>
-    </tr>          
-  <% end -%>
+  <thead>
+    <tr class='select_bill_bar' style='display : none;'>
+      <th colspan="6">
+        选择:
+        <%=link_to_function "全选",'',:id => "btn_select_all",:title => "选中全部票据",:class => 'tipsy'%> |
+        <%=link_to_function "不选",'',:id => "btn_unselect_all",:title => "取消选中的票据",:class => 'tipsy'%>
+      </th>
+      <th><span id="bill_count"></span></th>
+      <th class="carrying_fee"><span id="sum_carrying_fee"></span></th>
+      <th class="carrying_fee_th" style='display : none;'><span id="sum_carrying_fee_th"></span></th>
+      <th class="goods_fee"><span id="sum_goods_fee"></span></th>
+      <th class="k_hand_fee" style='display : none;'><span id="sum_k_hand_fee"></span></th>
+      <th class="k_carrying_fee" style='display : none;'><span id="sum_k_carrying_fee"></span></th>
+      <th class="act_pay_fee" style='display : none;'><span id="sum_act_pay_fee"></span></th>
+      <th class="insured_fee"><span id="sum_insured_fee"></span></th>
+      <th class="from_short_carrying_fee" style='display : none;'><span id="sum_from_short_carrying_fee"></span></th>
+      <th class="to_short_carrying_fee" style='display : none;'><span id="sum_to_short_carrying_fee"></span></th>
+    </tr>
+    <tr class='text-center'>             
+      <th class="cbx_select_bill" style='display : none;'>&nbsp;</th>
+      <th class="first">序号</th>
+      <th><%=sortable "bill_date","票据日期" %></th>
+      <th><%=sortable "bill_no","票号" %>/<%=sortable "goods_no","货号" %></th>
+      <th><%=sortable "from_org_id","发货地" %>--<%=sortable "to_org_id","到货地" %></th>
+      <th>发货人-收货人</th>
+      <th><%=sortable "pay_type","付款方式" %></th>
+      <th class="carrying_fee">运费</th>
+      <th class="carrying_fee_th" style='display : none;'>提付运费</th>
+      <th class="goods_fee">代收货款</th>
+      <th class="k_hand_fee" style='display : none;'>扣手续费</th>
+      <th class="k_carrying_fee" style='display : none;'>扣运费</th>
+      <th class="act_pay_fee" style='display : none;'>实提货款</th>
+      <th class="insured_fee">保价费</th>
+      <th class="from_short_carrying_fee" style='display : none;'>发货地短途运费</th>
+      <th class="to_short_carrying_fee" style='display : none;'>到货地短途运费</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% collection.each_with_index do |bill,index| %>
+      <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>'>
+        <td class='cbx_select_bill' style='display : none;'>
+          <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])}" %>
+        </td>
+        <td>
+          <%= order_no(index,params[:page]) %>
+        </td>
+        <td>
+          <%=bill.bill_date.strftime('%y-%m-%d')%>
+        </td>
+        <td>
+          <%=bill.bill_no%>/<%=bill.goods_no%>
+        </td>
+        <td>
+          <%=bill.from_org_name%>--<%=bill.to_org_name%>
+        </td>
+        <td>
+          <%=bill.from_customer_name%>
+          <%="(#{bill.from_customer_phone})"%>
+          --
+          <%=bill.to_customer_name%>
+          <%="(#{bill.to_customer_phone})"%>
+        </td>
+        <td>
+          <%=pay_type_des(bill.pay_type) %>
+        </td>
+        <td class="carrying_fee">
+          <%=bill.carrying_fee %>
+        </td>
+        <td class="carrying_fee_th" style='display : none;'>
+          <%=bill.carrying_fee_th %>
+        </td>
+        <td class="goods_fee">
+          <%=bill.goods_fee %>
+        </td>
+        <td class="k_hand_fee" style='display : none;'><%=bill.k_hand_fee%></td>
+        <td class="k_carrying_fee" style='display : none;'><%= bill.k_carrying_fee %></td>
+        <td class="act_pay_fee" style='display : none;'><%= bill.act_pay_fee %></td>
+        <td class="insured_fee"><%=bill.insured_fee%></td>
+        <td class="from_short_carrying_fee" style='display : none;'><%= bill.from_short_carrying_fee %></td>
+        <td class="to_short_carrying_fee" style='display : none;'><%= bill.to_short_carrying_fee %></td>
+      </tr>          
+    <% end -%>
+  </tbody>
   <tfoot>
     <tr>
       <td class="cbx_select_bill" style='display : none;'>&nbsp;</td>

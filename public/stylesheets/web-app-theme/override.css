@@ -11,6 +11,55 @@
 .float-right {float : right;}
 .box {padding : 5px;}
 
+/* table 样式覆盖*/
+.table thead tr{
+  background-color: #D9FFD9;
+  border-top: 1px solid     black;
+  border-bottom: 1px solid black;
+}
+
+.table tfoot tr{ background-cssolor: #FFFFFF;}
+.table thead th{
+  padding: 0.5em;
+  white-space: nowrap;
+}
+.table tfoot th{
+  font-size: 110%;
+  text-align: right;
+  padding-rightt: 0.5em;
+  letter-spacing: 1px;
+}
+.table tfoot td{
+  paddinging-left: 0.5em;
+  color: red;
+  font-size: 110%;
+  font-weight: 600;
+}
+
+.table tfoot td:hover {
+  background-color: red;
+  color: white;
+}
+
+.table tr{background-color: #EAFDFF;}
+.table tr.odd{background-color: #FFFFFF;}
+.table tbody tr:hover{background-color: #FFCCCC;}
+.table td, .table th{border: 1px dotted #CCCCCC;}
+.table tbody td{padding: 0.5em;}
+.table td  a:link,.table th a:link{color: black;}
+.table td a:visited, .table th a:visited{
+  color: black;
+  text-decoration: line-through;
+}
+.table td a:hover,.table th a:hover{
+  color: purple;
+  text-decoration: underline;
+}
+.table td:last-child a:hover{
+  color: red;
+  text-decoration: underline overline;
+}
+
 /*error display*/
 .field_with_errors {
   padding: 2px;

@@ -30,7 +30,7 @@ class PostInfo < ActiveRecord::Base
     self.carrying_bills.sum(:k_hand_fee)
   end
   #实际支付运费
-  def sum_pay_fee
+  def sum_act_pay_fee
     sum_goods_fee - sum_k_carrying_fee - sum_k_hand_fee
   end
   #余额
