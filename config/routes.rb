@@ -1,5 +1,15 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :transit_deliver_infos do
+    resource :carrying_bill
+  end
+
+  resources :transit_companies
+
+  resources :transit_infos do
+    resource :carrying_bill
+  end
+
   resources :post_infos do
     resources :carrying_bills
   end

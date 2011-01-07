@@ -49,8 +49,11 @@ namespace :db do
     50.times do |index|
       Factory(:computer_bill,:pay_type =>"TH",:from_org => Branch.first,:to_org => Branch.last,:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
       Factory(:hand_bill,:from_org => Branch.first,:to_org => Branch.last,:bill_no => "hand_bill_no_#{index}",:goods_no => "hand_goods_no_#{index}")
-      Factory(:transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last)
-      Factory(:hand_transit_bill,:from_org => Branch.first,:transit_org => Branch.find_by_name('A'),:to_org => Branch.last,:bill_no => "hand_transit_bill_no_#{index}",:goods_no => "hand_transit_goods_no_#{index}")
+      Factory(:transit_bill,:from_org => Branch.find_by_py('sjz'),:transit_org => Branch.find_by_py('zzgs'),:to_area => "开封")
+      Factory(:hand_transit_bill,:from_org => Branch.find_by_py('sjz'),:transit_org => Branch.find_by_py('zzgs'),:to_area => "开封",:bill_no => "hand_transit_bill_no_#{index}",:goods_no => "hand_transit_goods_no_#{index}")
+    end
+    10.times do |index|
+      TransitCompany.create(:name => "中转公司_#{index}",:address => "中转公司地址_#{index} ")
     end
 
   end

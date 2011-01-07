@@ -58,6 +58,10 @@
 			sum_k_hand_fee: "#sum_k_hand_fee",
 			sum_act_pay_fee: "#sum_act_pay_fee",
 			sum_goods_fee: "#sum_goods_fee",
+			sum_transit_carrying_fee: "#sum_transit_carrying_fee",
+			sum_transit_hand_fee: "#sum_transit_hand_fee",
+			sum_agent_carrying_fee: "#sum_agent_carrying_fee",
+			sum_th_amount: "#sum_th_amount",
 			sum_insured_fee: "#sum_insured_fee",
 			sum_from_short_carrying_fee: "#sum_from_short_carrying_fee",
 			sum_to_short_carrying_fee: "#sum_to_short_carrying_fee",
@@ -78,6 +82,10 @@
 				$.bill_selector.sum_info.sum_act_pay_fee = 0;
 				$.bill_selector.sum_info.sum_goods_fee = 0;
 				$.bill_selector.sum_info.sum_insured_fee = 0;
+				$.bill_selector.sum_info.sum_transit_carrying_fee = 0;
+				$.bill_selector.sum_info.sum_transit_hand_fee = 0;
+				$.bill_selector.sum_info.sum_agent_carrying_fee = 0;
+				$.bill_selector.sum_info.sum_th_amount = 0;
 				$.bill_selector.sum_info.sum_from_short_carrying_fee = 0;
 				$.bill_selector.sum_info.sum_to_short_carrying_fee = 0;
 			}
@@ -112,6 +120,13 @@
 				$.bill_selector.sum_info.sum_from_short_carrying_fee = parseFloat($.bill_selector.sum_info.sum_from_short_carrying_fee) + parseFloat(the_bill.from_short_carrying_fee);
 				$.bill_selector.sum_info.sum_to_short_carrying_fee = parseFloat($.bill_selector.sum_info.sum_to_short_carrying_fee) + parseFloat(the_bill.to_short_carrying_fee);
 
+
+				$.bill_selector.sum_info.sum_transit_carrying_fee = parseFloat($.bill_selector.sum_info.sum_transit_carrying_fee) + parseFloat(the_bill.transit_carrying_fee);
+				$.bill_selector.sum_info.sum_transit_hand_fee = parseFloat($.bill_selector.sum_info.sum_transit_hand_fee) + parseFloat(the_bill.transit_hand_fee);
+				$.bill_selector.sum_info.sum_agent_carrying_fee = parseFloat($.bill_selector.sum_info.sum_agent_carrying_fee) + parseFloat(the_bill.agent_carrying_fee);
+				$.bill_selector.sum_info.sum_th_amount = parseFloat($.bill_selector.sum_info.th_amount) + parseFloat(the_bill.th_amount);
+
+
 			}
 			else {
 				var index = $.inArray(the_bill.id, $.bill_selector.selected_ids)
@@ -128,6 +143,11 @@
 				$.bill_selector.sum_info.sum_from_short_carrying_fee = parseFloat($.bill_selector.sum_info.sum_from_short_carrying_fee) - parseFloat(the_bill.from_short_carrying_fee);
 				$.bill_selector.sum_info.sum_to_short_carrying_fee = parseFloat($.bill_selector.sum_info.sum_to_short_carrying_fee) - parseFloat(the_bill.to_short_carrying_fee);
 
+				$.bill_selector.sum_info.sum_transit_carrying_fee = parseFloat($.bill_selector.sum_info.sum_transit_carrying_fee) - parseFloat(the_bill.transit_carrying_fee);
+				$.bill_selector.sum_info.sum_transit_hand_fee = parseFloat($.bill_selector.sum_info.sum_transit_hand_fee) - parseFloat(the_bill.transit_hand_fee);
+				$.bill_selector.sum_info.sum_agent_carrying_fee = parseFloat($.bill_selector.sum_info.sum_agent_carrying_fee) - parseFloat(the_bill.agent_carrying_fee);
+				$.bill_selector.sum_info.sum_th_amount = parseFloat($.bill_selector.sum_info.th_amount) - parseFloat(the_bill.th_amount);
+
 
 			}
 			$.bill_selector.update_html();
@@ -143,7 +163,13 @@
 			$($.bill_selector.options.sum_goods_fee).html($.bill_selector.sum_info.sum_goods_fee);
 			$($.bill_selector.options.sum_insured_fee).html($.bill_selector.sum_info.sum_insured_fee);
 			$($.bill_selector.options.sum_from_short_carrying_fee).html($.bill_selector.sum_info.sum_from_short_carrying_fee);
+
 			$($.bill_selector.options.sum_to_short_carrying_fee).html($.bill_selector.sum_info.sum_to_short_carrying_fee);
+
+			$($.bill_selector.options.sum_transit_carrying_fee).html($.bill_selector.sum_info.sum_transit_carrying_fee);
+			$($.bill_selector.options.sum_transit_hand_fee).html($.bill_selector.sum_info.sum_transit_hand_fee);
+			$($.bill_selector.options.sum_agent_carrying_fee).html($.bill_selector.sum_info.sum_agent_carrying_fee);
+			$($.bill_selector.options.sum_th_amount).html($.bill_selector.sum_info.sum_th_amount);
 			//触发选择改变事件
 			$($.bill_selector).trigger('select:change');
 
@@ -207,7 +233,7 @@
 				$('#search_to_org_id_eq').val(default_values["to_org_id_eq"]).trigger('change');
 				$('#search_to_org_id_eq').attr('disabled', true);
 				jQuery.extend(default_values, {
-					"search[to_org_id_eq]": default_values["to_org_id_eq"]
+					"search[to_org_id_or_transit_org_id_eq]": default_values["to_org_id_eq"]
 				});
 			}
 			$('#search_bill_form').data('params', default_values)

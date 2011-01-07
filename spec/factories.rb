@@ -237,14 +237,33 @@ Factory.define :transit_bill do |bill|
   bill.goods_fee 5000
   bill.from_short_carrying_fee 20
   bill.to_short_carrying_fee 20
-  bill.pay_type CarryingBill::PAY_TYPE_CASH
+  bill.pay_type CarryingBill::PAY_TYPE_TH
   bill.goods_num 20
 
   bill.goods_info "中转运单"
-  bill.association :from_org,:factory => :ay
+  bill.association :from_org,:factory => :sjz
   bill.association :transit_org,:factory => :zz
-  bill.association :to_org,:factory => :kf
+  bill.to_area "开封"
 end
+Factory.define :transit_bill_reached,:parent => :transit_bill do |bill|
+  bill.load_list_id 1
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发车操作
+    bill.standard_process   #到货确认
+  end
+end
+Factory.define :transit_bill_transited,:parent => :transit_bill do |bill|
+  bill.load_list_id 1
+  bill.transit_info_id 1
+  bill.after_create do |bill| 
+    bill.standard_process   #装车操作
+    bill.standard_process   #发车操作
+    bill.standard_process   #到货确认
+    bill.standard_process   #中转
+  end
+end
+
 #手工中转票
 Factory.define :hand_transit_bill do |bill|
   bill.bill_date Date.today
@@ -396,3 +415,27 @@ Factory.define :post_info_with_bills,:parent => :post_info do |p|
     pi.carrying_bills << Factory(:computer_bill_paid)
   end
 end
+#中转公司
+Factory.define :transit_company do |tc|
+  tc.name "长通物流"
+  tc.phone "0371-68987709"
+  tc.address "长通物流园区"
+end
+#中转票据中转信息
+Factory.define :transit_info do |ti|
+  ti.association :org,:factory => :zz
+  ti.association :transit_company
+  ti.transit_carrying_fee 100
+end
+Factory.define :transit_info_with_bill,:parent => :transit_info do |ti|
+  ti.association :carrying_bill,:factory => :transit_bill_reached
+end
+#中转票据提货信息
+Factory.define :transit_deliver_info do |td|
+  td.association :org,:factory => :zz
+  td.transit_hand_fee 10
+end
+Factory.define :transit_deliver_info_with_bill,:parent => :transit_deliver_info do |td|
+  td.association :carrying_bill,:factory => :transit_bill_transited
+end
+

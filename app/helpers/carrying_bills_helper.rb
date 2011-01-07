@@ -28,12 +28,16 @@ module CarryingBillsHelper
       :sum_k_hand_fee => @search.relation.sum(:k_hand_fee),
       :sum_goods_fee => @search.relation.sum(:goods_fee),
       :sum_insured_fee => @search.relation.sum(:insured_fee),
+      :sum_transit_carrying_fee => @search.relation.sum(:transit_carrying_fee),
+      :sum_transit_hand_fee => @search.relation.sum(:transit_hand_fee),
       :sum_from_short_carrying_fee => @search.relation.sum(:from_short_carrying_fee),
       :sum_to_short_carrying_fee => @search.relation.sum(:to_short_carrying_fee),
       :sum_goods_num => @search.relation.sum(:goods_num)
     }
     #实提货款合计
     sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
+    sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
+    sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]+ sum_info[:sum_to_short_carrying_fee]
     sum_info
   end
 end

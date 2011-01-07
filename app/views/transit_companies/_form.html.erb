@@ -1,0 +1,41 @@
+<%= form_for(@transit_company) do |f| %>
+  <% if @transit_company.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@transit_company.errors.count, "error") %> prohibited this transit_company from being saved:</h2>
+
+      <ul>
+      <% @transit_company.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %><br />
+    <%= f.check_box :is_active %>
+  </div>
+  <div class="field">
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </div>
+  <div class="field">
+    <%= f.label :leader %><br />
+    <%= f.text_field :leader %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,21 @@
+<div id="table_wrap"></div>
+<table class='table'>
+  <tbody>
+    <tr>
+      <td>中转部门:</td>
+      <td><%=resource.org.name %></td>
+      <td>提货日期:</td>
+      <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
+      <td>中转手续费:</td>
+      <td><%=resource.transit_hand_fee%></td>
+    </tr>
+    <tr>
+      <td>备注:</td>
+      <td colspan="6"><%=resource.note%></td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  //获取清单明细数据
+  $.get('<%=carrying_bill_path(resource.carrying_bill)%>',null,null,'script');
+</script>

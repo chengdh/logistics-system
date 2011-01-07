@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @transit_company.name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%= @transit_company.address %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%= @transit_company.phone %>
+</p>
+
+<p>
+  <b>Is active:</b>
+  <%= @transit_company.is_active %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @transit_company.note %>
+</p>
+
+<p>
+  <b>Leader:</b>
+  <%= @transit_company.leader %>
+</p>
+
+
+<%= link_to 'Edit', edit_transit_company_path(@transit_company) %> |
+<%= link_to 'Back', transit_companies_path %>

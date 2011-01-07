@@ -142,11 +142,16 @@ jQuery(function($) {
 			if ($('#to_org_id').length > 0) $.extend(params, {
 				"search[to_org_id_eq]": $('#to_org_id').val()
 			});
+                        if ($('#transit_org_id').length > 0) $.extend(params, {
+				"search[transit_org_id_eq]": $('#transit_org_id').val()
+			});
 			$.get('/carrying_bills', params, null, 'script');
+		}).focus(function() {
+			$(this).select();
 		})
 	});
-	//绑定提货处理的ajax:before
-	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info').livequery(function() {
+	//绑定提货/提款/中转/中转提货处理的ajax:before
+	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info,#transit_info_form,#transit_deliver_form').livequery(function() {
 		$(this).bind('ajax:before', function() {
 			var bill_els = $('[data-bill]');
 			var bill_ids = [];
@@ -388,5 +393,17 @@ jQuery(function($) {
 	});
 	//绑定实领金额变化事件
 	$('#post_info_amount_fee').change(cal_rest_fee);
+
+	//中转运单中转操作,处理中转公司下拉列表变化事件
+	$('#select_transit_company').change(function() {
+		if ($(this).val() == "") {
+			$('#new_transit_company').show();
+			$('[name*="transit_company_attributes"]').attr('disabled', false);
+		}
+		else {
+			$('#new_transit_company').hide();
+			$('[name*="transit_company_attributes"]').attr('disabled', true);
+		}
+	});
 });
 

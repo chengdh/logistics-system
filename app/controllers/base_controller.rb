@@ -22,7 +22,7 @@ class BaseController < InheritedResources::Base
   end
 
   def resource_name
-    resource_class.human_name
+    resource_class.model_name.human
   end
 
   def resources_name

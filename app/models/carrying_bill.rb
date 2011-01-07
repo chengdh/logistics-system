@@ -13,23 +13,29 @@ class CarryingBill < ActiveRecord::Base
   belongs_to :to_org,:class_name => "Org" 
 
   belongs_to :from_customer,:class_name => "Customer"
+
+  #票据对应的装车清单
+  belongs_to :load_list
+  belongs_to :distribution_list
+
   belongs_to :deliver_info
   belongs_to :settlement
   belongs_to :refound
   belongs_to :payment_list
   belongs_to :pay_info
+  belongs_to :post_info
+
+  belongs_to :transit_info
+  belongs_to :transit_deliver_info
 
   #于退货单来讲,所对应的原始票据,未退货的票据为空
   belongs_to :original_bill,:class_name => "CarryingBill"
   #对于原始单据来讲,有一个对应的退货单据
   has_one :return_bill,:foreign_key => "original_bill_id",:class_name => "ReturnBill"
 
-  #票据对应的装车清单
-  belongs_to :load_list
-  belongs_to :distribution_list
-
+  
   validates :bill_no,:goods_no,:uniqueness => true
-  validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id,:to_org_id
+  validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id
   validates_numericality_of :insured_amount,:insured_rate,:insured_fee,:carrying_fee,:goods_fee,:from_short_carrying_fee,:to_short_carrying_fee,:goods_num
   validates :customer_code,:customer_code => true
   #定义state_machine
@@ -59,10 +65,10 @@ class CarryingBill < ActiveRecord::Base
         :paid => :posted #过帐结束
 
       #普通运单到货后有分发操作,中转运单不存在分发操作
-      transition :reached => :distributed,:distributed => :deliveried,:if => lambda {|bill| bill.transit_org.blank?}
+      transition :reached => :distributed,:distributed => :deliveried,:if => lambda {|bill| bill.transit_org_id.blank?}
 
       #中转运单处理流程
-      transition :reached => :transited,:transited => :deliveried,:if => lambda {|bill| !bill.transit_org.blank?}
+      transition :reached => :transited,:transited => :deliveried,:if => lambda {|bill| bill.transit_org_id.present?}
 
       #TODO 现金付运费,不存在代收货款的运单,提货后处理流程如何?
     end
@@ -129,20 +135,28 @@ class CarryingBill < ActiveRecord::Base
     def act_pay_fee
       ret = self.goods_fee - self.k_hand_fee - self.k_carrying_fee
     end
-
-    #代收货款支付方式,无客户编号时,为现金支付
-    def goods_fee_cash?
-      self.from_customer.blank?
+    #代收运费解释：原票运费支付方式为提货付的，代收运费=原运费—中转运费；
+    #原票运费支付方式为现金付的，代收运费为0
+    def agent_carrying_fee
+      ret = 0
+      ret = self.carrying_fee - self.transit_carrying_fee if pay_type == CarryingBill::PAY_TYPE_TH
+      ret
     end
+
     #得到提货应收金额
     def th_amount
-      amount = self.carrying_fee_th + self.goods_fee + self.to_short_carrying_fee
+      amount = self.agent_carrying_fee - self.transit_hand_fee + self.goods_fee + self.to_short_carrying_fee
       amount
     end
     #运费总计
     def carrying_fee_total
       carrying_fee + insured_fee + from_short_carrying_fee + to_short_carrying_fee
     end
+    #代收货款支付方式,无客户编号时,为现金支付
+    def goods_fee_cash?
+      self.from_customer.blank?
+    end
+
     #定义customer_code虚拟属性
     def customer_code
       @customer_code || self.from_customer.try(:code)
@@ -193,13 +207,17 @@ class CarryingBill < ActiveRecord::Base
     def generate_goods_no
       #货号规则
       #6位年月日+始发地市+到达地市+始发组织机构代码（如返程货则为到达地组织机构代码）+序列号+“-”+件数
-      self.goods_no ="#{bill_date.strftime('%y%m%d')}#{from_org.simp_name}#{to_org.simp_name}#{today_sequence}-#{goods_num}"
+      self.goods_no ="#{bill_date.strftime('%y%m%d')}#{from_org.simp_name}#{to_org.simp_name}#{today_sequence}-#{goods_num}" if self.to_org.present?
+      self.goods_no ="#{bill_date.strftime('%y%m%d')}#{from_org.simp_name}#{transit_org.simp_name}#{today_sequence}-#{goods_num}" if self.transit_org.present?
     end
 
     private
     #获取当日发货单序列
     def today_sequence
-      CarryingBill.where(:bill_date => Date.today,:from_org_id => from_org_id,:to_org_id => to_org_id).count + 1
+      sequence = 1
+      sequence = CarryingBill.where(:bill_date => Date.today,:from_org_id => from_org_id,:to_org_id => to_org_id).count + 1 if self.to_org_id.present?
+      sequence = CarryingBill.where(:bill_date => Date.today,:from_org_id => from_org_id,:transit_org_id => transit_org_id).count + 1 if self.transit_org_id.present?
+      sequence
     end
     #设置发货人关联信息
     def set_customer

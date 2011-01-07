@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110104064858) do
+ActiveRecord::Schema.define(:version => 20110107012613) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -64,6 +64,10 @@ ActiveRecord::Schema.define(:version => 20110104064858) do
     t.integer  "pay_info_id"
     t.integer  "post_info_id"
     t.decimal  "k_hand_fee",                            :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "transit_info_id"
+    t.decimal  "transit_carrying_fee",                  :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "transit_hand_fee",                      :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "transit_deliver_info_id"
   end
 
   create_table "customers", :force => true do |t|
@@ -195,6 +199,41 @@ ActiveRecord::Schema.define(:version => 20110104064858) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "bill_date",                                                                      :null => false
+  end
+
+  create_table "transit_companies", :force => true do |t|
+    t.string   "name",       :limit => 60,                   :null => false
+    t.string   "address",    :limit => 60
+    t.string   "phone",      :limit => 30
+    t.boolean  "is_active",                :default => true
+    t.text     "note"
+    t.string   "leader",     :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transit_deliver_infos", :force => true do |t|
+    t.integer  "org_id",                                                        :null => false
+    t.integer  "uer_id"
+    t.date     "bill_date",                                                     :null => false
+    t.text     "note"
+    t.decimal  "transit_hand_fee",               :precision => 15, :scale => 2
+    t.string   "state",            :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transit_infos", :force => true do |t|
+    t.integer  "org_id",                                                                             :null => false
+    t.integer  "user_id"
+    t.integer  "transit_company_id",                                                                 :null => false
+    t.string   "to_station_phone",     :limit => 30
+    t.date     "bill_date",                                                                          :null => false
+    t.string   "state",                :limit => 20
+    t.decimal  "transit_carrying_fee",               :precision => 15, :scale => 2, :default => 0.0
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

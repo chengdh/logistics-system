@@ -14,6 +14,10 @@
       <th class="k_carrying_fee" style='display : none;'><span id="sum_k_carrying_fee"></span></th>
       <th class="act_pay_fee" style='display : none;'><span id="sum_act_pay_fee"></span></th>
       <th class="insured_fee"><span id="sum_insured_fee"></span></th>
+      <th class="transit_carrying_fee" style='display : none;'><span id="sum_transit_carrying_fee"></span></th>
+      <th class="transit_hand_fee" style='display : none;'><span id="sum_transit_hand_fee"></span></th>
+      <th class="agent_carrying_fee" style='display : none;'><span id="sum_agent_carrying_fee"></span></th>
+      <th class="th_amount" style='display : none;'><span id="sum_th_amount"></span></th>
       <th class="from_short_carrying_fee" style='display : none;'><span id="sum_from_short_carrying_fee"></span></th>
       <th class="to_short_carrying_fee" style='display : none;'><span id="sum_to_short_carrying_fee"></span></th>
     </tr>
@@ -32,6 +36,10 @@
       <th class="k_carrying_fee" style='display : none;'>扣运费</th>
       <th class="act_pay_fee" style='display : none;'>实提货款</th>
       <th class="insured_fee">保价费</th>
+      <th class="transit_carrying_fee" style='display : none;'>中转运费</th>
+      <th class="transit_hand_fee" style='display : none;'>中转手续费</th>
+      <th class="agent_carrying_fee" style='display : none;'>代收运费</th>
+      <th class="th_amount" style='display : none;'>提货应收</th>
       <th class="from_short_carrying_fee" style='display : none;'>发货地短途运费</th>
       <th class="to_short_carrying_fee" style='display : none;'>到货地短途运费</th>
     </tr>
@@ -40,7 +48,7 @@
     <% collection.each_with_index do |bill,index| %>
       <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>'>
         <td class='cbx_select_bill' style='display : none;'>
-          <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])}" %>
+          <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount,:agent_carrying_fee,:carrying_fee_total])}" %>
         </td>
         <td>
           <%= order_no(index,params[:page]) %>
@@ -77,6 +85,11 @@
         <td class="k_carrying_fee" style='display : none;'><%= bill.k_carrying_fee %></td>
         <td class="act_pay_fee" style='display : none;'><%= bill.act_pay_fee %></td>
         <td class="insured_fee"><%=bill.insured_fee%></td>
+        <td class="transit_carrying_fee" style='display : none;'><%=bill.transit_carrying_fee%></td>
+        <td class="transit_hand_fee" style='display : none;'><%=bill.transit_hand_fee%></td>
+        <td class="agent_carrying_fee" style='display : none;'><%=bill.agent_carrying_fee%></td>
+        <td class="th_amount" style='display : none;'><%=bill.th_amount%></td>
+
         <td class="from_short_carrying_fee" style='display : none;'><%= bill.from_short_carrying_fee %></td>
         <td class="to_short_carrying_fee" style='display : none;'><%= bill.to_short_carrying_fee %></td>
       </tr>          
@@ -98,6 +111,10 @@
       <td class="k_carrying_fee" style='display : none;'><%= search_sum[:sum_k_carrying_fee] %></td>
       <td class="act_pay_fee" style='display : none;'><%= search_sum[:sum_act_pay_fee] %></td>
       <td class="insured_fee"><%=search_sum[:sum_insured_fee]%></td>
+      <td class="transit_carrying_fee" style='display : none;'><%=search_sum[:sum_transit_carrying_fee]%></td>
+      <td class="transit_hand_fee" style='display : none;'><%=search_sum[:sum_transit_hand_fee]%></td>
+      <td class="agent_carrying_fee" style='display : none;'><%=search_sum[:sum_agent_carrying_fee]%></td>
+      <td class="th_amount" style='display : none;'><%=search_sum[:sum_th_amount]%></td>
       <td class="from_short_carrying_fee" style='display : none;'><%= search_sum[:sum_from_short_carrying_fee] %></td>
       <td class="to_short_carrying_fee" style='display : none;'><%= search_sum[:sum_to_short_carrying_fee] %></td>
     </tr>
