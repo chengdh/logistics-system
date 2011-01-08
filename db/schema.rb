@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110107012613) do
+ActiveRecord::Schema.define(:version => 20110108164058) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -199,6 +199,25 @@ ActiveRecord::Schema.define(:version => 20110107012613) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "bill_date",                                                                      :null => false
+  end
+
+  create_table "system_function_groups", :force => true do |t|
+    t.string   "name",       :limit => 30,                   :null => false
+    t.integer  "order",                    :default => 1
+    t.boolean  "is_active",                :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "system_functions", :force => true do |t|
+    t.integer  "sytem_function_group_id",                                 :null => false
+    t.string   "subject_title",           :limit => 30,                   :null => false
+    t.string   "action_title",            :limit => 30,                   :null => false
+    t.text     "function_obj",                                            :null => false
+    t.integer  "order",                                 :default => 1
+    t.boolean  "is_active",                             :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "transit_companies", :force => true do |t|

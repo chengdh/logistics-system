@@ -4,6 +4,8 @@ gem 'rails', '3.0.1'
 gem 'mysql2'
 gem "will_paginate", "~> 3.0.pre2"
 gem "meta_search"
+gem "devise"
+gem "cancan"
 #表单中的树形结构选择
 gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
 #gem 'tree_select', :git => 'git://github.com/jeznet/tree_select.git'
