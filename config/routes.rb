@@ -2,7 +2,18 @@ IlYanzhao::Application.routes.draw do
 
   resources :roles
 
-  devise_for :users
+  #将devise的url与model user产生的url区分开
+  #参见https://github.com/plataformatec/devise/wiki/How-To:-Manage-users-through-a-CRUD-interface
+  devise_for :users,:controllers => {:sessions => "sessions"} do
+    #登录成功后显示设置角色与部门界面
+    get "users/new_session_default",:to => "sessions#new_session_default",:as => :new_session_default
+    #保存用户设置
+    put  "users/update_session_default",:to => "sessions#update_session_default",:as => :update_session_default
+  end
+
+  match "users/new_session_default",:to => "sessions#new_session_default",:as => :user_root
+
+  resources :users
 
   resources :transit_deliver_infos do
     resource :carrying_bill
@@ -26,7 +37,6 @@ IlYanzhao::Application.routes.draw do
   resources :cash_pay_infos do
     resources :carrying_bills
   end
-
 
   resources :transfer_payment_lists do
     resources :carrying_bills
@@ -89,6 +99,8 @@ IlYanzhao::Application.routes.draw do
   resources :computer_bills do
     get :search,:on => :collection
   end
+
+  root :to => "computer_bills#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

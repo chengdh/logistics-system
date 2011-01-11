@@ -1,0 +1,26 @@
+<div id="login_dialog" class="login_dialog">
+  <div class="top"></div>
+  <div class="bottom">
+    <%=form_tag update_session_default_path,:method => :put do %>
+      <div id="user_name_login" class="login_type">
+        <h1>请选择<strong>当前角色和机构</strong></h1>
+        <p>
+        <span class='overlay_wrapper'>
+          <%=label_tag :cur_role_id,'角色'%>
+          <%=select_tag :cur_role_id,options_for_select(user_roles_for_select(current_user)) %>
+        </span>
+        </p>
+        <p>
+        <span class='overlay_wrapper'>
+          <%=label_tag :cur_org_id,'机构'%>
+          <%=select_tag :cur_org_id,options_for_select(role_orgs_for_select(current_user.roles.first,current_user.is_admin?)) %>
+        </span>
+        </p>
+      </div>
+      <div id="signin_button">
+        <%= link_to "退出",destroy_user_session_path,:class => "sexybutton sexysimple sexylarge sexyred" %>
+        <%= submit_tag "确定",:class => "sexybutton sexysimple sexylarge sexygreen" %>
+      </div>
+    <%end%>
+  </div>
+</div>

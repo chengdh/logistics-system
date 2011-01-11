@@ -41,7 +41,9 @@ var toggle_label = function(evt)
   else
     $(evt.data.label).show();
 };
-$('#user_username').change({label : '#label_username'},toggle_label).keyup(toggle_label);
-$('#user_password').change({label : '#label_password'}toggle_label).keyup(toggle_label);
+$('#user_username').change({label : '#label_username'},toggle_label).keyup({label : '#label_username'},toggle_label);
+$('#user_password').change({label : '#label_password'},toggle_label).keyup({label : '#label_password'},toggle_label);
 $('#user_username').focus();
+$('#user_username').trigger('change');
+
 </script>
