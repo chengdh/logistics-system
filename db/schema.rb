@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110108164058) do
+ActiveRecord::Schema.define(:version => 20110109031305) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -188,6 +188,29 @@ ActiveRecord::Schema.define(:version => 20110108164058) do
     t.datetime "updated_at"
   end
 
+  create_table "role_orgs", :force => true do |t|
+    t.integer  "role_id",                       :null => false
+    t.integer  "org_id",                        :null => false
+    t.boolean  "is_select",  :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "role_system_functions", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "system_function_id"
+    t.boolean  "is_select",          :default => false, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name",       :limit => 30,                   :null => false
+    t.boolean  "is_active",                :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "settlements", :force => true do |t|
     t.string   "title",            :limit => 60
     t.integer  "org_id",                                                                         :null => false
@@ -210,12 +233,12 @@ ActiveRecord::Schema.define(:version => 20110108164058) do
   end
 
   create_table "system_functions", :force => true do |t|
-    t.integer  "sytem_function_group_id",                                 :null => false
-    t.string   "subject_title",           :limit => 30,                   :null => false
-    t.string   "action_title",            :limit => 30,                   :null => false
-    t.text     "function_obj",                                            :null => false
-    t.integer  "order",                                 :default => 1
-    t.boolean  "is_active",                             :default => true, :null => false
+    t.integer  "system_function_group_id",                                 :null => false
+    t.string   "subject_title",            :limit => 30,                   :null => false
+    t.string   "action_title",             :limit => 30,                   :null => false
+    t.text     "function_obj",                                             :null => false
+    t.integer  "order",                                  :default => 1
+    t.boolean  "is_active",                              :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -254,5 +277,32 @@ ActiveRecord::Schema.define(:version => 20110108164058) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "user_roles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email",                              :default => "",    :null => false
+    t.string   "encrypted_password",  :limit => 128, :default => "",    :null => false
+    t.string   "password_salt",                      :default => "",    :null => false
+    t.string   "remember_token"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",                      :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.boolean  "is_active",                          :default => true
+    t.boolean  "is_admin",                           :default => false
+    t.string   "username",            :limit => 20,                     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["username"], :name => "index_users_on_username", :unique => true
 
 end

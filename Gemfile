@@ -1,14 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.3'
 gem 'mysql2'
 gem "will_paginate", "~> 3.0.pre2"
-gem "meta_search"
+gem "meta_search","0.9.11"
 gem "devise"
 gem "cancan"
 #表单中的树形结构选择
 gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
-#gem 'tree_select', :git => 'git://github.com/jeznet/tree_select.git'
 #form 显示组件
 gem "validation_reflection"
 gem 'formtastic', '~>1.1.0'

@@ -2,7 +2,7 @@
 class CreateSystemFunctions < ActiveRecord::Migration
   def self.up
     create_table :system_functions do |t|
-      t.references :sytem_function_group,:null => false
+      t.references :system_function_group,:null => false
       t.string :subject_title,:null => false,:limit => 30
       t.string :action_title,:null => false,:limit => 30
       t.text :function_obj,:null => false

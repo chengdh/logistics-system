@@ -34,6 +34,16 @@ jQuery(function($) {
 		var url = $(this).data('url');
 		window.location = url;
 	});
+	//角色功能列表
+	$('#role_orgs_list').treeList();
+	$('#role_system_functions_list').accordion();
+	$('#role_tab a').click(function() {
+		var active_el = $($(this).attr('href'));
+		$('#role_org_tab').hide();
+		$('#role_system_functions_list').hide();
+		$(active_el).show();
+
+	});
 	//根据客户编号查询查询客户信息
 	var search_customer_by_code = function() {
 		var code = $(this).val();
@@ -59,7 +69,7 @@ jQuery(function($) {
 	$('#menu_bar').accordion({
 		event: 'mouseover'
 	});
-	$('#menu_bar .ui-icon').attr('style', "display : none;");
+	$('#menu_bar .ui-icon,#role_system_functions_list .ui-icon').attr('style', "display : none;");
 
 	$('.fancybox').livequery(function() {
 		$(this).fancybox({
@@ -69,6 +79,7 @@ jQuery(function($) {
 	});
 	//初始化区域选择
 	$('.select_org').livequery(function() {
+		e
 		$(this).ufd();
 	});
 
@@ -142,7 +153,7 @@ jQuery(function($) {
 			if ($('#to_org_id').length > 0) $.extend(params, {
 				"search[to_org_id_eq]": $('#to_org_id').val()
 			});
-                        if ($('#transit_org_id').length > 0) $.extend(params, {
+			if ($('#transit_org_id').length > 0) $.extend(params, {
 				"search[transit_org_id_eq]": $('#transit_org_id').val()
 			});
 			$.get('/carrying_bills', params, null, 'script');

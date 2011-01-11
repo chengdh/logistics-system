@@ -3,7 +3,6 @@
 #main {float : right;}
 #sidebar {float : left;}
 
-
 /* layout */
 .text-right {text-align : right;}
 .text-center {text-align : center;}
@@ -92,6 +91,59 @@
   left : 15px;
   position : relative;
   border : 1px;
+}
+
+/*角色功能列表样式*/
+#role_system_functions_list div {padding : 5px;}
+#role_system_functions_list h3 {padding : 5px;}
+#role_system_functions_list h4 {
+  font-size : 1em;
+  margin : 0;
+  padding : 5px;
+}
+/*角色部门列表样式*/
+#role_orgs_list li {padding : 5px;}
+
+#role_tab{
+  font-size : 14px;
+  position:relative;
+  float:left;
+  width:100%;
+  margin:0;
+  list-style:none;
+  line-height:1em;
+}
+ 
+#role_tab li {
+  float:left;
+  margin:0;
+  padding:0;
+}
+ 
+#role_tab a {
+  display:block;
+  color:#444;
+  text-decoration:none;
+  font-weight:bold;
+  background:#ddd;
+  margin:0;
+  padding:0.25em 1em;
+  border-left:1px solid #fff;
+  border-top:1px solid #fff;
+  border-right:1px solid #aaa;
+}
+ 
+#role_tab a:hover,
+#role_tab a:active,
+#role_tab a.here:link,
+#role_tab a.here:visited {
+  background:#bbb;
+}
+ 
+#role_tab a.here:link,
+#role_tab a.here:visited {
+  position:relative;
+  z-index:102;
 }
 
 /* type */

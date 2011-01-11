@@ -1,0 +1,52 @@
+<% group_functions = resource.role_system_functions.group_by {|f| f.system_function.system_function_group.name}%>
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "role_form"} do |f|%>
+  <%=f.error_messages %>
+  <%= f.inputs do %>
+    <%= f.input :name,:label => "角色名称",:hint => "无效的角色将不在用户管理中显示", :input_html => {:title => "必填字段"} %>
+    <%= f.input :is_active,:label =>"有效" %>
+  <% end %>
+  <div class='wat-cf'>
+    <ul id="role_tab">
+      <li class='here'><a href="#role_system_functions_list">功能选择</a></li>
+      <li><a href="#role_org_tab">部门/分理处选择</a></li>
+    </ul>
+  </div>
+  <div id="role_org_tab" style='display : none;'>
+    <ul id="role_orgs_list">
+      <%=f.fields_for :role_orgs,resource.role_orgs do |role_org|%>
+        <%if role_org.object.org.parent.blank?%>
+          <li>
+            <%=role_org.hidden_field :org_id%>
+            <%=role_org.object.org.name%><%=role_org.check_box :is_select%>
+            <%if role_org.object.org.children.length > 0%>
+              <% child_orgs = resource.role_orgs.find_all {|ro| ro.org.parent_id == role_org.object.org.id}%>
+              <ul>
+                <%=f.fields_for :role_orgs,child_orgs do |child_org|%>
+                  <%=child_org.hidden_field :org_id%>
+                  <li><%=child_org.object.org.name%><%=child_org.check_box :is_select%></li>
+                <%end%>
+              </ul>
+            <%end%>
+          </li>
+        <%end%>
+      <%end%>
+    </ul>
+  </div>
+  <div id="role_system_functions_list">
+    <%group_functions.each do |group,functions|%>
+      <h3><a href='#'><%=group%></a></h3>
+      <% cat_functions = functions.group_by{|fs| fs.system_function.subject_title}%>
+      <div class='wat-cf'>
+        <%cat_functions.each do |subject_title,operates|%>
+          <h4 class='float-left'><%=subject_title%></h4>
+          <div class='float-right'>
+            <%=f.fields_for :role_system_functions,operates do |opt|%>
+              <%=opt.hidden_field :system_function_id%>
+              <%=opt.check_box :is_select%><%=opt.object.system_function.action_title%>
+            <%end%>
+          </div>
+        <%end%>
+      </div>
+    <%end%>
+  </div>
+<%end%>
