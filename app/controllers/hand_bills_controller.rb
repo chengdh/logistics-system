@@ -1,2 +1,2 @@
-class HandBillsController < BaseController
+class HandBillsController < CarryingBillsController
 end

@@ -9,13 +9,14 @@
   </thead>
   <tbody>
     <% collection.each do |resource| %>
-      <tr class="<%= cycle 'odd', 'even' %>",title="双击显示详细信息" class='tipsy' data-url="<%=resource_path(resource)%>">
+      <tr class="<%= cycle 'odd', 'even' %>",title="双击显示详细信息" class='tipsy' <%=can?(:read,resource_class) ? "data-dblclick='true'" : "" %>>
         <% index_table_columns.each do |column| %>
           <td><%= resource.send(column.to_sym) %></td>
         <% end %>
         <td>
-          <%= link_to "Edit", edit_resource_path(resource) %> | 
-          <%= link_to "Delete", resource_path(resource), :method => :delete, :confirm => "Are you sure you want to delete this?" %>
+          <%= link_to "查看", resource_url(resource),:class => "show_link",:style => 'display : none;'%>
+          <%= link_to("修改", edit_resource_path(resource)) if can? :edit,resource_class %> | 
+          <%= link_to("删除", resource_path(resource), :method => :delete, :confirm => "您确定要删除该信息吗?") if can? :destroy,resource_class %>
         </td>
       </tr>
     <% end %>

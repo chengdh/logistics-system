@@ -443,12 +443,14 @@ Factory.define :role do |role|
 end
 
 Factory.define :user do |user|
-  user.username "user_general"
-  user.password "user_general"
+  user.username "user"
+  user.password "user"
+  user.association :default_org,:factory => :zz
+  user.association :default_role,:factory => :role
 end
 
 Factory.define :admin,:parent => :user do |admin|
+  admin.username "admin"
+  admin.password "admin"
   admin.is_admin true
-  admin.association :default_org,:factory => :zz
-  admin.association :default_role,:factory => :role
 end

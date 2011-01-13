@@ -30,9 +30,11 @@ jQuery(function($) {
 	};
 
 	//双击某条记录打开详细信息
-	$('tr[data-url]').dblclick(function() {
-		var url = $(this).data('url');
-		window.location = url;
+	$('tr[data-dblclick]').livequery('dblclick', function() {
+		var el_anchor = $(this).find('.show_link');
+		if ($(el_anchor).hasClass('fancybox')) $(el_anchor).click();
+		else window.location = $(el_anchor).attr('href');
+
 	});
 	//角色功能列表
 	$('#role_orgs_list').treeList();
@@ -79,7 +81,6 @@ jQuery(function($) {
 	});
 	//初始化区域选择
 	$('.select_org').livequery(function() {
-		e
 		$(this).ufd();
 	});
 
@@ -111,16 +112,9 @@ jQuery(function($) {
 		$(this).form_with_select_bills();
 	});
 	$('#container').ajaxStart(function() {
-		$(this).activity({
-			segments: 12,
-			width: 3,
-			space: 2,
-			length: 2,
-			color: '#030303',
-			speed: 1.5
-		});
+		$.fancybox.showActivity();
 	}).ajaxStop(function() {
-		$(this).activity(false);
+		$.fancybox.hideActivity();
 	});
 	//search box
 	$('.search_box').livequery(function() {

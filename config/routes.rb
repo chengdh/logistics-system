@@ -75,6 +75,11 @@ IlYanzhao::Application.routes.draw do
   resources :load_lists do
     get :process_handle,:on => :member
     resources :carrying_bills
+    resources :computer_bills
+    resources :hand_bills
+    resources :trnsit_bills
+    resources :hand_transit_bills
+    resources :return_bills
   end
 
   resources :hand_transit_bills

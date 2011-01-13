@@ -3,7 +3,6 @@ class BaseController < InheritedResources::Base
 
   before_filter :authenticate_user!
   helper_method :sort_column,:sort_direction,:resource_name,:resources_name,:show_view_columns
-  #load_and_authorize_resource
 
   authorize_resource
   respond_to :html,:xml,:js,:json

@@ -3,8 +3,8 @@
   <%= f.inputs do %>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
     <%= f.input :bill_no,:hint => "装车单编号",:input_html => {:title => "必填字段"} %>
-    <%= f.input :from_org_id,:label =>"发货地" ,:hint => "可录入拼音简写查询发货地(例如:安阳,可录入ay)",:as => :select,:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org",:id => "from_org_id"} %>
-    <%= f.input :to_org_id,:label => "到货地",:as => :select,:hint => "可录入拼音简写查询地区(例如:安阳,可录入ay)",:collection => branches_for_select,:include_blank => false,:input_html => {:class => "select_org",:id => :to_org_id} %>
+    <%= f.input :from_org_id,:label =>"发货地" ,:as => :select,:collection => current_org_for_select,:include_blank => false,:input_html => {:class => "select_org",:id => "from_org_id"} %>
+    <%= f.input :to_org_id,:label => "到货地",:as => :select,:hint => "可录入拼音简写查询地区(例如:安阳,可录入ay)",:collection => branches_for_select_ex,:include_blank => false,:input_html => {:class => "select_org",:id => :to_org_id} %>
     <%= f.input :note,:as => :string,:input_html => {:size => 60} %>
     <%=hidden_field_tag :state_eq,:billed%>
     <%=hidden_field_tag :type_in,"","data-type" => ['ComputerBill','HandBill','ReturnBill','TransitBill','HandTransitBill'].to_json %>

@@ -34,7 +34,14 @@
 			}
 			$.bill_selector.set_checkbox();
 			$.bill_selector.update_html();
+			//显示票据选择控件
 			$('.select_bill_bar,.cbx_select_bill').show();
+			//给显示票据详细信息的链接添加fancybox属性
+			$('.show_link').addClass('fancybox');
+			$('.show_link').each(function() {
+				var href = $(this).attr('href');
+				$(this).attr('href', href + '.js');
+			});
 
 		},
 		//重置对象,重新初始化
@@ -120,12 +127,10 @@
 				$.bill_selector.sum_info.sum_from_short_carrying_fee = parseFloat($.bill_selector.sum_info.sum_from_short_carrying_fee) + parseFloat(the_bill.from_short_carrying_fee);
 				$.bill_selector.sum_info.sum_to_short_carrying_fee = parseFloat($.bill_selector.sum_info.sum_to_short_carrying_fee) + parseFloat(the_bill.to_short_carrying_fee);
 
-
 				$.bill_selector.sum_info.sum_transit_carrying_fee = parseFloat($.bill_selector.sum_info.sum_transit_carrying_fee) + parseFloat(the_bill.transit_carrying_fee);
 				$.bill_selector.sum_info.sum_transit_hand_fee = parseFloat($.bill_selector.sum_info.sum_transit_hand_fee) + parseFloat(the_bill.transit_hand_fee);
 				$.bill_selector.sum_info.sum_agent_carrying_fee = parseFloat($.bill_selector.sum_info.sum_agent_carrying_fee) + parseFloat(the_bill.agent_carrying_fee);
 				$.bill_selector.sum_info.sum_th_amount = parseFloat($.bill_selector.sum_info.th_amount) + parseFloat(the_bill.th_amount);
-
 
 			}
 			else {
@@ -147,7 +152,6 @@
 				$.bill_selector.sum_info.sum_transit_hand_fee = parseFloat($.bill_selector.sum_info.sum_transit_hand_fee) - parseFloat(the_bill.transit_hand_fee);
 				$.bill_selector.sum_info.sum_agent_carrying_fee = parseFloat($.bill_selector.sum_info.sum_agent_carrying_fee) - parseFloat(the_bill.agent_carrying_fee);
 				$.bill_selector.sum_info.sum_th_amount = parseFloat($.bill_selector.sum_info.th_amount) - parseFloat(the_bill.th_amount);
-
 
 			}
 			$.bill_selector.update_html();

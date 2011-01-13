@@ -46,8 +46,9 @@
   </thead>
   <tbody>
     <% collection.each_with_index do |bill,index| %>
-      <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>'>
+      <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>' <%=can?(:read,resource_class) ? "data-dblclick='true'" : "" %>>
         <td class='cbx_select_bill' style='display : none;'>
+          <%= link_to "查看",  resource_url(bill,parent? ? {:format => :js} : {} ),:class => (parent? ? "show_link fancybox" : "show_link"),:style => 'display : none;'%>
           <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount,:agent_carrying_fee,:carrying_fee_total])}" %>
         </td>
         <td>

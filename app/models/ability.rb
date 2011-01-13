@@ -2,6 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    alias_action :index,:show,:search,:to => :read
     if user.is_admin?
       can :manage, :all
     else

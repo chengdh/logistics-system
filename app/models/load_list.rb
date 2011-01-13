@@ -2,6 +2,11 @@ class LoadList < ActiveRecord::Base
   belongs_to :from_org,:class_name => "Org"
   belongs_to :to_org,:class_name => "Org"
   has_many :carrying_bills
+  has_many :computer_bills
+  has_many :hand_bills
+  has_many :return_bills
+  has_many :transit_bills
+  has_many :hand_transit_bills
 
   validates_presence_of :from_org_id,:to_org_id
   #定义状态机
