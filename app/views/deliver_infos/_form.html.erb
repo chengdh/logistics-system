@@ -2,6 +2,7 @@
   <%=f.semantic_errors :customer_name,:deliver_date %>
   <%= f.inputs do %>
     <%= f.input :deliver_date,:as => :string,:input_html =>{:readonly => true,:size => 20,:class => 'datepicker'} %>
+    <%= f.input :org_id,:label =>"机构" ,:as => :select,:collection => current_org_for_select,:include_blank => false,:input_html => {:class => "select_org",:id => "to_org_id"} %>
     <%= f.input :customer_name,:label => "提货人姓名" %>
     <%= f.input :customer_no,:label => "身份证号" %>
     <%= f.input :note,:as => :string,:input_html => {:size => 60} %>

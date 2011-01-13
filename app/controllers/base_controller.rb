@@ -1,14 +1,12 @@
 #coding: utf-8
 class BaseController < InheritedResources::Base
-
   before_filter :authenticate_user!
-  helper_method :sort_column,:sort_direction,:resource_name,:resources_name,:show_view_columns
-
   authorize_resource
+  helper_method :sort_column,:sort_direction,:resource_name,:resources_name,:show_view_columns
   respond_to :html,:xml,:js,:json
   protected
   def collection
-    @search = end_of_association_chain.search(params[:search])
+    @search = end_of_association_chain.accessible_by(current_ability).search(params[:search])
     get_collection_ivar || set_collection_ivar(@search.select("DISTINCT #{resource_class.table_name}.*").order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
   end
   private
