@@ -45,17 +45,17 @@ gem 'dynamic_form'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development do
-  gem 'rspec-rails','2.0.1'
   gem 'annotate-models', '1.0.4'
   gem 'jquery-rails'
   gem 'faker','0.3.1'
 end
 group :development, :test do
-    gem 'web-app-theme', '>= 0.6.2'
-    gem 'factory_girl_rails', '1.0'
+  gem 'rspec-rails','~>2.4.1'
+  gem 'web-app-theme', '>= 0.6.2'
+  gem 'factory_girl_rails', '1.0'
 end
 group :test do
-  gem 'rspec','2.0.1'
+  gem 'rspec','~>2.4.0'
   gem 'spork', '0.8.4'
   gem 'webrat'
 end

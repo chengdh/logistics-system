@@ -2,6 +2,8 @@
 require 'spec_helper'
 
 describe DistributionListsController do
+  login_admin
+  render_views
 
   describe "POST create" do
     before(:each) do

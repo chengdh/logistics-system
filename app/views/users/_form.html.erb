@@ -1,0 +1,11 @@
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "user_form"} do |f|%>
+  <%=f.error_messages %>
+  <%=f.inputs :username,:is_admin,:is_active,:name => "用户信息" %>
+  <%=f.inputs :password,:password_confirmation,:name => "密码" %>
+  <%=f.inputs "选择角色" do %>
+    <%=f.fields_for :user_roles do |user_role|%>
+      <%=user_role.hidden_field :role_id%>
+      <%=user_role.check_box :is_select%><%=user_role.label :is_select,user_role.object.role.name%>
+    <%end%>
+  <%end%>
+<% end%>

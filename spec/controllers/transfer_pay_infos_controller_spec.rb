@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TransferPayInfosController do
+  login_admin
   render_views
 
   describe "GET index" do

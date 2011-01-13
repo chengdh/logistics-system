@@ -281,6 +281,7 @@ ActiveRecord::Schema.define(:version => 20110111053805) do
   create_table "user_roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
+    t.boolean  "is_select",  :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -301,6 +302,8 @@ ActiveRecord::Schema.define(:version => 20110111053805) do
     t.string   "username",            :limit => 20,                     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "default_org_id"
+    t.integer  "default_role_id"
   end
 
   add_index "users", ["username"], :name => "index_users_on_username", :unique => true

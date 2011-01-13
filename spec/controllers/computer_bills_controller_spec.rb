@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe ComputerBillsController do
+  login_admin
   render_views
 
   before(:each) do

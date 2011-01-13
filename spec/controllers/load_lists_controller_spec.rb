@@ -2,6 +2,7 @@
 require 'spec_helper'
 
 describe LoadListsController do
+  login_admin
   render_views
 
   describe "GET index" do

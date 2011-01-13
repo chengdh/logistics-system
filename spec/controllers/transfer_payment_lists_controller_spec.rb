@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe TransferPaymentListsController do
+  login_admin
   render_views
   describe "GET index" do
     it "should be success" do

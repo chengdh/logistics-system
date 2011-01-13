@@ -284,7 +284,7 @@ Factory.define :hand_transit_bill do |bill|
   bill.goods_info "手工中转运单"
   bill.association :from_org,:factory => :ay
   bill.association :transit_org,:factory => :zz
-  bill.association :to_org,:factory => :kf
+  bill.to_area "开封"
 end
 #大车装车单,还未装车
 Factory.define :load_list do |load_list|
@@ -438,4 +438,17 @@ end
 Factory.define :transit_deliver_info_with_bill,:parent => :transit_deliver_info do |td|
   td.association :carrying_bill,:factory => :transit_bill_transited
 end
+Factory.define :role do |role|
+  role.name "admin_role"
+end
 
+Factory.define :user do |user|
+  user.username "user_general"
+  user.password "user_general"
+end
+
+Factory.define :admin,:parent => :user do |admin|
+  admin.is_admin true
+  admin.association :default_org,:factory => :zz
+  admin.association :default_role,:factory => :role
+end

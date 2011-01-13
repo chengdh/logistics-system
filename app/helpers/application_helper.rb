@@ -81,4 +81,5 @@ module ApplicationHelper
     rows_per_page = cur_page.to_i if rows_per_page.kind_of?(String) 
     index+1 + rows_per_page*(cur_page - 1) 
   end
+
 end

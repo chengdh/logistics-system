@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe DeliverInfosController do
+
+  login_admin
   render_views
 
   describe "GET index" do

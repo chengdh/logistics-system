@@ -31,7 +31,7 @@
         <h1><a href="/">Web App</a></h1>
         <div id="user-navigation">
           <ul class="wat-cf">
-            <li><%= link_to "#{current_user.username} | #{current_user.cur_org} ", edit_user_path(current_user) %></li>
+            <li><%= link_to "#{current_user.username}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_user_path(current_user) %></li>
             <li><%=link_to "退出系统",destroy_user_session_path%></li>
           </ul>
         </div>
@@ -55,4 +55,4 @@
     <%= debug(params) if Rails.env.development? %>
   </body>
 </html>
-<%= notify_bar :flash => [:notice,:success,:error],:delay => 4500, :animation_speed => 'slow'%>
+<%= notify_bar :flash => [:notice,:success,:error,:alert],:delay => 4500, :animation_speed => 'slow'%>

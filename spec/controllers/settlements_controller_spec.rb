@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe SettlementsController do
+  login_admin
   render_views
 
   describe "GET index" do
