@@ -56,7 +56,24 @@ IlYanzhao::Application.routes.draw do
   resources :refounds do
     resources :carrying_bills
     get :process_handle,:on => :member
+    resources :carrying_bills
+    resources :computer_bills
+    resources :hand_bills
+    resources :trnsit_bills
+    resources :hand_transit_bills
+    resources :return_bills
   end
+  #返款清单确认
+  resources :receive_refounds do
+    get :process_handle,:on => :member
+    resources :carrying_bills
+    resources :computer_bills
+    resources :hand_bills
+    resources :trnsit_bills
+    resources :hand_transit_bills
+    resources :return_bills
+  end
+
 
 
   resources :settlements do

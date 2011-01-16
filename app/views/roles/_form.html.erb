@@ -1,4 +1,3 @@
-<% group_functions = resource.all_role_system_functions!.group_by {|f| f.system_function.system_function_group.name}%>
 <%= semantic_form_for resource ,:remote => true,:html => {:id => "role_form"} do |f|%>
   <%=f.error_messages %>
   <%= f.inputs do %>
@@ -17,14 +16,14 @@
         <%if role_org.object.org.parent.blank?%>
           <li>
             <%=role_org.hidden_field :org_id%>
-            <%=role_org.hidden_field :_destroy%>
+            <%=role_org.hidden_field :_destroy,:value => !role_org.object.is_select%>
             <%=role_org.object.org.name%><%=role_org.check_box :is_select%>
             <%if role_org.object.org.children.length > 0%>
               <% child_orgs = resource.role_orgs.find_all {|ro| ro.org.parent_id == role_org.object.org.id}%>
               <ul>
                 <%=f.fields_for :role_orgs,child_orgs do |child_org|%>
                   <%=child_org.hidden_field :org_id%>
-                  <%=child_org.hidden_field :_destroy%>
+                  <%=child_org.hidden_field :_destroy,:value => child_org.object.is_select%>
                   <li><%=child_org.object.org.name%><%=child_org.check_box :is_select%></li>
                 <%end%>
               </ul>
@@ -35,18 +34,20 @@
     </ul>
   </div>
   <div id="role_system_functions_list">
-    <%group_functions.each do |group,functions|%>
-      <h3><a href='#'><%=group%></a></h3>
+    <%SystemFunctionGroup.where(:is_active => true).each do |group|%>
+      <h3><a href='#'><%=group.name%></a></h3>
       <div>
-        <% cat_functions = functions.group_by{|fs| fs.system_function.subject_title}%>
-        <%cat_functions.each do |subject_title,operates|%>
+        <%group.system_functions.each do |sf|%>
           <div class='wat-cf with-bb'>
-            <h4 class='float-left'><%=subject_title%></h4>
-            <div class='float-right'>
-              <%=f.fields_for :role_system_functions,operates do |opt|%>
-                <%=opt.hidden_field :system_function_id%>
-                <%=opt.hidden_field :_destroy%>
-                <%=opt.check_box :is_select%><%=opt.object.system_function.action_title%>
+            <h4 class='float-left' style='width : 30%;'><%=sf.subject_title%></h4>
+            <div class='float-right' style='width : 65%;'>
+              <%=f.fields_for :role_system_function_operates,resource.single_function_operates(sf) do |opt|%>
+
+                <span style='width : 250px;padding-right : 20px;'>
+                  <%=opt.hidden_field :system_function_operate_id%>
+                  <%=opt.hidden_field :_destroy,:value => !opt.object.is_select%>
+                  <%=opt.check_box :is_select%><%=opt.object.system_function_operate.name%>
+                </span>
               <%end%>
             </div>
           </div>

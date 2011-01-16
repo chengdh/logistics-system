@@ -42,11 +42,11 @@ namespace :db do
     end
     role = Role.new_with_default(:name => 'admin_role')
     role.role_orgs.each { |role_org| role_org.is_select = true }
-    role.role_system_functions.each { |role_function| role_function.is_select = true }
+    role.role_system_function_operates.each { |r| r.is_select = true }
     role.save!
     role = Role.new_with_default(:name => 'role_2')
     role.role_orgs.each { |role_org| role_org.is_select = true }
-    role.role_system_functions.each { |role_function| role_function.is_select = true }
+    role.role_system_function_operates.each { |r| r.is_select = true }
     role.save!
 
     #管理员角色
@@ -59,6 +59,7 @@ namespace :db do
     user.save!
   end
   task :create_system_functions => :environment do
+
     #配送管理模块
     group_name = "配送管理"
     #################################运单录入################################################
@@ -68,10 +69,11 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
+      :default_action => '/computer_bills/new',
       :function => {
-      :read =>{:title => "查看"} ,
+      #查看相关运单,其他机构发往当前用户机构的运单
       :create => {:title => "新建"},
-      :update =>{:title =>"修改"},
+      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
       :print => {:title => "打印"},
       :export => {:title => "导出"}
@@ -85,10 +87,10 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
+      :default_action => '/hand_bills/new',
       :function => {
-      :read =>{:title => "查看"} ,
       :create => {:title => "新建"},
-      :update =>{:title =>"修改"},
+      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
       :export => {:title => "导出"}
     }
@@ -100,14 +102,16 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
+
+      :default_action => '/transit_bills/new',
       :subject => subject,
       :function => {
-      :read =>{:title => "查看"} ,
       :create => {:title => "新建"},
-      :update =>{:title =>"修改"},
+      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
       :print => {:title => "打印"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
       :export => {:title => "导出"}
+
     }
     }
     SystemFunction.create_by_hash(sf_hash)
@@ -117,11 +121,12 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
+
+      :default_action => '/hand_transit_bills/new',
       :subject => subject,
       :function => {
-      :read =>{:title => "查看"} ,
       :create => {:title => "新建"},
-      :update =>{:title =>"修改"},
+      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
       :export => {:title => "导出"}
     }
@@ -133,17 +138,17 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
+      :default_action => '/load_lists',
       :subject => subject,
       :function => {
-      :read =>{:title => "查看",:conditions =>"{:from_org_id => user.default_org.id }"} ,
+      :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
       :create => {:title => "新建"},
-      :search => {:title => "查询"},
       :export => {:title => "导出"},
-      :ship => {:title => "发车",:conditions =>"{:from_org_id => user.default_org.id,:state => 'loaded'}"},
+      :ship => {:title => "发车",:conditions =>"{:from_org_id => user.current_ability_org_ids,:state => 'loaded'}"},
     }
     }
     SystemFunction.create_by_hash(sf_hash)
-    ##############################货物运输清单管理#############################################
+    ##############################到货清单管理#############################################
     #FIXME 与load_list是相同的,不过仅仅重新派生了一个controller
     subject_title = "到货清单管理"
     subject = "LoadList"
@@ -151,11 +156,12 @@ namespace :db do
       :group_name => group_name,
       #TODO 提货信息表要添加提货部门字段
       :subject_title => subject_title,
+      :default_action => '/arrive_load_lists',
       :subject => subject,
       :function => {
-      :read_arrive =>{:title => "查看",:conditions =>"{:state => ['shipped','reached'],:to_org_id => user.default_org.id}"} ,
+      :read_arrive =>{:title => "查看",:conditions =>"{:state => ['shipped','reached'],:to_org_id => [user.current_ability_org_ids]}"} ,
       :export => {:title => "导出"},
-      :reach => {:title => "到货确认",:conditions =>"{:state => 'shipped',:to_org_id => user.default_org.id}"}
+      :reach => {:title => "到货确认",:conditions =>"{:state => 'shipped',:to_org_id => user.current_ability_org_ids}"}
     }
     }
     SystemFunction.create_by_hash(sf_hash)
@@ -165,11 +171,11 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
+      :default_action => '/distribution_lists/new',
       :subject => subject,
       :function => {
-      :read =>{:title => "查看",:conditions =>"{:org_id => user.default_org.id }"} ,
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
       :create => {:title => "新建"},
-      :search => {:title => "查询"},
       :export => {:title => "导出"},
     }
 
@@ -183,12 +189,13 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
+      :default_action => '/deliver_infos/new',
       :function => {
-      :read =>{:title => "查看",:conditions =>"{:org_id => user.default_org.id }"},
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},
       :batch_deliver => {:title => "批量提货"},
+      #TODO  
       :print => {:title => "打印提货"},
-      :search => {:title => "查询"},
       :export => {:title => "导出"},
     }
 
@@ -200,14 +207,262 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
+      :default_action => '/transit_deliver_infos/new',
       :subject => subject,
       :function => {
-      :read =>{:title => "查看",:conditions =>"{:org_id => user.default_org.id }"},
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"},
       :create => {:title => "新建"},
-      :search => {:title => "查询"},
       :export => {:title => "导出"},
     }
 
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    #################################结算管理##########################################
+    group_name = "结算管理"
+    ##############################settlement#############################################
+    subject_title = "结算员交款清单"
+    subject = "Settlement"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/settlements/new',
+      :subject => subject,
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :create => {:title => "新建"},
+      :export => {:title => "导出"},
+      }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################返款清单管理#############################################
+    subject_title = "返款清单管理"
+    subject = "Refound"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/refounds/new',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+      }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################收款清单管理#############################################
+    #FIXME 与返款清单是相同的,不过仅仅重新派生了一个controller
+    subject_title = "收款清单管理"
+    subject = "Refound"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/receive_refounds',
+      :subject => subject,
+      :function => {
+      :read_arrive =>{:title => "查看",:conditions =>"{:state =>['refunded_confirmed','refunded'] ,:to_org_id => user.current_ability_org_ids}"} ,
+      :refound_confirm => {:title => "收款确认",:conditions =>"{:state => 'refunded',:to_org_id => user.current_ability_org_ids}"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################现金代收货款支付清单管理-#############################################
+    subject_title = "现金-代收货款支付清单管理"
+    subject = "CashPaymentList"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+      :default_action => '/cash_payment_lists',
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################银行转账代收货款支付清单管理-#############################################
+    subject_title = "转账-代收货款支付清单管理"
+    subject = "TransferPaymentList"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/transfer_pay_payment_lists',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################客户提款-现金-#############################################
+    subject_title = "客户提款-现金"
+    subject = "CashPayInfo"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+
+      :default_action => '/cash_pay_infos/new',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :batch_pay =>{:title => "批量提款"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################客户提款-转账-#############################################
+    subject_title = "客户提款-转账"
+    subject = "TransferPayInfo"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+
+      :default_action => '/transfer_pay_infos/new',
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :batch_pay =>{:title => "批量提款"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################客户提款日结#############################################
+    subject_title = "客户提款日结"
+    subject = "PostInfo"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/post_infos',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    group_name = "基础信息管理"
+    #################################分理处/分公司管理################################################
+    subject_title = "分理处/分公司管理"
+    subject = "Branch"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/branchs',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    #################################用户信息管理################################################
+    subject_title = "用户信息管理"
+    subject = "User"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+      :default_action => '/users',
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    #################################用户角色管理################################################
+    subject_title = "用户角色管理"
+    subject = "Role"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/roles',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    group_name ="客户关系管理"
+    #################################客户关系管理################################################
+    subject_title = "客户资料管理"
+    subject = "Customer"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/customers',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :destroy => {:title => "删除",:conditions =>"{:org_id => user.current_ability_org_ids }"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    #################################客户关系管理################################################
+    subject_title = "转账客户管理"
+    subject = "Vip"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/vips',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    group_name ="系统管理"
+    ##################################银行设置###############################################
+    subject_title = "银行信息设置"
+    subject = "Bank"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/banks',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##################################中转公司信息###############################################
+    subject_title = "中转公司信息"
+    subject = "TransitCompany"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/transit_companies',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
     }
     SystemFunction.create_by_hash(sf_hash)
   end

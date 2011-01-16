@@ -1,68 +1,12 @@
 <div id='menu_bar' class="block">
-  <h3><%=link_to "运单管理",'#'%></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "机打票", computer_bills_path %></li>
-      <li><%= link_to "手工票", hand_bills_path %></li>
-      <li><%= link_to "中转票", transit_bills_path %></li>
-      <li><%= link_to "手工中转票", hand_transit_bills_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "装车", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "装车单", load_lists_path %></li>
-      <li><%= link_to "待发车", load_lists_path("search[state_eq]" => "loaded") %></li>
-      <li><%= link_to "到货确认", load_lists_path("search[state_eq]" => "shipped") %></li>
-    </ul>
-  </div>
-
-  <h3><%= link_to "分货处理", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "分货", new_distribution_list_path %></li>
-      <li><%= link_to "分货记录", distribution_lists_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "提货", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "提货", new_deliver_info_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "结算员交款清单", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "结算员交款清单", settlements_path %></li>
-      <li><%= link_to "客户提款日结", new_post_info_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "返款清单", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "返款清单", refounds_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "代收货款支付", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "现金-代收货款支付清单", new_cash_payment_list_path %></li>
-      <li><%= link_to "转账-代收货款支付清单", new_transfer_payment_list_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "客户提款", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "现金-客户提款", new_cash_pay_info_path %></li>
-      <li><%= link_to "转账-客户提款", new_transfer_pay_info_path %></li>
-    </ul>
-  </div>
-  <h3><%= link_to "中转票处理", "#" %></h3>
-  <div>
-    <ul class="navigation">
-      <li><%= link_to "货物中转", new_transit_info_path %></li>
-      <li><%= link_to "中转提货", new_transit_deliver_info_path %></li>
-    </ul>
-  </div>
-
+  <%current_user.default_role.system_function_groups.each do |f_group,functions|%>
+    <h3><%=link_to f_group.name,'#'%></h3>
+    <div>
+      <ul class="navigation">
+        <%functions.each do |f|%>
+          <li><%= link_to f.subject_title, f.default_action %></li>
+        <%end%>
+      </ul>
+    </div>
+  <%end%>
 </div>
