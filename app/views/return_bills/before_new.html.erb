@@ -1,0 +1,17 @@
+<div class="block">
+  <%= render "dynamic_toolbar" %>
+  <div class="content">            
+    <h2 class="title">新建 <%= resource_name %></h2>
+    <div class="inner">
+      <div class='actions-bar text-center'>
+      <%=form_tag new_return_bill_path,:method => :get do %>
+        <%=label_tag :bill_no,'请录入要退货的运单号:' %>
+        <%=text_field_tag :bill_no%>
+        <%=submit_tag "生成退货单",:class => 'sexybutton sexysimple sexyblue'%>
+      <%end%>
+    </div>
+    </div>
+  </div>
+  <%= render "dynamic_toolbar" %>
+</div>
+

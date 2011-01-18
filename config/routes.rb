@@ -95,7 +95,9 @@ IlYanzhao::Application.routes.draw do
 
   resources :hand_bills
 
-  resources :return_bills
+  resources :return_bills do
+    get :before_new,:on => :collection
+  end
 
   resources :departments
 

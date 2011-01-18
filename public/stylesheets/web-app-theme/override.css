@@ -165,7 +165,7 @@ bigger-font {font-size : 1.5em;}
   color : gray;
   font-style : italic;
 }
-.search_box {
+.search_box_return_bill,.search_box {
   width : 200px;
   height : 20px;
   text-indent : 20px;

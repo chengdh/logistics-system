@@ -31,8 +31,8 @@ module NotifyBar
 					$.notifyBar({
 						html: '#{escape_javascript(html)}',
 						delay: #{opts[:delay]},
-						animationSpeed: "#{opts[:animation_speed]}",
-						cls: "#{opts[:cls]}",
+						animationSpeed: '#{opts[:animation_speed]}',
+						cls: '#{opts[:cls]}',
 						close: #{opts[:close].to_s}
 						});
 					});

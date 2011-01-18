@@ -164,7 +164,6 @@ class CarryingBill < ActiveRecord::Base
     def customer_code=(customer_code)
       @customer_code = customer_code
     end
-    protected
     #生成退货单据
     #录入原运单编号后回车，可显示原票信息退货信息：
     #退货运单编号为TH原运单编号，
@@ -178,6 +177,7 @@ class CarryingBill < ActiveRecord::Base
     #备注自动显示原票代收货款及货号。
     #如中转货退回，则中转站还显示原中转站。
     #确认后，原票状态应显示为已退且在未提货中取消，在本地发货时增加该票
+
     def generate_return_bill
       #TODO 设置票据操作人员信息
       override_attr = {
@@ -197,8 +197,10 @@ class CarryingBill < ActiveRecord::Base
       }
       #如果是中转票据,则将中转站与始发站调换
       override_attr.merge!(:from_org_id => self.transit_org_id,:to_org_id => self.from_org_id) unless self.transit_org_id.blank?
-      self.create_return_bill(self.attributes.merge(override_attr))
+      self.build_return_bill(self.attributes.merge(override_attr))
     end
+
+    protected
     #生成票据编号
     def generate_bill_no
       #FIXME 票据号暂时设置为id

@@ -416,7 +416,6 @@ jQuery(function($) {
 			$('[name*="transit_company_attributes"]').attr('disabled', true);
 		}
 	});
-
 	//用户新建及修改界面,处理删除角色
 	$('input[name*="is_select"][type="checkbox"]').livequery('click', function() {
 		$(this).prev().prev().val(!$(this).attr('checked'));
