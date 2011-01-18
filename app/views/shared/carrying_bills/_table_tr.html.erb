@@ -1,5 +1,6 @@
-<tr id='<%="bill_#{bill.id}" %>' data-bill='<%=bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])%>' class='bill_cal_sum'>
+<tr id='<%="bill_#{bill.id}" %>'  <%=can?(:read,bill) ? "data-dblclick='true'" : "" %> data-bill='<%=bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])%>' class='bill_cal_sum'>
   <td>
+    <%= link_to "查看",   polymorphic_url(bill,:format => :js),:class => "show_link fancybox",:style => 'display : none;'%>
     <%=bill.bill_date.strftime('%y-%m-%d')%>
   </td>
   <td>

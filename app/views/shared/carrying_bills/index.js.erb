@@ -10,7 +10,7 @@
   <%if params[:show_multi]%>
     <%if params[:show_multi].present?%>
       if($('#bill_<%=collection.first.id%>').length == 0)
-      $('#bills_table_body').after('<%= escape_javascript(render("shared/carrying_bills/table_tr",:bill => collection.first)) %>');
+      $('#bills_table_body').append('<%= escape_javascript(render("shared/carrying_bills/table_tr",:bill => collection.first)) %>');
     <%else%>
       $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
     <%end%>

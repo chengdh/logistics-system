@@ -159,7 +159,7 @@ namespace :db do
       :default_action => '/arrive_load_lists',
       :subject => subject,
       :function => {
-      :read_arrive =>{:title => "查看",:conditions =>"{:state => ['shipped','reached'],:to_org_id => [user.current_ability_org_ids]}"} ,
+      :read_arrive =>{:title => "查看",:conditions =>"{:state => ['shipped','reached'],:to_org_id => user.current_ability_org_ids}"} ,
       :export => {:title => "导出"},
       :reach => {:title => "到货确认",:conditions =>"{:state => 'shipped',:to_org_id => user.current_ability_org_ids}"}
     }
@@ -181,6 +181,40 @@ namespace :db do
 
     }
     SystemFunction.create_by_hash(sf_hash)
+     ##############################货物中转#############################################
+    subject_title = "货物中转"
+    subject = "TransitInfo"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/transit_infos/new',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"},
+    }
+
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+   ##############################分货物清单管理#############################################
+    subject_title = "分货清单管理"
+    subject = "DistributionList"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/distribution_lists/new',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"},
+    }
+
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
 
     ##############################提货#############################################
     subject_title = "客户提货"
@@ -268,7 +302,7 @@ namespace :db do
     }
     SystemFunction.create_by_hash(sf_hash)
     ##############################现金代收货款支付清单管理-#############################################
-    subject_title = "现金-代收货款支付清单管理"
+    subject_title = "现金-代收货款支付"
     subject = "CashPaymentList"
     sf_hash = {
       :group_name => group_name,
@@ -283,12 +317,12 @@ namespace :db do
     }
     SystemFunction.create_by_hash(sf_hash)
     ##############################银行转账代收货款支付清单管理-#############################################
-    subject_title = "转账-代收货款支付清单管理"
+    subject_title = "转账-代收货款支付"
     subject = "TransferPaymentList"
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/transfer_pay_payment_lists',
+      :default_action => '/transfer_payment_lists',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,

@@ -1,3 +1,5 @@
+#coding: utf-8
+#货物中转资料
 class TransitInfo < ActiveRecord::Base
   belongs_to :org
   #TODO 暂时注释

@@ -49,7 +49,8 @@
 
 .table tr{background-color: #EAFDFF;}
 .table tr.odd{background-color: #FFFFFF;}
-.table tbody tr:hover{background-color: #FFCCCC;}
+.table tbody tr:hover{background-color: #FFCCCC;cursor : pointer;}
+  
 .table td, .table th{border: 1px dotted #CCCCCC;}
 .table tbody td{padding: 0.5em;}
 .table td  a:link,.table th a:link{color: black;}

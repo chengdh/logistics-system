@@ -1,2 +1,2 @@
-class TransitCompaniesController < InheritedResources::Base
+class TransitCompaniesController < BaseController
 end

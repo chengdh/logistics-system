@@ -33,7 +33,11 @@ jQuery(function($) {
 	$('tr[data-dblclick]').livequery('dblclick', function() {
 		var el_anchor = $(this).find('.show_link');
 		if ($(el_anchor).hasClass('fancybox')) $(el_anchor).click();
-		else window.location = $(el_anchor).attr('href');
+		else {
+			window.location = $(el_anchor).attr('href');
+			$.fancybox.showActivity();
+
+		}
 
 	});
 	//角色功能列表
@@ -68,9 +72,7 @@ jQuery(function($) {
 	});
 
 	//初始化左侧菜单树,icon显示有问题
-	$('#menu_bar').accordion({
-		event: 'mouseover'
-	});
+	$('#menu_bar').accordion();
 	$('#menu_bar .ui-icon,#role_system_functions_list .ui-icon').attr('style', "display : none;");
 
 	$('.fancybox').livequery(function() {
@@ -82,6 +84,10 @@ jQuery(function($) {
 	//初始化区域选择
 	$('.select_org').livequery(function() {
 		$(this).ufd();
+	});
+	//提高select_org list-wrapper的z-index
+	$('.list-wrapper').livequery(function() {
+		$(this).css('z-index', 9001);
 	});
 
 	//初始化tip
