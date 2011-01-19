@@ -101,6 +101,10 @@
   border : 1px;
 }
 
+#logo{
+  width : 30px;
+  height : 30px;
+}
 /*角色功能列表样式*/
 #role_system_functions_list div {padding : 5px;}
 #role_system_functions_list h3 {padding : 5px;}
@@ -187,3 +191,13 @@ th .asc {
 th .desc {   
   background-image: url(/images/sort--minus.png);   
 }  
+/*退货单新建界面上的说明*/
+#return_bill_before_new_form { margin-left : 200px;}
+ul.hint {
+  margin : 5px 10px;
+  list-style : square;
+}
+ul.hint li {
+  padding : 5px 0;
+
+}

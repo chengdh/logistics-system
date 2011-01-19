@@ -3,6 +3,8 @@ class Ability
 
   def initialize(user)
     alias_action :index,:show,:search,:to => :read
+    #before_new是新建退货单的初始页面
+    alias_action :new,:before_new,:to => :create
     alias_action :process_handle,:to => :ship  #发车
     alias_action :process_handle,:to => :reach #到货确认
     alias_action :process_handle,:to => :refounc_confirm #收款清单确认

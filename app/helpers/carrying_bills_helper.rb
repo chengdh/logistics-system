@@ -6,6 +6,10 @@ module CarryingBillsHelper
     CarryingBill.pay_types.each {|des,code| pay_type_des = des if code == pay_type }
     pay_type_des
   end
+  #票据状态
+  def states_for_select
+    CarryingBill.state_machine.states.collect{|state| [state.human_name,state.value] }
+  end
   #得到查询对象的id数组
   def search_ids
     @search.select("carrying_bills.id").map {|bill| bill.id }.to_json

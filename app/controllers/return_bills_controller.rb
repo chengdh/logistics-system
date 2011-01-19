@@ -3,16 +3,21 @@ class ReturnBillsController <  CarryingBillsController
   def before_new
   end
   def new
-    if params[:bill_no].blank? 
+    if params[:search][:bill_no_eq].blank? 
       flash[:error] = "请录入原运单号码." 
       render :action => :before_new
-    elsif CarryingBill.find_by_bill_no(params[:bill_no]).blank?
-      flash[:error] = "未找到原始运单信息." 
+    elsif CarryingBill.search(params[:search]).all.blank?
+      flash[:error] = "未找到原始运单信息,只有运单到货后才可退货." 
       render :action => :before_new
     else
-      original_bill = CarryingBill.find_by_bill_no(params[:bill_no])
-      @return_bill = ReturnBill.new_with_ori_bill(original_bill)
+      original_bill = CarryingBill.search(params[:search]).all.first
+      @return_bill = original_bill.generate_return_bill
       render :new
     end
+  end
+  def create
+    @return_bill = ReturnBill.new(params[:return_bill])
+    @return_bill.original_bill.return
+    create!
   end
 end

@@ -24,9 +24,12 @@ namespace :db do
     %w[建设银行 工商银行 交通银行 光大银行].each_with_index do  |bank,index|
       Bank.create!(:name => bank,:code => index + 1)
     end
+    #转账手续费设置
+    common_config = ConfigTransit.create(:name => "普通客户",:rate => 0.002)
+    vip_config = ConfigTransit.create(:name => "VIP客户",:rate => 0.001)
     #客户资料
     50.times do |index|
-      Vip.create!(:name => "vip_#{index}",:phone => ("%07d" % index),:bank => Bank.first,:bank_card =>"%019d" % (index + 1),:org => Branch.first,:id_number => "%018d" % (index + 1) )
+      Vip.create!(:name => "vip_#{index}",:phone => ("%07d" % index),:bank => Bank.first,:bank_card =>"%019d" % (index + 1),:org => Branch.first,:id_number => "%018d" % (index + 1),:config_transit => vip_config )
     end
 
     #生成示例票据数据
@@ -132,6 +135,23 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
+    ##############################退货单#################################################
+    subject_title = "退货单管理"
+    subject = "ReturnBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/return_bills/before_new',
+      :subject => subject,
+      :function => {
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
+      :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
     ##############################货物运输清单管理#############################################
     subject_title = "货物运输清单管理"
     subject = "LoadList"
@@ -197,24 +217,6 @@ namespace :db do
 
     }
     SystemFunction.create_by_hash(sf_hash)
-
-   ##############################分货物清单管理#############################################
-    subject_title = "分货清单管理"
-    subject = "DistributionList"
-    sf_hash = {
-      :group_name => group_name,
-      :subject_title => subject_title,
-      :default_action => '/distribution_lists/new',
-      :subject => subject,
-      :function => {
-      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
-      :create => {:title => "新建"},
-      :export => {:title => "导出"},
-    }
-
-    }
-    SystemFunction.create_by_hash(sf_hash)
-
 
     ##############################提货#############################################
     subject_title = "客户提货"
@@ -490,6 +492,54 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :default_action => '/transit_companies',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##################################手续费比例设置-现金###############################################
+    subject_title = "手续费比例设置-现金"
+    subject = "ConfigCash"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/config_cashes',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##################################手续费比例设置-转账###############################################
+    subject_title = "手续费比例设置-转账"
+    subject = "ConfigTransit"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/config_transits',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看"} ,
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改"},
+      :destroy => {:title => "删除"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##################################系统参数设置###############################################
+    subject_title = "系统参数设置"
+    subject = "IlConfig"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/il_configs',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,

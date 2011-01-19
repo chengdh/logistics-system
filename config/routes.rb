@@ -1,5 +1,13 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :change_insured_rate_from_carrying_bills
+
+  resources :il_configs
+
+  resources :config_cashes
+
+  resources :config_transits
+
   resources :roles
 
   #将devise的url与model user产生的url区分开
@@ -89,14 +97,21 @@ IlYanzhao::Application.routes.draw do
     resources :carrying_bills
   end
 
-  resources :hand_transit_bills
+  resources :hand_transit_bills do
+    get :search,:on => :collection
+  end
 
-  resources :transit_bills
+  resources :transit_bills do
+    get :search,:on => :collection
+  end
 
-  resources :hand_bills
+  resources :hand_bills do
+    get :search,:on => :collection
+  end
 
   resources :return_bills do
     get :before_new,:on => :collection
+    get :search,:on => :collection
   end
 
   resources :departments

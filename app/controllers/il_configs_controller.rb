@@ -1,0 +1,2 @@
+class IlConfigsController < BaseController
+end

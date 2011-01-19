@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110116144900) do
+ActiveRecord::Schema.define(:version => 20110119145939) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110116144900) do
     t.integer  "to_org_id"
     t.string   "to_area",                 :limit => 20
     t.decimal  "insured_amount",                        :precision => 10, :scale => 2, :default => 0.0
-    t.decimal  "insured_rate",                          :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "insured_rate",                          :precision => 15, :scale => 4, :default => 0.0
     t.decimal  "insured_fee",                           :precision => 10, :scale => 2, :default => 0.0
     t.decimal  "carrying_fee",                          :precision => 10, :scale => 2, :default => 0.0
     t.decimal  "goods_fee",                             :precision => 10, :scale => 2, :default => 0.0
@@ -70,23 +70,41 @@ ActiveRecord::Schema.define(:version => 20110116144900) do
     t.integer  "transit_deliver_info_id"
   end
 
+  create_table "config_cashes", :force => true do |t|
+    t.decimal  "fee_from",   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "fee_to",     :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "hand_fee",   :precision => 15, :scale => 2, :default => 0.0
+    t.boolean  "is_active",                                 :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "config_transits", :force => true do |t|
+    t.string   "name",       :limit => 30,                                                   :null => false
+    t.decimal  "rate",                     :precision => 10, :scale => 4, :default => 0.001
+    t.boolean  "is_active",                                               :default => true,  :null => false
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "customers", :force => true do |t|
     t.integer  "org_id"
-    t.string   "name",          :limit => 60,                                                   :null => false
-    t.string   "phone",         :limit => 20
-    t.string   "mobile",        :limit => 20
-    t.string   "address",       :limit => 60
-    t.string   "company",       :limit => 60
-    t.string   "code",          :limit => 20
-    t.string   "id_number",     :limit => 30
+    t.string   "name",              :limit => 60,                   :null => false
+    t.string   "phone",             :limit => 20
+    t.string   "mobile",            :limit => 20
+    t.string   "address",           :limit => 60
+    t.string   "company",           :limit => 60
+    t.string   "code",              :limit => 20
+    t.string   "id_number",         :limit => 30
     t.integer  "bank_id"
-    t.string   "bank_card",     :limit => 30
-    t.boolean  "is_active",                                                  :default => true
-    t.decimal  "hand_fee_rate",               :precision => 10, :scale => 3, :default => 0.001
+    t.string   "bank_card",         :limit => 30
+    t.boolean  "is_active",                       :default => true
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",          :limit => 20
+    t.string   "type",              :limit => 20
+    t.integer  "config_transit_id"
   end
 
   create_table "deliver_infos", :force => true do |t|
@@ -107,6 +125,14 @@ ActiveRecord::Schema.define(:version => 20110116144900) do
     t.integer  "org_id",                   :null => false
     t.text     "note"
     t.string   "state",      :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "il_configs", :force => true do |t|
+    t.string   "key",        :limit => 60, :null => false
+    t.string   "title",      :limit => 60
+    t.string   "value",      :limit => 60, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

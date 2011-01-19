@@ -24,10 +24,10 @@
 				$($.bill_selector).bind('set_all', $.bill_selector.set_all);
 				//绑定全选和不选按钮
 				$($.bill_selector.options.btn_select_all).live("click", function() {
-					$($.bill_selector).trigger('set_all', [true]);
+				  $($.bill_selector).trigger('set_all', [true]);
 				});
 				$($.bill_selector.options.btn_unselect_all).live("click", function() {
-					$($.bill_selector).trigger('set_all', [false]);
+				  $($.bill_selector).trigger('set_all', [false]);
 				});
 
 				$.bill_selector.initialized = true;

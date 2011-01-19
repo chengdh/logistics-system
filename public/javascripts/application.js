@@ -62,6 +62,45 @@ jQuery(function($) {
 	};
 	$('#customer_code').live('change', search_customer_by_code);
 	$('form.carrying_bill').live("change", calculate_carrying_bill);
+	$('form.carrying_bill').livequery(calculate_carrying_bill);
+
+	//根据不同的运单录入界面,隐藏部分字段
+	$('form.computer_bill').livequery(function() {
+		$('#computer_bill_to_area_input').hide();
+		$('#computer_bill_transit_org_id_input').hide();
+		$('#computer_bill_bill_no').attr('readonly', true);
+		$('#computer_bill_goods_no').attr('readonly', true);
+	});
+	$('form.hand_bill').livequery(function() {
+		$('#hand_bill_to_area_input').hide();
+		$('#hand_bill_transit_org_id_input').hide();
+		$('#hand_bill_bill_no').attr('readonly', false);
+		$('#hand_bill_goods_no').attr('readonly', false);
+
+	});
+	$('form.transit_bill').livequery(function() {
+		$('#transit_bill_to_area_input').show();
+		$('#transit_bill_transit_org_id_input').show();
+		$('#transit_bill_to_org_id_input').hide();
+		$('#transit_bill_bill_no').attr('readonly', true);
+		$('#transit_bill_goods_no').attr('readonly', true);
+
+	});
+	$('form.hand_transit_bill').livequery(function() {
+		$('#hand_transit_bill_to_area_input').show();
+		$('#hand_transit_bill_transit_org_id_input').show();
+		$('#hand_transit_bill_to_org_id_input').hide();
+		$('#hand_transit_bill_bill_no').attr('readonly', false);
+		$('#hand_transit_bill_goods_no').attr('readonly', false);
+	});
+	$('form.return_bill').livequery(function() {
+		$('#return_bill_to_area_input').hide();
+		$('#return_bill_transit_org_id_input').hide();
+		$(this).find('input').attr('readonly', true);
+		$('#return_bill_note').attr('readonly', false);
+
+	});
+
 	//绑定所有日期选择框
 	$.datepicker.setDefaults({
 		dateFormat: 'yy-mm-dd'
@@ -72,7 +111,13 @@ jQuery(function($) {
 	});
 
 	//初始化左侧菜单树,icon显示有问题
-	$('#menu_bar').accordion();
+        var cookieName='il_menubar'
+	$('#menu_bar').accordion({
+		active: ($.cookies.get(cookieName) || 0),
+		change: function(e, ui) {
+			$.cookies.set(cookieName, $(this).find('h3').index(ui.newHeader[0]));
+		}
+	});
 	$('#menu_bar .ui-icon,#role_system_functions_list .ui-icon').attr('style', "display : none;");
 
 	$('.fancybox').livequery(function() {
@@ -110,7 +155,7 @@ jQuery(function($) {
 		$(this).tabEnter();
 	});
 	//运单列表表头点击事件
-	$('#table_wrap th a,#table_wrap .pagination a').live('click', function() {
+	$('#table_wrap th a[href!="#"],#table_wrap .pagination a[href!="#"]').live('click', function() {
 		$.getScript(this.href);
 		return false;
 	});

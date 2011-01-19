@@ -3,10 +3,10 @@
   <ul class="wat-cf">
     <%if can? :read,resource_class%>
       <li class="first">
-        <%= link_to image_tag("grid.png") , collection_path("search[from_org_id_in]" => current_user.current_ability_org_ids),:title => "始发货运单列表",:class => "tipsy"  %>
+        <%= link_to image_tag("grid.png") , collection_path("search[from_org_id_in]" => current_user.current_ability_org_ids),:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
       </li>
       <li>
-        <%= link_to image_tag("grid-snap.png") , collection_path("search[from_org_id_ni]" => current_user.current_ability_org_ids),:title => "返程/中转运单列表",:class => "tipsy"  %>
+        <%= link_to image_tag("grid-snap.png") , collection_path("search[from_org_id_ni]" => current_user.current_ability_org_ids),:title => "返程/中转#{resource_class.model_name.human}列表",:class => "tipsy"  %>
       </li>
       <%if self.respond_to?("search_#{controller_name.tableize}_path")%>
         <li><%= link_to image_tag("application-search-result.png"),self.send("search_#{controller_name.tableize}_path"),:title => "查询#{resource_class.model_name.human}",:class => "fancybox tipsy" %></li>
@@ -20,12 +20,12 @@
 
     <%if params[:action] == "new"%>
       <li>
-        <%= link_to_function image_tag("disk-black.png"), "$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
       </li>
     <%end%>
     <%if params[:action] == "edit"%>
       <li>
-        <%= link_to_function image_tag("disk-black.png"), "$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
       </li>
       <%if can? :destroy,resource_class%>
         <li>

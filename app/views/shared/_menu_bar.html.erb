@@ -1,12 +1,14 @@
-<div id='menu_bar' class="block">
-  <%current_user.default_role.system_function_groups.each do |f_group,functions|%>
-    <h3><%=link_to f_group.name,'#'%></h3>
-    <div>
-      <ul class="navigation">
-        <%functions.each do |f|%>
-          <li><%= link_to f.subject_title, f.default_action %></li>
-        <%end%>
-      </ul>
-    </div>
-  <%end%>
-</div>
+<%cache current_user do %>
+  <div id='menu_bar' class="block">
+    <%current_user.default_role.system_function_groups.each do |f_group,functions|%>
+      <h3><%=link_to f_group.name,'#'%></h3>
+      <div>
+        <ul class="navigation">
+          <%functions.each do |f|%>
+            <li><%= link_to f.subject_title, f.default_action %></li>
+          <%end%>
+        </ul>
+      </div>
+    <%end%>
+  </div>
+<%end%>

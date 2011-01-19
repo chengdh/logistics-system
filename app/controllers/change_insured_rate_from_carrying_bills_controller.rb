@@ -1,0 +1,2 @@
+class ChangeInsuredRateFromCarryingBillsController < InheritedResources::Base
+end

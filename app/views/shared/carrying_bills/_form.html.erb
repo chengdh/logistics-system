@@ -1,10 +1,12 @@
 <%= semantic_form_for resource ,:remote=> true,:html => {:id => "carrying_bill_form",:class => "wat-cf carrying_bill"} do |f|%>
   <%=f.error_messages %>
   <%= f.inputs "票据基础信息"  do %>
+    <%= f.input :original_bill_id,:as => :hidden%>
     <%= f.input :bill_date,:as => :string,:input_html =>{:readonly => true,:class => 'datepicker',:size => 10} %>
-    <%= f.input :bill_no,:input_html => {:readonly => true} %>
-    <%= f.input :goods_no,:input_html => {:readonly => true} %>
+    <%= f.input :bill_no %>
+    <%= f.input :goods_no %>
     <%= f.input :from_org_id,:as => :select,:collection => current_ability_orgs_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "可录入拼音简写查询发货地(例如:安阳,可录入ay)"} %>
+    <%= f.input :transit_org_id,:as => :select,:collection => exclude_current_ability_orgs_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "中转机构,一般为总部"} %>
 
     <%= f.input :to_org_id,:as => :select,:collection => exclude_current_ability_orgs_for_select,:include_blank => false,:input_html => {:class => "select_org",:title => "可录入拼音简写查询到货地(例如:安阳,可录入ay)"} %>
 
@@ -23,7 +25,7 @@
     <%= f.input :pay_type,:as => :select,:include_blank => false,:collection => CarryingBill.pay_types %>
     <%= f.input :carrying_fee ,:input_html => {:id => "carrying_fee"}%>
     <%= f.input :insured_amount ,:input_html => {:id => "insured_amount"}%>
-    <%= f.input :insured_rate  ,:input_html => {:id => "insured_rate"}%>
+    <%= f.input :insured_rate_disp,:input_html => {:id => "insured_rate",:readonly => true }%>
     <%= f.input :insured_fee,:input_html => {:readonly => true,:id => "insured_fee" } %>
     <%= f.input :from_short_carrying_fee,:input_html => {:id => "from_short_carrying_fee"} %>
     <%= f.input :to_short_carrying_fee,:input_html => {:id => "to_short_carrying_fee"}  %>
@@ -40,5 +42,6 @@
   <%= f.inputs "货物信息"  do %>
     <%= f.input :goods_num %>
     <%= f.input :goods_info,:as => :string %>
+    <%= f.input :note,:as => :string,:input_html => {:size => 100} %>
   <% end %>
 <% end%>

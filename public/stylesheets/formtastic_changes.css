@@ -13,6 +13,7 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 
 --------------------------------------------------------------------------------------------------*/
 #carrying_bill_form  fieldset,#transit_info_form fieldset,#transit_deliver_form fieldset,#user_form fieldset,#deliver_info_form fieldset {
+  margin-top : 10px;
   padding : 10px 5px 10px 5px;
   border-top : 2px solid #E2E2E2;
 
@@ -20,5 +21,6 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 #carrying_bill_form fieldset legend,#transit_info_form fieldset legend,#transit_deliver_form fieldset legend,#user_form fieldset legend,#deliver_info_form fieldset legend {
   font-size : 1.2em;
   margin-left : 10px;
+  padding : 5px;
   font-weight :bold;
 }

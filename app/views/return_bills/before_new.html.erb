@@ -3,13 +3,28 @@
   <div class="content">            
     <h2 class="title">新建 <%= resource_name %></h2>
     <div class="inner">
-      <div class='actions-bar text-center'>
-      <%=form_tag new_return_bill_path,:method => :get do %>
-        <%=label_tag :bill_no,'请录入要退货的运单号:' %>
-        <%=text_field_tag :bill_no%>
-        <%=submit_tag "生成退货单",:class => 'sexybutton sexysimple sexyblue'%>
-      <%end%>
-    </div>
+      <div class='actions-bar'>
+        <%=form_tag new_return_bill_path,:method => :get,:id => 'return_bill_before_new_form' do %>
+          <p>
+            <%=label_tag "search[bill_no_eq]",'请录入要退货的运单号:' %>
+          </p>
+          <p>
+            <%=text_field_tag "search[bill_no_eq]","",:class => 'search_box_return_bill' %>
+            <%=submit_tag "生成退货单",:class => 'sexybutton sexysimple sexyblue'%>
+          </p>
+          <ul class='hint'>
+            <li>只有确认到货后的票据才能进行退货操作</li>
+            <li>已提货或已中转的票据不能再进行退货</li>
+            <li>未装车的票据可直接删除</li>
+          </ul>
+          <%=hidden_field_tag "search[to_org_id_in][]",current_user.current_ability_org_ids%>
+          <%=hidden_field_tag "search[type_in][]",'ComputerBill' %>
+          <%=hidden_field_tag "search[type_in][]",'HandBill'%>
+          <%=hidden_field_tag "search[type_in][]",'TransitBill'%>
+          <%=hidden_field_tag "search[type_in][]",'HandTransitBill'%>
+          <%=hidden_field_tag "search[state_eq]",'reached'%>
+        <%end%>
+      </div>
     </div>
   </div>
   <%= render "dynamic_toolbar" %>

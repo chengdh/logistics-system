@@ -1,0 +1,21 @@
+<%= form_for(@change_insured_rate_from_carrying_bill) do |f| %>
+  <% if @change_insured_rate_from_carrying_bill.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@change_insured_rate_from_carrying_bill.errors.count, "error") %> prohibited this change_insured_rate_from_carrying_bill from being saved:</h2>
+
+      <ul>
+      <% @change_insured_rate_from_carrying_bill.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :insured_rate %><br />
+    <%= f.text_field :insured_rate %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

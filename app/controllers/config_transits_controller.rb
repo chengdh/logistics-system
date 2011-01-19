@@ -1,0 +1,2 @@
+class ConfigTransitsController < BaseController
+end

@@ -1,1 +1,50 @@
-<%= render "shared/carrying_bills/dynamic_toolbar" %>
+<!--动态toolbar-->
+<div class="secondary-navigation">
+  <ul class="wat-cf">
+    <%if can? :read,resource_class%>
+      <li class="first">
+        <%= link_to image_tag("grid.png") , collection_path("search[from_org_id_in]" => current_user.current_ability_org_ids),:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
+      </li>
+      <li>
+        <%= link_to image_tag("grid-snap.png") , collection_path("search[from_org_id_ni]" => current_user.current_ability_org_ids),:title => "返程/中转#{resource_class.model_name.human}列表",:class => "tipsy"  %>
+      </li>
+      <%if self.respond_to?("search_#{controller_name.tableize}_path")%>
+        <li><%= link_to image_tag("application-search-result.png"),self.send("search_#{controller_name.tableize}_path"),:title => "查询#{resource_class.model_name.human}",:class => "fancybox tipsy" %></li>
+      <%end%>
+    <%end%>
+    <%if can? :create,resource_class%>
+      <li>
+        <%= link_to image_tag("application--plus.png"), before_new_return_bills_path,:title => "新建#{resource_class.model_name.human}",:class => "tipsy"  %>
+      </li>
+    <%end%>
+
+    <%if params[:action] == "new"%>
+      <li>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+      </li>
+    <%end%>
+    <%if params[:action] == "edit"%>
+      <li>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+      </li>
+      <%if can? :destroy,resource_class%>
+        <li>
+          <%= link_to image_tag("cross.png"), resource,:method => :delete,:class =>"tipsy",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
+        </li>
+      <%end%>
+    <%end%>
+    <%if params[:action] == "show"%>
+      <%if can? :update,resource%>
+        <li>
+          <%= link_to image_tag("application--pencil.png"),  edit_resource_path(resource),:title => "修改当前记录",:class => "tipsy" %>
+        </li>
+      <%end%>
+      <%if can? :destroy,resource%>
+        <li>
+          <%= link_to image_tag("cross.png"), resource,:method => :delete,:class =>"tipsy",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
+        </li>
+      <%end%>
+    <%end%>
+    <%= render "extra_toolbar" %>
+  </ul>
+</div>   

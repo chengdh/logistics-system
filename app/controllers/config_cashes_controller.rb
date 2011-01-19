@@ -1,0 +1,2 @@
+class ConfigCashesController < BaseController
+end

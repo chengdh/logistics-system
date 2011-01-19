@@ -1,0 +1,23 @@
+<h1>Listing change_insured_rate_from_carrying_bills</h1>
+
+<table>
+  <tr>
+    <th>Insured rate</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @change_insured_rate_from_carrying_bills.each do |change_insured_rate_from_carrying_bill| %>
+  <tr>
+    <td><%= change_insured_rate_from_carrying_bill.insured_rate %></td>
+    <td><%= link_to 'Show', change_insured_rate_from_carrying_bill %></td>
+    <td><%= link_to 'Edit', edit_change_insured_rate_from_carrying_bill_path(change_insured_rate_from_carrying_bill) %></td>
+    <td><%= link_to 'Destroy', change_insured_rate_from_carrying_bill, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Change insured rate from carrying bill', new_change_insured_rate_from_carrying_bill_path %>

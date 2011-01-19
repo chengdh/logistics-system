@@ -20,6 +20,8 @@
       <th class="th_amount" style='display : none;'><span id="sum_th_amount"></span></th>
       <th class="from_short_carrying_fee" style='display : none;'><span id="sum_from_short_carrying_fee"></span></th>
       <th class="to_short_carrying_fee" style='display : none;'><span id="sum_to_short_carrying_fee"></span></th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
     </tr>
     <tr class='text-center'>             
       <th class="cbx_select_bill" style='display : none;'>&nbsp;</th>
@@ -42,6 +44,8 @@
       <th class="th_amount" style='display : none;'>提货应收</th>
       <th class="from_short_carrying_fee" style='display : none;'>发货地短途运费</th>
       <th class="to_short_carrying_fee" style='display : none;'>到货地短途运费</th>
+      <th>备注</th>
+      <th>状态</th>
     </tr>
   </thead>
   <tbody>
@@ -93,13 +97,15 @@
 
         <td class="from_short_carrying_fee" style='display : none;'><%= bill.from_short_carrying_fee %></td>
         <td class="to_short_carrying_fee" style='display : none;'><%= bill.to_short_carrying_fee %></td>
+        <td><%= bill.note %></td>
+        <td><%= bill.human_state_name %></td>
       </tr>          
     <% end -%>
   </tbody>
   <tfoot>
     <tr>
       <td class="cbx_select_bill" style='display : none;'>&nbsp;</td>
-      <td>&nbsp;</td>
+      <td>&nbsp;</tdnote>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -118,6 +124,8 @@
       <td class="th_amount" style='display : none;'><%=search_sum[:sum_th_amount]%></td>
       <td class="from_short_carrying_fee" style='display : none;'><%= search_sum[:sum_from_short_carrying_fee] %></td>
       <td class="to_short_carrying_fee" style='display : none;'><%= search_sum[:sum_to_short_carrying_fee] %></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
     </tr>
   </tfoot>
 </table>

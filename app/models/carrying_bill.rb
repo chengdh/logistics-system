@@ -7,7 +7,10 @@ class CustomerCodeValidator < ActiveModel::EachValidator
   end
 end
 class CarryingBill < ActiveRecord::Base
+  attr_protected :insured_rate
   before_validation :set_customer
+  #计算手续费
+  before_save :cal_hand_fee
   belongs_to :from_org,:class_name => "Org" 
   belongs_to :transit_org,:class_name => "Org" 
   belongs_to :to_org,:class_name => "Org" 
@@ -76,12 +79,10 @@ class CarryingBill < ActiveRecord::Base
 
     #退货单处理流程
     #退货处理中,根据当前票据状态产生退货票据
-    after_transition :on => :return,[:shipped,:reached,:distributed] => :returned,:do => :generate_return_bill
+    #after_transition :on => :return,[:reached,:distributed] => :returned,:do => :generate_return_bill
     event :return do
-      #未发出已退货
-      transition [:billed,:loaded] => :returned
       #货物已发出,进行退货操作,会自动生成一张相反的单据
-      transition [:shipped,:reached,:distributed] => :returned
+      transition [:reached,:distributed] => :returned
     end
     #根据运单状态进行验证操作
     state :loaded,:shipped,:reached do
@@ -91,12 +92,11 @@ class CarryingBill < ActiveRecord::Base
       validates_presence_of :distribution_list_id
     end
     #TODO 添加其他处理时的验证处理
-
-
     end
     #字段默认值
     default_value_for :bill_date,Date.today
     default_value_for :goods_num,1
+    default_value_for :insured_rate,0.003#IlConfig.insured_rate
 
     PAY_TYPE_CASH = "CA"    #现金付
     PAY_TYPE_TH = "TH"      #提货付
@@ -118,6 +118,12 @@ class CarryingBill < ActiveRecord::Base
     def to_org_name
       ""
       self.to_org.name unless self.to_org.nil?
+    end
+    #以千分数表示的保价费
+    def insured_rate_disp
+      self.insured_rate*1000
+    end
+    def insured_rate_disp=(rate)
     end
     #提付运费,付款方式为提货付时,等于运费,其他为0
     def carrying_fee_th
@@ -182,6 +188,7 @@ class CarryingBill < ActiveRecord::Base
       #TODO 设置票据操作人员信息
       override_attr = {
         :bill_no => "TH#{self.bill_no}",
+        :goods_no => nil,
         :bill_date => Date.today,
         :from_org_id => self.to_org_id,
         :to_org_id => self.from_org_id,
@@ -193,7 +200,8 @@ class CarryingBill < ActiveRecord::Base
         :to_customer_id => nil,
         :pay_type => PAY_TYPE_TH,
         :goods_fee => 0,
-        :carrying_fee => (pay_type == PAY_TYPE_CASH ? self.carrying_fee : 2*self.carrying_fee)
+        :carrying_fee => (pay_type == PAY_TYPE_CASH ? self.carrying_fee : 2*self.carrying_fee),
+        :note => "原运单票据号:#{self.bill_no},货号:#{self.goods_no},运费:#{self.carrying_fee},代收货款;#{self.goods_fee}"
       }
       #如果是中转票据,则将中转站与始发站调换
       override_attr.merge!(:from_org_id => self.transit_org_id,:to_org_id => self.from_org_id) unless self.transit_org_id.blank?
@@ -201,6 +209,7 @@ class CarryingBill < ActiveRecord::Base
     end
 
     protected
+    
     #生成票据编号
     def generate_bill_no
       #FIXME 票据号暂时设置为id
@@ -212,7 +221,6 @@ class CarryingBill < ActiveRecord::Base
       self.goods_no ="#{bill_date.strftime('%y%m%d')}#{from_org.simp_name}#{to_org.simp_name}#{today_sequence}-#{goods_num}" if self.to_org.present?
       self.goods_no ="#{bill_date.strftime('%y%m%d')}#{from_org.simp_name}#{transit_org.simp_name}#{today_sequence}-#{goods_num}" if self.transit_org.present?
     end
-
     private
     #获取当日发货单序列
     def today_sequence
@@ -227,5 +235,14 @@ class CarryingBill < ActiveRecord::Base
       if Customer.exists?(:code => customer_code,:name => from_customer_name,:is_active => true)
         self.from_customer = Customer.where(:is_active => true).find_by_code(customer_code)
       end
+    end
+    #计算手续费
+    def cal_hand_fee
+      if self.goods_fee_cash?
+        self.k_hand_fee = ConfigCash.cal_hand_fee(self.goods_fee)
+      else
+        self.k_hand_fee = self.from_customer.config_transit.rate * self.goods_fee
+      end
+      self.k_hand_fee
     end
   end

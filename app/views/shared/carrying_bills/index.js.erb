@@ -15,7 +15,12 @@
       $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
     <%end%>
   <%else%>
-    $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/table")) %>');
+    var bill_list = '<%= escape_javascript(render("shared/carrying_bills/table")) %>';
+    if($('#table_wrap').length > 0)
+      $('#table_wrap').html(bill_list);
+    else
+      //如果找不到table_wrap元素,则更新inner元素
+      $('.inner').html('<div id="table_wrap">' + bill_list + '</div>');
   <%end%>
 <%end%>
 //以下设定显示字段
