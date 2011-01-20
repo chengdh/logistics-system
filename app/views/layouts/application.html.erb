@@ -29,32 +29,48 @@
     <div id="container">
       <div id="header">
         <h1 id='client_name'><%=image_tag "#{IlConfig.client_logo}",:id => 'logo' %><%= link_to "#{IlConfig.client_name}", :root %></h1>
-        <div id="user-navigation">
+        <div id="util-navigation">
           <ul class="wat-cf">
             <li>
               <%= link_to "#{current_user.username}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_user_path(current_user) %>
             </li>
-            <li><%=link_to "退出系统",destroy_user_session_path%></li>
+            <li><%=link_to "退出系统",destroy_user_session_path,:class => 'logout'%></li>
+          </ul>
+        </div>
+
+        <div id="user-navigation">
+          <ul class="wat-cf">
+            <li>
+              <div id='home-search-box-wrap'>
+                <%=form_tag carrying_bills_path,:id => 'home-search-form',:method => :get do%>
+                  <%=text_field_tag "search[bill_no_or_goods_no_like]","",:id => 'home-search-box'%>
+                  <%=image_submit_tag 'magnifier.png' %>
+                <%end%>
+              </div>
+            </li>
+            <li id='adv-query-wrap'>
+              <%=link_to "高级查询",search_carrying_bills_path,:class => 'fancybox' %>
+            </li>
           </ul>
         </div>
         <div id="main-navigation">
           <ul class="wat-cf">
             <li class='first active'><%= link_to "业务看板", root_path %></li>
-        </div>
-      </div>    
-      <div id="wrapper" class="wat-cf">
-        <div id="main">
-          <%= yield %>
-          <div id="footer">
-            <%= render "shared/footer" %>
           </div>
-        </div>
-        <div id="sidebar">
-          <%= render "shared/menu_bar" %>
-        </div>
-      </div>    
-    </div>
-    <%= debug(params) if Rails.env.development? %>
-  </body>
-</html>
-<%=notify_bar :flash => [:notice,:success,:error,:alert],:delay => 4500,:animation_speed => "slow" %>
+        </div>    
+        <div id="wrapper" class="wat-cf">
+          <div id="main">
+            <%= yield %>
+            <div id="footer">
+              <%= render "shared/footer" %>
+            </div>
+          </div>
+          <div id="sidebar">
+            <%= render "shared/menu_bar" %>
+          </div>
+        </div>    
+      </div>
+      <%= debug(params) if Rails.env.development? %>
+    </body>
+  </html>
+  <%=notify_bar :flash => [:notice,:success,:error,:alert],:delay => 4500,:animation_speed => "slow" %>

@@ -8,6 +8,11 @@
   float : left;
   width : 16%;
 }
+#header {
+  position : relative;
+  zoom : 1;   /*解决ie6下的bug*/
+}
+
 /* layout */
 .text-right {text-align : right;}
 .text-center {text-align : center;}
@@ -65,6 +70,39 @@
 .table td:last-child a:hover{
   color: red;
   text-decoration: underline overline;
+}
+/*主页面工具导航容器*/
+#util-navigation {
+    position : absolute;
+    right : 20px;
+    top : 10px;
+    width : 280px;
+}
+#util-navigation ul li {
+  float : left;
+  padding : 5px 10px;
+  list-style-type : none;
+}
+
+#util-navigation ul li a:link,#util-navigation ul li a:visited,#util-navigation ul li a:hover,#util-navigation ul li a:active {
+  color : #FFFFFF;  
+  text-decoration : none;
+}
+#util-navigation a.logout {
+  -moz-border-radius:4px 4px 4px 4px;
+  background:none repeat scroll 0 0 #CC0000;
+  padding:2px 6px;
+}
+/*首页上的查询框*/
+#home-search-box-wrap{
+  padding : 5px 0;
+}
+#adv-query-wrap a:hover, #adv-query-wrap a:active {
+  text-decoration : underline;
+}
+#user-navigation { top : 62px;}
+#adv-query-wrap {
+  margin-top : 7px;
 }
 
 /*error display*/

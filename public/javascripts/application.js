@@ -42,7 +42,7 @@ jQuery(function($) {
 	});
 	//角色功能列表
 	$('#role_orgs_list').treeList();
-        //组织机构列表
+	//组织机构列表
 	$('#orgs_list').treeList();
 	$('#role_orgs_list').treeList();
 	$('#role_system_functions_list').accordion();
@@ -114,7 +114,7 @@ jQuery(function($) {
 	});
 
 	//初始化左侧菜单树,icon显示有问题
-        var cookieName='il_menubar'
+	var cookieName = 'il_menubar'
 	$('#menu_bar').accordion({
 		active: ($.cookies.get(cookieName) || 0),
 		change: function(e, ui) {
@@ -169,6 +169,13 @@ jQuery(function($) {
 		$.fancybox.showActivity();
 	}).ajaxStop(function() {
 		$.fancybox.hideActivity();
+	});
+	//首页运单查询
+	$('#home-search-box').watermark('录入运单号/货号查询').keyup(function(e) {
+		if (e.keyCode == 13) {
+			$.fancybox.showActivity();
+			$('#home-search-form').trigger('submit');
+		}
 	});
 	//search box
 	$('.search_box').livequery(function() {
