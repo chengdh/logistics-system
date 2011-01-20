@@ -1,0 +1,22 @@
+<!--动态toolbar-->
+<div class="secondary-navigation">
+  <ul class="wat-cf">
+    <%if can? :read,CarryingBill%>
+      <li class="first">
+        <%= link_to image_tag("grid.png") , carrying_bills_path("search[from_short_carrying_fee_or_to_short_carrying_fee_gt]" => 0,:show_fields => '.from_short_carrying_fee,.to_short_carrying_fee,.short_fee_state',:hide_fields => '.insured_fee'),:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
+      </li>
+      <li><%= link_to image_tag("application-search-result.png"),search_carrying_bills_path(:show_fields => '.from_short_carrying_fee,.to_short_carrying_fee,short_fee_state',:hide_fields => '.insured_fee'),:title => "查询#{resource_class.model_name.human}",:class => "fancybox tipsy" %></li>
+    <%end%>
+    <%if can? :create,resource_class%>
+      <li>
+        <%= link_to image_tag("application--plus.png"), new_resource_path,:title => "新建#{resource_class.model_name.human}",:class => "tipsy"  %>
+      </li>
+    <%end%>
+
+    <%if params[:action] == "new"%>
+      <li>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+      </li>
+    <%end%>
+  </ul>
+</div>   

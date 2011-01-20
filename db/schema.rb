@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110119145939) do
+ActiveRecord::Schema.define(:version => 20110120145625) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(:version => 20110119145939) do
     t.decimal  "transit_carrying_fee",                  :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "transit_hand_fee",                      :precision => 15, :scale => 2, :default => 0.0
     t.integer  "transit_deliver_info_id"
+    t.string   "short_fee_state",         :limit => 20
+    t.integer  "short_fee_info_id"
   end
 
   create_table "config_cashes", :force => true do |t|
@@ -257,6 +259,16 @@ ActiveRecord::Schema.define(:version => 20110119145939) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "bill_date",                                                                      :null => false
+  end
+
+  create_table "short_fee_infos", :force => true do |t|
+    t.date     "bill_date",                :null => false
+    t.integer  "org_id",                   :null => false
+    t.integer  "user_id"
+    t.string   "state",      :limit => 20
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "system_function_groups", :force => true do |t|

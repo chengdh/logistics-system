@@ -233,13 +233,22 @@
 					"search[from_org_id_eq]": default_values["from_org_id_eq"]
 				});
 			}
-			if (default_values["search[to_org_id_eq]"] != "") {
+			if (default_values["to_org_id_eq"] != "") {
 				$('#search_to_org_id_eq').val(default_values["to_org_id_eq"]).trigger('change');
 				$('#search_to_org_id_eq').attr('disabled', true);
 				jQuery.extend(default_values, {
 					"search[to_org_id_or_transit_org_id_eq]": default_values["to_org_id_eq"]
 				});
 			}
+			if (default_values["search[state_eq]"] != "") {
+				$('#search_state_eq').val(default_values["search[state_eq]"]).trigger('change');
+				$('#search_state_eq').attr('disabled', true);
+				jQuery.extend(default_values, {
+					"search[state_eq]": default_values["search[state_eq]"]
+				});
+			}
+
+                        //传递了要查询的单据状态 
 			$('#search_bill_form').data('params', default_values)
 		};
 		$('#search_bill_form').livequery(function() {

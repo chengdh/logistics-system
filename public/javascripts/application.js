@@ -217,7 +217,7 @@ jQuery(function($) {
 		})
 	});
 	//绑定提货/提款/中转/中转提货处理的ajax:before
-	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info,#transit_info_form,#transit_deliver_form').livequery(function() {
+	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info,#transit_info_form,#transit_deliver_form,#short_fee_info_form').livequery(function() {
 		$(this).bind('ajax:before', function() {
 			var bill_els = $('[data-bill]');
 			var bill_ids = [];
@@ -272,6 +272,8 @@ jQuery(function($) {
 
 		$('#count').html($('[data-bill]').length + '票');
 		$('#sum_carrying_fee').html(sum_carrying_fee);
+		$('#sum_from_short_carrying_fee').html(sum_from_short_carrying_fee);
+		$('#sum_to_short_carrying_fee').html(sum_to_short_carrying_fee);
 		$('#sum_k_carrying_fee').html(sum_k_carrying_fee);
 		$('#sum_carrying_fee_th').html(sum_carrying_fee_th);
 		$('#sum_hand_fee').html(sum_k_hand_fee);

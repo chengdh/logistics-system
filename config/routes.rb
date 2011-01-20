@@ -1,5 +1,7 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :short_fee_infos
+
   resources :change_insured_rate_from_carrying_bills
 
   resources :il_configs

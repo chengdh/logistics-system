@@ -36,6 +36,9 @@ class CarryingBill < ActiveRecord::Base
   #对于原始单据来讲,有一个对应的退货单据
   has_one :return_bill,:foreign_key => "original_bill_id",:class_name => "ReturnBill"
 
+  #短途运费核销信息
+  belongs_to :short_fee_info
+
   
   validates :bill_no,:goods_no,:uniqueness => true
   validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id
@@ -92,6 +95,16 @@ class CarryingBill < ActiveRecord::Base
       validates_presence_of :distribution_list_id
     end
     #TODO 添加其他处理时的验证处理
+    end
+
+    #短途运费状态声明
+    state_machine :short_fee_state,:initial => :draft do
+      event :write_off  do
+        transition :draft => :off
+      end
+      state :off do
+        validates_presence_of :short_fee_info_id
+      end
     end
     #字段默认值
     default_value_for :bill_date,Date.today

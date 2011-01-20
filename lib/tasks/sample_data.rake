@@ -253,6 +253,21 @@ namespace :db do
 
     }
     SystemFunction.create_by_hash(sf_hash)
+    ##############################短途运费管理#############################################
+    subject_title = "短途运费管理"
+    subject = "ShortFeeInfo"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/short_fee_infos/new',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
 
     #################################结算管理##########################################
     group_name = "结算管理"
