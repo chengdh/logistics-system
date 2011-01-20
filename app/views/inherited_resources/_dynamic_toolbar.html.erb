@@ -26,7 +26,7 @@
       </li>
       <%if can? :destroy,resource_class%>
         <li>
-          <%= link_to image_tag("cross.png"), resource,:method => :delete,:class =>"tipsy",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
+          <%= link_to image_tag("cross.png"), polymorphic_url(resource,:routing_type => :path),:method => :delete,:class =>"tipsy",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
         </li>
       <%end%>
     <%end%>

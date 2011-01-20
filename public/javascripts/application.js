@@ -42,6 +42,9 @@ jQuery(function($) {
 	});
 	//角色功能列表
 	$('#role_orgs_list').treeList();
+        //组织机构列表
+	$('#orgs_list').treeList();
+	$('#role_orgs_list').treeList();
 	$('#role_system_functions_list').accordion();
 	$('#role_tab a').click(function() {
 		var active_el = $($(this).attr('href'));
@@ -463,7 +466,7 @@ jQuery(function($) {
 	});
 	//用户新建及修改界面,处理删除角色
 	$('input[name*="is_select"][type="checkbox"]').livequery('click', function() {
-		$(this).prev().prev().val(!$(this).attr('checked'));
+		$(this).next().val(!$(this).attr('checked'));
 
 	});
 });

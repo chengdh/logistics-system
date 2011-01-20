@@ -12,25 +12,12 @@
   </div>
   <div id="role_org_tab" style='display : none;'>
     <ul id="role_orgs_list">
-      <%=f.fields_for :role_orgs,resource.all_role_orgs! do |role_org|%>
-        <%if role_org.object.org.parent.blank?%>
-          <li>
-            <%=role_org.hidden_field :org_id%>
-            <%=role_org.hidden_field :_destroy,:value => !role_org.object.is_select%>
-            <%=role_org.object.org.name%><%=role_org.check_box :is_select%>
-            <%if role_org.object.org.children.length > 0%>
-              <% child_orgs = resource.role_orgs.find_all {|ro| ro.org.parent_id == role_org.object.org.id}%>
-              <ul>
-                <%=f.fields_for :role_orgs,child_orgs do |child_org|%>
-                  <%=child_org.hidden_field :org_id%>
-                  <%=child_org.hidden_field :_destroy,:value => child_org.object.is_select%>
-                  <li><%=child_org.object.org.name%><%=child_org.check_box :is_select%></li>
-                <%end%>
-              </ul>
-            <%end%>
-          </li>
+      <li class='ui-treeList-open'>
+        <%=IlConfig.client_name%>
+        <%=f.fields_for :role_orgs,resource.all_role_orgs!.select { |role_org| role_org.org.parent.blank?} do |role_org|%>
+          <%= render "role_org_recursive",:role_org => role_org,:f => f %>
         <%end%>
-      <%end%>
+      </li>
     </ul>
   </div>
   <div id="role_system_functions_list">
@@ -42,7 +29,6 @@
             <h4 class='float-left' style='width : 30%;'><%=sf.subject_title%></h4>
             <div class='float-right' style='width : 65%;'>
               <%=f.fields_for :role_system_function_operates,resource.single_function_operates(sf) do |opt|%>
-
                 <span style='width : 250px;padding-right : 20px;'>
                   <%=opt.hidden_field :system_function_operate_id%>
                   <%=opt.hidden_field :_destroy,:value => !opt.object.is_select%>

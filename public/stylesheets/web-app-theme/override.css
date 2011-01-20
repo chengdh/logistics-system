@@ -114,7 +114,10 @@
   padding : 5px;
 }
 /*角色部门列表样式*/
-#role_orgs_list li {padding : 5px;}
+#orgs_list li,#role_orgs_list li {padding : 5px;}
+.org-operates a {
+  margin-right : 20px;
+}
 
 #role_tab{
   font-size : 14px;

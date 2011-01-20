@@ -1,0 +1,6 @@
+<%if resource.valid? %>
+  var url = '<%=orgs_url%>';
+  window.location = url;
+<%else%>
+  $('#fancybox-content').find('div').first().html('<%= escape_javascript(render("form")) %>');
+<%end%>

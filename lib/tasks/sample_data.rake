@@ -386,11 +386,11 @@ namespace :db do
     group_name = "基础信息管理"
     #################################分理处/分公司管理################################################
     subject_title = "分理处/分公司管理"
-    subject = "Branch"
+    subject = "Org"
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/branchs',
+      :default_action => '/orgs',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,

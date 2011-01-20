@@ -1,2 +1,2 @@
-class BranchesController < BaseController
+class BranchesController < OrgsController
 end

@@ -22,10 +22,10 @@ class Role < ActiveRecord::Base
   end
   #显示所有部门,包括当前角色具备与不具备的部门
   def all_role_orgs!
-    Org.where(:is_active => true).order("type").each do |org|
+    Org.where(:is_active => true).order("name ASC").each do |org|
       self.role_orgs.build(:org => org) unless self.role_orgs.detect { |the_role_org| the_role_org.org.id == org.id } 
     end
-    self.role_orgs
+    self.role_orgs.sort! {|x,y| x.org.id <=> y.org.id }
   end
 
   def self.new_with_default(attributes = nil)

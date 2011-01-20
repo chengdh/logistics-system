@@ -1,0 +1,12 @@
+<!--此处是个递归-->
+<ul>
+  <li>
+    <%=role_org.hidden_field :org_id%>
+    <%=label_tag "select_org_#{role_org.object.org.id}",role_org.object.org.name%>
+    <%=role_org.check_box :is_select,:id => "select_org_#{role_org.object.org.id}"%>
+    <%=role_org.hidden_field :_destroy,:value => !role_org.object.is_select%>
+    <%=f.fields_for :role_orgs,resource.role_orgs.select {|the_role_org| the_role_org.org.parent == role_org.object.org} do |child_role_org|%>
+      <%= render "role_org_recursive",:role_org => child_role_org,:f => f %>
+    <%end%>
+  </li>
+</ul>

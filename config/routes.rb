@@ -72,8 +72,6 @@ IlYanzhao::Application.routes.draw do
     resources :carrying_bills
   end
 
-
-
   resources :settlements do
     resources :carrying_bills
   end
@@ -114,12 +112,10 @@ IlYanzhao::Application.routes.draw do
     get :search,:on => :collection
   end
 
+  resources :orgs
+  resources :branches
   resources :departments
 
-  resources :branches do
-    #autocomplete
-    get :autocomplete_branch_py,:on => :collection
-  end
   #添加carrying_biils路由
   resources :carrying_bills do
     get :search,:on => :collection

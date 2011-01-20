@@ -1,2 +1,2 @@
-class DepartmentsController < BaseController
+class DepartmentsController < OrgsController
 end
