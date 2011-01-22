@@ -1,0 +1,2 @@
+module GoodsExceptionsHelper
+end

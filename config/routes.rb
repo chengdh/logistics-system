@@ -1,5 +1,9 @@
 IlYanzhao::Application.routes.draw do
 
+  resources :gexception_authorize_infos
+
+  resources :goods_exceptions
+
   resources :short_fee_infos
 
   resources :change_insured_rate_from_carrying_bills

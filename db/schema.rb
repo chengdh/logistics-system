@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110120145625) do
+ActiveRecord::Schema.define(:version => 20110122153516) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -127,6 +127,30 @@ ActiveRecord::Schema.define(:version => 20110120145625) do
     t.integer  "org_id",                   :null => false
     t.text     "note"
     t.string   "state",      :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gexception_authorize_infos", :force => true do |t|
+    t.date     "bill_date",                                                                        :null => false
+    t.text     "note"
+    t.string   "op_type",            :limit => 20,                                                 :null => false
+    t.decimal  "compensation_fee",                 :precision => 10, :scale => 2, :default => 0.0
+    t.integer  "user_id"
+    t.integer  "goods_exception_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "goods_exceptions", :force => true do |t|
+    t.integer  "org_id",                                        :null => false
+    t.integer  "carrying_bill_id"
+    t.string   "exception_type",   :limit => 20
+    t.date     "bill_date",                                     :null => false
+    t.integer  "user_id"
+    t.string   "state",            :limit => 20
+    t.integer  "except_num",                     :default => 1
+    t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
