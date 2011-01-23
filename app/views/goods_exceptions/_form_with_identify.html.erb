@@ -1,0 +1,11 @@
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "goods_exception_form"} do |f|%>
+  <%=f.error_messages %>
+  <%=f.semantic_fields_for :goods_exception_identify do |identify|%>
+    <%= identify.inputs "责任鉴定" do%>
+      <%= identify.input :bill_date,:as => :string,:input_html => {:size => 10,:readonly => true,:class => 'datepicker'} %>
+      <%= identify.input :from_org_fee %>
+      <%= identify.input :to_org_fee %>
+      <%= identify.input :note ,:as => :string,:input_html => {:size => 100} %>
+    <%end%>
+  <%end%>
+<% end%>

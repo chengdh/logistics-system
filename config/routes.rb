@@ -1,8 +1,12 @@
 IlYanzhao::Application.routes.draw do
 
-  resources :gexception_authorize_infos
 
-  resources :goods_exceptions
+  resources :goods_exceptions do
+    #显示授权核销界面
+    get :show_authorize,:on => :member
+    get :show_claim,:on => :member
+    get :show_identify,:on => :member
+  end
 
   resources :short_fee_infos
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110122153516) do
+ActiveRecord::Schema.define(:version => 20110123054433) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -70,6 +70,16 @@ ActiveRecord::Schema.define(:version => 20110122153516) do
     t.integer  "transit_deliver_info_id"
     t.string   "short_fee_state",         :limit => 20
     t.integer  "short_fee_info_id"
+  end
+
+  create_table "claims", :force => true do |t|
+    t.integer  "goods_exception_id",                                :null => false
+    t.integer  "user_id"
+    t.date     "bill_date"
+    t.decimal  "act_compensate_fee", :precision => 15, :scale => 2
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "config_cashes", :force => true do |t|
@@ -138,6 +148,17 @@ ActiveRecord::Schema.define(:version => 20110122153516) do
     t.decimal  "compensation_fee",                 :precision => 10, :scale => 2, :default => 0.0
     t.integer  "user_id"
     t.integer  "goods_exception_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "goods_exception_identifies", :force => true do |t|
+    t.date     "bill_date",                                                          :null => false
+    t.text     "note"
+    t.integer  "goods_exception_id",                                                 :null => false
+    t.integer  "user_id"
+    t.decimal  "from_org_fee",       :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "to_org_fee",         :precision => 15, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
