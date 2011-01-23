@@ -1,6 +1,14 @@
 IlYanzhao::Application.routes.draw do
 
 
+  resources :send_list_posts
+
+  resources :send_lists
+
+  resources :send_list_lines
+
+  resources :senders
+
   resources :goods_exceptions do
     #显示授权核销界面
     get :show_authorize,:on => :member

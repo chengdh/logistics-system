@@ -1,0 +1,14 @@
+<%if collection.blank?%>
+  $.notifyBar({
+    html: "未查询的符合条件的运单,请修改查询条件!",
+    delay: 3000,
+    animationSpeed: "normal",
+    cls : 'error'
+  });
+<%else%>
+  if($('#bill_<%=collection.first.carrying_bill.id%>').length == 0)
+  $('#bills_table_body').append('<%= escape_javascript(render("shared/carrying_bills/table_tr",:bill => collection.first.carrying_bill)) %>');
+<%end%>
+//以下设定显示字段
+$('<%=params[:hide_fields]%>').hide();
+$('<%=params[:show_fields]%>').show();

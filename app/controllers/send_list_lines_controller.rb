@@ -1,0 +1,2 @@
+class SendListLinesController < BaseController
+end

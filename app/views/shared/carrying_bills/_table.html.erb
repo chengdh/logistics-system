@@ -23,6 +23,7 @@
       <th class='note'>&nbsp;</th>
       <th class='state'>&nbsp;</th>
       <th class='short_fee_state' style='display : none;'>&nbsp;</th>
+      <th class='send_state' style='display :none;'>&nbsp;</th>
     </tr>
     <tr class='text-center'>             
       <th class="cbx_select_bill" style='display : none;'>&nbsp;</th>
@@ -48,6 +49,7 @@
       <th class='note'>备注</th>
       <th class='state'>状态</th>
       <th class='short_fee_state' style='display :none;'>短途运费状态</th>
+      <th class='send_state' style='display :none;'>短途运费状态</th>
     </tr>
   </thead>
   <tbody>
@@ -55,7 +57,7 @@
       <tr class="<%= cycle("odd", "even") %>" id='<%=bill.id%>' <%=can?(:read,bill) ? "data-dblclick='true'" : "" %>>
         <td class='cbx_select_bill' style='display : none;'>
           <%= link_to "查看",  polymorphic_url(bill,parent? ? {:format => :js} : {} ),:class => (parent? ? "show_link fancybox" : "show_link"),:style => 'display : none;'%>
-          <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount,:agent_carrying_fee,:carrying_fee_total])}" %>
+          <%=check_box_tag "bill_ids[]",bill.id,true,"data-bill" => "#{bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount,:agent_carrying_fee,:carrying_fee_total,:send_state])}" %>
         </td>
         <td>
           <%= order_no(index,params[:page]) %>
@@ -102,13 +104,14 @@
         <td class="note"><%= bill.note %></td>
         <td class="state"><%= bill.human_state_name %></td>
         <td class="short_fee_state" style='display : none;'><%= bill.human_short_fee_state_name %></td>
+        <th class='send_state' style='display :none;'><%=bill.send_state%></th>
       </tr>          
     <% end -%>
   </tbody>
   <tfoot>
     <tr>
       <td class="cbx_select_bill" style='display : none;'>&nbsp;</td>
-      <td>&nbsp;</tdnote>
+      <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>&nbsp;</td>
@@ -130,6 +133,7 @@
       <td class='note'>&nbsp;</td>
       <td class='state'>&nbsp;</td>
       <td class='short_fee_state' style='display :none;'>&nbsp;</td>
+      <td class='send_state' style='display :none;'>&nbsp;</td>
     </tr>
   </tfoot>
 </table>

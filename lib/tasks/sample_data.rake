@@ -60,6 +60,10 @@ namespace :db do
     user = User.new_with_roles(:username => 'user',:password => 'user')
     user.user_roles.each {|user_role| user_role.is_select = true}
     user.save!
+
+    #送货人
+    Sender.create(:name => "张三",:mobile => "1212121",:org => Org.find_by_py('xt'))
+    Sender.create(:name => "李四",:mobile => "1212121",:org => Org.find_by_py('zzgs'))
   end
   task :create_system_functions => :environment do
 

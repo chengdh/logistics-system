@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110123054433) do
+ActiveRecord::Schema.define(:version => 20110123091412) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -288,6 +288,45 @@ ActiveRecord::Schema.define(:version => 20110123054433) do
 
   create_table "roles", :force => true do |t|
     t.string   "name",       :limit => 30,                   :null => false
+    t.boolean  "is_active",                :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "send_list_lines", :force => true do |t|
+    t.integer  "send_list_id",                    :null => false
+    t.integer  "carrying_bill_id",                :null => false
+    t.string   "state",             :limit => 20
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "send_list_post_id"
+  end
+
+  create_table "send_list_posts", :force => true do |t|
+    t.date     "bill_date"
+    t.text     "note"
+    t.integer  "user_id"
+    t.integer  "sender_id",  :null => false
+    t.integer  "org_id",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "send_lists", :force => true do |t|
+    t.date     "bill_date",  :null => false
+    t.integer  "sender_id",  :null => false
+    t.text     "note"
+    t.integer  "org_id",     :null => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "senders", :force => true do |t|
+    t.string   "name",       :limit => 20,                   :null => false
+    t.integer  "org_id",                                     :null => false
+    t.string   "mobile",     :limit => 20
+    t.string   "address",    :limit => 60
     t.boolean  "is_active",                :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -39,6 +39,10 @@ class CarryingBill < ActiveRecord::Base
   #短途运费核销信息
   belongs_to :short_fee_info
 
+  #该运单对应的送货信息
+  #当前活动的只能有一条
+  has_one :send_list_line
+
   
   validates :bill_no,:goods_no,:uniqueness => true
   validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id
@@ -137,6 +141,12 @@ class CarryingBill < ActiveRecord::Base
       self.insured_rate*1000
     end
     def insured_rate_disp=(rate)
+    end
+    #送货状态
+    def send_state
+      send_state = "draft"
+      send_state = self.send_list_line.state if self.send_list_line.present?
+      send_state
     end
     #提付运费,付款方式为提货付时,等于运费,其他为0
     def carrying_fee_th

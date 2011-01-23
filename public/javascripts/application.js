@@ -181,20 +181,6 @@ jQuery(function($) {
 	$('.search_box').livequery(function() {
 		$(this).watermark('录入运单编号查询', {
 			userNative: false
-		}).tipSwift({
-			gravity: $.tipSwift.gravity.autoWE,
-			live: true,
-			plugins: [
-			$.tipSwift.plugins.tip({
-				offset: 5,
-				gravity: 'e',
-				title: function() {
-					return "回车查询要处理的运单"
-				},
-				opacity: 0.6,
-				showEffect: $.tipSwift.effects.fadeIn,
-				hideEffect: $.tipSwift.effects.fadeOut
-			})]
 		}).change(function() {
 			if ($(this).val() == "") return;
 			var params = $(this).data('params');
@@ -217,7 +203,7 @@ jQuery(function($) {
 		})
 	});
 	//绑定提货/提款/中转/中转提货处理的ajax:before
-	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info,#transit_info_form,#transit_deliver_form,#short_fee_info_form,#goods_exception_form').livequery(function() {
+	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info,#transit_info_form,#transit_deliver_form,#short_fee_info_form,#goods_exception_form,#send_list_form,#send_list_post_form').livequery(function() {
 		$(this).bind('ajax:before', function() {
 			var bill_els = $('[data-bill]');
 			var bill_ids = [];
@@ -477,6 +463,49 @@ jQuery(function($) {
 	$('input[name*="is_select"][type="checkbox"]').livequery('click', function() {
 		$(this).next().val(!$(this).attr('checked'));
 
+	});
+
+	//送货清单,查询运单后,自动清除已核销或正在送货中的运单记录
+	$('#send_list_form_after_wrap tr[data-bill]').livequery(function() {
+		var bill = $(this).data('bill');
+		//移除已送货或正在送货中的运单
+		if (bill.send_state == 'posted' || bill.send_state == 'sended') {
+			$.notifyBar({
+				html: "该运单已送货或正在送货中!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+			$(this).remove();
+
+		}
+
+	});
+
+	//送货票据核销
+	//search box
+	$('.search_send_line_box').livequery(function() {
+		$(this).watermark('录入运单编号查询', {
+			userNative: false
+		}).change(function() {
+			if ($(this).val() == "") return;
+			var params = $(this).data('params');
+			$.extend(params, {
+				"search[carrying_bill_bill_no_eq]": $(this).val()
+			});
+			//添加发货站或到货站id
+			if ($('#to_org_id').length > 0) $.extend(params, {
+				"search[carrying_bill_to_org_id_eq]": $('#to_org_id').val()
+			});
+                        //送货员id
+			$.extend(params, {
+				"search[send_list_sender_id_eq]": $('#sender_id').val()
+			});
+
+			$.get('/send_list_lines', params, null, 'script');
+		}).focus(function() {
+			$(this).select();
+		})
 	});
 });
 

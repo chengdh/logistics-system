@@ -1,4 +1,4 @@
-<tr id='<%="bill_#{bill.id}" %>'  <%=can?(:read,bill) ? "data-dblclick='true'" : "" %> data-bill='<%=bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount])%>' class='bill_cal_sum'>
+<tr id='<%="bill_#{bill.id}" %>'  <%=can?(:read,bill) ? "data-dblclick='true'" : "" %> data-bill='<%=bill.to_json(:methods => [:carrying_fee_th,:k_carrying_fee,:act_pay_fee,:th_amount,:send_state])%>' class='bill_cal_sum'>
   <td>
     <%= link_to "查看",   polymorphic_url(bill,:format => :js),:class => "show_link fancybox",:style => 'display : none;'%>
     <%=bill.bill_date.strftime('%y-%m-%d')%>
@@ -37,8 +37,9 @@
   <td class="insured_fee"><%=bill.insured_fee%></td>
   <td class="from_short_carrying_fee" style='display : none;'><%= bill.from_short_carrying_fee %></td>
   <td class="to_short_carrying_fee" style='display : none;'><%= bill.to_short_carrying_fee %></td>
-  <td><%= bill.note %></td>
-  <td><%= bill.human_state_name %></td>
+  <td class="note"><%= bill.note %></td>
+  <td class="state"><%= bill.human_state_name %></td>
+  <td class='send_state' style='display :none;'><%=bill.send_state%></td>
   <td>
     <%=link_to_function  image_tag("mouse--minus.png"),"$('#bill_#{bill.id}').remove()" %>
   </td>
