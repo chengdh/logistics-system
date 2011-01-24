@@ -1,11 +1,11 @@
 IlYanzhao::Application.routes.draw do
 
 
+  resources :send_list_backs
+
   resources :send_list_posts
 
   resources :send_lists
-
-  resources :send_list_lines
 
   resources :senders
 

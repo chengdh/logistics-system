@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110123091412) do
+ActiveRecord::Schema.define(:version => 20110124025642) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -293,6 +293,16 @@ ActiveRecord::Schema.define(:version => 20110123091412) do
     t.datetime "updated_at"
   end
 
+  create_table "send_list_backs", :force => true do |t|
+    t.integer  "org_id",     :null => false
+    t.integer  "sender_id",  :null => false
+    t.integer  "user_id"
+    t.date     "bill_date"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "send_list_lines", :force => true do |t|
     t.integer  "send_list_id",                    :null => false
     t.integer  "carrying_bill_id",                :null => false
@@ -300,6 +310,7 @@ ActiveRecord::Schema.define(:version => 20110123091412) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "send_list_post_id"
+    t.integer  "send_list_back_id"
   end
 
   create_table "send_list_posts", :force => true do |t|

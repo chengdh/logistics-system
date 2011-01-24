@@ -1,2 +1,0 @@
-module SendListLinesHelper
-end

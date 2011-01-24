@@ -590,5 +590,69 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
+    #################################送货管理################################################
+    group_name = "送货管理"
+    subject_title = "送货员信息"
+    subject = "Sender"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+      :default_action => '/senders',
+      :function => {
+      #查看相关运单,其他机构发往当前用户机构的运单
+      :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :create => {:title => "新建"},
+      :update => {:title => "修改",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :destroy => {:title => "删除",:conditions =>"{:org_id => user.current_ability_org_ids }"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ###############################送货登记##################################################
+    subject_title = "送货登记"
+    subject = "SendList"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+      :default_action => '/send_lists',
+      :function => {
+      #查看相关运单,其他机构发往当前用户机构的运单
+      :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ###############################交票核销##################################################
+    subject_title = "交票核销"
+    subject = "SendListPost"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+      :default_action => '/send_list_posts',
+      :function => {
+      :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ###############################未交票统计##################################################
+    subject_title = "未交票统计"
+    subject = "SendListBack"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :subject => subject,
+      :default_action => '/send_list_backs',
+      :function => {
+      :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
   end
 end

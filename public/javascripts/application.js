@@ -482,30 +482,18 @@ jQuery(function($) {
 
 	});
 
-	//送货票据核销
-	//search box
-	$('.search_send_line_box').livequery(function() {
-		$(this).watermark('录入运单编号查询', {
-			userNative: false
-		}).change(function() {
-			if ($(this).val() == "") return;
-			var params = $(this).data('params');
-			$.extend(params, {
-				"search[carrying_bill_bill_no_eq]": $(this).val()
-			});
-			//添加发货站或到货站id
-			if ($('#to_org_id').length > 0) $.extend(params, {
-				"search[carrying_bill_to_org_id_eq]": $('#to_org_id').val()
-			});
-                        //送货员id
-			$.extend(params, {
-				"search[send_list_sender_id_eq]": $('#sender_id').val()
-			});
+        //送货员未交票统计
+        $('#btn_send_list_line_query').bind('ajax:before',function(){
+            var params = {
+            "search[send_list_line_send_list_sender_id_eq]" : $('#sender_id').val(),
+            "search[send_list_line_state_eq]" : "sended",
+            "search[to_org_id_eq]" : $('#to_org_id').val(),
+            "hide_fields" : ".carrying_fee,.insured_fee",
+            "show_fields" : ".carrying_fee_th,.to_short_carrying_fee"
+            };
+            $(this).data('params',params);
+            
+            });
 
-			$.get('/send_list_lines', params, null, 'script');
-		}).focus(function() {
-			$(this).select();
-		})
-	});
 });
 
