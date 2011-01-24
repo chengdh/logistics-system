@@ -20,12 +20,12 @@
 
     <%if params[:action] == "new"%>
       <li>
-        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$('#carrying_bill_form').trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
       </li>
     <%end%>
     <%if params[:action] == "edit"%>
       <li>
-        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$('#carrying_bill_form').trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
       </li>
       <%if can? :destroy,resource_class%>
         <li>

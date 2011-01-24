@@ -26,5 +26,32 @@ class Ability
         end
       end
     end
+
+    #以下重新定义运单修改权限
+    #重新设置运单不可修改
+    cannot :update,CarryingBill
+    #可修改20%运费
+    if can? :update_carrying_fee_20,CarryingBill
+      can :update,CarryingBill do |bill|
+        (bill.original_carrying_fee - bill.carrying_fee)/bill.original_carrying_fee <= 0.2
+      end
+    end
+    #可修改50%运费
+    if can? :update_carrying_fee_50,CarryingBill
+      can :update,CarryingBill do |bill|
+        (bill.original_carrying_fee - bill.carrying_fee)/bill.original_carrying_fee <= 0.5
+      end
+    end
+    #可修改100%运费
+    if can? :update_carrying_fee_100,CarryingBill
+      can :update,CarryingBill do |bill|
+        (bill.original_carrying_fee - bill.carrying_fee) >= 0
+      end
+    end
+
+    #可修改全部运单字段
+    if can? :update_all,CarryingBill
+      can :update,CarryingBill,:from_org_id => user.current_ability_org_ids
+    end
   end
 end

@@ -5,6 +5,7 @@ class Refound < ActiveRecord::Base
   has_many :carrying_bills
   belongs_to :from_org,:class_name => "Org"
   belongs_to :to_org,:class_name => "Org"
+  has_one :remittance
   validates_presence_of :bill_date,:from_org_id,:to_org_id
   #定义状态机
   state_machine :initial => :billed do

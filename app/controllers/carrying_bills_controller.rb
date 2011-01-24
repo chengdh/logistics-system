@@ -1,5 +1,6 @@
 #coding: utf-8
 class CarryingBillsController < BaseController
+  skip_authorize_resource :only => :update
   before_filter :pre_process_search_params,:only => :index
   belongs_to :load_list,:distribution_list,:deliver_info,:settlement,:refound,:cash_payment_list,:transfer_payment_list,:cash_pay_info,:transfer_pay_info,:post_info,:polymorphic => true,:optional => true
   #GET search
@@ -14,6 +15,13 @@ class CarryingBillsController < BaseController
       format.html
       format.js { render :partial => "shared/carrying_bills/show",:object => bill}
     end
+  end
+  #重写修改方法
+  def update
+    bill = get_resource_ivar || set_resource_ivar(resource_class.find(params[:id]))
+    bill.attributes=params[resource_class.model_name.underscore.to_sym]
+    authorize! :update,bill
+    update!
   end
   private
   #处理查询运单时,传入的机构代码,如果传入的机构有下级机构,则进行处理

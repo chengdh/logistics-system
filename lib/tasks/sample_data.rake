@@ -156,6 +156,27 @@ namespace :db do
     }
     SystemFunction.create_by_hash(sf_hash)
 
+    ##############################运单查询/修改#################################################
+    subject_title = "运单查询/修改"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/carrying_bills',
+      :subject => subject,
+      :function => {
+      :read => {:title => "查询/查看",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
+      :update_carrying_fee_20 =>{:title =>"修改运费(20%)"},
+      :update_carrying_fee_50 =>{:title =>"修改运费(50%)"},
+      :update_carrying_fee_100 =>{:title =>"修改运费(100%)"},
+      :update_all =>{:title =>"修改运单全部信息"},
+      :reset =>{:title =>"重置运单",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+
     ##############################货物运输清单管理#############################################
     subject_title = "货物运输清单管理"
     subject = "LoadList"
@@ -306,6 +327,21 @@ namespace :db do
       }
     }
     SystemFunction.create_by_hash(sf_hash)
+    ##############################汇款记录#############################################
+    subject_title = "汇款记录"
+    subject = "Remittance"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/remittances',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
+      :update => {:title => "录入汇款记录",:conditions =>"{:state =>'draft' ,:from_org_id => user.current_ability_org_ids }"}
+      }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
     ##############################收款清单管理#############################################
     #FIXME 与返款清单是相同的,不过仅仅重新派生了一个controller
     subject_title = "收款清单管理"

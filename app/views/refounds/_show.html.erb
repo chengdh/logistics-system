@@ -24,13 +24,15 @@
   </tr>
   <tr>
     <td>备注</td>
-    <td colspan='7'>
+    <td colspan='5'>
       <%=resource.note %>
     </td>
+    <td>状态</td>
+    <td><%= resource.human_state_name %></td>
   </tr>
 </table>
 <div id="table_wrap"></div>
 <script>
+  jQuery(function($) {$.get('<%=refound_carrying_bills_path(resource)%>',null,null,'script');});
   //获取清单明细数据
-  $.get('<%=refound_carrying_bills_path(resource)%>',null,null,'script');
 </script>

@@ -7,8 +7,10 @@ class CustomerCodeValidator < ActiveModel::EachValidator
   end
 end
 class CarryingBill < ActiveRecord::Base
-  attr_protected :insured_rate
+  attr_protected :insured_rate,:original_carrying_fee,:original_goods_fee,:original_from_short_carrying_fee,:original_to_short_carrying_fee,:original_insured_amount,:original_insured_fee
   before_validation :set_customer
+  #保存成功后,设置原始费用
+  before_create :set_original_fee
   #计算手续费
   before_save :cal_hand_fee
   belongs_to :from_org,:class_name => "Org" 
@@ -267,5 +269,14 @@ class CarryingBill < ActiveRecord::Base
         self.k_hand_fee = self.from_customer.config_transit.rate * self.goods_fee
       end
       self.k_hand_fee
+    end
+    #保存票据成功后,设置原始费用
+    def set_original_fee
+      self.original_carrying_fee = self.carrying_fee
+      self.original_from_short_carrying_fee = self.from_short_carrying_fee
+      self.original_to_short_carrying_fee = self.to_short_carrying_fee
+      self.original_goods_fee = self.goods_fee
+      self.original_insured_amount = self.insured_amount
+      self.original_insured_fee = self.insured_fee
     end
   end

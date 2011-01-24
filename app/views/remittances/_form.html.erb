@@ -1,0 +1,8 @@
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "remittance_form"} do |f|%>
+  <%=f.error_messages %>
+  <%= render "show" %>
+  <%= f.inputs "实际汇款信息" do%>
+    <%= f.input :act_fee %>
+    <%= f.input :note ,:as => :string,:input_html => {:size => 100} %>
+  <%end%>
+<% end%>

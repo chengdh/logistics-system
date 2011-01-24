@@ -1,0 +1,28 @@
+<table class='table'>
+  <tr>
+    <td>付款机构</td>
+    <td><%= resource.from_org.try(:name )%></td>
+    <td>收款机构</td>
+    <td><%= resource.to_org.try(:name )%></td>
+    <td>返款清单日期</td>
+    <td><%= resource.bill_date.strftime("%Y-%m-%d") %></td>
+    <td>返款清单</td>
+    <td><%= link_to "#{resource.refound.bill_date.strftime("%Y-%m-%d")}/#{resource.refound.from_org.name}-#{resource.refound.to_org.name}", resource.refound %></td>
+  </tr>
+  <tr>
+    <td>应付金额</td>
+    <td><%= resource.should_fee %></td>
+    <td>实付金额</td>
+    <td><%= resource.act_fee %></td>
+    <td>剩余金额</td>
+    <td><%= resource.rest_fee %></td>
+    <td>汇款状态</td>
+    <td><%= resource.human_state_name %></td>
+  </tr>
+  <tr>
+    <td>备注</td>
+    <td colspan='5'><%= resource.note %></td>
+    <td>汇款人</td>
+    <td><%= resource.user.try(:username) %></td>
+  </tr>
+</table>
