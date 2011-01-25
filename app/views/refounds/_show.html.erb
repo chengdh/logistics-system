@@ -33,6 +33,6 @@
 </table>
 <div id="table_wrap"></div>
 <script>
-  jQuery(function($) {$.get('<%=refound_carrying_bills_path(resource)%>',null,null,'script');});
   //获取清单明细数据
+  jQuery(function($) {$.get('<%=refound_carrying_bills_path(resource,:show_group => params[:show_group])%>',null,null,'script');});
 </script>

@@ -23,6 +23,15 @@ class CarryingBillsController < BaseController
     authorize! :update,bill
     update!
   end
+
+  #PUT /carrying_bills/1/reset
+  def reset
+    bill = get_resource_ivar || set_resource_ivar(resource_class.find(params[:id]))
+    bill.reset
+    flash[:success] = "运单已成功重置."
+    redirect_to bill
+  end
+
   private
   #处理查询运单时,传入的机构代码,如果传入的机构有下级机构,则进行处理
   def pre_process_search_params

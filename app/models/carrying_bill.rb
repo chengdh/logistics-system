@@ -93,6 +93,11 @@ class CarryingBill < ActiveRecord::Base
       #货物已发出,进行退货操作,会自动生成一张相反的单据
       transition [:reached,:distributed] => :returned
     end
+    #运单重置处理
+    after_transition :on => :reset,any => :billed,:do => :reset_bill
+    event :reset do
+      transition any => :billed
+    end
     #根据运单状态进行验证操作
     state :loaded,:shipped,:reached do
       validates_presence_of :load_list_id
@@ -278,5 +283,9 @@ class CarryingBill < ActiveRecord::Base
       self.original_goods_fee = self.goods_fee
       self.original_insured_amount = self.insured_amount
       self.original_insured_fee = self.insured_fee
+    end
+    #重置票据
+    def reset_bill
+      self.update_attributes(:load_list_id => nil,:distribution_list_id => nil,:deliver_info_id => nil,:settlement_id => nil,:refound_id => nil,:payment_list_id => nil,:pay_info_id => nil,:post_info_id => nil,:transit_info_id => nil)
     end
   end

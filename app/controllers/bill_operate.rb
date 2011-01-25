@@ -12,6 +12,6 @@ module BillOperate
     bill = resource_class.find(params[:id])
     get_resource_ivar || set_resource_ivar(bill)
     bill.process ? flash[:success] = "数据处理成功!" : flash[:error] = "数据处理失败!"
-    redirect_to  bill
+    render  :show
   end
 end

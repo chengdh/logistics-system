@@ -15,7 +15,8 @@
       $('#table_wrap').html('<%= escape_javascript(render("shared/carrying_bills/show",:show => collection.first)) %>');
     <%end%>
   <%else%>
-    var bill_list = '<%= escape_javascript(render("shared/carrying_bills/table")) %>';
+    //如果传入了show_group,则显示 table_group_by_from_org
+    var bill_list = '<%= escape_javascript(render(params[:show_group].blank? ? "shared/carrying_bills/table" : "shared/carrying_bills/table_group_by_from_org")) %>';
     if($('#table_wrap').length > 0)
       $('#table_wrap').html(bill_list);
     else

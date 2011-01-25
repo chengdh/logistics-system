@@ -45,3 +45,18 @@
     <%= f.input :note,:as => :string,:input_html => {:size => 100} %>
   <% end %>
 <% end%>
+<script type='text/javascript'>
+  //在修改界面时,设置字段显示
+  <%if !resource.new_record?%>
+    jQuery(function($){$('#carrying_bill_form fieldset.inputs input,#carrying_bill_form fieldset.inputs select').attr('disabled',true);});
+  <%end%>
+  //如果只能更新运费
+  <%if can?(:update_carrying_fee_20,resource) or can?(:update_carrying_fee_50,resource) or can?(:update_carrying_fee_100,resource) %>
+    jQuery(function($){$('#carrying_fee').attr('disabled',false);});
+  <%end%>
+  //如果可以更新全部字段
+  <%if can?(:update_all,resource) %>
+    jQuery(function($){$('#carrying_bill_form fieldset.inputs input,#carrying_bill_form fieldset.inputs select').attr('disabled',false);});
+  <%end%>
+
+</script>
