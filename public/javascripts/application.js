@@ -482,18 +482,43 @@ jQuery(function($) {
 
 	});
 
-        //送货员未交票统计
-        $('#btn_send_list_line_query').bind('ajax:before',function(){
-            var params = {
-            "search[send_list_line_send_list_sender_id_eq]" : $('#sender_id').val(),
-            "search[send_list_line_state_eq]" : "sended",
-            "search[to_org_id_eq]" : $('#to_org_id').val(),
-            "hide_fields" : ".carrying_fee,.insured_fee",
-            "show_fields" : ".carrying_fee_th,.to_short_carrying_fee"
-            };
-            $(this).data('params',params);
-            
-            });
+	//送货员未交票统计
+	$('#btn_send_list_line_query').bind('ajax:before', function() {
+		var params = {
+			"search[send_list_line_send_list_sender_id_eq]": $('#sender_id').val(),
+			"search[send_list_line_state_eq]": "sended",
+			"search[to_org_id_eq]": $('#to_org_id').val(),
+			"hide_fields": ".carrying_fee,.insured_fee",
+			"show_fields": ".carrying_fee_th,.to_short_carrying_fee"
+		};
+		$(this).data('params', params);
+
+	});
+	//帐目盘点登记表,自动计算合计功能
+	$('#journal_form').change(function() {
+		var settled_no_rebate_fee = parseFloat($('#journal_settled_no_rebate_fee').val());
+		var deliveried_no_settled_fee = parseFloat($('#journal_deliveried_no_settled_fee').val());
+		var input_fee_1 = parseFloat($('#journal_input_fee_1').val());
+		var input_fee_2 = parseFloat($('#journal_input_fee_2').val());
+		var input_fee_3 = parseFloat($('#journal_input_fee_3').val());
+		var journal_sum_1 = settled_no_rebate_fee + deliveried_no_settled_fee + input_fee_1 + input_fee_2 + input_fee_3;
+		$('#journal_sum_1').html(journal_sum_1);
+		var cash = parseFloat($('#journal_cash').val());
+		var deposits = parseFloat($('#journal_deposits').val());
+		var goods_fee = parseFloat($('#journal_goods_fee').val());
+		var short_fee = parseFloat($('#journal_short_fee').val());
+		var other_fee = parseFloat($('#journal_other_fee').val());
+		var journal_sum_2 = cash + deposits + goods_fee + short_fee + other_fee;
+		$('#journal_sum_2').html(journal_sum_2);
+		//客户欠款
+		var current_debt = parseFloat($('#journal_current_debt').val());
+		var current_debt_2_3 = parseFloat($('#journal_current_debt_2_3').val());
+		var current_debt_4_5 = parseFloat($('#journal_current_debt_4_5').val());
+		var current_debt_ge_6 = parseFloat($('#journal_current_debt_ge_6').val());
+		var journal_sum_4 = current_debt + current_debt_2_3 + current_debt_4_5 + current_debt_ge_6;
+		$('#journal_sum_4').html(journal_sum_4);
+
+	});
 
 });
 

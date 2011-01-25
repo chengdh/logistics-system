@@ -1,6 +1,8 @@
 IlYanzhao::Application.routes.draw do
 
 
+  resources :journals
+
   resources :remittances
 
   resources :send_list_backs

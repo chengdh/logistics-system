@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110124142836) do
+ActiveRecord::Schema.define(:version => 20110125131136) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -186,6 +186,38 @@ ActiveRecord::Schema.define(:version => 20110124142836) do
     t.string   "key",        :limit => 60, :null => false
     t.string   "title",      :limit => 60
     t.string   "value",      :limit => 60, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "journals", :force => true do |t|
+    t.integer  "org_id",                                                                                  :null => false
+    t.date     "bill_date",                                                                               :null => false
+    t.integer  "user_id"
+    t.decimal  "settled_no_rebate_fee",                   :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "deliveried_no_settled_fee",               :precision => 15, :scale => 2, :default => 0.0
+    t.string   "input_name_1",              :limit => 20
+    t.decimal  "input_fee_1",                             :precision => 15, :scale => 2, :default => 0.0
+    t.string   "input_name_2",              :limit => 20
+    t.decimal  "input_fee_2",                             :precision => 15, :scale => 2, :default => 0.0
+    t.string   "input_name_3",              :limit => 20
+    t.decimal  "input_fee_3",                             :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "cash",                                    :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "deposits",                                :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "goods_fee",                               :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "short_fee",                               :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "other_fee",                               :precision => 15, :scale => 2, :default => 0.0
+    t.integer  "black_bills",                                                            :default => 0
+    t.integer  "red_bills",                                                              :default => 0
+    t.integer  "yellow_bills",                                                           :default => 0
+    t.integer  "green_bills",                                                            :default => 0
+    t.integer  "blue_bills",                                                             :default => 0
+    t.integer  "white_bills",                                                            :default => 0
+    t.decimal  "current_debt",                            :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "current_debt_2_3",                        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "current_debt_4_5",                        :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "current_debt_ge_6",                       :precision => 15, :scale => 2, :default => 0.0
+    t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

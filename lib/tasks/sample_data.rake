@@ -437,6 +437,21 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
+    ##############################帐目盘点登记表#############################################
+    subject_title = "帐目盘点登记表"
+    subject = "Journal"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/journals',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
 
     group_name = "基础信息管理"
     #################################分理处/分公司管理################################################
