@@ -1,6 +1,10 @@
 IlYanzhao::Application.routes.draw do
 
 
+  resources :imported_customers
+
+  resources :customer_level_configs
+
   resources :journals
 
   resources :remittances

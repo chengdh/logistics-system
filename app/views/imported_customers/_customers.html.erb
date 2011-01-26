@@ -1,0 +1,39 @@
+<table class='table'>
+  <thead>
+    <tr>
+      <td>序号</td>
+      <td>所属机构</td>
+      <td>姓名</td>
+      <td>电话</td>
+      <td>当月运费合计</td>
+      <td>状态</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%collection.each_with_index do |customer,index|%>
+      <tr>
+        <td><%= order_no(index,params[:page]) %></td>
+        <td><%= customer.org.name %></td>
+        <td><%= customer.name %></td>
+        <td><%= customer.phone%></td>
+        <td><%= customer.cur_fee %></td>
+        <td><%= ImportedCustomer.states[customer.state] %></td>
+      </tr>
+    <%end%>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>合计</td>
+      <td>共<%=@search.count%>人</td>
+      <td><%=@search.sum(:cur_fee)%></td>
+      <td>&nbsp;</td>
+    </tr>
+  </tfoot>
+</table>
+<div class="actions-bar wat-cf">
+  <div class="actions">
+    <%=will_paginate collection%>
+  </div>
+</div>

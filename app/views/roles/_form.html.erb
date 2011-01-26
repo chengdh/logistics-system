@@ -5,9 +5,9 @@
     <%= f.input :is_active,:label =>"有效" %>
   <% end %>
   <div class='wat-cf'>
-    <ul id="role_tab">
-      <li class='here'><a href="#role_system_functions_list">功能选择</a></li>
-      <li><a href="#role_org_tab">部门/分理处选择</a></li>
+    <ul id="role_tab" class='tabs'>
+      <li class='here'><a href="#role_system_functions_list" class='here'><%= image_tag('function.png') %>功能选择</a></li>
+      <li><a href="#role_org_tab"><%= image_tag('bank.png')%>部门/分理处选择</a></li>
     </ul>
   </div>
   <div id="role_org_tab" style='display : none;'>

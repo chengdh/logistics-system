@@ -7,6 +7,9 @@ class Vip <  Customer
   validates :code,:id_number,:org_id,:bank_id,:bank_card,:presence => true
   validates :code,:uniqueness => true
   validates :bank_card,:length => {:maximum => 19}
+
+  validates_presence_of :config_transit_id
+
   before_validation :set_code
   private
   def set_code

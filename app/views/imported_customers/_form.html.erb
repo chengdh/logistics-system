@@ -1,0 +1,13 @@
+<div class='box text-center'>
+  <%=form_tag imported_customers_path,:method => :post do %>
+    <p>
+      <label>数据月份:</label>
+      <%=1.months.ago.strftime('%Y年%m月')%>
+    </p>
+    <p>
+      <label>选择机构:</label>
+      <%=select_tag :org_id,options_for_select(current_ability_orgs_for_select)  %>
+    </p>
+    <%=submit_tag "生成客户分级数据", :class => "sexybutton sexysimple sexyblue"%>
+  <%end%>
+</div>

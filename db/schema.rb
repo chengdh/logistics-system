@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110125131136) do
+ActiveRecord::Schema.define(:version => 20110126080957) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -106,9 +106,35 @@ ActiveRecord::Schema.define(:version => 20110125131136) do
     t.datetime "updated_at"
   end
 
+  create_table "customer_fee_info_lines", :force => true do |t|
+    t.integer  "customer_fee_info_id"
+    t.string   "name",                 :limit => 20,                                                 :null => false
+    t.string   "phone",                :limit => 30
+    t.decimal  "fee",                                :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customer_fee_infos", :force => true do |t|
+    t.integer  "org_id",                  :null => false
+    t.string   "mth",        :limit => 6, :null => false
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "customer_level_configs", :force => true do |t|
+    t.integer  "org_id",                                                                   :null => false
+    t.string   "name",       :limit => 20,                                                 :null => false
+    t.decimal  "from_fee",                 :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "to_fee",                   :precision => 15, :scale => 2, :default => 0.0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "customers", :force => true do |t|
     t.integer  "org_id"
-    t.string   "name",              :limit => 60,                   :null => false
+    t.string   "name",              :limit => 60,                                                  :null => false
     t.string   "phone",             :limit => 20
     t.string   "mobile",            :limit => 20
     t.string   "address",           :limit => 60
@@ -117,12 +143,16 @@ ActiveRecord::Schema.define(:version => 20110125131136) do
     t.string   "id_number",         :limit => 30
     t.integer  "bank_id"
     t.string   "bank_card",         :limit => 30
-    t.boolean  "is_active",                       :default => true
+    t.boolean  "is_active",                                                      :default => true
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type",              :limit => 20
     t.integer  "config_transit_id"
+    t.decimal  "cur_fee",                         :precision => 15, :scale => 2
+    t.string   "level",             :limit => 20
+    t.string   "last_import_mth",   :limit => 6
+    t.string   "state",             :limit => 20
   end
 
   create_table "deliver_infos", :force => true do |t|

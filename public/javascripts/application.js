@@ -40,6 +40,7 @@ jQuery(function($) {
 		}
 
 	});
+
 	//角色功能列表
 	$('#role_orgs_list').treeList();
 	//组织机构列表
@@ -517,6 +518,29 @@ jQuery(function($) {
 		var current_debt_ge_6 = parseFloat($('#journal_current_debt_ge_6').val());
 		var journal_sum_4 = current_debt + current_debt_2_3 + current_debt_4_5 + current_debt_ge_6;
 		$('#journal_sum_4').html(journal_sum_4);
+
+	});
+
+	//vip统计列表
+	$('#imported_customer_org_id').change(function() {
+		$.get('/imported_customers', {
+			"search[org_id_eq]": $(this).val()
+		},
+		function() {
+			$('.tabs a').removeClass('here');
+			$('.tabs a').first().addClass('here');
+		},
+		'script');
+	});
+	$('#imported_customers_tab a').bind('ajax:before', function() {
+		$(this).data('params', {
+			"search[org_id_eq]": $('#imported_customer_org_id').val()
+		});
+
+	});
+	$('.tabs a').click(function() {
+		$('.tabs a').removeClass('here');
+		$(this).addClass('here');
 
 	});
 

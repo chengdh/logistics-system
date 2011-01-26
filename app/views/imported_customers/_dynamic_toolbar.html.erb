@@ -1,0 +1,18 @@
+<!--动态toolbar-->
+<div class="secondary-navigation">
+  <ul class="wat-cf">
+    <%if can? :read,resource_class%>
+      <li class="first">
+        <%= link_to image_tag("grid.png") , collection_path,:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
+      </li>
+      <%if self.respond_to?("search_#{controller_name.tableize}_path")%>
+        <li><%= link_to image_tag("application-search-result.png"),self.send("search_#{controller_name.tableize}_path"),:title => "查询#{resource_class.model_name.human}",:class => "fancybox tipsy" %></li>
+      <%end%>
+    <%end%>
+    <%if can? :create,resource_class%>
+      <li>
+        <%= link_to image_tag("user--arrow.png") , new_resource_path,:title => "生成客户分级数据",:class => "tipsy"  %>
+      </li>
+    <%end%>
+  </ul>
+</div>   

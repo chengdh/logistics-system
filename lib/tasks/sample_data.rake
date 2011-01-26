@@ -537,6 +537,20 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
+    #################################客户分级################################################
+    subject_title = "客户分级"
+    subject = "ImportedCustomer"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => '/imported_customers',
+      :subject => subject,
+      :function => {
+      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+      :create => {:title => "新建"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
 
     group_name ="系统管理"
     ##################################银行设置###############################################

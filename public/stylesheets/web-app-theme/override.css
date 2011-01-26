@@ -157,7 +157,7 @@
   margin-right : 20px;
 }
 
-#role_tab{
+.tabs{
   font-size : 14px;
   position:relative;
   float:left;
@@ -167,18 +167,18 @@
   line-height:1em;
 }
  
-#role_tab li {
+.tabs li {
   float:left;
   margin:0;
   padding:0;
 }
  
-#role_tab a {
+.tabs a {
   display:block;
   color:#444;
   text-decoration:none;
   font-weight:bold;
-  background:#ddd;
+  background:#DDDDDD;
   margin:0;
   padding:0.25em 1em;
   border-left:1px solid #fff;
@@ -186,15 +186,16 @@
   border-right:1px solid #aaa;
 }
  
-#role_tab a:hover,
-#role_tab a:active,
-#role_tab a.here:link,
-#role_tab a.here:visited {
-  background:#bbb;
+.tabs a:hover,
+.tabs a:active,
+.tabs a.here:link,
+.tabs a.here:visited {
+  background:#406B9E;
+  color : #ffffff;
 }
  
-#role_tab a.here:link,
-#role_tab a.here:visited {
+.tabs a.here:link,
+.tabs a.here:visited {
   position:relative;
   z-index:102;
 }

@@ -1,6 +1,25 @@
 <%= semantic_form_for resource ,:remote => true,:html => {:id => "#{resource_class.name.underscore}_form"} do |f|%>
   <%=f.error_messages %>
   <%=f.inputs %>
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>分类</th>
+        <th>运费下限</th>
+        <th>运费上限</th>
+      </tr>
+    </thead>
+    <%=f.semantic_fields_for :customer_level_configs do |config|%>
+      <tr>
+        <td>
+          <%=config.hidden_field :name%>
+          <%=CustomerLevelConfig.levels[config.object.name]%>
+        </td>
+        <td><%= config.text_field :from_fee %></td>
+        <td><%= config.text_field :to_fee %></td>
+      </tr>
+    <%end%>
+  </table>
   <%=f.buttons do%>
     <%=f.commit_button :button_html => {:class => 'sexybutton sexysimple sexyblue'}%>
   <%end%>

@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   def current_ability_orgs
     ret = [self.default_org] + self.default_org.children
   end
-def current_ability_org_ids
+  def current_ability_org_ids
     self.current_ability_orgs.map {|org| org.id}
   end
 
