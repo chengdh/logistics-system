@@ -1,13 +1,17 @@
 #coding: utf-8
 class CarryingBillsController < BaseController
   skip_authorize_resource :only => :update
-  before_filter :pre_process_search_params,:only => :index
+  before_filter :pre_process_search_params,:only => [:index,:rpt_turnover]
   belongs_to :load_list,:distribution_list,:deliver_info,:settlement,:refound,:cash_payment_list,:transfer_payment_list,:cash_pay_info,:transfer_pay_info,:post_info,:polymorphic => true,:optional => true
   #GET search
   #显示查询窗口
   def search
     @search = resource_class.search(params[:search])
     render :partial => "shared/carrying_bills/search",:object => @search
+  end
+  #简单查询,用于报表统计
+  def simple_search
+    @search = resource_class.search(params[:search])
   end
   def show
     bill = get_resource_ivar || set_resource_ivar(resource_class.find(params[:id]))
@@ -30,6 +34,16 @@ class CarryingBillsController < BaseController
     bill.reset
     flash[:success] = "运单已成功重置."
     redirect_to bill
+  end
+  #日/月营业额统计
+  def rpt_turnover
+    @search = resource_class.accessible_by(current_ability).turnover.search(params[:search])
+    get_collection_ivar || set_collection_ivar(@search.all)
+  end
+  #营业额统计柱状图
+  def turnover_chart
+    @search = resource_class.accessible_by(current_ability).turnover.search(params[:search])
+    get_collection_ivar || set_collection_ivar(@search.all)
   end
 
   private

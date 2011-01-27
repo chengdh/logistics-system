@@ -16,7 +16,7 @@ class CustomerFeeInfo < ActiveRecord::Base
     #得到给定时间段的客户数据(从运单表中提取)
     f_date = 1.months.ago.beginning_of_month
     #FIXME 此处应修改
-    t_date = 1.months.since.end_of_month
+    t_date = 1.months.ago.end_of_month
     CarryingBill.search(:from_org_id_eq => org_id,:bill_date_gte => f_date,:bill_date_lte => t_date ).select('from_customer_name,from_customer_phone,sum(carrying_fee) sum_carrying_fee').group('from_customer_name,from_customer_phone').each do |bill|
       cfi.customer_fee_info_lines.create(:name =>bill.from_customer_name,:phone => bill.from_customer_phone,:fee => bill.sum_carrying_fee)
     end

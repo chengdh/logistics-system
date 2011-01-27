@@ -1,0 +1,77 @@
+<% 
+  group_bills_by_from_org = collection.group_by(&:from_org)
+  group_bills_by_to_org = collection.group_by(&:to_org)
+  from_orgs = group_bills_by_from_org.keys
+  to_orgs = group_bills_by_to_org.keys
+%>
+<div class="block">
+  <%= render "dynamic_toolbar" %>
+  <div class="content">          
+    <h2 class="title">营业额统计图</h2>
+    <div class="inner">
+      <div class='actions-bar wat-cf'>
+        <div class='actions'>
+          <%= form_for @search,:url => {:action => :turnover_chart} do |f|%>
+            <table class='table'>
+              <tr>
+                <td><%= f.text_field :bill_date_gte,:class => "datepicker", :readonly => true,:size => 10 %></td>
+                <td>
+                  ~
+                  <%=hidden_field_tag "search[type_in][]",'ComputerBill'%>
+                  <%=hidden_field_tag "search[type_in][]",'HandBill'%>
+                  <%=hidden_field_tag "search[type_in][]",'ReturnBill'%>
+                </td>
+                <td><%= f.text_field :bill_date_lte,:class => "datepicker", :readonly => true,:size => 10 %></td>
+                <td><%= f.submit "统计",:class => "sexybutton sexysimple sexyblue" %></td>
+              </tr>
+            </table>
+          <%end%>
+        </div>
+      </div>
+      <%group_bills_by_from_org.each do |from_org,bills|%>
+        <table class="turnover_chart table" > 
+          <caption><%=from_org.name%></caption> 
+          <thead> 
+            <tr> 
+              <td></td> 
+              <%to_orgs.each do |to_org|%>
+                <th scope="col"><%=to_org.name%></th> 
+              <%end%>
+            </tr> 
+          </thead> 
+          <tbody> 
+            <tr> 
+              <th scope="row">运费</th> 
+              <%to_orgs.each do |the_to_org|%>
+                <td>
+                  <% cur_bill = bills.find {|bill| bill.to_org_id == the_to_org.id} %>
+                  <%= cur_bill.present? ? cur_bill.sum_carrying_fee : 0%>
+                </td> 
+              <%end%>
+            </tr> 
+            <tr> 
+              <th scope="row">货物件数</th> 
+              <%to_orgs.each do |the_to_org|%>
+                <td>
+                  <% cur_bill = bills.find {|bill| bill.to_org_id == the_to_org.id} %>
+                  <%= cur_bill.present? ? cur_bill.sum_goods_num : 0%>
+                </td> 
+              <%end%>
+            </tr> 
+            <tr> 
+              <th scope="row">货款</th> 
+              <%to_orgs.each do |the_to_org|%>
+                <td>
+                  <% cur_bill = bills.find {|bill| bill.to_org_id == the_to_org.id} %>
+                  <%= cur_bill.present? ? cur_bill.sum_goods_fee : 0%>
+                </td> 
+              <%end%>
+            </tr> 
+
+          </tbody>                      
+        </table>
+      <%end%>
+    </div>
+  </div>
+  <%= render "dynamic_toolbar" %>
+</div>

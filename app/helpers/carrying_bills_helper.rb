@@ -44,4 +44,17 @@ module CarryingBillsHelper
     sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]+ sum_info[:sum_to_short_carrying_fee]
     sum_info
   end
+  #得到滞留天数对应的class
+  #4天之内为白色，5—8天为兰色，9—12天为绿色，13—16天为黄色，17—20天为红色，21天后全部为黑色。
+  def stranded_class(days)
+    ret_class=''
+    ret_class="white-bill" if days <= 4
+    ret_class="blue-bill" if days >= 4 and days <= 8
+    ret_class="green-bill" if days >= 9 and days <= 12
+    ret_class="yellow-bill" if days >= 13 and days <= 16
+    ret_class="red-bill" if days >= 17 and days <= 20
+    ret_class="black-bill" if days >= 21
+    ret_class
+  end
+
 end

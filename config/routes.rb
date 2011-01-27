@@ -142,7 +142,10 @@ IlYanzhao::Application.routes.draw do
 
   #添加carrying_biils路由
   resources :carrying_bills do
+    get :rpt_turnover,:on => :collection
     get :search,:on => :collection
+    get :simple_search,:on => :collection
+    get :turnover_chart,:on => :collection
     put :reset,:on => :member
   end
 

@@ -544,5 +544,18 @@ jQuery(function($) {
 
 	});
 
+	//未提货报表,处理各种票据列表底色
+	$('.rpt_no_delivery tr.white-bill').css('background', 'white');
+	$('.rpt_no_delivery tr.blue-bill').css('background', 'blue');
+	$('.rpt_no_delivery tr.green-bill').css('background', 'green');
+	$('.rpt_no_delivery tr.yellow-bill').css('background', 'yellow');
+	$('.rpt_no_delivery tr.red-bill').css('background', 'red');
+	$('.rpt_no_delivery tr.black-bill').css('background', 'black');
+	//柱状图
+	$('.turnover_chart').hide().visualize({
+		type: 'bar',
+		width: 650
+	});
+
 });
 

@@ -8,6 +8,8 @@ class CustomerCodeValidator < ActiveModel::EachValidator
 end
 class CarryingBill < ActiveRecord::Base
   attr_protected :insured_rate,:original_carrying_fee,:original_goods_fee,:original_from_short_carrying_fee,:original_to_short_carrying_fee,:original_insured_amount,:original_insured_fee
+  #营业额统计
+  scope :turnover,select('from_org_id,to_org_id,sum(carrying_fee) sum_carrying_fee,sum(goods_fee) sum_goods_fee,sum(goods_num) sum_goods_num,sum(1) sum_bill_count').group('from_org_id,to_org_id')
   before_validation :set_customer
   #保存成功后,设置原始费用
   before_create :set_original_fee
@@ -135,6 +137,7 @@ class CarryingBill < ActiveRecord::Base
         "自货款扣除" => PAY_TYPE_K_GOODSFEE 
       }
     end
+
     def from_org_name
       ""
       self.from_org.name unless self.from_org.nil?
@@ -192,6 +195,10 @@ class CarryingBill < ActiveRecord::Base
     def goods_fee_cash?
       self.from_customer.blank?
     end
+    #滞留天数
+    def stranded_days
+      (Date.today.end_of_day - self.bill_date.beginning_of_day) /1.day
+    end
 
     #定义customer_code虚拟属性
     def customer_code
@@ -237,6 +244,9 @@ class CarryingBill < ActiveRecord::Base
       override_attr.merge!(:from_org_id => self.transit_org_id,:to_org_id => self.from_org_id) unless self.transit_org_id.blank?
       self.build_return_bill(self.attributes.merge(override_attr))
     end
+
+
+
 
     protected
     

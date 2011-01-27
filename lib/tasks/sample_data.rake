@@ -36,6 +36,10 @@ namespace :db do
     #各种票据生成50张
     50.times do |index|
       Factory(:computer_bill,:pay_type =>"TH",:from_org => Branch.first,:to_org => Branch.last,:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
+      Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('A'),:to_org => Org.find_by_py('hd'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
+      Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('B'),:to_org => Org.find_by_py('qx'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
+      Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('C'),:to_org => Org.find_by_py('dm'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
+      Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('D'),:to_org => Org.find_by_py('xc'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
       Factory(:hand_bill,:from_org => Branch.first,:to_org => Branch.last,:bill_no => "hand_bill_no_#{index}",:goods_no => "hand_goods_no_#{index}")
       Factory(:transit_bill,:from_org => Branch.find_by_py('sjz'),:transit_org => Branch.find_by_py('zzgs'),:to_area => "开封")
       Factory(:hand_transit_bill,:from_org => Branch.find_by_py('sjz'),:transit_org => Branch.find_by_py('zzgs'),:to_area => "开封",:bill_no => "hand_transit_bill_no_#{index}",:goods_no => "hand_transit_goods_no_#{index}")
@@ -76,7 +80,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/computer_bills/new',
+      :default_action => 'new_computer_bill_path',
       :function => {
       #查看相关运单,其他机构发往当前用户机构的运单
       :create => {:title => "新建"},
@@ -94,7 +98,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/hand_bills/new',
+      :default_action => 'new_hand_bill_path',
       :function => {
       :create => {:title => "新建"},
       :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
@@ -110,7 +114,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
 
-      :default_action => '/transit_bills/new',
+      :default_action => 'new_transit_bill_path',
       :subject => subject,
       :function => {
       :create => {:title => "新建"},
@@ -129,7 +133,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
 
-      :default_action => '/hand_transit_bills/new',
+      :default_action => 'new_hand_transit_bill_path',
       :subject => subject,
       :function => {
       :create => {:title => "新建"},
@@ -145,7 +149,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/return_bills/before_new',
+      :default_action => 'before_new_return_bills_path',
       :subject => subject,
       :function => {
       :create => {:title => "新建"},
@@ -156,25 +160,7 @@ namespace :db do
     }
     SystemFunction.create_by_hash(sf_hash)
 
-    ##############################运单查询/修改#################################################
-    subject_title = "运单查询/修改"
-    subject = "CarryingBill"
-    sf_hash = {
-      :group_name => group_name,
-      :subject_title => subject_title,
-      :default_action => '/carrying_bills',
-      :subject => subject,
-      :function => {
-      :read => {:title => "查询/查看",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
-      :update_carrying_fee_20 =>{:title =>"修改运费(20%)"},
-      :update_carrying_fee_50 =>{:title =>"修改运费(50%)"},
-      :update_carrying_fee_100 =>{:title =>"修改运费(100%)"},
-      :update_all =>{:title =>"修改运单全部信息"},
-      :reset =>{:title =>"重置运单",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
-      :export => {:title => "导出"}
-    }
-    }
-    SystemFunction.create_by_hash(sf_hash)
+
 
 
     ##############################货物运输清单管理#############################################
@@ -183,7 +169,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/load_lists',
+      :default_action => 'load_lists_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
@@ -201,7 +187,7 @@ namespace :db do
       :group_name => group_name,
       #TODO 提货信息表要添加提货部门字段
       :subject_title => subject_title,
-      :default_action => '/arrive_load_lists',
+      :default_action => 'arrive_load_lists_path',
       :subject => subject,
       :function => {
       :read_arrive =>{:title => "查看",:conditions =>"{:state => ['shipped','reached'],:to_org_id => user.current_ability_org_ids}"} ,
@@ -216,7 +202,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/distribution_lists/new',
+      :default_action => 'new_distribution_list_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
@@ -232,7 +218,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/transit_infos/new',
+      :default_action => 'new_transit_info_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
@@ -250,7 +236,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/deliver_infos/new',
+      :default_action => 'new_deliver_info_path',
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},
@@ -268,7 +254,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/transit_deliver_infos/new',
+      :default_action => 'new_transit_deliver_info_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"},
@@ -284,7 +270,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/short_fee_infos/new',
+      :default_action => 'new_short_fee_info_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -293,6 +279,109 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
+    ############################################################################################
+    group_name = "查询统计"
+    ##############################运单查询/修改#################################################
+    subject_title = "运单查询/修改"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'carrying_bills_path',
+      :subject => subject,
+      :function => {
+      :read => {:title => "查询/查看",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
+      :update_carrying_fee_20 =>{:title =>"修改运费(20%)"},
+      :update_carrying_fee_50 =>{:title =>"修改运费(50%)"},
+      :update_carrying_fee_100 =>{:title =>"修改运费(100%)"},
+      :update_all =>{:title =>"修改运单全部信息"},
+      :reset =>{:title =>"重置运单",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    ##############################未提货统计#############################################
+    subject_title = "未提货报表"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'simple_search_carrying_bills_path(:rpt_type => "rpt_no_delivery",:show_fields =>".stranded_days",:hide_fields => ".insured_fee","search[state_in]" => ["reached","distributed"],"search[from_org_id_eq]" => current_user.default_org.id )',
+      :subject => subject,
+      :function => {
+      :rpt_no_delivery =>{:title =>"未提货报表"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################本地未提货统计#############################################
+    subject_title = "本地未提货统计"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'simple_search_carrying_bills_path(:rpt_type => "rpt_no_delivery",:show_fields =>".stranded_days",:hide_fields => ".insured_fee","search[state_in]" => ["reached","distributed"],"search[to_org_id_eq]" => current_user.default_org.id )',
+      :subject => subject,
+      :function => {
+      :rpt_no_delivery =>{:title =>"本地未提货统计"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################始发地收货统计#############################################
+    subject_title = "始发地收货统计"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'simple_search_carrying_bills_path(:rpt_type => "rpt_to_me","search[to_org_id_eq]" => current_user.default_org.id,"search[bill_date_gte]" => Date.today.beginning_of_day,"search[bill_date_lte]" => Date.today.end_of_day)',
+      :subject => subject,
+      :function => {
+      :rpt_to_me =>{:title =>"始发地收货统计"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################日营业额统计#############################################
+    subject_title = "日营业额统计"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'rpt_turnover_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_day,"search[bill_date_lte]" => Date.today.end_of_day)',
+      :subject => subject,
+      :function => {
+      :rpt_turnover =>{:title =>"日营业额统计"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+    ##############################月营业额统计#############################################
+    subject_title = "月营业额统计"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'rpt_turnover_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_month,"search[bill_date_lte]" => Date.today.end_of_month)',
+      :subject => subject,
+      :function => {
+      :rpt_turnover =>{:title =>"月营业额统计"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+    ##############################日营业额统计图#############################################
+    subject_title = "日营业额统计图"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'turnover_chart_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_month,"search[bill_date_lte]" => Date.today.end_of_month)',
+      :subject => subject,
+      :function => {
+      :turnover_chart =>{:title =>"日营业额统计图"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
+
 
     #################################结算管理##########################################
     group_name = "结算管理"
@@ -302,7 +391,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/settlements/new',
+      :default_action => 'new_settlement_path',
       :subject => subject,
       :subject => subject,
       :function => {
@@ -318,7 +407,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/refounds/new',
+      :default_action => 'new_refound_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
@@ -333,7 +422,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/remittances',
+      :default_action => 'remittances_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
@@ -349,7 +438,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/receive_refounds',
+      :default_action => 'receive_refounds_path',
       :subject => subject,
       :function => {
       :read_arrive =>{:title => "查看",:conditions =>"{:state =>['refunded_confirmed','refunded'] ,:to_org_id => user.current_ability_org_ids}"} ,
@@ -365,7 +454,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/cash_payment_lists',
+      :default_action => 'cash_payment_lists_path',
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
       :create => {:title => "新建"},
@@ -379,7 +468,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/transfer_payment_lists',
+      :default_action => 'transfer_payment_lists_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -395,7 +484,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
 
-      :default_action => '/cash_pay_infos/new',
+      :default_action => 'new_cash_pay_info_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -413,7 +502,7 @@ namespace :db do
       :subject_title => subject_title,
       :subject => subject,
 
-      :default_action => '/transfer_pay_infos/new',
+      :default_action => 'new_transfer_pay_info_path',
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
       :batch_pay =>{:title => "批量提款"} ,
@@ -428,7 +517,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/post_infos',
+      :default_action => 'post_infos_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -443,7 +532,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/journals',
+      :default_action => 'journals_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -460,7 +549,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/orgs',
+      :default_action => 'orgs_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -477,7 +566,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/users',
+      :default_action => 'users_path',
       :function => {
       :read =>{:title => "查看"} ,
       :create => {:title => "新建"},
@@ -492,7 +581,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/roles',
+      :default_action => 'roles_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -510,7 +599,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/customers',
+      :default_action => 'customers_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -527,7 +616,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/vips',
+      :default_action => 'vips_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -543,7 +632,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/imported_customers',
+      :default_action => 'imported_customers_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
@@ -559,7 +648,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/banks',
+      :default_action => 'banks_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -575,7 +664,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/transit_companies',
+      :default_action => 'transit_companies_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -591,7 +680,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/config_cashes',
+      :default_action => 'config_cashes_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -607,7 +696,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/config_transits',
+      :default_action => 'config_transits_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -623,7 +712,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => '/il_configs',
+      :default_action => 'il_configs_path',
       :subject => subject,
       :function => {
       :read =>{:title => "查看"} ,
@@ -643,7 +732,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/goods_exceptions',
+      :default_action => 'goods_exceptions_path',
       :function => {
       #查看相关运单,其他机构发往当前用户机构的运单
       :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
@@ -663,7 +752,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/senders',
+      :default_action => 'senders_path',
       :function => {
       #查看相关运单,其他机构发往当前用户机构的运单
       :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
@@ -680,7 +769,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/send_lists',
+      :default_action => 'send_lists_path',
       :function => {
       #查看相关运单,其他机构发往当前用户机构的运单
       :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
@@ -696,7 +785,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/send_list_posts',
+      :default_action => 'new_send_list_post_path',
       :function => {
       :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},
@@ -711,7 +800,7 @@ namespace :db do
       :group_name => group_name,
       :subject_title => subject_title,
       :subject => subject,
-      :default_action => '/send_list_backs',
+      :default_action => 'new_send_list_back_path',
       :function => {
       :read => {:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},

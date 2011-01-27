@@ -28,3 +28,5 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
   padding : 5px;
   font-weight :bold;
 }
+/**票据查询表单****/
+#simple_search_bill_form{ margin-left : 200px;}

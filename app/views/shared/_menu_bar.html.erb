@@ -5,7 +5,7 @@
       <div>
         <ul class="navigation">
           <%functions.each do |f|%>
-            <li><%= link_to f.subject_title, f.default_action %></li>
+            <li><%= link_to f.subject_title, instance_eval(f.default_action) %></li>
           <%end%>
         </ul>
       </div>
