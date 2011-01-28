@@ -143,9 +143,9 @@ IlYanzhao::Application.routes.draw do
   #添加carrying_biils路由
   resources :carrying_bills do
     get :rpt_turnover,:on => :collection
+    get :turnover_chart,:on => :collection
     get :search,:on => :collection
     get :simple_search,:on => :collection
-    get :turnover_chart,:on => :collection
     put :reset,:on => :member
   end
 
@@ -153,7 +153,7 @@ IlYanzhao::Application.routes.draw do
     get :search,:on => :collection
   end
 
-  root :to => "computer_bills#index"
+  root :to => "dashboard#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

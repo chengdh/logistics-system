@@ -349,10 +349,23 @@ namespace :db do
       :default_action => 'rpt_turnover_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_day,"search[bill_date_lte]" => Date.today.end_of_day)',
       :subject => subject,
       :function => {
-      :rpt_turnover =>{:title =>"日营业额统计"}
+      :rpt_to_me =>{:title =>"日营业额统计"}
     }
     }
     SystemFunction.create_by_hash(sf_hash)
+    ##############################日营业额统计图#############################################
+    subject_title = "日营业额统计图"
+    subject = "CarryingBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'turnover_chart_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_day,"search[bill_date_lte]" => Date.today.end_of_day)',
+      :subject => subject,
+      :function => {
+      :turnover_chart =>{:title =>"日营业额统计图"}
+    }
+    }
+
     ##############################月营业额统计#############################################
     subject_title = "月营业额统计"
     subject = "CarryingBill"
@@ -362,25 +375,10 @@ namespace :db do
       :default_action => 'rpt_turnover_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_month,"search[bill_date_lte]" => Date.today.end_of_month)',
       :subject => subject,
       :function => {
-      :rpt_turnover =>{:title =>"月营业额统计"}
+      :rpt_to_me =>{:title =>"月营业额统计"}
     }
     }
     SystemFunction.create_by_hash(sf_hash)
-
-    ##############################日营业额统计图#############################################
-    subject_title = "日营业额统计图"
-    subject = "CarryingBill"
-    sf_hash = {
-      :group_name => group_name,
-      :subject_title => subject_title,
-      :default_action => 'turnover_chart_carrying_bills_path("search[type_in]" => ["ComputerBill","HandBill","ReturnBill"],"search[bill_date_gte]" => Date.today.beginning_of_month,"search[bill_date_lte]" => Date.today.end_of_month)',
-      :subject => subject,
-      :function => {
-      :turnover_chart =>{:title =>"日营业额统计图"}
-    }
-    }
-    SystemFunction.create_by_hash(sf_hash)
-
 
 
     #################################结算管理##########################################

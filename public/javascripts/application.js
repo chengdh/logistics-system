@@ -178,6 +178,10 @@ jQuery(function($) {
 			$('#home-search-form').trigger('submit');
 		}
 	});
+	$('#btn_home_search').click(function() {
+		$('#home-search-form').trigger('submit');
+		return false;
+	});
 	//search box
 	$('.search_box').livequery(function() {
 		$(this).watermark('录入运单编号查询', {
@@ -551,11 +555,6 @@ jQuery(function($) {
 	$('.rpt_no_delivery tr.yellow-bill').css('background', 'yellow');
 	$('.rpt_no_delivery tr.red-bill').css('background', 'red');
 	$('.rpt_no_delivery tr.black-bill').css('background', 'black');
-	//柱状图
-	$('.turnover_chart').hide().visualize({
-		type: 'bar',
-		width: 650
-	});
 
 });
 

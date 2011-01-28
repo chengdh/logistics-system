@@ -248,3 +248,25 @@ ul.hint li {
   padding : 5px 0;
 
 }
+
+/*dashboard 样式*/
+#dashboard ul {
+  list-style : none;
+  padding-left : 20px;
+}
+#dashboard h3 {
+  padding : 5px;
+  background : #F5F5F5;
+  border-top : 1px solid #ECECEC;
+  border-bottom : 1px solid #ECECEC;
+}
+#dashboard ul li {
+  float : left;
+  margin-right : 50px;
+}
+#dashboard ul li p {
+  text-align : center;
+  margin : 5px 0;
+}
+
+.dashboard-group { margin-top : 30px;}
