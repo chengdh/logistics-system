@@ -60,6 +60,7 @@ GEM
       validation_reflection (~> 1.0.0)
     has_scope (0.5.0)
     i18n (0.5.0)
+    i18n_generators (1.0.2)
     inherited_resources (1.1.2)
       has_scope (~> 0.5.0)
       responders (~> 0.6.0)
@@ -143,6 +144,7 @@ DEPENDENCIES
   faker (= 0.3.1)
   formtastic (~> 1.1.0)
   formtastic_validation
+  i18n_generators
   inherited_resources (= 1.1.2)
   inherited_resources_views
   jquery-rails

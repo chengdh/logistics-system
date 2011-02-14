@@ -31,7 +31,7 @@ class BaseController < InheritedResources::Base
     resource_name.pluralize
   end
   private
-  #处理查询运单时,传入的机构代码,如果传入的机构有下级机构,则进行处理
+  #处理查询时,传入的机构代码,如果传入的机构有下级机构,则进行处理
   def pre_process_search_params
     return if params[:search].blank?
     new_search_params ={}

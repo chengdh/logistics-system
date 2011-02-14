@@ -1,4 +1,5 @@
 #coding: utf-8
+#运单controller基础类
 class CarryingBillsController < BaseController
   skip_authorize_resource :only => :update
   before_filter :pre_process_search_params,:only => [:index,:rpt_turnover,:turnover_chart]

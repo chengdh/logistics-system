@@ -1,0 +1,554 @@
+zh-CN:
+  activerecord:
+    models:
+      bank: "银行信息"  #g
+      carrying_bill: "运输单"  #g
+      cash_payment_list: "代收货款支付清单(现金)"  #g
+      cash_pay_info: "代收货款支付信息(现金)"  #g
+      claim: "理赔信息"  #g
+      computer_bill: "机打运单"  #g
+      config_cash: "手续费设置(现金)"  #g
+      config_transit: "手续费设置(转账)"  #g
+      customer: "客户资料"  #g
+      customer_fee_info: "客户运费信息"  #g
+      customer_fee_info_line: "客户客户运费信息明细"  #g
+      customer_level_config: "客户级别设置"  #g
+      deliver_info: "提货信息"  #g
+      department: "科室"  #g
+      distribution_list: "分货清单"  #g
+      gexception_authorize_info: "货物异常审核信息"  #g
+      role_system_function_operate: "角色权限"  #g
+      sender: "发货人"  #g
+      send_list: "送货清单"  #g
+      send_list_back: "送货清单返回"  #g
+      send_list_line: "送货清单明细"  #g
+      send_list_post: "送货清单核销"  #g
+      settlement: "结算员交款清单"  #g
+      short_fee_info: "短途运费管理"  #g
+      system_function: "系统功能"  #g
+      system_function_group: "系统功能分类"  #g
+      system_function_operate: "功能-操作"  #g
+      transfer_payment_list: "代收货款支付清单(转账)"  #g
+      transfer_pay_info: "代收货款支付信息(转账)"  #g
+      transit_bill: "中转运单"  #g
+      transit_company: "中转公司资料"  #g
+      transit_deliver_info: "中转运单提货信息"  #g
+      transit_info: "货物中转信息"  #g
+      user: "用户"  #g
+      user_role: "用户角色"  #g
+      vip: "贵宾资料"  #g
+      goods_exception_identify: "货物异常信息责任鉴定"  #g
+      hand_bill: "手工运单"  #g
+      hand_transit_bill: "手工中转运单"  #g
+      il_config: "系统设置"  #g
+      imported_customer: "运单到无客户资料"  #g
+      journal: "日记帐"  #g
+      load_list: "货物运输清单"  #g
+      org: "组织机构"  #g
+      payment_list: "代收货款支付清单"  #g
+      pay_info: "代收货款支付信息"  #g
+      post_info: "结算信息"  #g
+      refound: "返款清单"  #g
+      remittance: "汇款记录"   #g
+      return_bill: "退货单"  #g
+      role: "角色"  #g
+      branch: "分理处/分公司"  #g
+      goods_exception: "货物异常信息"  #g
+      role_org: "角色-机构"  #g
+
+    attributes:
+      bank:
+        name: "名称"  #g
+        code: "编码"  #g
+        is_active: "有效"  #g
+
+      carrying_bill:
+        bill_date: "票据日期"  #g
+        bill_no: "运单编号"  #g
+        goods_no: "货号"  #g
+        from_customer_name: "发货人"  #g
+        from_customer_phone: "发货人电话"  #g
+        from_customer_mobile: "发货人手机"  #g
+        to_customer_name: "收货人"  #g
+        to_customer_phone: "收货人电话"  #g
+        to_customer_mobile: "收货人手机"  #g
+        to_area: "到货地"  #g
+        insured_amount: "保价金额"  #g
+        insured_rate: "保价比例"  #g
+        insured_fee: "保价费"  #g
+        carrying_fee: "运费"  #g
+        goods_fee: "代收货款"  #g
+        from_short_carrying_fee: "发货地短途运费"  #g
+        to_short_carrying_fee: "到货地短途运费"  #g
+        pay_type: "运费支付方式"  #g
+        goods_num: "货物数量"  #g
+        goods_weight: "货物重量"  #g
+        goods_volume: "货物体积"  #g
+        goods_info: "货物信息"  #g
+        note: "备注"  #g
+        state: "运单状态"  #g
+        k_hand_fee: "扣手续费"  #g
+        transit_carrying_fee: "中转运费"  #g
+        transit_hand_fee: "中转手续费"  #g
+        short_fee_state: "短途运费状态"  #g
+        original_carrying_fee: "原始运费"  #g
+        original_goods_fee: "原代收货款"  #g
+        original_insured_amount: "原保价金额"  #g
+        original_insured_fee: "原保价费"  #g
+        original_from_short_carrying_fee: "原发货地短途运费"  #g
+        original_to_short_carrying_fee: "原到货地短途运费"  #g
+        from_org: "发货地"  #g
+        transit_org: "中转地"  #g
+        to_org: "到货地"  #g
+        from_customer: "发货人"  #g
+        load_list: "货物运输清单"  #g
+        distribution_list: "分货清单"  #g
+        deliver_info: "提货信息"  #g
+        settlement: "结算员交款清单"  #g
+        refound: "返款清单"  #g
+        payment_list: "代收货款支付清单"  #g
+        pay_info: "代收货款支付信息"  #g
+        post_info: "结算信息"  #g
+        transit_info: "货物中转信息"  #g
+        transit_deliver_info: "中转提货信息"  #g
+        original_bill: "原始运单信息"  #g
+        return_bill: "退货单信息"  #g
+        short_fee_info: "短途运费信息"  #g
+        send_list_line: "送货清单信息"  #g
+
+      cash_payment_list:
+        state: "状态"  #g
+        note: "备注"  #g
+        bill_date: "清单日期"  #g
+        bank: "银行信息"  #g
+        org: "组织机构"  #g
+        carrying_bills: "运单明细"  #g
+
+      cash_pay_info:
+        customer_name: "提款人姓名"  #g
+        id_number: "身份证号"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        bill_date: "日期"  #g
+        carrying_bills: "运单明细"  #g
+        org: "组织机构"  #g
+
+      claim:
+        bill_date: "日期" #g
+        act_compensate_fee: "实际赔付金额"  #g
+        note: "备注"  #g
+        user: "操作员"  #g
+        goods_exception: "货物异常信息"  #g
+
+      computer_bill:
+        bill_date: "票据日期"  #g
+        bill_no: "运单编号"  #g
+        goods_no: "货号"  #g
+        from_customer_name: "发货人"  #g
+        from_customer_phone: "发货人电话"  #g
+        from_customer_mobile: "发货人手机"  #g
+        to_customer_name: "收货人"  #g
+        to_customer_phone: "收货人电话"  #g
+        to_customer_mobile: "收货人手机"  #g
+        to_area: "到货地"  #g
+        insured_amount: "保价金额"  #g
+        insured_rate: "保价比例"  #g
+        insured_fee: "保价费"  #g
+        carrying_fee: "运费"  #g
+        goods_fee: "代收货款"  #g
+        from_short_carrying_fee: "发货地短途运费"  #g
+        to_short_carrying_fee: "到货地短途运费"  #g
+        pay_type: "运费支付方式"  #g
+        goods_num: "货物数量"  #g
+        goods_weight: "货物重量"  #g
+        goods_volume: "货物体积"  #g
+        goods_info: "货物信息"  #g
+        note: "备注"  #g
+        state: "运单状态"  #g
+        k_hand_fee: "扣手续费"  #g
+        transit_carrying_fee: "中转运费"  #g
+        transit_hand_fee: "中转手续费"  #g
+        short_fee_state: "短途运费状态"  #g
+        original_carrying_fee: "原始运费"  #g
+        original_goods_fee: "原代收货款"  #g
+        original_insured_amount: "原保价金额"  #g
+        original_insured_fee: "原保价费"  #g
+        original_from_short_carrying_fee: "原发货地短途运费"  #g
+        original_to_short_carrying_fee: "原到货地短途运费"  #g
+        from_org: "发货地"  #g
+        transit_org: "中转地"  #g
+        to_org: "到货地"  #g
+        from_customer: "发货人"  #g
+        load_list: "货物运输清单"  #g
+        distribution_list: "分货清单"  #g
+        deliver_info: "提货信息"  #g
+        settlement: "结算员交款清单"  #g
+        refound: "返款清单"  #g
+        payment_list: "代收货款支付清单"  #g
+        pay_info: "代收货款支付信息"  #g
+        post_info: "结算信息"  #g
+        transit_info: "货物中转信息"  #g
+        transit_deliver_info: "中转提货信息"  #g
+        original_bill: "原始运单信息"  #g
+        return_bill: "退货单信息"  #g
+        short_fee_info: "短途运费信息"  #g
+        send_list_line: "送货清单信息"  #g
+
+      config_cash:
+        fee_from: "起始金额"  #g
+        fee_to: "结束金额"  #g
+        hand_fee: "手续费"  #g
+        is_active: "有效"  #g
+
+      config_transit:
+        name: "名称"  #g
+        rate: "费率"  #g
+        is_active: "有效"  #g
+        note: "备注"  #g
+
+      customer:
+        name: "姓名"  #g
+        phone: "电话"  #g
+        mobile: "手机"  #g
+        address: "地址"  #g
+        company: "公司"  #g
+        code: "客户编号"  #g
+        id_number: "身份证号码"  #g
+        bank_card: "银行卡"  #g
+        is_active: "有效"  #g
+        note: "备注"  #g
+        cur_fee: "当月运费"  #g
+        level: "级别"  #g
+        last_import_mth: "最后导入日期"  #g
+        state: "状态"  #g
+        org: "所属机构"  #g
+        bank: "银行"  #g
+        config_transit: "手续费配置"  #g
+
+      customer_fee_info:
+        mth: "月份"  #g
+        org: "机构"  #g
+        user: "操作员"  #g
+        customer_fee_info_lines: "明细信息"  #g
+
+      customer_fee_info_line:
+        name: "客户名称"  #g
+        phone: "电话"  #g
+        fee: "费用"  #g
+        customer_fee_info: "费用信息"  #g
+
+      customer_level_config:
+        name: "名称"  #g
+        from_fee: "运费起点"  #g
+        to_fee: "运费止点"  #g
+        org: "所属机构"  #g
+
+      deliver_info:
+        deliver_date: "提货日期"  #g
+        customer_name: "提货人姓名"  #g
+        customer_no: "身份证号"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        org: "机构"  #g
+        carrying_bills: "提货明细"  #g
+
+      org:
+        name: "科室名称"  #g
+        simp_name: "简称"  #g
+        phone: "联系电话"  #g
+        is_active: "有效"  #g
+        manager: "负责人"  #g
+        location: "地址"  #g
+        code: "编码"  #g
+        lock_input_time: "运单录入截至时间"  #g
+        py: "拼音简写"  #g
+        parent: "上级机构"  #g
+        children: "下级机构"  #g
+        customer_level_configs: "VIP分级设置"  #g
+
+      distribution_list:
+        bill_date: "清单日期"  #g
+        note: "备注"  #g
+        state: "状态"  #g
+        carrying_bills: "清单明细"  #g
+        org: "所属机构"  #g
+
+      gexception_authorize_info:
+        bill_date: "日期"  #g
+        note: "备注"  #g
+        op_type: "赔偿处理方式"  #g
+        compensation_fee: "拟赔偿金额"  #g
+        user: "操作员"  #g
+        goods_exception: "货物异常信息"  #g
+
+      role_system_function_operate:
+        is_select: "选择"  #g
+        role: "角色"  #g
+        system_function_operate: "系统功能"  #g
+
+      sender:
+        name: "送货员姓名"  #g
+        mobile: "手机"  #g
+        address: "地址"  #g
+        is_active: "有效"  #g
+        org: "组织机构"  #g
+
+      send_list:
+        bill_date: "清单日期"  #g
+        note: "备注"  #g
+        sender: "送货人"  #g
+        org: "所属机构"  #g
+        user: "操作员"  #g
+        send_list_lines: "送货清单明细"  #g
+
+      send_list_back:
+        bill_date: "清单日期"  #g
+        note: "备注"  #g
+        org: "所属机构"  #g
+        sender: "送货员"  #g
+        user: "操作员"  #g
+        send_list_lines: "送货明细"  #g
+
+      send_list_line:
+        state: "状态"  #g
+        send_list: "送货清单"  #g
+        carrying_bill: "运单"  #g
+        send_list_post: "送货清单核销信息"  #g
+        send_list_back: "送货清单返回信息"  #g
+
+      send_list_post:
+        bill_date: "核销时间"  #g
+        note: "备注"  #g
+        user: "操作员"  #g
+        org: "操作机构"  #g
+        sender: "送货员"  #g
+        send_list_lines: "送货明细"  #g
+
+      settlement:
+        title: "标题"  #g
+        sum_goods_fee: "代收货款合计"  #g
+        sum_carrying_fee: "运费合计"  #g
+        note: "备注"  #g
+        state: "状态"  #g
+        bill_date: "日期"  #g
+        carrying_bills: "运单"  #g
+        org: "所属机构"  #g
+
+      short_fee_info:
+        bill_date: "日期"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        org: "所属机构"  #g
+        user: "操作员"  #g
+        carrying_bills: "清单明细"  #g
+
+      system_function:
+        subject_title: "功能名称"  #g
+        order: "排序"  #g
+        is_active: "有效"  #g
+        default_action: default_action  #g
+        system_function_group: "功能分类"  #g
+        system_function_operates: "功能操作"  #g
+
+      system_function_group:
+        name: "分类名称"  #g
+        order: "排序"  #g
+        is_active: "有效"  #g
+        system_functions: "系统功能"  #g
+
+      system_function_operate:
+        name: "系统功能操作"  #g
+        function_obj: function_obj  #g
+        order: "排序"  #g
+        is_active: "有效"  #g
+        system_function: "系统功能"  #g
+
+      transfer_payment_list:
+        state: "状态"  #g
+        note: "备注"  #g
+        bill_date: "日期"  #g
+        bank: "银行"  #g
+        org: "所属机构"  #g
+        carrying_bills: "运单明细"  #g
+
+      transfer_pay_info:
+        customer_name: "提款人姓名"  #g
+        id_number: "身份证号"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        bill_date: "日期"  #g
+        carrying_bills: "运单明细"  #g
+        org: "组织机构"  #g
+
+      transit_company:
+        name: "公司名称"  #g
+        address: "地址"  #g
+        phone: "联系电话"  #g
+        is_active: "有效"  #g
+        note: "备注"  #g
+        leader: "联系人"  #g
+
+      transit_deliver_info:
+        bill_date: "日期"  #g
+        note: "备注"  #g
+        transit_hand_fee: "中转手续费"  #g
+        state: "状态"  #g
+        org: "组织机构"  #g
+        carrying_bill: "中转运单"  #g
+
+      transit_info:
+        to_station_phone: "到货地电话"  #g
+        bill_date: "中转日期"  #g
+        state: "状态"  #g
+        transit_carrying_fee: "中转运费"  #g
+        note: "备注"  #g
+        org: "所属机构"  #g
+        transit_company: "中转公司"  #g
+        carrying_bill: "中转运单"  #g
+
+      user:
+        email: "电子邮箱"  #g
+        current_sign_in_at: "当前登录时间"  #g
+        last_sign_in_at: "最后登录时间"  #g
+        current_sign_in_ip: "当前登录的IP"  #g
+        last_sign_in_ip: "最后登录IP"  #g
+        is_active: "有效"  #g
+        is_admin: "管理员"  #g
+        username: "用户名"  #g
+        user_roles: "用户角色"  #g
+        roles: "角色"  #g
+        default_org: "默认机构"  #g
+        default_role: "默认角色"  #g
+
+      user_role:
+        is_select: "选择"  #g
+        user: "用户"  #g
+        role: "角色"  #g
+
+      goods_exception_identify:
+        bill_date: "日期"  #g
+        note: "备注"  #g
+        from_org_fee: "发货地赔偿"  #g
+        to_org_fee: "到货地赔偿"  #g
+        goods_exception: "货物异常信息"  #g
+        user: "操作员"  #g
+
+      il_config:
+        key: "关键字"  #g
+        title: "名称"  #g
+        value: "值"  #g
+
+      journal:
+        bill_date: "日期"  #g
+        settled_no_rebate_fee: "已结算未汇金额"  #g
+        deliveried_no_settled_fee: "已提未结算金额"  #g
+        input_name_1: "录入项目1"  #g
+        input_fee_1: "录入费用1"  #g
+        input_name_2: "录入项目2"  #g
+        input_fee_2: "录入费用2"  #g
+        input_name_3: "录入项目3"  #g
+        input_fee_3: "录入费用3"  #g
+        cash: "库存现金"  #g
+        deposits: "银行存款"  #g
+        goods_fee: "返程货款"  #g
+        short_fee: "短途及赔偿"  #g
+        other_fee: "其他开支"  #g
+        black_bills: "黑票"  #g
+        red_bills: "红票"  #g
+        yellow_bills: "黄票"  #g
+        green_bills: "绿票"  #g
+        blue_bills: "蓝票"  #g
+        white_bills: "白票"  #g
+        current_debt: "当日欠款"  #g
+        current_debt_2_3: "2~3日欠款"  #g
+        current_debt_4_5: "4~5日欠款"  #g
+        current_debt_ge_6: "6日以上欠款"  #g
+        note: "备注"  #g
+        org: "组织机构"  #g
+        user: "操作员"  #g
+
+      load_list:
+        bill_date: "日期"  #g
+        bill_no: "清单编号"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        driver: "司机"  #g
+        vehicle_no: "运输车辆"  #g
+        from_org: "发货地"  #g
+        to_org: "到货地"  #g
+        carrying_bills: "装车明细"  #g
+
+      payment_list:
+        state: "状态"  #g
+        note: "备注"  #g
+        bill_date: "日期"  #g
+        bank: "银行"  #g
+        org: "所属机构"  #g
+        carrying_bills: "运单明细"  #g
+
+      pay_info:
+        customer_name: "提款人姓名"  #g
+        id_number: "身份证号"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        bill_date: "日期"  #g
+        carrying_bills: "运单明细"  #g
+        org: "所属机构"  #g
+
+      post_info:
+        note: "备注"  #g
+        bill_date: "日期"  #g
+        amount_fee: "合计金额"  #g
+        state: "状态"  #g
+        org: "所属机构"  #g
+        carrying_bills: "运单明细"  #g
+
+      refound:
+        bill_date: "日期"  #g
+        state: "状态"  #g
+        note: "备注"  #g
+        sum_goods_fee: "代收货款合计"  #g
+        sum_carrying_fee: "运费合计"  #g
+        carrying_bills: "运单明细"  #g
+        from_org: "付款机构"  #g
+        to_org: "收款机构"  #g
+        remittance: "汇款记录"  #g
+
+      remittance:
+        bill_date: "日期"  #g
+        note: "备注"  #g
+        should_fee: "应汇金额"  #g
+        act_fee: "实汇金额"  #g
+        state: "状态"  #g
+        from_org: "汇款机构"  #g
+        to_org: "收款机构"  #g
+        user: "操作员"  #g
+        refound: "返款清单"  #g
+
+      role:
+        name: "名称"  #g
+        is_active: "有效"  #g
+        user_roles: "用户-角色"  #g
+        users: "角色"  #g
+        role_system_function_operates: "角色-权限"  #g
+        system_function_operates: "角色所有权限"  #g
+        role_orgs: "角色-机构"  #g
+        orgs: "机构"  #g
+
+      goods_exception:
+        exception_type: "异常类别"  #g
+        bill_date: "日期"  #g
+        state: "状态"  #g
+        except_num: "异常数量"  #g
+        note: "备注"  #g
+        carrying_bill: "运单"  #g
+        user: "操作员"  #g
+        org: "机构"  #g
+        gexception_authorize_info: "货物异常核销信息"  #g
+        claim: "赔偿信息"  #g
+        goods_exception_identify: "责任鉴定信息"  #g
+
+      role_org:
+        is_select: "选中"  #g
+        role: "角色"  #g
+        org: "机构"  #g

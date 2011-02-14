@@ -2,7 +2,7 @@
   <thead>
     <tr>
       <% index_table_columns.each do |column| %>
-        <th><%= column.to_s.titlecase %></th>
+        <th><%= t(column,:scope => "activerecord.attributes.#{resource_class.name.underscore}")%></th>
       <% end %>
       <th>&nbsp;</th>
     </tr>

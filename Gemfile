@@ -53,6 +53,8 @@ group :development, :test do
   gem 'rspec-rails','~>2.4.1'
   gem 'web-app-theme', '>= 0.6.2'
   gem 'factory_girl_rails', '1.0'
+  #i18n_generators
+  gem 'i18n_generators'
 end
 group :test do
   gem 'rspec','~>2.4.0'

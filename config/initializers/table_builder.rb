@@ -18,7 +18,7 @@ module InheritedResources
     module ClassMethods
 
       def default_table_columns
-        resource_class.content_columns.collect{|column| column.name.to_sym  }
+        resource_class.columns.collect{|column| column.name.to_sym } - [:created_at,:updated_at,:id]
       end
 
 
