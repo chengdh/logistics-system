@@ -1,7 +1,7 @@
 #coding: utf-8
 #返款清单
 class Refound < ActiveRecord::Base
-  #TODO belongs_to :user
+  belongs_to :user
   has_many :carrying_bills
   belongs_to :from_org,:class_name => "Org"
   belongs_to :to_org,:class_name => "Org"

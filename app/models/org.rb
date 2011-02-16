@@ -16,6 +16,10 @@ class Org < ActiveRecord::Base
     end
     org
   end
+  #重写to_s方法
+  def to_s
+    self.name
+  end
 
   private
   def gen_py

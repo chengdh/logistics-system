@@ -7,7 +7,9 @@ IlYanzhao::Application.routes.draw do
 
   resources :journals
 
-  resources :remittances
+  resources :remittances do
+    get :search,:on => :collection
+  end
 
   resources :send_list_backs
 
@@ -54,6 +56,7 @@ IlYanzhao::Application.routes.draw do
   resources :transit_companies
 
   resources :transit_infos do
+    get :search,:on => :collection
     resource :carrying_bill
   end
 
@@ -71,11 +74,13 @@ IlYanzhao::Application.routes.draw do
   end
 
   resources :transfer_payment_lists do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
 
   resources :cash_payment_lists do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
@@ -86,21 +91,24 @@ IlYanzhao::Application.routes.draw do
   resources :banks
 
   resources :refounds do
-    resources :carrying_bills
     get :process_handle,:on => :member
+    get :search,:on => :collection
     resources :carrying_bills
   end
   #返款清单确认
   resources :receive_refounds do
     get :process_handle,:on => :member
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
   resources :settlements do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
   resources :deliver_infos do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
@@ -111,11 +119,13 @@ IlYanzhao::Application.routes.draw do
 
   resources :load_lists do
     get :process_handle,:on => :member
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
   resources :arrive_load_lists do
     get :process_handle,:on => :member
+    get :search,:on => :collection
     resources :carrying_bills
   end
 

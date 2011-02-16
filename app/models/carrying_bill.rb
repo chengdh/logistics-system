@@ -200,7 +200,7 @@ class CarryingBill < ActiveRecord::Base
 
     #得到提货应收金额
     def th_amount
-      amount = self.agent_carrying_fee - self.transit_hand_fee + self.goods_fee + self.to_short_carrying_fee
+      amount = self.agent_carrying_fee - self.transit_hand_fee + self.goods_fee + self.to_short_carrying_fee 
       amount
     end
     #运费总计
@@ -260,9 +260,10 @@ class CarryingBill < ActiveRecord::Base
       override_attr.merge!(:from_org_id => self.transit_org_id,:to_org_id => self.from_org_id) unless self.transit_org_id.blank?
       self.build_return_bill(self.attributes.merge(override_attr))
     end
-
-
-
+    #重写to_s方法
+    def to_s
+      "#{self.bill_no}/#{self.goods_no}"
+    end
 
     protected
     

@@ -2,7 +2,7 @@ class PaymentList < ActiveRecord::Base
   belongs_to :bank
   belongs_to :org
   has_many :carrying_bills
-  #TODO belongs_to :user
+  belongs_to :user
   #定义状态机
   state_machine :initial => :billed do
     after_transition do |payment_list,transition|

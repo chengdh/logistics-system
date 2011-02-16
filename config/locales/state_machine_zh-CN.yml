@@ -1,0 +1,119 @@
+# Chinese (China) translations for Ruby on Rails
+# by tsechingho (http://github.com/tsechingho)
+
+zh-CN:
+  activerecord:
+    state_machines:
+      load_list:
+        state:
+          states:
+           billed: "已开票" 
+           loaded: "已装车"
+           shipped: "在途"
+           reached: "已到货"
+
+      carrying_bill:
+        state:
+          states:
+           billed: "已开票" 
+           loaded: "已装车"
+           shipped: "在途"
+           reached: "已到货"
+           distributed: "已分货"
+           deliveried: "已提货"
+           transited: "已中转"
+           settlemented: "已日结"
+           refunded: "已返款"
+           refunded_confirmed: "已到帐"
+           payment_listed: "等待支付货款"
+           paid: "已提款"
+           posted: "已结帐"
+           returned: "已退货"
+        short_fee_state:
+          states:
+            draft: "草稿"
+            off: "已核销"
+            
+
+      distribute_list:
+        state:
+          states:
+           billed: "草稿" 
+           distributed: "已分货"
+
+      transit_info:
+        state:
+          states:
+            billed: "草稿"
+            transited: "已中转"
+
+      deliver_info:
+        state:
+          states:
+            billed: "草稿"
+            deliveried: "已提货"
+            
+      settlement:
+        state:
+          states:
+            billed: "草稿"
+            settlemented: "已结算"
+
+      refound:
+        state:
+          states:
+            billed: "草稿"
+            refunded: "已返款"
+            refunded_confirmed: "已收款"
+            
+      payment_list:
+        state:
+          states:
+            billed: "草稿"
+            payment_listed: "准备支付"
+            
+      pay_info:
+        state:
+          states:
+            billed: "草稿"
+            paid: "货款已付"
+            
+      post_info:
+        state:
+          states:
+            billed: "草稿"
+            posted: "已结算"
+            
+      goods_exception:
+        state:
+          states:
+            submited: "已提交"
+            authorized: "已核销"
+            compensated: "已赔偿"
+            identified: "责任已鉴定"
+
+      remittance:
+        state:
+          states:
+            draft: "草稿"
+            complete: "已汇款"
+
+      send_list_line:
+        state:
+          states:
+            sended: "已送货"
+            posted: "已核销"
+            backed: "已退回"
+
+      short_fee_info:
+        state:
+          states:
+            draft: "草稿"
+            off: "已核销"
+
+      transit_deliver_info:
+        state:
+          states:
+            billed: "草稿"
+            deliveried: "已提货"
+

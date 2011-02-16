@@ -2,8 +2,7 @@
 #货物中转资料
 class TransitInfo < ActiveRecord::Base
   belongs_to :org
-  #TODO 暂时注释
-  #belongs_to :user
+  belongs_to :user
   belongs_to :transit_company  #中转公司
   has_one :carrying_bill
   validates_presence_of :org_id,:transit_company_id

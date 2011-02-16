@@ -81,5 +81,11 @@ module ApplicationHelper
     rows_per_page = cur_page.to_i if rows_per_page.kind_of?(String) 
     index+1 + rows_per_page*(cur_page - 1) 
   end
+  #将foreign_key 生成association
+  def foreign_key_to_association(column)
+    ret = column.to_s.gsub!(/_id/,"")
+    ret = column if ret.blank?
+    ret.to_sym
+  end
 
 end

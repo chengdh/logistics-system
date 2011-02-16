@@ -1,5 +1,9 @@
 zh-CN:
+  formtastic:
+    labels:
+
   activerecord:
+
     models:
       bank: "银行信息"  #g
       carrying_bill: "运输单"  #g
@@ -42,7 +46,7 @@ zh-CN:
       hand_transit_bill: "手工中转运单"  #g
       il_config: "系统设置"  #g
       imported_customer: "运单到无客户资料"  #g
-      journal: "日记帐"  #g
+      journal: "帐目盘点登记表"  #g
       load_list: "货物运输清单"  #g
       org: "组织机构"  #g
       payment_list: "代收货款支付清单"  #g
@@ -56,7 +60,20 @@ zh-CN:
       goods_exception: "货物异常信息"  #g
       role_org: "角色-机构"  #g
 
+
     attributes:
+      public_attrs:
+        from_org_id: "发货地"
+        to_org_id: "到货地"
+        org_id: "所属机构"
+        user_id: "操作员"
+        transit_org_id: "中转地"
+        created_at: "录入时间"
+        updated_at: "最后修改"
+        bill_date: "单据日期"
+        note: "备注"
+        is_active: "有效标志"
+
       bank:
         name: "名称"  #g
         code: "编码"  #g
@@ -66,6 +83,11 @@ zh-CN:
         bill_date: "票据日期"  #g
         bill_no: "运单编号"  #g
         goods_no: "货号"  #g
+        from_org_id: "发货地"
+        transit_org_id: "中转地"
+        to_org_id: "发货地"
+        customer_code: "客户编号"
+        insured_rate_disp: "保价比例"
         from_customer_name: "发货人"  #g
         from_customer_phone: "发货人电话"  #g
         from_customer_mobile: "发货人手机"  #g
@@ -115,14 +137,6 @@ zh-CN:
         return_bill: "退货单信息"  #g
         short_fee_info: "短途运费信息"  #g
         send_list_line: "送货清单信息"  #g
-
-      cash_payment_list:
-        state: "状态"  #g
-        note: "备注"  #g
-        bill_date: "清单日期"  #g
-        bank: "银行信息"  #g
-        org: "组织机构"  #g
-        carrying_bills: "运单明细"  #g
 
       cash_pay_info:
         customer_name: "提款人姓名"  #g
@@ -139,60 +153,6 @@ zh-CN:
         note: "备注"  #g
         user: "操作员"  #g
         goods_exception: "货物异常信息"  #g
-
-      computer_bill:
-        bill_date: "票据日期"  #g
-        bill_no: "运单编号"  #g
-        goods_no: "货号"  #g
-        from_customer_name: "发货人"  #g
-        from_customer_phone: "发货人电话"  #g
-        from_customer_mobile: "发货人手机"  #g
-        to_customer_name: "收货人"  #g
-        to_customer_phone: "收货人电话"  #g
-        to_customer_mobile: "收货人手机"  #g
-        to_area: "到货地"  #g
-        insured_amount: "保价金额"  #g
-        insured_rate: "保价比例"  #g
-        insured_fee: "保价费"  #g
-        carrying_fee: "运费"  #g
-        goods_fee: "代收货款"  #g
-        from_short_carrying_fee: "发货地短途运费"  #g
-        to_short_carrying_fee: "到货地短途运费"  #g
-        pay_type: "运费支付方式"  #g
-        goods_num: "货物数量"  #g
-        goods_weight: "货物重量"  #g
-        goods_volume: "货物体积"  #g
-        goods_info: "货物信息"  #g
-        note: "备注"  #g
-        state: "运单状态"  #g
-        k_hand_fee: "扣手续费"  #g
-        transit_carrying_fee: "中转运费"  #g
-        transit_hand_fee: "中转手续费"  #g
-        short_fee_state: "短途运费状态"  #g
-        original_carrying_fee: "原始运费"  #g
-        original_goods_fee: "原代收货款"  #g
-        original_insured_amount: "原保价金额"  #g
-        original_insured_fee: "原保价费"  #g
-        original_from_short_carrying_fee: "原发货地短途运费"  #g
-        original_to_short_carrying_fee: "原到货地短途运费"  #g
-        from_org: "发货地"  #g
-        transit_org: "中转地"  #g
-        to_org: "到货地"  #g
-        from_customer: "发货人"  #g
-        load_list: "货物运输清单"  #g
-        distribution_list: "分货清单"  #g
-        deliver_info: "提货信息"  #g
-        settlement: "结算员交款清单"  #g
-        refound: "返款清单"  #g
-        payment_list: "代收货款支付清单"  #g
-        pay_info: "代收货款支付信息"  #g
-        post_info: "结算信息"  #g
-        transit_info: "货物中转信息"  #g
-        transit_deliver_info: "中转提货信息"  #g
-        original_bill: "原始运单信息"  #g
-        return_bill: "退货单信息"  #g
-        short_fee_info: "短途运费信息"  #g
-        send_list_line: "送货清单信息"  #g
 
       config_cash:
         fee_from: "起始金额"  #g
@@ -214,7 +174,7 @@ zh-CN:
         company: "公司"  #g
         code: "客户编号"  #g
         id_number: "身份证号码"  #g
-        bank_card: "银行卡"  #g
+        bank_card: "银行卡号"  #g
         is_active: "有效"  #g
         note: "备注"  #g
         cur_fee: "当月运费"  #g
@@ -222,7 +182,7 @@ zh-CN:
         last_import_mth: "最后导入日期"  #g
         state: "状态"  #g
         org: "所属机构"  #g
-        bank: "银行"  #g
+        bank_id: "银行"  #g
         config_transit: "手续费配置"  #g
 
       customer_fee_info:
@@ -251,6 +211,9 @@ zh-CN:
         note: "备注"  #g
         org: "机构"  #g
         carrying_bills: "提货明细"  #g
+        sum_carrying_fee: "应收运费"
+        sum_goods_fee: "应收货款"
+        sum_th_fee: "提货应收金额"
 
       org:
         name: "科室名称"  #g
@@ -338,7 +301,7 @@ zh-CN:
         bill_date: "日期"  #g
         state: "状态"  #g
         note: "备注"  #g
-        org: "所属机构"  #g
+        org_id: "所属机构"  #g
         user: "操作员"  #g
         carrying_bills: "清单明细"  #g
 
@@ -362,14 +325,6 @@ zh-CN:
         order: "排序"  #g
         is_active: "有效"  #g
         system_function: "系统功能"  #g
-
-      transfer_payment_list:
-        state: "状态"  #g
-        note: "备注"  #g
-        bill_date: "日期"  #g
-        bank: "银行"  #g
-        org: "所属机构"  #g
-        carrying_bills: "运单明细"  #g
 
       transfer_pay_info:
         customer_name: "提款人姓名"  #g
@@ -403,6 +358,7 @@ zh-CN:
         transit_carrying_fee: "中转运费"  #g
         note: "备注"  #g
         org: "所属机构"  #g
+        transit_company_id: "中转公司"  #g
         transit_company: "中转公司"  #g
         carrying_bill: "中转运单"  #g
 
@@ -417,8 +373,8 @@ zh-CN:
         username: "用户名"  #g
         user_roles: "用户角色"  #g
         roles: "角色"  #g
-        default_org: "默认机构"  #g
-        default_role: "默认角色"  #g
+        default_org_id: "默认机构"  #g
+        default_role_id: "默认角色"  #g
 
       user_role:
         is_select: "选择"  #g
@@ -474,16 +430,16 @@ zh-CN:
         note: "备注"  #g
         driver: "司机"  #g
         vehicle_no: "运输车辆"  #g
-        from_org: "发货地"  #g
-        to_org: "到货地"  #g
+        from_org_id: "发货地"  #g
+        to_org_id: "到货地"  #g
         carrying_bills: "装车明细"  #g
 
       payment_list:
         state: "状态"  #g
         note: "备注"  #g
         bill_date: "日期"  #g
-        bank: "银行"  #g
-        org: "所属机构"  #g
+        bank_id: "银行"  #g
+        org_id: "所属机构"  #g
         carrying_bills: "运单明细"  #g
 
       pay_info:
@@ -523,7 +479,7 @@ zh-CN:
         from_org: "汇款机构"  #g
         to_org: "收款机构"  #g
         user: "操作员"  #g
-        refound: "返款清单"  #g
+        refound_id: "返款清单"  #g
 
       role:
         name: "名称"  #g
@@ -541,7 +497,7 @@ zh-CN:
         state: "状态"  #g
         except_num: "异常数量"  #g
         note: "备注"  #g
-        carrying_bill: "运单"  #g
+        carrying_bill_id: "运单"  #g
         user: "操作员"  #g
         org: "机构"  #g
         gexception_authorize_info: "货物异常核销信息"  #g

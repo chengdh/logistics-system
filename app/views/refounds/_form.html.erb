@@ -5,7 +5,7 @@
       <td>返款日期:</td>
       <td> <%=f.text_field :bill_date,:class => "datepicker",:size => 10%></td>
       <td>结算员:</td>
-      <td>添加结算员信息</td>
+      <td><%=f.hidden_field :user_id%><%=f.object.user.try(:username)%></td>
     </tr>
     <tr>
       <td>付款单位:</td>

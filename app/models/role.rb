@@ -42,4 +42,8 @@ class Role < ActiveRecord::Base
   def system_function_groups
     @system_function_groups ||= self.system_functions.group_by(&:system_function_group)
   end
+  #重写to_s方法
+  def to_s
+    self.name
+  end
 end

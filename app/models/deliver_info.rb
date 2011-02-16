@@ -13,4 +13,16 @@ class DeliverInfo < ActiveRecord::Base
     end
   end
   default_value_for :deliver_date,Date.today
+  #合计应收运费
+  def sum_carrying_fee
+    self.carrying_bills.to_a.sum(&:carrying_fee_th)
+  end
+  #合计应收代收货款
+  def sum_goods_fee
+    self.carrying_bills.to_a.sum(&:goods_fee)
+  end
+  #合计提货应收费用
+  def sum_th_fee
+    self.carrying_bills.to_a.sum(&:th_amount)
+  end
 end
