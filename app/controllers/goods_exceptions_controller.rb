@@ -35,5 +35,4 @@ class GoodsExceptionsController < BaseController
     get_resource_ivar || set_resource_ivar(goods_exception)
     goods_exception.build_goods_exception_identify
   end
-
 end

@@ -27,7 +27,7 @@ class PayInfo < ActiveRecord::Base
     self.carrying_bills.to_a.sum(&:k_carrying_fee)
   end
   #合计应付金额
-  def sum_k_carrying_fee
+  def sum_act_pay_fee
     self.carrying_bills.to_a.sum(&:act_pay_fee)
   end
   #运单编号
@@ -39,7 +39,5 @@ class PayInfo < ActiveRecord::Base
     ret = self.carrying_bills.collect {|bill| bill.from_customer_name}.join("-")
     ret
   end
-
-
 
 end

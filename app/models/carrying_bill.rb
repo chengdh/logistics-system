@@ -154,10 +154,22 @@ class CarryingBill < ActiveRecord::Base
       }
     end
 
+    #付款方式描述
+    def pay_type_des
+      pay_type_des = ""
+      CarryingBill.pay_types.each {|des,code| pay_type_des = des if code == self.pay_type }
+      pay_type_des
+    end
+
     def from_org_name
       ""
       self.from_org.name unless self.from_org.nil?
     end
+    def transit_org_name
+      ""
+      self.transit_org.name unless self.transit_org.nil?
+    end
+
     def to_org_name
       ""
       self.to_org.name unless self.to_org.nil?
@@ -264,9 +276,91 @@ class CarryingBill < ActiveRecord::Base
     def to_s
       "#{self.bill_no}/#{self.goods_no}"
     end
+    #导出方法
+    def self.to_csv(search_obj,options = {},with_bom_header = true)
+      options = self.export_options if options.blank?
+      sum_info = self.search_sum(search_obj)
+      #导出明细信息
+      ret = search_obj.all.export_csv(options,with_bom_header)
+      #导出合计信息
+      sum_array =["合计"]
+      #sum_array << "" if options[:methods].include?(:bill_date)
+      sum_array << "" if options[:methods].include?(:bill_no)
+      sum_array << "" if options[:methods].include?(:goods_no)
+      sum_array << "" if options[:methods].include?(:from_customer_name)
+      sum_array << "" if options[:methods].include?(:from_customer_phone)
+      sum_array << "" if options[:methods].include?(:from_customer_mobile)
+      sum_array << "" if options[:methods].include?(:to_customer_name)
+      sum_array << "" if options[:methods].include?(:to_customer_phone)
+      sum_array << "" if options[:methods].include?(:to_customer_mobile)
+      sum_array << "" if options[:methods].include?(:from_org_name)
+      sum_array << "" if options[:methods].include?(:transit_org_name)
+      sum_array << "" if options[:methods].include?(:to_org_name)
+      #用于显示合计票数
+      sum_array << sum_info[:count] if options[:methods].include?(:pay_type_des)
+      sum_array << sum_info[:sum_from_short_carrying_fee] if options[:methods].include?(:from_short_carrying_fee)
+      sum_array << sum_info[:sum_to_short_carrying_fee] if options[:methods].include?(:to_short_carrying_fee)
+      sum_array << sum_info[:sum_carrying_fee] if options[:methods].include?(:carrying_fee)
+      sum_array << sum_info[:sum_carrying_fee_th] if options[:methods].include?(:carrying_fee_th)
+      sum_array << sum_info[:sum_k_carrying_fee] if options[:methods].include?(:k_carrying_fee)
+      sum_array << sum_info[:sum_k_hand_fee] if options[:methods].include?(:k_hand_fee)
+      sum_array << sum_info[:sum_goods_fee] if options[:methods].include?(:goods_fee)
+      sum_array << sum_info[:sum_insured_fee] if options[:methods].include?(:insured_fee)
+      sum_array << sum_info[:sum_transit_carrying_fee] if options[:methods].include?(:transit_carrying_fee)
+      sum_array << sum_info[:sum_transit_hand_fee] if options[:methods].include?(:transit_hand_fee)
+      sum_array << sum_info[:sum_act_pay_fee] if options[:methods].include?(:act_pay_fee)
+      sum_array << sum_info[:sum_agent_carrying_fee] if options[:methods].include?(:agent_carrying_fee)
+      sum_array << sum_info[:sum_th_amount] if options[:methods].include?(:th_amount)
+      sum_array << sum_info[:sum_goods_num] if options[:methods].include?(:goods_num)
+      sum_array << "" if options[:methods].include?(:human_state_name)
+
+      ret = ret + sum_array.export_line_csv
+      ret
+    end
+    #得到票据合计信息
+    def self.search_sum(search)
+      sum_info = {
+      :count => search.count,
+      :sum_carrying_fee => search.relation.sum(:carrying_fee),
+      #现金付运费合计
+      :sum_carrying_fee_cash => search.where(:pay_type => CarryingBill::PAY_TYPE_CASH).sum(:carrying_fee),
+      #提货付运费合计
+      :sum_carrying_fee_th => search.where(:pay_type => CarryingBill::PAY_TYPE_TH).sum(:carrying_fee),
+      #回执付运费合计
+      :sum_carrying_fee_re => search.where(:pay_type => CarryingBill::PAY_TYPE_RETURN).sum(:carrying_fee),
+      #自货款扣除运费合计
+      :sum_k_carrying_fee => search.where(:pay_type => CarryingBill::PAY_TYPE_K_GOODSFEE).sum(:carrying_fee),
+      #扣手续费合计
+      :sum_k_hand_fee => search.relation.sum(:k_hand_fee),
+      :sum_goods_fee => search.relation.sum(:goods_fee),
+      :sum_insured_fee => search.relation.sum(:insured_fee),
+      :sum_transit_carrying_fee => search.relation.sum(:transit_carrying_fee),
+      :sum_transit_hand_fee => search.relation.sum(:transit_hand_fee),
+      :sum_from_short_carrying_fee => search.relation.sum(:from_short_carrying_fee),
+      :sum_to_short_carrying_fee => search.relation.sum(:to_short_carrying_fee),
+      :sum_goods_num => search.relation.sum(:goods_num)
+    }
+    #实提货款合计
+    sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
+    sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
+    sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]+ sum_info[:sum_to_short_carrying_fee]
+    sum_info
+  end
+
 
     protected
-    
+    #导出选项
+    def self.export_options
+      {
+        :only => [],
+        :methods => [
+          :bill_date,:bill_no,:goods_no,:from_customer_name,:from_customer_phone,:from_customer_mobile,
+          :to_customer_name,:to_customer_phone,:to_customer_mobile,:from_org_name,
+          :transit_org_name,:to_org_name,:pay_type_des,:from_short_carrying_fee,:to_short_carrying_fee,
+          :carrying_fee,:carrying_fee_th,:k_carrying_fee,:k_hand_fee,:goods_fee,:insured_fee,:transit_carrying_fee,
+          :transit_hand_fee,:act_pay_fee,:agent_carrying_fee,:th_amount,:goods_num,:note,:human_state_name
+      ]}
+    end
     #生成票据编号
     def generate_bill_no
       #FIXME 票据号暂时设置为id

@@ -15,6 +15,10 @@
           <%= link_to image_tag("auction-hammer--arrow.png") , process_handle_arrive_load_list_path(resource),:title => "到货确认",:class => "tipsy"  %>
         </li>
       <%end%>
+      <li>
+        <%= link_to image_tag("document-excel-table.png"), resource_path(resource,:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
+      </li>
+
     <%end%>
   </ul>
 </div>   

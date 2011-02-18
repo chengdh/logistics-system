@@ -1,7 +1,6 @@
 class PostInfo < ActiveRecord::Base
   belongs_to :org
-  #TODO 暂时注释
-  #belongs_to :user
+  belongs_to :user
   has_many :carrying_bills
   validates_presence_of :org_id
 

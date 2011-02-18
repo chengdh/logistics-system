@@ -15,7 +15,7 @@
 
     <%if params[:action] == "new"%>
       <li>
-        <%= link_to_function image_tag("disk-black.png"), "$.fancybox.showActivity();$(document.forms[0]).trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
+        <%= link_to_function image_tag("disk-black.png"), "$('#short_fee_info_form').trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
       </li>
     <%end%>
   </ul>

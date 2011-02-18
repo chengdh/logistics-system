@@ -1,3 +1,4 @@
+#coding: utf-8
 class LoadList < ActiveRecord::Base
   belongs_to :from_org,:class_name => "Org"
   belongs_to :to_org,:class_name => "Org"
@@ -26,5 +27,23 @@ class LoadList < ActiveRecord::Base
   def to_org_name
     ""
     self.to_org.name unless self.to_org.nil?
+  end
+  #导出到csv
+  def to_csv
+    ret = ["清单日期:",self.bill_date,"清单编号:",self.bill_no,"发货站:",self.from_org_name,"到达站:",self.to_org_name,"状态:" , self.human_state_name].export_line_csv(true)
+    csv_carrying_bills = CarryingBill.to_csv(self.carrying_bills.search,LoadList.carrying_bill_export_options,false)
+    ret + csv_carrying_bills
+  end
+  private
+  def self.carrying_bill_export_options
+    {
+        :only => [],
+        :methods => [
+          :bill_date,:bill_no,:goods_no,:from_customer_name,:from_customer_phone,:from_customer_mobile,
+          :to_customer_name,:to_customer_phone,:to_customer_mobile,
+          :pay_type_des,
+          :carrying_fee,:goods_fee,
+          :note,:human_state_name
+      ]}
   end
 end

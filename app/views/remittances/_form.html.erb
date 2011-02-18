@@ -2,6 +2,7 @@
   <%=f.error_messages %>
   <%= render "show" %>
   <%= f.inputs "实际汇款信息" do%>
+    <%= f.hidden_field :user_id,:value => current_user.id if f.object.new_record?%>
     <%= f.input :act_fee %>
     <%= f.input :note ,:as => :string,:input_html => {:size => 100} %>
   <%end%>

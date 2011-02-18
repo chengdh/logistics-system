@@ -51,6 +51,11 @@
         </li>
       <%end%>
     <%end%>
+    <%if params[:action] == "index"%>
+      <li>
+        <%= link_to image_tag("document-excel-table.png"), collection_path(:search => params[:search],:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
+      </li>
+    <%end%>
     <%= render "extra_toolbar" %>
   </ul>
 </div>   

@@ -24,7 +24,7 @@ zh-CN:
       role_system_function_operate: "角色权限"  #g
       sender: "发货人"  #g
       send_list: "送货清单"  #g
-      send_list_back: "送货清单返回"  #g
+      send_list_back: "送货员未交票统计"  #g
       send_list_line: "送货清单明细"  #g
       send_list_post: "送货清单核销"  #g
       settlement: "结算员交款清单"  #g
@@ -137,6 +137,17 @@ zh-CN:
         return_bill: "退货单信息"  #g
         short_fee_info: "短途运费信息"  #g
         send_list_line: "送货清单信息"  #g
+        from_org_name: "发货地"
+        to_org_name: "到货地"
+        transit_org_name: "中转地"
+        pay_type_des: "付款方式"
+        carrying_fee_th: "提货应付运费"
+        k_carrying_fee: "扣运费"
+        act_pay_fee: "实际支付货款"
+        agent_carrying_fee: "代收运费"
+        th_amount: "提货应收合计"
+        human_state_name: "状态"
+
 
       cash_pay_info:
         customer_name: "提款人姓名"  #g
@@ -259,7 +270,8 @@ zh-CN:
       send_list:
         bill_date: "清单日期"  #g
         note: "备注"  #g
-        sender: "送货人"  #g
+        sender: "送货员"  #g
+        sender_id: "送货员"  #g
         org: "所属机构"  #g
         user: "操作员"  #g
         send_list_lines: "送货清单明细"  #g
@@ -269,6 +281,7 @@ zh-CN:
         note: "备注"  #g
         org: "所属机构"  #g
         sender: "送货员"  #g
+        sender_id: "送货员"  #g
         user: "操作员"  #g
         send_list_lines: "送货明细"  #g
 
@@ -285,6 +298,7 @@ zh-CN:
         user: "操作员"  #g
         org: "操作机构"  #g
         sender: "送货员"  #g
+        sender_id: "送货员"  #g
         send_list_lines: "送货明细"  #g
 
       settlement:
@@ -450,6 +464,12 @@ zh-CN:
         bill_date: "日期"  #g
         carrying_bills: "运单明细"  #g
         org: "所属机构"  #g
+        sum_k_carrying_fee: "扣运费"
+        sum_k_hand_fee: "扣手续费"
+        sum_act_pay_fee: "实付货款"
+        sum_goods_fee: "代收货款"
+        bill_no: "货号"
+        from_customer: "发货人"
 
       post_info:
         note: "备注"  #g
@@ -499,7 +519,7 @@ zh-CN:
         note: "备注"  #g
         carrying_bill_id: "运单"  #g
         user: "操作员"  #g
-        org: "机构"  #g
+        org_id: "上报机构"  #g
         gexception_authorize_info: "货物异常核销信息"  #g
         claim: "赔偿信息"  #g
         goods_exception_identify: "责任鉴定信息"  #g

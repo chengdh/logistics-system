@@ -1,4 +1,5 @@
 <%= form_for resource,:html => {:id => "journal_form"} do |f| %>
+  <%= f.hidden_field :user_id,:value => current_user.id if f.object.new_record?%>
   <table class='table'>
     <caption>帐目盘点登记表</caption>
     <thead>

@@ -5,17 +5,25 @@ IlYanzhao::Application.routes.draw do
 
   resources :customer_level_configs
 
-  resources :journals
+  resources :journals do
+    get :search,:on => :collection
+  end
 
   resources :remittances do
     get :search,:on => :collection
   end
 
-  resources :send_list_backs
+  resources :send_list_backs do
+    get :search,:on => :collection
+  end
 
-  resources :send_list_posts
+  resources :send_list_posts do
+    get :search,:on => :collection
+  end
 
-  resources :send_lists
+  resources :send_lists do
+    get :search,:on => :collection
+  end
 
   resources :senders
 
@@ -65,11 +73,13 @@ IlYanzhao::Application.routes.draw do
   end
 
   resources :transfer_pay_infos do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
 
   resources :cash_pay_infos do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 

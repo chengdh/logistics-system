@@ -4,7 +4,7 @@ class BaseController < InheritedResources::Base
 
   before_filter :pre_process_search_params,:only => [:index]
   helper_method :sort_column,:sort_direction,:resource_name,:resources_name,:show_view_columns
-  respond_to :html,:xml,:js,:json
+  respond_to :html,:xml,:js,:json,:csv
   protected
   def collection
     @search = end_of_association_chain.accessible_by(current_ability).search(params[:search])

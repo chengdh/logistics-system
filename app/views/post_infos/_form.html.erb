@@ -1,5 +1,6 @@
 <%= form_for resource ,:remote => true,:html =>{:id => "pay_info_form"}  do |f|%>
   <%=f.error_messages %>
+  <%= f.hidden_field :user_id,:value => current_user.id if f.object.new_record?%>
   <table class='table'>
     <tr>
       <td>结算员:</td>

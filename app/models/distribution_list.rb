@@ -1,5 +1,5 @@
 class DistributionList < ActiveRecord::Base
-  #TODO belongs_to :user
+  belongs_to :user
   has_many :carrying_bills
   belongs_to :org
   validates_presence_of :org_id,:bill_date

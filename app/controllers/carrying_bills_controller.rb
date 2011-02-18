@@ -4,6 +4,14 @@ class CarryingBillsController < BaseController
   skip_authorize_resource :only => :update
   before_filter :pre_process_search_params,:only => [:index,:rpt_turnover,:turnover_chart]
   belongs_to :load_list,:distribution_list,:deliver_info,:settlement,:refound,:cash_payment_list,:transfer_payment_list,:cash_pay_info,:transfer_pay_info,:post_info,:polymorphic => true,:optional => true
+
+  #覆盖默认的index方法,主要是为了导出
+  def index
+    super do |format|
+      format.csv {send_data resource_class.to_csv(@search)}
+    end
+  end
+
   #GET search
   #显示查询窗口
   def search
