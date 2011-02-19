@@ -15,50 +15,58 @@
         </th>
       </tr>
     </thead>
-    <tr>
-      <td colspan='2'>帐目金额</td>
-      <td colspan='2'>库存金额</td>
-    </tr>
-    <tr>
-      <td>已结算未汇金额</td>
-      <td><%= f.text_field :settled_no_rebate_fee,:readonly => true %></td>
-      <td>库存现金</td>
-      <td><%= f.text_field :cash %></td>
-    </tr>
-    <tr>
-      <td>已提未结算金额</td>
-      <td><%= f.text_field :deliveried_no_settled_fee,:readonly => true %></td>
-      <td>银行存款</td>
-      <td><%= f.text_field :deposits %></td>
-    </tr>
-    <tr>
-      <td><%= f.text_field :input_name_1 %></td>
-      <td><%= f.text_field :input_fee_1 %></td>
-      <td>返程货款</td>
-      <td><%= f.text_field :goods_fee %></td>
-    </tr>
-    <tr>
-      <td><%= f.text_field :input_name_2 %></td>
-      <td><%= f.text_field :input_fee_2 %></td>
-      <td>短途及赔偿</td>
-      <td><%= f.text_field :short_fee %></td>
-    </tr>
-    <tr>
-      <td><%= f.text_field :input_name_3 %></td>
-      <td><%= f.text_field :input_fee_3 %></td>
-      <td>其他开支</td>
-      <td><%= f.text_field :other_fee %></td>
-    </tr>
-    <tr>
-      <td>合计</td>
-      <td><span id='journal_sum_1'><%=resource.sum_1%></span></td>
-      <td>合计</td>
-      <td><span id='journal_sum_2'><%=resource.sum_2%></span></td>
-    </tr>
-    <tr>
-      <td colspan='2'>未提货票据</td>
-      <td colspan='2'>客户欠款</td>
-    </tr>
+    <thead>
+      <tr>
+        <th colspan='2'>帐目金额</th>
+        <th colspan='2'>库存金额</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>已结算未汇金额</td>
+        <td><%= f.text_field :settled_no_rebate_fee,:readonly => true %></td>
+        <td>库存现金</td>
+        <td><%= f.text_field :cash %></td>
+      </tr>
+      <tr>
+        <td>已提未结算金额</td>
+        <td><%= f.text_field :deliveried_no_settled_fee,:readonly => true %></td>
+        <td>银行存款</td>
+        <td><%= f.text_field :deposits %></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :input_name_1 %></td>
+        <td><%= f.text_field :input_fee_1 %></td>
+        <td>返程货款</td>
+        <td><%= f.text_field :goods_fee %></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :input_name_2 %></td>
+        <td><%= f.text_field :input_fee_2 %></td>
+        <td>短途及赔偿</td>
+        <td><%= f.text_field :short_fee %></td>
+      </tr>
+      <tr>
+        <td><%= f.text_field :input_name_3 %></td>
+        <td><%= f.text_field :input_fee_3 %></td>
+        <td>其他开支</td>
+        <td><%= f.text_field :other_fee %></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>合计</td>
+        <td><span id='journal_sum_1'><%=resource.sum_1%></span></td>
+        <td>合计</td>
+        <td><span id='journal_sum_2'><%=resource.sum_2%></span></td>
+      </tr>
+    </tfoot>
+    <thead>
+      <tr>
+        <td colspan='2'>未提货票据</td>
+        <td colspan='2'>客户欠款</td>
+      </tr>
+    </thead>
 
     <tr>
       <td>黑票</td>
@@ -96,18 +104,19 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
     </tr>
-    <tr>
-      <td>合计</td>
-      <td><%= resource.sum_3 %></td>
-      <td>合计</td>
-      <td><span id='journal_sum_4'><%= resource.sum_4 %></span></td>
-    </tr>
-    <tr>
-      <td>分公司经理</td>
-      <td>&nbsp;</td>
-      <td>会计</td>
-      <td><%=resource.user.try(:username) %></td>
-    </tr>
-
+    <tfoot>
+      <tr>
+        <td>合计</td>
+        <td><%= resource.sum_3 %></td>
+        <td>合计</td>
+        <td><span id='journal_sum_4'><%= resource.sum_4 %></span></td>
+      </tr>
+      <tr>
+        <td>分公司经理</td>
+        <td>&nbsp;</td>
+        <td>会计</td>
+        <td><%=resource.user.try(:username) %></td>
+      </tr>
+    </tfoot>
   </table>
 <% end %>

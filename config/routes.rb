@@ -69,6 +69,7 @@ IlYanzhao::Application.routes.draw do
   end
 
   resources :post_infos do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 
