@@ -1,3 +1,9 @@
+<li>
+  <%=link_to image_tag("cards-address.png"),new_deliver_info_path(:show_multi => 1),:class => "tipsy",:title => "批量提货:一次提取多票运单"%>
+</li>
+<%if params[:action] == "index"%>
   <li>
-    <%=link_to image_tag("cards-address.png"),new_deliver_info_path(:show_multi => 1),:class => "tipsy",:title => "批量提货:一次提取多票运单"%>
+    <%= link_to image_tag("document-excel-table.png"), collection_path(:search => params[:search],:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
   </li>
+<%end%>
+

@@ -3,6 +3,8 @@
 require 'csv'
 class Array
   BOM_HEADER = ["FFFE"].pack("H*")
+  #FIXME 此处编码问题未解决
+  BOM_HEADER = ""
   def to_csv(options = {})
     return '' if self.empty?
 
@@ -44,9 +46,7 @@ class Array
       csv << self
     end
     if with_bom_header
-      #FIXME 此处问题未解决
-      #BOM_HEADER + output.utf8_to_utf16
-      output.utf8_to_utf16 
+      BOM_HEADER + output.utf8_to_utf16
     else
       output.utf8_to_utf16
     end

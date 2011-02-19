@@ -7,5 +7,10 @@ class CashPayInfosController < BaseController
     @search = resource_class.search(params[:search])
     render :partial => "shared/pay_infos/search",:object => @search
   end
+  def index
+    super do |format|
+      format.csv {send_data resource_class.to_csv(@search)}
+    end
+  end
 
 end

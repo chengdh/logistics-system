@@ -1,0 +1,6 @@
+<%= render "shared/pay_infos/show" %>
+<div id="table_wrap"></div>
+<script>
+  //获取清单明细数据
+  jQuery(function($) {$.get('<%=transfer_pay_info_carrying_bills_path(resource)%>',null,null,'script');});
+</script>

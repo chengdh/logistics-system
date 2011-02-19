@@ -12,7 +12,7 @@
       <%=resource.to_org.name %>
     </td>
     <td>结算员:</td>
-    <td>添加结算员信息</td>
+    <td><%=resource.user.try(:username)%></td>
   </tr>
   <tr>
     <td>返程货款:</td>

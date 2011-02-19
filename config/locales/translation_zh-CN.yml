@@ -8,7 +8,7 @@ zh-CN:
       bank: "银行信息"  #g
       carrying_bill: "运输单"  #g
       cash_payment_list: "代收货款支付清单(现金)"  #g
-      cash_pay_info: "代收货款支付信息(现金)"  #g
+      cash_pay_info: "客户提款信息(现金)"  #g
       claim: "理赔信息"  #g
       computer_bill: "机打运单"  #g
       config_cash: "手续费设置(现金)"  #g
@@ -33,7 +33,7 @@ zh-CN:
       system_function_group: "系统功能分类"  #g
       system_function_operate: "功能-操作"  #g
       transfer_payment_list: "代收货款支付清单(转账)"  #g
-      transfer_pay_info: "代收货款支付信息(转账)"  #g
+      transfer_pay_info: "客户提款信息(转账)"  #g
       transit_bill: "中转运单"  #g
       transit_company: "中转公司资料"  #g
       transit_deliver_info: "中转运单提货信息"  #g
@@ -216,6 +216,7 @@ zh-CN:
 
       deliver_info:
         deliver_date: "提货日期"  #g
+        bill_no: "运单编号"
         customer_name: "提货人姓名"  #g
         customer_no: "身份证号"  #g
         state: "状态"  #g

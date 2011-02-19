@@ -9,7 +9,7 @@ class ShortFeeInfo < ActiveRecord::Base
       info.carrying_bills.each {|bill| bill.write_off }
     end
     event :write_off do
-      transition :draft =>:off
+      transition :draft =>:offed
     end
   end
 

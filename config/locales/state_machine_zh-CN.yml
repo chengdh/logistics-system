@@ -32,10 +32,10 @@ zh-CN:
         short_fee_state:
           states:
             draft: "草稿"
-            off: "已核销"
+            offed: "已核销"
             
 
-      distribute_list:
+      distribution_list:
         state:
           states:
            billed: "草稿" 

@@ -22,6 +22,9 @@
           <%= link_to image_tag("auction-hammer--arrow.png") , process_handle_receive_refound_path(resource),:title => "收款确认",:class => "tipsy"  %>
         </li>
       <%end%>
+      <li>
+        <%= link_to image_tag("document-excel-table.png"), resource_path(resource,:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
+      </li>
     <%end%>
   </ul>
 </div>   

@@ -1,0 +1,18 @@
+<table class='table'>
+  <tr>
+    <td>提款日期:</td>
+    <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
+    <td>分理处:</td>
+    <td><%=resource.org.name%></td>
+    <td>提款人姓名:</td>
+    <td><%=resource.customer_name%></td>
+    <td>身份证号:</td>
+    <td><%=resource.id_number%></td>
+    <td>状态:</td>
+    <td><%=resource.human_state_name%></td>
+  </tr>
+  <tr>
+    <td>备注:</td>
+    <td colspan='10'><%= resource.note %></td>
+  </tr>
+</table>

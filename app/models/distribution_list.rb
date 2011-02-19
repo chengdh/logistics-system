@@ -1,3 +1,4 @@
+#coding: utf-8
 class DistributionList < ActiveRecord::Base
   belongs_to :user
   has_many :carrying_bills
@@ -15,4 +16,22 @@ class DistributionList < ActiveRecord::Base
 
 
   default_value_for :bill_date,Date.today
+  #导出到csv
+  def to_csv
+    ret = ["分货日期:",self.bill_date,"机构:",self.org.name].export_line_csv(true)
+    csv_carrying_bills = CarryingBill.to_csv(self.carrying_bills.search,LoadList.carrying_bill_export_options,false)
+    ret + csv_carrying_bills
+  end
+  private
+  def self.carrying_bill_export_options
+    {
+        :only => [],
+        :methods => [
+          :bill_date,:bill_no,:goods_no,:from_customer_name,:from_customer_phone,:from_customer_mobile,
+          :to_customer_name,:to_customer_phone,:to_customer_mobile,
+          :pay_type_des,
+          :carrying_fee,:goods_fee,
+          :note,:human_state_name
+      ]}
+  end
 end

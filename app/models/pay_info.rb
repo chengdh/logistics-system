@@ -32,12 +32,24 @@ class PayInfo < ActiveRecord::Base
   end
   #运单编号
   def bill_no
-    self.carrying_bills.join("-")
+    self.carrying_bills.join(",")
   end
   #发货人
   def from_customer 
     ret = self.carrying_bills.collect {|bill| bill.from_customer_name}.join("-")
     ret
   end
-
+  #导出
+  def self.to_csv(search_obj)
+      search_obj.all.export_csv(self.export_options)
+  end
+  private
+  def self.export_options
+    {
+      :only => [],
+      :methods => [
+        :bill_no,:bill_date,:from_customer,:sum_goods_fee,:sum_k_carrying_fee,:sum_k_hand_fee,:sum_act_pay_fee,:note
+    ]
+    }
+  end
 end
