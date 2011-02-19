@@ -5,16 +5,12 @@
       <div id="user_name_login" class="login_type">
         <h1>请选择<strong>当前角色和机构</strong></h1>
         <p>
-        <span class='overlay_wrapper'>
-          <%=label_tag :cur_role_id,'角色'%>
-          <%=select_tag :cur_role_id,options_for_select(user_roles_for_select(current_user)) %>
-        </span>
+          <span class='overlay_wrapper'>
+            <%=select_tag :cur_role_id,options_for_select(user_roles_for_select(current_user)),:id => "current_role_select" %>
+          </span>
         </p>
-        <p>
-        <span class='overlay_wrapper'>
-          <%=label_tag :cur_org_id,'机构'%>
-          <%=select_tag :cur_org_id,options_for_select(role_orgs_for_select(current_user.roles.first,current_user.is_admin?)) %>
-        </span>
+        <p id='role_orgs_select'>
+          <%= render 'roles/role_orgs_select',:current_role => current_user.roles.first %>
         </p>
       </div>
       <div id="signin_button">
@@ -24,3 +20,15 @@
     <%end%>
   </div>
 </div>
+<script type='text/javascript'>
+  jQuery(function($) {
+      //登录界面中,用户选择角色发生变化
+      $('#current_role_select').change(function() {
+        $.get('/roles/current_role_change', {
+          role_id: $(this).val()
+        },
+        null,
+        'script');
+        });
+      });
+</script>

@@ -19,6 +19,8 @@ class Ability
     can :read,CarryingBill,['from_org_id in (?) or transit_org_id in (?) or to_org_id in (?)',ability_org_ids,ability_org_ids,ability_org_ids] do |bill|
       ability_org_ids.include?(bill.from_org_id) or ability_org_ids.include?(bill.to_org_id) or ability_org_ids.include?(bill.transit_org_id)
     end
+    #登录时,可操作current_role_change action
+    can :current_role_change,Role
 
     if user.is_admin?
       SystemFunctionOperate.all.each do |sfo| 

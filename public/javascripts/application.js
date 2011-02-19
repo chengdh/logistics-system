@@ -556,5 +556,6 @@ jQuery(function($) {
 	$('.rpt_no_delivery tr.red-bill').css('background', 'red');
 	$('.rpt_no_delivery tr.black-bill').css('background', 'black');
 
+
 });
 

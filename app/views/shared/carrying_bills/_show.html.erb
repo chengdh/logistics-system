@@ -1,5 +1,4 @@
-<h2 class='text-center'>郑州市燕赵货运服务有限公司运输协议内容</h2>
-<table class='table' data-bill="<%=show.to_json%>">
+<table class='table' data-bill="<%=show.to_json%>" id="carrying_bill_show">
   <tr>
     <td>发货站:</td>
     <td colspan='2'><%=show.from_org_name%></td>
@@ -17,8 +16,8 @@
   </tr>
 
   <tr>
-    <td colspan='8'>
-      <table class='table'>
+    <td colspan='8' style='padding : 0;'>
+      <table class='table' style='margin : 0;'>
         <tr>
           <td>发货人</td>
           <td><%=show.from_customer_name%></td>
@@ -61,7 +60,7 @@
 
   <tr>
     <td>提货应收金额</td>
-    <td colspan='6'>提货应收金额</td>
+    <td colspan='6'> <%= convertNumToChinese(show.th_amount) %></td>
     <td>&yen;:<%=show.th_amount %></td>
   </tr>
   <tr>
@@ -77,12 +76,12 @@
   </tr>
   <tr>
     <td>运费总计</td>
-    <td colspan='6'><%=show.carrying_fee_total%></td>
+    <td colspan='6'><%=convertNumToChinese(show.carrying_fee_total)%></td>
     <td>&yen;:<%=show.carrying_fee_total%></td>
   </tr>
   <tr>
     <td>代收货款总计</td>
-    <td colspan='6'><%=show.goods_fee%></td>
+    <td colspan='6'><%=convertNumToChinese(show.goods_fee)%></td>
     <td>&yen;:<%=show.goods_fee%></td>
   </tr>
   <tr>
