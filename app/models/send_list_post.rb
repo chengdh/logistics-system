@@ -1,4 +1,6 @@
+#coding: utf-8
 class SendListPost < ActiveRecord::Base
+  include SendListModule
   belongs_to :user
   belongs_to :org
   belongs_to :sender

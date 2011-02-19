@@ -94,7 +94,9 @@ IlYanzhao::Application.routes.draw do
     resources :carrying_bills
   end
 
-  resources :vips
+  resources :vips do
+    get :search,:on => :collection
+  end
 
   resources :customers
 

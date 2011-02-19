@@ -36,5 +36,8 @@ class User < ActiveRecord::Base
   def current_ability_org_ids
     self.current_ability_orgs.map {|org| org.id}
   end
+  def to_s
+    self.username
+  end
 
 end

@@ -1,0 +1,66 @@
+<table class='table'>
+  <tr>
+    <td>清单日期:</td>
+    <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
+    <td>送货员:</td>
+    <td><%=resource.sender.name%></td>
+    <td>所属机构:</td>
+    <td><%=resource.org.name%></td>
+    <td>操作员:</td>
+    <td><%=resource.user.try(:username)%></td>
+  </tr>
+</table>
+<div id="table_wrap">
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>运单编号</th>
+        <th>货号</th>
+        <th>发货人</th>
+        <th>发货人电话</th>
+        <th>发货人手机</th>
+        <th>收货人</th>
+        <th>收货人电话</th>
+        <th>收货人手机</th>
+        <th>运费</th>
+        <th>货款</th>
+        <th>备注</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% resource.send_list_lines.each_with_index do |line,index| %>
+        <tr>
+          <td><%= index %></td>
+          <td><%= line.carrying_bill.bill_no %></td>
+          <td><%= line.carrying_bill.goods_no %></td>
+          <td><%= line.carrying_bill.from_customer_name %></td>
+          <td><%= line.carrying_bill.from_customer_phone %></td>
+          <td><%= line.carrying_bill.from_customer_mobile %></td>
+          <td><%= line.carrying_bill.to_customer_name %></td>
+          <td><%= line.carrying_bill.to_customer_phone %></td>
+          <td><%= line.carrying_bill.to_customer_mobile %></td>
+          <td><%= line.carrying_bill.carrying_fee_th %></td>
+          <td><%= line.carrying_bill.goods_fee %></td>
+          <td><%= line.carrying_bill.note %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>合计:</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><%= resource.sum_carrying_fee_th %></td>
+        <td><%= resource.sum_goods_fee %></td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

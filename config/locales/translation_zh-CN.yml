@@ -22,7 +22,7 @@ zh-CN:
       distribution_list: "分货清单"  #g
       gexception_authorize_info: "货物异常审核信息"  #g
       role_system_function_operate: "角色权限"  #g
-      sender: "发货人"  #g
+      sender: "送货员"  #g
       send_list: "送货清单"  #g
       send_list_back: "送货员未交票统计"  #g
       send_list_line: "送货清单明细"  #g
@@ -193,8 +193,11 @@ zh-CN:
         last_import_mth: "最后导入日期"  #g
         state: "状态"  #g
         org: "所属机构"  #g
+        org_id: "所属机构"  #g
         bank_id: "银行"  #g
+        bank: "开户银行"  #g
         config_transit: "手续费配置"  #g
+        config_transit_id: "手续费配置"  #g
 
       customer_fee_info:
         mth: "月份"  #g
@@ -267,6 +270,7 @@ zh-CN:
         address: "地址"  #g
         is_active: "有效"  #g
         org: "组织机构"  #g
+        org_id: "组织机构"  #g
 
       send_list:
         bill_date: "清单日期"  #g

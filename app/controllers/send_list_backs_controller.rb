@@ -14,4 +14,10 @@ class SendListBacksController < BaseController
     end
     create!
   end
+  def show
+    super do |format|
+      format.csv {send_data resource.to_csv}
+    end
+  end
+
 end

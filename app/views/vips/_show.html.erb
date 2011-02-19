@@ -1,0 +1,25 @@
+<table class='table'>
+  <tr>
+    <td>所属机构:</td>
+    <td><%=resource.org.name%></td>
+    <td>姓名:</td>
+    <td><%=resource.name%></td>
+    <td>客户编号:</td>
+    <td><%= resource.code %></td>
+
+  </tr>
+  <tr>
+    <td>电话:</td>
+    <td><%=resource.phone%></td>
+    <td>手机:</td>
+    <td><%=resource.mobile%></td>
+    <td>地址:</td>
+    <td><%=resource.address%></td>
+  </tr>
+  <tr>
+     <td>开户银行:</td>
+    <td><%= resource.bank.name %></td>
+    <td>开户银行卡号:</td>
+    <td colspan='3'><%= resource.bank_card %></td>
+  </tr>
+</table>

@@ -2,7 +2,7 @@
 #为Array类添加导出csv方法
 require 'csv'
 class Array
-  BOM_HEADER = ["FFFE"].pack("H*")
+  #BOM_HEADER = ["FFFE"].pack("H*")
   #FIXME 此处编码问题未解决
   BOM_HEADER = ""
   def to_csv(options = {})
