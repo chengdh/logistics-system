@@ -555,6 +555,7 @@ jQuery(function($) {
 	$('.rpt_no_delivery tr.yellow-bill').css('background', 'yellow');
 	$('.rpt_no_delivery tr.red-bill').css('background', 'red');
 	$('.rpt_no_delivery tr.black-bill').css('background', 'black');
+        $('.turnover_chart').visualize({width : '850px'});
 
 
 });

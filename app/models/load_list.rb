@@ -1,7 +1,14 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class LoadList < ActiveRecord::Base
   belongs_to :from_org,:class_name => "Org"
   belongs_to :to_org,:class_name => "Org"
+  belongs_to :user
   has_many :carrying_bills
 
   validates_presence_of :from_org_id,:to_org_id

@@ -1,4 +1,10 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class SendList < ActiveRecord::Base
   include SendListModule
   belongs_to :sender

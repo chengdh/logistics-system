@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 module RefoundsHelper
   #票据状态
   def refound_states_for_select

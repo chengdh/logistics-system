@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #汇款记录
 class CreateRemittances < ActiveRecord::Migration
   def self.up

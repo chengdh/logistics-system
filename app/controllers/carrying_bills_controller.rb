@@ -1,4 +1,8 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #运单controller基础类
 class CarryingBillsController < BaseController
   skip_authorize_resource :only => :update

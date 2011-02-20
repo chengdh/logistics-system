@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #送货未交票返回记录
 class CreateSendListBacks < ActiveRecord::Migration
   def self.up

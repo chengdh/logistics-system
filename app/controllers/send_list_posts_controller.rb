@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class SendListPostsController < BaseController
   def create
     ivr = resource_class.new(params[resource_class.model_name.underscore])

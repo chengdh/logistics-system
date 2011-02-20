@@ -86,7 +86,7 @@ namespace :db do
       :create => {:title => "新建"},
       :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
-      :print => {:title => "打印"},
+      :re_print => {:title => "票据重打",:conditions =>"{:state => 'billed'}"},
       :export => {:title => "导出"}
     }
     }
@@ -119,7 +119,7 @@ namespace :db do
       :function => {
       :create => {:title => "新建"},
       :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
-      :print => {:title => "打印"},
+      :re_print => {:title => "票据重打",:conditions =>"{:state => 'billed'}"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
       :export => {:title => "导出"}
 
@@ -155,6 +155,7 @@ namespace :db do
       :create => {:title => "新建"},
       :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
       :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
+      :re_print => {:title => "票据重打",:conditions =>"{:state => 'billed'}"},
       :export => {:title => "导出"}
     }
     }
@@ -241,7 +242,6 @@ namespace :db do
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},
       :batch_deliver => {:title => "批量提货"},
-      #TODO  
       :print => {:title => "打印提货"},
       :export => {:title => "导出"},
     }
@@ -365,7 +365,7 @@ namespace :db do
       :turnover_chart =>{:title =>"日营业额统计图"}
     }
     }
-
+    SystemFunction.create_by_hash(sf_hash)
     ##############################月营业额统计#############################################
     subject_title = "月营业额统计"
     subject = "CarryingBill"

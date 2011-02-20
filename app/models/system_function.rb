@@ -1,3 +1,9 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #coding: utf-8 
 #系统功能类 
 class SystemFunction < ActiveRecord::Base 

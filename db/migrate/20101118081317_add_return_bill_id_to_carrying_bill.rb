@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 #添加对应退货单id
 class AddReturnBillIdToCarryingBill < ActiveRecord::Migration
   def self.up

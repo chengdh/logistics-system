@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #银行转账比例设置
 class CreateConfigTransits < ActiveRecord::Migration
   def self.up

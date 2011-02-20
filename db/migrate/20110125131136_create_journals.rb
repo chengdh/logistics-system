@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #日记账
 class CreateJournals < ActiveRecord::Migration
   def self.up

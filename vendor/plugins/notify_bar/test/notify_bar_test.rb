@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 require 'test_helper'
 
 class NotifyBarTest < ActiveSupport::TestCase

@@ -1,4 +1,8 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class SessionsController < Devise::SessionsController
   #GET /sessions/new_session_default
   def new_session_default

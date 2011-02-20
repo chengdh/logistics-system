@@ -1,4 +1,8 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class ReturnBillsController <  CarryingBillsController
   def before_new
   end

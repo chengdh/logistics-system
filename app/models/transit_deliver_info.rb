@@ -1,3 +1,9 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class TransitDeliverInfo < ActiveRecord::Base
   belongs_to :org
   #TODO 暂时注释belongs_to :uer

@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class CreateSendListLines < ActiveRecord::Migration
   def self.up
     create_table :send_list_lines do |t|

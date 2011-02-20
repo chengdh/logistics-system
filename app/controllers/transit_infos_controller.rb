@@ -1,4 +1,8 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class TransitInfosController < BaseController
   table :bill_date,:org,:transit_company,:transit_carrying_fee,:carrying_bill
   def create

@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #coding： utf-8
 #到货清单
 class ArriveLoadListsController < LoadListsController

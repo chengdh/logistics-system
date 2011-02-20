@@ -1,3 +1,4 @@
+#coding: utf-8
 class CustomerFeeInfoLineObserver < ActiveRecord::Observer
   def after_save(fee_info_line)
     puts 'after_save'

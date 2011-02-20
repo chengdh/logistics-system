@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #贵宾客户级别设置
 class CreateCustomerLevelConfigs < ActiveRecord::Migration
   def self.up

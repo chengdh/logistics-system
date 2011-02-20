@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 module GoodsExceptionsHelper
   #货物异常类别方式显示
   def exception_type_des(exception_type)

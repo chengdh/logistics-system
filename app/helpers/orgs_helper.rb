@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 module OrgsHelper
   def orgs_for_select
     Org.where(:is_active => true).all.map {|b| ["#{b.name}(#{b.py})",b.id]}

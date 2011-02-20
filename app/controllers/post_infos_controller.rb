@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class PostInfosController < BaseController
   include BillOperate
   #GET search

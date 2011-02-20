@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #为String类添加一些方法
 class String
   def utf8_to_gb2321

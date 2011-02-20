@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #返程运单日结
 class CreateSettlements < ActiveRecord::Migration
   def self.up

@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #提货信息
 class CreateDeliverInfos < ActiveRecord::Migration
   def self.up

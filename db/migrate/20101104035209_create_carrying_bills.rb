@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class CreateCarryingBills < ActiveRecord::Migration
   def self.up
     create_table :carrying_bills do |t|

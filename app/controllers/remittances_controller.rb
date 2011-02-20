@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class RemittancesController < BaseController
   def update
     @remittance = Remittance.find(params[:id])

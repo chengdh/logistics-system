@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 #系统功能操作表
 class CreateSystemFunctionOperates < ActiveRecord::Migration
   def self.up

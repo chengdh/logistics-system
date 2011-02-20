@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class DistributionListsController < BaseController
   include BillOperate
   def show

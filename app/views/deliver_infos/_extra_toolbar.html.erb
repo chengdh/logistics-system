@@ -6,4 +6,9 @@
     <%= link_to image_tag("document-excel-table.png"), collection_path(:search => params[:search],:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
   </li>
 <%end%>
+<%if params[:action] == "new" and can? :print,resource_class%>
+  <li>
+    <%= link_to_function image_tag("printer.png"), "var form = $('##{resource_class.model_name.underscore}_form');var action = form.attr('action');form.attr('action',action + '?print=1');$('##{resource_class.model_name.underscore}_form').trigger('submit')",:title => "打印提货",:class => "tipsy"  %>
+  </li>
+<%end%>
 

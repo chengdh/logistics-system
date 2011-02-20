@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class AddOriginalCarryingFeeToCarryingBill < ActiveRecord::Migration
   def self.up
     add_column :carrying_bills, :original_carrying_fee, :decimal,:precision => 15,:scale => 2,:default => 0

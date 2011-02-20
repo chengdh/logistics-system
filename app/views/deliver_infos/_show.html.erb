@@ -17,6 +17,11 @@
   </tr>
 </table>
 <div id="table_wrap"></div>
+<div style='display : none;'>
+  <%resource.carrying_bills.each do |bill|%>
+    <%= render "shared/carrying_bills/show",:show => bill  %>
+  <%end%>
+</div>
 <script>
   //获取清单明细数据
   jQuery(function($) {$.get('<%=deliver_info_carrying_bills_path(resource)%>',null,null,'script');});

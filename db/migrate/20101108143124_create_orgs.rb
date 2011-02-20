@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class CreateOrgs < ActiveRecord::Migration
   def self.up
     create_table :orgs do |t|

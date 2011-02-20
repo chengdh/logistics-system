@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class TransitDeliverInfosController < BaseController
   def create
     @transit_deliver_info = TransitDeliverInfo.new(params[:transit_deliver_info])

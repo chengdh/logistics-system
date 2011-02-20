@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class CreateCustomers < ActiveRecord::Migration
   def self.up
     create_table :customers do |t|

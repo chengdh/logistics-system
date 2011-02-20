@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class CreateBasePaymentLists < ActiveRecord::Migration
   def self.up
     create_table :payment_lists do |t|

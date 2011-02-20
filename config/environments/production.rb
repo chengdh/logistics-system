@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 IlYanzhao::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 

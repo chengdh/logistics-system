@@ -1,4 +1,10 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class PaymentList < ActiveRecord::Base
   belongs_to :bank
   belongs_to :org

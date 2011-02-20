@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #运单对应的提货信息id
 class AddDeliverInfoIdToCarryingBill < ActiveRecord::Migration
   def self.up

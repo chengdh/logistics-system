@@ -1,4 +1,10 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class PostInfo < ActiveRecord::Base
   belongs_to :org
   belongs_to :user

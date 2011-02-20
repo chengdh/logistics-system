@@ -1,4 +1,10 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #自运单导入的客户资料,用于客户分级
 class ImportedCustomer < Customer
   #以下定义状态

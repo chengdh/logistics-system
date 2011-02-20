@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 # Copyright (c) 2008, 2009 Phusion
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy

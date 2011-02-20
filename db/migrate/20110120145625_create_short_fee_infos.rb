@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #短途运费管理
 class CreateShortFeeInfos < ActiveRecord::Migration
   def self.up

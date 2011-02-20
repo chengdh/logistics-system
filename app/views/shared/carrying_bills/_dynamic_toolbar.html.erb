@@ -49,9 +49,11 @@
         <li>
           <%= link_to image_tag("cross.png"), resource,:method => :delete,:class =>"tipsy",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
         </li>
+      <%if can? :re_print,resource%>
         <li>
-          <%= link_to_function image_tag("printer.png"), "$('#carrying_bill_show').printElement({})",:class =>"tipsy",:title => "打印运单" %>
+          <%= link_to_function image_tag("printer.png"), "$('.carrying_bill_show').printElement({overrideElementCSS : ['/stylesheets/bill_print.css']})",:class =>"tipsy",:title => "重新打印运单" %>
         </li>
+      <%end%>
 
       <%end%>
     <%end%>

@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #定义一个根机构
 Factory.define :department do |dep|
   dep.name 'department'

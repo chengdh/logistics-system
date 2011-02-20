@@ -31,6 +31,8 @@ class CarryingBill < ActiveRecord::Base
   before_create :set_original_fee
   #计算手续费
   before_save :cal_hand_fee
+
+  belongs_to :user
   belongs_to :from_org,:class_name => "Org" 
   belongs_to :transit_org,:class_name => "Org" 
   belongs_to :to_org,:class_name => "Org" 

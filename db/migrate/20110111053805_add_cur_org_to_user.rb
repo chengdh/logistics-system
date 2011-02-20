@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class AddCurOrgToUser < ActiveRecord::Migration
   def self.up
     change_column :users,:email,:string,:null => true

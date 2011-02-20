@@ -1,4 +1,10 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 module SendListModule
   def sum_carrying_fee_th
     self.carrying_bills.sum(&:carrying_fee_th)

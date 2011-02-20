@@ -1,3 +1,4 @@
+#coding: utf-8
 class ConfigCash < ActiveRecord::Base
   #得到默认的手续费设置
   #客户需求中

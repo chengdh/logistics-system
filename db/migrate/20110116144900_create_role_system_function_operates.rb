@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 #角色操作权限表
 class CreateRoleSystemFunctionOperates < ActiveRecord::Migration
   def self.up

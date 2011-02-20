@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #送货员
 class CreateSenders < ActiveRecord::Migration
   def self.up

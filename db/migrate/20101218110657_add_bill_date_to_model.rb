@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 class AddBillDateToModel < ActiveRecord::Migration
   def self.up
     add_column :payment_lists,:bill_date,:date,:null => false

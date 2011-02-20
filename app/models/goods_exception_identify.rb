@@ -1,3 +1,4 @@
+#coding: utf-8
 class GoodsExceptionIdentify < ActiveRecord::Base
   belongs_to :goods_exception
   belongs_to :user

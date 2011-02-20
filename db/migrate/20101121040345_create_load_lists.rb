@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #大车装车清单
 class CreateLoadLists < ActiveRecord::Migration
   def self.up

@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 module SessionsHelper
   def user_roles_for_select(user)
     ret = user.roles.where(:is_active => true).all.map {|r| [r.name,r.id]} if user.present?

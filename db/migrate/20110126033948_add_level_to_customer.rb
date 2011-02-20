@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #添加贵宾客户分级所需字段
 class AddLevelToCustomer < ActiveRecord::Migration
   def self.up

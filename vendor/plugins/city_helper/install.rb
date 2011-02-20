@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 # Install hook code here
 dest_file = File.join(RAILS_ROOT, "config/locales/cities")
 src_file = File.join(File.dirname(__FILE__) , 'locales')

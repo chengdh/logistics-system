@@ -1,3 +1,7 @@
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
+#coding: utf-8
 class SendListsController < BaseController
   def create
     bill = resource_class.new(params[resource_class.model_name.underscore])

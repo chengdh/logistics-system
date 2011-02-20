@@ -1,4 +1,6 @@
 #coding: utf-8
+#coding: utf-8
+#coding: utf-8
 #系统功能分类
 class CreateSystemFunctionGroups < ActiveRecord::Migration
   def self.up

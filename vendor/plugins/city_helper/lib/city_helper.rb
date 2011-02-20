@@ -1,3 +1,5 @@
+#coding: utf-8
+#coding: utf-8
 module CityHelper
   COUNTRIES = [:afghanistan, :aland_islands, :albania, :algeria, :american_samoa, :andorra, :angola,
           :anguilla, :antarctica, :antigua_and_barbuda, :argentina, :armenia, :aruba, :australia, :austria,
