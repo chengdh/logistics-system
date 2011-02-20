@@ -41,6 +41,9 @@ jQuery(function($) {
 
 	});
 
+        //form 自动获取焦点
+        $('form').livequery(function(){$(this).focus();});
+
 	//角色功能列表
 	$('#role_orgs_list').treeList();
 	//组织机构列表
@@ -153,10 +156,6 @@ jQuery(function($) {
 			})]
 		});
 
-	});
-	//将回车转换为tab
-	$('form input').livequery(function() {
-		$(this).tabEnter();
 	});
 	//运单列表表头点击事件
 	$('#table_wrap th a[href!="#"],#table_wrap .pagination a[href!="#"]').live('click', function() {
