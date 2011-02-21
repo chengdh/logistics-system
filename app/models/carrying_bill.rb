@@ -21,9 +21,9 @@ class CarryingBill < ActiveRecord::Base
   scope :recent_bills,lambda {|from_org_ids| where(:from_org_id => from_org_ids).order("created_at DESC").limit(12)}
 
   #待提货票据(不包括中转票据)
-  scope :ready_delivery,lambda {|to_org_ids| select('sum(1) bill_count').where(:to_org_id => to_org_ids,:state => :distributed)}
+  scope :ready_delivery,lambda {|to_org_ids| select('sum(1) as bill_count').where(:to_org_id => to_org_ids,:state => :distributed)}
  #待提款票据 
-  scope :ready_pay,lambda {|from_org_ids| search(:from_customer_id_is_null => 1).where(:from_org_id => from_org_ids,:state => :payment_listed).select('sum(goods_fee),sum(1) bill_count')}
+  scope :ready_pay,lambda {|from_org_ids| search(:from_customer_id_is_null => 1).where(:from_org_id => from_org_ids,:state => :payment_listed).select('sum(goods_fee) as goods_fee,sum(1) as bill_count')}
 
 
   before_validation :set_customer
