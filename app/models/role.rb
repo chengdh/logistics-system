@@ -42,7 +42,7 @@ class Role < ActiveRecord::Base
   end
   #得到被授权的system_function
   def system_functions
-    @system_functions ||= self.system_function_operates.group(:system_function_id).collect {|sfo| sfo.system_function}
+    @system_functions ||= self.system_function_operates.group_by(&:system_function).collect {|sf,sfo_array| sf}
   end
   #得到被授权的system_function_group
   def system_function_groups
