@@ -9,14 +9,14 @@ end
 class CarryingBill < ActiveRecord::Base
   attr_protected :insured_rate,:original_carrying_fee,:original_goods_fee,:original_from_short_carrying_fee,:original_to_short_carrying_fee,:original_insured_amount,:original_insured_fee
   #营业额统计
-  scope :turnover,select('from_org_id,to_org_id,sum(carrying_fee) sum_carrying_fee,sum(goods_fee) sum_goods_fee,sum(goods_num) sum_goods_num,sum(1) sum_bill_count').group('from_org_id,to_org_id')
+  scope :turnover,select('from_org_id,to_org_id,sum(carrying_fee) as sum_carrying_fee,sum(goods_fee) as sum_goods_fee,sum(goods_num) as sum_goods_num,sum(1) as sum_bill_count').group('from_org_id,to_org_id')
 
   #今日收货
-  scope :today_billed,lambda {|from_org_ids| select('pay_type,sum(carrying_fee) carrying_fee,sum(goods_fee) goods_fee,sum(goods_num) goods_num,sum(1) bill_count').where(:from_org_id => from_org_ids,:bill_date => Date.today).group(:pay_type)}
+  scope :today_billed,lambda {|from_org_ids| select('pay_type,sum(carrying_fee) carrying_fee,sum(goods_fee) goods_fee,sum(goods_num) goods_num,sum(1) as bill_count').where(:from_org_id => from_org_ids,:bill_date => Date.today).group(:pay_type)}
   #今日提货
-  scope :today_deliveried,lambda {|to_org_ids| select('type,pay_type,sum(carrying_fee) carrying_fee,sum(goods_fee) goods_fee,sum(goods_num) goods_num,sum(1) bill_count').where(:to_org_id => to_org_ids,:state =>:deliveried).search(:deliver_info_deliver_date_eq => Date.today).group('type,pay_type')}
+  scope :today_deliveried,lambda {|to_org_ids| select('type,pay_type,sum(carrying_fee) as carrying_fee,sum(goods_fee)  as goods_fee,sum(goods_num) as goods_num,sum(1) as bill_count').where(:to_org_id => to_org_ids,:state =>:deliveried).search(:deliver_info_deliver_date_eq => Date.today).group('type,pay_type')}
   #今日提款(仅指现金提款)
-  scope :today_paid,lambda {|from_org_ids| select('pay_type,sum(carrying_fee) carrying_fee,sum(goods_fee) goods_fee,sum(goods_num) goods_num,sum(k_hand_fee) k_hnad_fee,sum(1) bill_count').where(:from_org_id => from_org_ids,:state =>:paid).search(:from_customer_id_is_null => 1,:pay_info_bill_date_eq => Date.today).group('pay_type')}
+  scope :today_paid,lambda {|from_org_ids| select('pay_type,sum(carrying_fee) as carrying_fee,sum(goods_fee) as goods_fee,sum(goods_num) as goods_num,sum(k_hand_fee) as k_hnad_fee,sum(1) as bill_count').where(:from_org_id => from_org_ids,:state =>:paid).search(:from_customer_id_is_null => 1,:pay_info_bill_date_eq => Date.today).group('pay_type')}
   #最近票据(5张)
   scope :recent_bills,lambda {|from_org_ids| where(:from_org_id => from_org_ids).order("created_at DESC").limit(12)}
 

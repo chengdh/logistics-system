@@ -1,5 +1,3 @@
-#coding: utf-8
-#coding: utf-8
 module InheritedResources
   module TableBuilder
     def self.included(base)

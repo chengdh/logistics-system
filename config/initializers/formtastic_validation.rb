@@ -1,4 +1,3 @@
-#coding: utf-8
 if Object.const_defined? "Formtastic"
   Formtastic::SemanticFormBuilder.send(:include, FormtasticValidation)
 

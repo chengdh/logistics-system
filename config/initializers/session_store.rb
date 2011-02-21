@@ -1,5 +1,3 @@
-#coding: utf-8
-#coding: utf-8
 # Be sure to restart your server when you modify this file.
 
 IlYanzhao::Application.config.session_store :cookie_store, :key => '_il_yanzhao_session'

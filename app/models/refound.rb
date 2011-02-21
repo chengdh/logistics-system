@@ -1,10 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 #返款清单
 class Refound < ActiveRecord::Base
   belongs_to :user
@@ -15,7 +9,7 @@ class Refound < ActiveRecord::Base
   validates_presence_of :bill_date,:from_org_id,:to_org_id
 
   #待确认付款清单
-  scope :refunded,lambda {|to_org_ids| select("sum(1) bill_count").where(:state => :refunded,:to_org_id => to_org_ids)}
+  scope :refunded,lambda {|to_org_ids| select("sum(1) as bill_count").where(:state => :refunded,:to_org_id => to_org_ids)}
   #定义状态机
   state_machine :initial => :billed do
     after_transition do |refound,transition|

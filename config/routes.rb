@@ -1,5 +1,3 @@
-#coding: utf-8
-#coding: utf-8
 IlYanzhao::Application.routes.draw do
 
 

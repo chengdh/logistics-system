@@ -13,7 +13,7 @@ class LoadList < ActiveRecord::Base
 
   validates_presence_of :from_org_id,:to_org_id
   #待确认收货清单
-  scope :shipped,lambda {|to_org_ids| select("sum(1) bill_count").where(:state => :shipped,:to_org_id => to_org_ids)}
+  scope :shipped,lambda {|to_org_ids| select("sum(1) as bill_count").where(:state => :shipped,:to_org_id => to_org_ids)}
   #定义状态机
   state_machine :initial => :billed do
     after_transition do |load_list,transition|
