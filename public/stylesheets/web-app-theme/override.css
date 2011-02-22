@@ -12,7 +12,6 @@
   position : relative;
   zoom : 1;   /*解决ie6下的bug*/
 }
-
 /*柱状图显示*/
 .visualize{
   margin : 10px 5px 5px 10px;

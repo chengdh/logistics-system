@@ -1,9 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class Role < ActiveRecord::Base
   validates_presence_of :name
   has_many :user_roles
@@ -22,7 +17,7 @@ class Role < ActiveRecord::Base
     end
     self.role_system_function_operates
   end
-  #根据系统功能的到对应的role_system_function_operate
+  #根据系统功能得到对应的role_system_function_operate
   def single_function_operates(sf)
     self.all_role_system_function_operates!.find_all {|ops| ops.system_function_operate.system_function.id == sf.id}
   end

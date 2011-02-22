@@ -117,15 +117,26 @@ jQuery(function($) {
 		$(this).datepicker();
 	});
 
-	//初始化左侧菜单树,icon显示有问题
-	var cookieName = 'il_menubar'
+	//初始化左侧菜单树
+	var cookieName = 'il_menubar';
+        var get_current_menu = function(){
+          var cookie_menu = $.cookies.get(cookieName);
+          var cur_menu = 0;
+          if(cookie_menu)
+            cur_menu = parseInt(cookie_menu.substr(12));
+          return cur_menu;
+        };
+
 	$('#menu_bar').accordion({
-		active: ($.cookies.get(cookieName) || 0),
 		change: function(e, ui) {
-			$.cookies.set(cookieName, $(this).find('h3').index(ui.newHeader[0]));
+			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}
 	});
-	$('#menu_bar .ui-icon,#role_system_functions_list .ui-icon').attr('style', "display : none;");
+	$('#menu_bar').accordion("activate",get_current_menu.apply());
+
+        //修正accordion图标显示不正确问题
+	$('#menu_bar .ui-icon,#role_system_functions_list .ui-icon').css('position', "absolute");
+	$('.ui-accordion-header a').css({display : "block",paddingLeft : '26px'});
 
 	$('.fancybox').livequery(function() {
 		$(this).fancybox({
