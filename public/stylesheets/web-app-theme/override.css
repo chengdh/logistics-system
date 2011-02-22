@@ -12,6 +12,14 @@
   position : relative;
   zoom : 1;   /*解决ie6下的bug*/
 }
+
+/*accordion icon 显示问题*/
+#menu_bar .ui-icon,#role_system_functions_list .ui-icon{ position : absolute;}
+.ui-accordion-header a { 
+  display : block;
+  padding-left : 26px;
+}
+.
 /*柱状图显示*/
 .visualize{
   margin : 10px 5px 5px 10px;

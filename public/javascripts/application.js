@@ -128,15 +128,11 @@ jQuery(function($) {
         };
 
 	$('#menu_bar').accordion({
+                active : get_current_menu.apply(),
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}
 	});
-	$('#menu_bar').accordion("activate",get_current_menu.apply());
-
-        //修正accordion图标显示不正确问题
-	$('#menu_bar .ui-icon,#role_system_functions_list .ui-icon').css('position', "absolute");
-	$('.ui-accordion-header a').css({display : "block",paddingLeft : '26px'});
 
 	$('.fancybox').livequery(function() {
 		$(this).fancybox({
