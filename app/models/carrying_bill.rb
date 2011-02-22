@@ -22,7 +22,7 @@ class CarryingBill < ActiveRecord::Base
 
   #待提货票据(不包括中转票据)
   scope :ready_delivery,lambda {|to_org_ids| select('sum(1) as bill_count').where(:to_org_id => to_org_ids,:state => :distributed)}
- #待提款票据 
+  #待提款票据 
   scope :ready_pay,lambda {|from_org_ids| search(:from_customer_id_is_null => 1).where(:from_org_id => from_org_ids,:state => :payment_listed).select('sum(goods_fee) as goods_fee,sum(1) as bill_count')}
 
 
@@ -65,7 +65,7 @@ class CarryingBill < ActiveRecord::Base
   #当前活动的只能有一条
   has_one :send_list_line
 
-  
+
   validates :bill_no,:goods_no,:uniqueness => true
   validates_presence_of :bill_date,:pay_type,:from_customer_name,:to_customer_name,:from_org_id
   validates_numericality_of :insured_amount,:insured_rate,:insured_fee,:carrying_fee,:goods_fee,:from_short_carrying_fee,:to_short_carrying_fee,:goods_num
@@ -84,17 +84,29 @@ class CarryingBill < ActiveRecord::Base
   #已提款
   #已退货
   state_machine :initial => :billed do
+    #运单处理完成后,设置completed标志
+    #存在以下几种情况；
+    #1 现金付运单,没有代收货款,提货后,运单已经完成
+    #2 提货付运单,没有代收货款,日结算后(settlement),运单完成
+    #3 现金提款运单,提款日接后(posted),运单完成
+    #4 转账提款运单,提款后(paid),运单完成
+    #在这几种情况下,自动设置completed标志
+
+    after_transition :on => :standard_process,:deliveried => :settlemented,:do => :set_completed_settlemented
+    after_transition :on => :standard_process,:paid => :posted,:do => :set_completed_posted
+    after_transition :on => :standard_process,:payment_listed => :paid,:do => :set_completed_paid
+
     #正常运单处理流程(包括机打运单/手工运单/退货单据)
     event :standard_process do
-      transition :billed => :loaded,   #装车
-        :loaded => :shipped,#发货
-        :shipped => :reached,#到货
-        :deliveried => :settlemented,#日结清单
-        :settlemented => :refunded,#返款
-        :refunded => :refunded_confirmed,#返款确认
-        :refunded_confirmed => :payment_listed,#支付清单
-        :payment_listed => :paid,#货款已支付
-        :paid => :posted #过帐结束
+      transition(:billed => :loaded,   #装车
+                 :loaded => :shipped,#发货
+                 :shipped => :reached,#到货
+                 :deliveried => :settlemented,#日结清单
+                 :settlemented => :refunded,#返款
+                 :refunded => :refunded_confirmed,#返款确认
+                 :refunded_confirmed => :payment_listed,#支付清单
+                 :payment_listed => :paid,#货款已支付
+                 :paid => :posted) #过帐结束
 
       #普通运单到货后有分发操作,中转运单不存在分发操作
       transition :reached => :distributed,:distributed => :deliveried,:if => lambda {|bill| bill.transit_org_id.blank?}
@@ -104,7 +116,6 @@ class CarryingBill < ActiveRecord::Base
 
       #TODO 现金付运费,不存在代收货款的运单,提货后处理流程如何?
     end
-
 
     #退货单处理流程
     #退货处理中,根据当前票据状态产生退货票据
@@ -125,7 +136,6 @@ class CarryingBill < ActiveRecord::Base
     state :distributed do
       validates_presence_of :distribution_list_id
     end
-    #TODO 添加其他处理时的验证处理
     end
 
     #短途运费状态声明
@@ -322,32 +332,32 @@ class CarryingBill < ActiveRecord::Base
     #得到票据合计信息
     def self.search_sum(search)
       sum_info = {
-      :count => search.count,
-      :sum_carrying_fee => search.relation.sum(:carrying_fee),
-      #现金付运费合计
-      :sum_carrying_fee_cash => search.where(:pay_type => CarryingBill::PAY_TYPE_CASH).sum(:carrying_fee),
-      #提货付运费合计
-      :sum_carrying_fee_th => search.where(:pay_type => CarryingBill::PAY_TYPE_TH).sum(:carrying_fee),
-      #回执付运费合计
-      :sum_carrying_fee_re => search.where(:pay_type => CarryingBill::PAY_TYPE_RETURN).sum(:carrying_fee),
-      #自货款扣除运费合计
-      :sum_k_carrying_fee => search.where(:pay_type => CarryingBill::PAY_TYPE_K_GOODSFEE).sum(:carrying_fee),
-      #扣手续费合计
-      :sum_k_hand_fee => search.relation.sum(:k_hand_fee),
-      :sum_goods_fee => search.relation.sum(:goods_fee),
-      :sum_insured_fee => search.relation.sum(:insured_fee),
-      :sum_transit_carrying_fee => search.relation.sum(:transit_carrying_fee),
-      :sum_transit_hand_fee => search.relation.sum(:transit_hand_fee),
-      :sum_from_short_carrying_fee => search.relation.sum(:from_short_carrying_fee),
-      :sum_to_short_carrying_fee => search.relation.sum(:to_short_carrying_fee),
-      :sum_goods_num => search.relation.sum(:goods_num)
-    }
-    #实提货款合计
-    sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
-    sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
-    sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]+ sum_info[:sum_to_short_carrying_fee]
-    sum_info
-  end
+        :count => search.count,
+        :sum_carrying_fee => search.relation.sum(:carrying_fee),
+        #现金付运费合计
+        :sum_carrying_fee_cash => search.where(:pay_type => CarryingBill::PAY_TYPE_CASH).sum(:carrying_fee),
+        #提货付运费合计
+        :sum_carrying_fee_th => search.where(:pay_type => CarryingBill::PAY_TYPE_TH).sum(:carrying_fee),
+        #回执付运费合计
+        :sum_carrying_fee_re => search.where(:pay_type => CarryingBill::PAY_TYPE_RETURN).sum(:carrying_fee),
+        #自货款扣除运费合计
+        :sum_k_carrying_fee => search.where(:pay_type => CarryingBill::PAY_TYPE_K_GOODSFEE).sum(:carrying_fee),
+        #扣手续费合计
+        :sum_k_hand_fee => search.relation.sum(:k_hand_fee),
+        :sum_goods_fee => search.relation.sum(:goods_fee),
+        :sum_insured_fee => search.relation.sum(:insured_fee),
+        :sum_transit_carrying_fee => search.relation.sum(:transit_carrying_fee),
+        :sum_transit_hand_fee => search.relation.sum(:transit_hand_fee),
+        :sum_from_short_carrying_fee => search.relation.sum(:from_short_carrying_fee),
+        :sum_to_short_carrying_fee => search.relation.sum(:to_short_carrying_fee),
+        :sum_goods_num => search.relation.sum(:goods_num)
+      }
+      #实提货款合计
+      sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
+      sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
+      sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]+ sum_info[:sum_to_short_carrying_fee]
+      sum_info
+    end
 
 
     protected
@@ -411,4 +421,17 @@ class CarryingBill < ActiveRecord::Base
     def reset_bill
       self.update_attributes(:load_list_id => nil,:distribution_list_id => nil,:deliver_info_id => nil,:settlement_id => nil,:refound_id => nil,:payment_list_id => nil,:pay_info_id => nil,:post_info_id => nil,:transit_info_id => nil)
     end
-  end
+    #根据运单不同情况设置completed标志
+    #提货付款/无代收货款
+    def set_completed_settlemented
+      self.update_attributes(:completed => true) if [PAY_TYPE_TH,PAY_TYPE_CASH].include?(self.pay_type) and self.goods_fee == 0
+    end
+    #现金提款
+    def set_completed_posted
+      self.update_attributes(:completed => true) if self.goods_fee_cash?
+    end
+    #转账提款
+    def set_completed_paid
+      self.update_attributes(:completed => true) unless self.goods_fee_cash?
+    end
+    end

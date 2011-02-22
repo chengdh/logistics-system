@@ -45,7 +45,7 @@ zh-CN:
       hand_bill: "手工运单"  #g
       hand_transit_bill: "手工中转运单"  #g
       il_config: "系统设置"  #g
-      imported_customer: "运单到无客户资料"  #g
+      imported_customer: "贵宾资料"  #g
       journal: "帐目盘点登记表"  #g
       load_list: "货物运输清单"  #g
       org: "组织机构"  #g

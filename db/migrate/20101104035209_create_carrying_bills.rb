@@ -2,7 +2,8 @@
 #coding: utf-8
 class CreateCarryingBills < ActiveRecord::Migration
   def self.up
-    create_table :carrying_bills do |t|
+    create_table :carrying_bills,:id => false do |t|
+      t.integer :id,:null => false
       t.date :bill_date,:null => false
       t.string :bill_no,:limit => 30,:null => false
       t.string :goods_no,:limit => 30,:null => false
@@ -46,11 +47,15 @@ class CreateCarryingBills < ActiveRecord::Migration
       #退货运单
       t.string :type,:limit => 20 #票据类别,rails使用
       t.string :state,:limit => 20 #票据状态
+      #添加的运单是否完成标志,用于mysql 分区表
+      t.boolean :completed, :boolean,:default => false #处理完成标志
       t.references :user
 
 
       t.timestamps
     end
+    execute("ALTER TABLE carrying_bills ADD PRIMARY KEY (id,completed)")
+    execute("ALTER TABLE carrying_bills MODIFY id INT(11) NOT NULL AUTO_INCREMENT")
   end
 
   def self.down
