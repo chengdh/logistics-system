@@ -73,36 +73,24 @@ jQuery(function($) {
 
 	//根据不同的运单录入界面,隐藏部分字段
 	$('form.computer_bill').livequery(function() {
-		$('#computer_bill_to_area_input').hide();
-		$('#computer_bill_transit_org_id_input').remove();
 		$('#computer_bill_bill_no').attr('readonly', true);
 		$('#computer_bill_goods_no').attr('readonly', true);
 	});
 	$('form.hand_bill').livequery(function() {
-		$('#hand_bill_to_area_input').hide();
-		$('#hand_bill_transit_org_id_input').remove();
 		$('#hand_bill_bill_no').attr('readonly', false);
 		$('#hand_bill_goods_no').attr('readonly', false);
 
 	});
 	$('form.transit_bill').livequery(function() {
-		$('#transit_bill_to_area_input').show();
-		$('#transit_bill_transit_org_id_input').show();
-		$('#transit_bill_to_org_id_input').remove();
 		$('#transit_bill_bill_no').attr('readonly', true);
 		$('#transit_bill_goods_no').attr('readonly', true);
 
 	});
 	$('form.hand_transit_bill').livequery(function() {
-		$('#hand_transit_bill_to_area_input').show();
-		$('#hand_transit_bill_transit_org_id_input').show();
-		$('#hand_transit_bill_to_org_id_input').remove();
 		$('#hand_transit_bill_bill_no').attr('readonly', false);
 		$('#hand_transit_bill_goods_no').attr('readonly', false);
 	});
 	$('form.return_bill').livequery(function() {
-		$('#return_bill_to_area_input').hide();
-		$('#return_bill_transit_org_id_input').remove();
 		$(this).find('input').attr('readonly', true);
 		$('#return_bill_note').attr('readonly', false);
 
