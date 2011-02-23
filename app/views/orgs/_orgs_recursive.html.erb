@@ -3,15 +3,15 @@
     <%=org.name%>
     <div class='float-right org-operates'> 
       <%if can? :create,Org%>
-        <%= link_to image_tag('bank--plus.png'), new_branch_path("branch[parent_id]" => org.id,:format => :js),:title => "添加分理处/分公司",:class => 'tipsy fancybox' %>
-        <%= link_to image_tag('chair--plus.png'), new_department_path("department[parent_id]" => org.id,:format => :js),:title => "添加科室",:class => 'tipsy fancybox' %>
+        <%= link_to image_tag('bank--plus.png'), new_branch_path("branch[parent_id]" => org.id,:format => :js),:title => "添加分理处/分公司",:class => 'fancybox' %>
+        <%= link_to image_tag('chair--plus.png'), new_department_path("department[parent_id]" => org.id,:format => :js),:title => "添加科室",:class => 'fancybox' %>
       <%end%>
       <%if can? :update,Org%>
-        <%= link_to image_tag('pencil--arrow.png'), polymorphic_path(org,:format => :js,:action => :edit),:title => "修改机构信息",:class => 'tipsy fancybox' %>
+        <%= link_to image_tag('pencil--arrow.png'), polymorphic_path(org,:format => :js,:action => :edit),:title => "修改机构信息",:class => 'fancybox' %>
       <%end%>
 
       <%if can? :destroy,Org%>
-        <%= link_to image_tag('minus-button.png'), polymorphic_path(org,:format => :js,:method => :delete),:title => "删除机构信息",:confirm => "您确定要删除该机构信息吗?",:class => 'tipsy' %>
+        <%= link_to image_tag('minus-button.png'), polymorphic_path(org,:format => :js,:method => :delete),:title => "删除机构信息",:confirm => "您确定要删除该机构信息吗?",:class => '' %>
       <%end%>
     </div>
     <%org.children.each do |child_org|%>

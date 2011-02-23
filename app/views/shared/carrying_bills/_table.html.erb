@@ -71,7 +71,7 @@
           <%=bill.bill_no%>/<%=bill.goods_no%>
         </td>
         <td>
-          <%=bill.from_org_name%>--<%=bill.to_org_name%>
+          <%=bill.from_org_name%>~<%=["TransitBill","HandTransitBill"].include?(bill.type) ? "#{bill.transit_org.name}~#{bill.to_area}" : bill.to_org_name%>
         </td>
         <td>
           <%=bill.from_customer_name%>

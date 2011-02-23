@@ -2,10 +2,16 @@
   <tr>
     <td class='col_17mm'><span class='label'>发货站:</span></td>
     <td colspan='2' class='col_29mm'><%=show.from_org_name%></td>
-    <td class='col_17mm'><span class='label'>到达站:</span></td>
-    <td colspan='2' class='col_29mm'><%=show.to_org_name%></td>
+    <% if ["TransitBill","HandTransitBill"].include? show.type %>
+      <td class='col_17mm'><span class='label'>到货地</td>
+      <td colspan='2' class='col_29mm'><%= "#{show.transit_org.name}~#{show.to_area}" %></td>
+    <%else%>
+      <td class='col_17mm'><span class='label'>到达站:</span></td>
+      <td colspan='2' class='col_29mm'><%=show.to_org_name%></td>
+    <%end%>
     <td class='col_20mm'><span class='label'>运单编号</span></td>
     <td class='col_27mm'><%=show.bill_no%></td>
+
   </tr>
 
   <tr>
@@ -62,45 +68,45 @@
     <td class='col_13mm'><span class='label'>提货应收金额</span></td>
     <td colspan='6' class='col_82mm'> <%= convertNumToChinese(show.th_amount) %></td>
     <td class='col_43mm'><span class='label'>&yen;:</span></span><%=show.th_amount %></td>
-  </tr>
-  <tr>
-    <td class='col_13mm'><span class='label'>保值</span></td>
-    <td colspan='6' class='col_82mm'><span class='label'>保价金额:</span> <%=show.insured_amount%>&times;3‰=<%=show.insured_fee%></td>
-    <td class='col_43mm'><span class='label'>&yen;:</span><%=show.insured_fee %></td>
-  </tr>
-  <tr>
-    <td class='col_30mm'><span class='label'>发货地短途运费</span></td>
-    <td colspan='4' class='col_45mm'><%=show.from_short_carrying_fee%></td>
-    <td class='col_30mm'><span class='label'>到货地短途运费</span></td>
-    <td colspan='4' class='col_45mm'><%=show.to_short_carrying_fee%></td>
-  </tr>
-  <tr>
-    <td class='col_13mm'><span class='label'>运费总计</span></td>
-    <td colspan='6' class='col_82mm'><%=convertNumToChinese(show.carrying_fee_total)%></td>
-    <td class='col_43mm'><span class='label'>&yen;:</span><%=show.carrying_fee_total%></td>
-  </tr>
-  <tr>
-    <td class='col_13mm'><span class='label'>代收货款总计</span></td>
-    <td colspan='6' class='col_82mm'><%=convertNumToChinese(show.goods_fee)%></td>
-    <td class='col_43mm'><span class='label'>&yen;:</span><%=show.goods_fee%></td>
-  </tr>
-  <tr>
-    <td colspan='2' class='col_14mm'><span class='label'>委托人:</span></td>
-    <td  colspan='2' class='col_18mm'><span class='label'>收货人:</span></td>
-    <td class='col_19mm'><span class='label'>证件号码:</span></td>
-    <td colspan='3' class='col_74mm'>&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan='2' class='col_14mm'><span class='label'>开票人:</span><%= show.user.try(:username) %></td>
-    <td colspan='2' class='col_18mm'><span class='label'>代理收货人:</span></td>
-    <td class='col_19mm'><span class='label'>证件号码:</span></td>
-    <td colspan='3' class='col_74mm'>&nbsp;</td>
-  </tr>
+</tr>
+<tr>
+  <td class='col_13mm'><span class='label'>保值</span></td>
+  <td colspan='6' class='col_82mm'><span class='label'>保价金额:</span> <%=show.insured_amount%>&times;3‰=<%=show.insured_fee%></td>
+  <td class='col_43mm'><span class='label'>&yen;:</span><%=show.insured_fee %></td>
+</tr>
+<tr>
+  <td class='col_30mm'><span class='label'>发货地短途运费</span></td>
+  <td colspan='4' class='col_45mm'><%=show.from_short_carrying_fee%></td>
+  <td class='col_30mm'><span class='label'>到货地短途运费</span></td>
+  <td colspan='4' class='col_45mm'><%=show.to_short_carrying_fee%></td>
+</tr>
+<tr>
+  <td class='col_13mm'><span class='label'>运费总计</span></td>
+  <td colspan='6' class='col_82mm'><%=convertNumToChinese(show.carrying_fee_total)%></td>
+  <td class='col_43mm'><span class='label'>&yen;:</span><%=show.carrying_fee_total%></td>
+</tr>
+<tr>
+  <td class='col_13mm'><span class='label'>代收货款总计</span></td>
+  <td colspan='6' class='col_82mm'><%=convertNumToChinese(show.goods_fee)%></td>
+  <td class='col_43mm'><span class='label'>&yen;:</span><%=show.goods_fee%></td>
+</tr>
+<tr>
+  <td colspan='2' class='col_14mm'><span class='label'>委托人:</span></td>
+  <td  colspan='2' class='col_18mm'><span class='label'>收货人:</span></td>
+  <td class='col_19mm'><span class='label'>证件号码:</span></td>
+  <td colspan='3' class='col_74mm'>&nbsp;</td>
+</tr>
+<tr>
+  <td colspan='2' class='col_14mm'><span class='label'>开票人:</span><%= show.user.try(:username) %></td>
+  <td colspan='2' class='col_18mm'><span class='label'>代理收货人:</span></td>
+  <td class='col_19mm'><span class='label'>证件号码:</span></td>
+  <td colspan='3' class='col_74mm'>&nbsp;</td>
+</tr>
 </table>
 <script type='text/javascript'>
   <%if params[:print].present?%>
     jQuery(function($) {
-      $('.carrying_bill_show').printElement({overrideElementCSS : ['/stylesheets/bill_print.css']});
-    });
+        $('.carrying_bill_show').printElement({overrideElementCSS : ['/stylesheets/bill_print.css']});
+        });
   <%end%>
 </script>
