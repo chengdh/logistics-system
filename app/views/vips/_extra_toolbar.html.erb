@@ -1,10 +1,5 @@
-<%if can? :batch_pay,resource_class%>
-  <li>
-    <%=link_to image_tag("cards-address.png"),new_resource_path(:show_multi => 1),:class => "tipsy",:title => "批量提款:一次提取多票运单"%>
-  </li>
-<%end%>
 <%if params[:action] == "index"%>
   <li>
-    <%= link_to image_tag("document-excel-table.png"), collection_path(:search => params[:search],:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
+    <%= link_to image_tag("document-excel-table.png",:alt => "导出为EXCEL"), collection_path(:search => params[:search],:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
   </li>
 <%end%>

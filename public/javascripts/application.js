@@ -41,8 +41,10 @@ jQuery(function($) {
 
 	});
 
-        //form 自动获取焦点
-        $('form').livequery(function(){$(this).focus();});
+	//form 自动获取焦点
+	$('form').livequery(function() {
+		$(this).focus();
+	});
 
 	//角色功能列表
 	$('#role_orgs_list').treeList();
@@ -107,16 +109,15 @@ jQuery(function($) {
 
 	//初始化左侧菜单树
 	var cookieName = 'il_menubar';
-        var get_current_menu = function(){
-          var cookie_menu = $.cookies.get(cookieName);
-          var cur_menu = 0;
-          if(cookie_menu)
-            cur_menu = parseInt(cookie_menu.substr(12));
-          return cur_menu;
-        };
+	var get_current_menu = function() {
+		var cookie_menu = $.cookies.get(cookieName);
+		var cur_menu = 0;
+		if (cookie_menu) cur_menu = parseInt(cookie_menu.substr(12));
+		return cur_menu;
+	};
 
 	$('#menu_bar').accordion({
-                active : get_current_menu.apply(),
+		active: get_current_menu.apply(),
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}
@@ -555,7 +556,25 @@ jQuery(function($) {
 	$('.rpt_no_delivery tr.yellow-bill').css('background', 'yellow');
 	$('.rpt_no_delivery tr.red-bill').css('background', 'red');
 	$('.rpt_no_delivery tr.black-bill').css('background', 'black');
-        $('.turnover_chart').visualize({width : '850px'});
+	$('.turnover_chart').visualize({
+		width: '850px'
+	});
+
+	//提货时,仅仅打印运单
+	$('.btn_deliver_only_print').click(function() {
+		if ($('.carrying_bill_show').length == 0) $.notifyBar({
+			html: "请先查询要提货的运单,然后再进行打印操作.",
+			delay: 3000,
+			animationSpeed: "normal",
+			cls: 'error'
+		});
+		else
+
+		$('.carrying_bill_show').printElement({
+			overrideElementCSS: ['/stylesheets/bill_print.css']
+		});
+
+	});
 
 });
 

@@ -3,7 +3,7 @@
   <ul class="wat-cf">
     <%if can? :read,resource_class%>
       <li class="first">
-        <%= link_to image_tag("grid.png") , collection_path,:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
+        <%= link_to image_tag("grid.png",:alt => "#{resource_class.model_name.human}列表") , collection_path,:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
       </li>
     <%end%>
   </ul>

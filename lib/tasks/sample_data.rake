@@ -186,7 +186,6 @@ namespace :db do
     subject = "LoadList"
     sf_hash = {
       :group_name => group_name,
-      #TODO 提货信息表要添加提货部门字段
       :subject_title => subject_title,
       :default_action => 'arrive_load_lists_path',
       :subject => subject,
@@ -242,7 +241,8 @@ namespace :db do
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},
       :batch_deliver => {:title => "批量提货"},
-      :print => {:title => "打印提货"},
+      :print_deliver => {:title => "打印提货"},
+      :print => {:title => "仅打印提货单"},
       :export => {:title => "导出"},
     }
 
