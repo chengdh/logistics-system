@@ -51,7 +51,7 @@
         </li>
         <%if can? :re_print,resource%>
           <li>
-            <%= link_to_function image_tag("printer.png",:alt => "重新打印运单"), "$('.carrying_bill_show').printElement({overrideElementCSS : ['/stylesheets/bill_print.css']})",:class =>"tipsy",:title => "重新打印运单" %>
+            <%= link_to_function image_tag("printer.png",:alt => "重新打印运单"), "$('#carrying_bill_show').printElement({printMode : 'popup',overrideElementCSS : ['/stylesheets/bill_print.css']})",:class =>"tipsy",:title => "重新打印运单" %>
           </li>
         <%end%>
 
