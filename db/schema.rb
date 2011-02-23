@@ -80,6 +80,8 @@ ActiveRecord::Schema.define(:version => 20110222094200) do
     t.decimal  "original_from_short_carrying_fee",               :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "original_to_short_carrying_fee",                 :precision => 15, :scale => 2, :default => 0.0
   end
+  execute("ALTER TABLE carrying_bills ADD PRIMARY KEY (id,completed)")
+  execute("ALTER TABLE carrying_bills MODIFY id INT(11) NOT NULL AUTO_INCREMENT")
 
   add_index "carrying_bills", ["bill_date"], :name => "index_carrying_bills_on_bill_date"
   add_index "carrying_bills", ["bill_no"], :name => "index_carrying_bills_on_bill_no"

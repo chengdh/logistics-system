@@ -34,5 +34,10 @@
 <div id="table_wrap"></div>
 <script>
   //获取清单明细数据
-  jQuery(function($) {$.get('<%=refound_carrying_bills_path(resource,:show_group => params[:show_group])%>',null,null,'script');});
+  jQuery(function($) {$.get('<%=refound_carrying_bills_path(resource,:show_group => params[:show_group])%>',
+    {
+  	"hide_fields": ".carrying_fee,.insured_fee",
+	'show_fields': ".carrying_fee_th,.th_amount"
+
+  },null,'script');});
 </script>

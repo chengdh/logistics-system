@@ -1,8 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class BaseController < InheritedResources::Base
   authorize_resource
 
@@ -34,7 +30,7 @@ class BaseController < InheritedResources::Base
   def resources_name
     resource_name.pluralize
   end
-  private
+  protected
   #处理查询时,传入的机构代码,如果传入的机构有下级机构,则进行处理
   def pre_process_search_params
     return if params[:search].blank?
@@ -48,5 +44,6 @@ class BaseController < InheritedResources::Base
       end
     end
     params[:search].merge!(new_search_params) if new_search_params.present?
+    params[:search]
   end
 end

@@ -19,5 +19,9 @@
 <div id="table_wrap"></div>
 <script>
   //获取清单明细数据
-  jQuery(function($) {$.get('<%=transfer_payment_list_carrying_bills_path(resource)%>',null,null,'script');});
+  jQuery(function($) {$.get('<%=cash_payment_list_carrying_bills_path(resource)%>',
+    {
+      "hide_fields": ".carrying_fee,.insured_fee",
+      "show_fields": ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
+    },null,'script');});
 </script>

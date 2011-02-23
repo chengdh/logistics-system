@@ -1,10 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class IlConfig < ActiveRecord::Base
   #保价费设置比例
   KEY_INSURED_RATE = 'insured_rate'

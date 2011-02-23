@@ -280,10 +280,11 @@ jQuery(function($) {
 		var params = {
 			"search[to_org_id_or_transit_org_id_eq]": $('#to_org_id').val(),
 			"search[state_eq]": 'deliveried',
+			"search[completed_eq]": 0,
 			"search[type_in][]": ['ComputerBill', 'HandBill', 'ReturnBill', 'TransitBill', 'HandTransitBill'],
 			//以下设定运单列表中的显示及隐藏字段,设定为css选择符
-			"hide_fields": ".carrying_fee",
-			"show_fields": ".carrying_fee_th"
+			"hide_fields": ".carrying_fee,.insured_fee",
+			"show_fields": ".carrying_fee_th,.th_amount"
 		};
 		$(this).data('params', params);
 	}).bind('ajax:complete', function() {
@@ -292,6 +293,7 @@ jQuery(function($) {
 		var ids = $('#bills_table').data('ids');
 		$('#settlement_sum_carrying_fee').val(sum_info.sum_carrying_fee_th);
 		$('#settlement_sum_goods_fee').val(sum_info.sum_goods_fee);
+		$('#settlement_sum_fee').html(parseFloat(sum_info.sum_goods_fee) + parseFloat(sum_info.sum_carrying_fee_th));
 		$('#settlement_form').data('params', {
 			'bill_ids[]': ids
 		});
@@ -305,6 +307,7 @@ jQuery(function($) {
 			"search[carrying_bills_to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
 			"search[carrying_bills_type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[carrying_bills_state_eq]": "settlemented",
+			"search[carrying_bills_completed_eq]": 0,
 			"search[carrying_bills_goods_fee_or_carrying_bills_carrying_fee_gt]": 0
 		},
 		null, 'script')
@@ -338,10 +341,11 @@ jQuery(function($) {
 			"search[to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[state_eq]": "settlemented",
+			"search[completed_eq]": 0,
 			"search[goods_fee_or_carrying_fee_gt]": 0,
 			"search[settlement_id_in][]": selected_bill_ids,
-			"hide_fields": ".carrying_fee",
-			'show_fields': ".carrying_fee_th"
+			"hide_fields": ".carrying_fee,.insured_fee",
+			'show_fields': ".carrying_fee_th,.th_amount"
 		};
 		$(this).data('params', params);
 		//选定单据改变时,修改对应返款清单相关金额字段
@@ -358,6 +362,7 @@ jQuery(function($) {
 			"search[state_eq]": "refunded_confirmed",
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[goods_fee_gt]": 0,
+			"search[completed_eq]": 0,
 			//运单列表显示的字段
 			"hide_fields": ".carrying_fee,.insured_fee",
 			"show_fields": ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
@@ -423,6 +428,7 @@ jQuery(function($) {
 		var params = {
 			"search[from_org_id_eq]": $('#from_org_id').val(),
 			"search[state_eq]": 'paid',
+			"search[completed_eq]": 0,
 			"search[from_customer_id_is_null]": 1,
 			"search[type_in][]": ['ComputerBill', 'HandBill', 'TransitBill', 'HandTransitBill'],
 			"hide_fields": ".carrying_fee,.insured_fee",
@@ -550,7 +556,6 @@ jQuery(function($) {
 	$('.rpt_no_delivery tr.red-bill').css('background', 'red');
 	$('.rpt_no_delivery tr.black-bill').css('background', 'black');
         $('.turnover_chart').visualize({width : '850px'});
-
 
 });
 

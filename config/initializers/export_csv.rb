@@ -1,6 +1,7 @@
 #coding: utf-8
 #为Array类添加导出csv方法
 require 'csv'
+require "nkf"
 class Array
   #BOM_HEADER = ["FFFE"].pack("H*")
   #FIXME 此处编码问题未解决
@@ -34,9 +35,9 @@ class Array
     #BOM头信息
     ret = ""
     if with_bom_header
-      ret = BOM_HEADER + self.to_csv(options).utf8_to_utf16
+      ret = NKF.nkf("-w16L",self.to_csv(options))
     else
-      ret = self.to_csv(options).utf8_to_utf16
+      ret = NKF.nkf("-w16L0",self.to_csv(options))
     end
     ret
   end
@@ -46,9 +47,9 @@ class Array
       csv << self
     end
     if with_bom_header
-      BOM_HEADER + output.utf8_to_utf16
+      ret = NKF.nkf("-w16L",output)
     else
-      output.utf8_to_utf16
+      ret = NKF.nkf("-w16L0",output)
     end
   end
 end

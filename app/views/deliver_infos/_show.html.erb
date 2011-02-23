@@ -24,5 +24,9 @@
 </div>
 <script>
   //获取清单明细数据
-  jQuery(function($) {$.get('<%=deliver_info_carrying_bills_path(resource)%>',null,null,'script');});
+  jQuery(function($) {$.get('<%=deliver_info_carrying_bills_path(resource)%>',
+    {
+      hide_fields : ".carrying_fee,.insured_fee",
+      show_fields : ".carrying_fee_th,.th_amount"
+  },null,'script');});
 </script>

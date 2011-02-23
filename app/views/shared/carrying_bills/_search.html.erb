@@ -1,6 +1,8 @@
 <%= semantic_form_for search,:remote => true,:html => {:id => "search_bill_form",:method => :get,:style => "width : 300px;" } do |f|%>
   <%= hidden_field_tag :direction,params[:direction] %>
   <%= hidden_field_tag :sort,params[:sort] %>
+  <%= hidden_field_tag :show_fields,params[:show_fields] %>
+  <%= hidden_field_tag :hide_fields,params[:hide_fields] %>
   <%= f.inputs do %>
     <%= f.input :bill_no_or_goods_no_or_from_customer_name_or_to_customer_name_or_from_customer_phone_or_to_customer_phone_like,:label =>"关键字",:hint => "票据号/货号/发货人/收货人/电话",:input_html => {:size => 30,:id => "keyword"} %>
     <%= f.input :bill_date_gte,:label => "票据日期",:as => :string,:input_html =>{:class => 'datepicker',:size => 20,:readonly => true,:value => Date.today} %>
@@ -11,6 +13,7 @@
 
     <%= f.input :pay_type_eq,:label => "支付方式",:as => :select,:collection => CarryingBill.pay_types %>
     <%= f.input :state_eq,:label => "票据状态",:as => :select,:collection => states_for_select %>
+    <%= f.input "completed_eq",:label => "查询历史运单",:as => :boolean %>
   <% end %>
   <%=f.buttons do %>
     <%=submit_tag "查询运单",:class => "sexybutton sexysimple sexyblue" %>

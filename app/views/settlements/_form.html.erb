@@ -4,7 +4,7 @@
   <table class='table'>
     <tr>
       <td>结算员:</td>
-      <td></td>
+      <td><%=current_user.username%></td>
       <td>结算单位:</td>
       <td>
         <%=f.select :org_id,current_ability_orgs_for_select,{},{:class => "select_org",:id => "to_org_id"} %>
@@ -18,7 +18,7 @@
       <td>提货付运费:</td>
       <td><%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
       <td>合计:</td>
-      <td><%=resource.sum_fee %></td>
+      <td><span id='settlement_sum_fee'><%=resource.sum_fee %></span></td>
     </tr>
     <tr>
       <td>备注</td>
