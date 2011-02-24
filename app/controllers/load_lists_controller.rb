@@ -1,8 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class LoadListsController < BaseController
   include BillOperate
   #GET search

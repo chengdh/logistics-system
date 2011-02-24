@@ -14,7 +14,6 @@ class DistributionList < ActiveRecord::Base
     end
   end
 
-
   default_value_for :bill_date,Date.today
   #导出到csv
   def to_csv

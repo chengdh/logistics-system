@@ -1,8 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class CashPaymentListsController < BaseController
   table :except => [:bank_id,:type]
   include BillOperate

@@ -1,6 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding：utf-8
 require 'spec_helper'
 
 describe LoadListsController do
@@ -101,13 +99,13 @@ describe LoadListsController do
     end
     it "load_list state should become shipped" do
       put :process_handle,:id =>@load_list 
-      response.should redirect_to(@load_list)
+      response.should be_success
     end
 
     it "load_list state should become 'reached' after reach process" do
       shipped_list = Factory(:load_list_shipped)
       put :process_handle,:id =>shipped_list 
-      response.should redirect_to(shipped_list)
+      response.should be_success 
     end
   end
 end

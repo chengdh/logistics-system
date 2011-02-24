@@ -319,6 +319,7 @@ end
 #提货单据
 Factory.define :deliver_info do |deliver|
   deliver.customer_name "提货人"
+  deliver.association :org,:factory => :zz
 end
 Factory.define :deliver_info_with_bills,:parent => :deliver_info do |deliver|
   deliver.after_create do |dl|
@@ -455,4 +456,6 @@ Factory.define :admin,:parent => :user do |admin|
   admin.username "admin"
   admin.password "admin"
   admin.is_admin true
+  admin.association :default_org,:factory => :zz
+  admin.association :default_role,:factory => :role
 end

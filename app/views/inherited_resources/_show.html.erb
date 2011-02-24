@@ -1,6 +1,5 @@
-<dl id="<%= resource_class.name.underscore.pluralize %>_resource_attributes" class="resource_attributes">
+<%= show_for resource do |a| %>
   <% show_view_columns.each do |column| %>
-    <dt><%= column.to_s.titlecase %></dt>
-    <dd><%= resource.send(column) %></dd>
+    <%= a.attribute  column %>
   <% end %>
-</dl>
+<%end%>

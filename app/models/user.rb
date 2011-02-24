@@ -1,13 +1,8 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class User < ActiveRecord::Base
-    # Include default devise modules. Others available are:
+  # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable,
+  devise :database_authenticatable,:registerable,
          :rememberable, :trackable
 
   # Setup accessible (or protected) attributes for your model

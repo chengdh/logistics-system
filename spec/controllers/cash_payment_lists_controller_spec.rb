@@ -3,13 +3,19 @@ require 'spec_helper'
 
 describe CashPaymentListsController do
   login_admin
-
   render_views
 
   describe "GET index" do
     it "should be success" do
       Factory(:cash_payment_list_with_bills)
       get :index
+      response.should be_success
+    end
+  end
+
+  describe "GET search" do
+    it "should be success" do
+      get :search
       response.should be_success
     end
   end

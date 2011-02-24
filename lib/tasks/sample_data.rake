@@ -2,6 +2,26 @@
 require 'faker'
 
 namespace :db do
+  desc "对carrying_bills表进行分表操作"
+  task :partition_carrying_bills => :environment do
+    c = ActiveRecord::Base.connection
+    #修改carrying_bill id的定义,便于进行分表操作
+
+
+    c.execute("ALTER TABLE carrying_bills MODIFY id INT(11) NOT NULL")
+    c.execute("ALTER TABLE carrying_bills DROP PRIMARY KEY")
+    c.execute("ALTER TABLE carrying_bills ADD PRIMARY KEY (id,completed)")
+    c.execute("ALTER TABLE carrying_bills MODIFY id INT(11) NOT NULL AUTO_INCREMENT")
+
+    #以下添加mysql 分区表
+    c.execute("ALTER TABLE carrying_bills 
+            partition by list(completed)
+            (
+            partition p0 values in(0),
+            partition p1 values in(1)
+           )")
+
+  end
   desc "向数据库中添加示例数据"
   task :populate => :environment do
     Rake::Task['db:reset'].invoke

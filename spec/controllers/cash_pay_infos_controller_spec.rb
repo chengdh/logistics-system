@@ -12,7 +12,12 @@ describe CashPayInfosController do
       response.should be_success
     end
   end
-
+  describe "GET search" do
+    it "should be success" do
+      get :search
+      response.should be_success
+    end
+  end
   describe "GET show" do
     it "assigns the requested cash_pay_info as @cash_pay_info" do
       p_list = Factory(:cash_pay_info_with_bills)

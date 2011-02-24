@@ -20,8 +20,7 @@ ActiveRecord::Schema.define(:version => 20110222094200) do
     t.datetime "updated_at"
   end
 
-  create_table "carrying_bills", :id => false, :force => true do |t|
-    t.integer  "id",                                                                                               :null => false
+  create_table "carrying_bills", :force => true do |t|
     t.date     "bill_date",                                                                                        :null => false
     t.string   "bill_no",                          :limit => 30,                                                   :null => false
     t.string   "goods_no",                         :limit => 30,                                                   :null => false
@@ -52,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20110222094200) do
     t.text     "note"
     t.string   "type",                             :limit => 20
     t.string   "state",                            :limit => 20
-    t.boolean  "completed",                                                                     :default => false, :null => false
+    t.boolean  "completed",                                                                     :default => false
     t.boolean  "boolean",                                                                       :default => false
     t.integer  "user_id"
     t.datetime "created_at"
@@ -80,8 +79,6 @@ ActiveRecord::Schema.define(:version => 20110222094200) do
     t.decimal  "original_from_short_carrying_fee",               :precision => 15, :scale => 2, :default => 0.0
     t.decimal  "original_to_short_carrying_fee",                 :precision => 15, :scale => 2, :default => 0.0
   end
-  execute("ALTER TABLE carrying_bills ADD PRIMARY KEY (id,completed)")
-  execute("ALTER TABLE carrying_bills MODIFY id INT(11) NOT NULL AUTO_INCREMENT")
 
   add_index "carrying_bills", ["bill_date"], :name => "index_carrying_bills_on_bill_date"
   add_index "carrying_bills", ["bill_no"], :name => "index_carrying_bills_on_bill_no"

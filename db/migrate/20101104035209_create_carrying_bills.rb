@@ -1,8 +1,7 @@
 #coding: utf-8
-#coding: utf-8
 class CreateCarryingBills < ActiveRecord::Migration
   def self.up
-    create_table :carrying_bills,:id => false do |t|
+    create_table :carrying_bills do |t|
       t.integer :id,:null => false
       t.date :bill_date,:null => false
       t.string :bill_no,:limit => 30,:null => false
@@ -54,8 +53,6 @@ class CreateCarryingBills < ActiveRecord::Migration
 
       t.timestamps
     end
-    execute("ALTER TABLE carrying_bills ADD PRIMARY KEY (id,completed)")
-    execute("ALTER TABLE carrying_bills MODIFY id INT(11) NOT NULL AUTO_INCREMENT")
   end
 
   def self.down

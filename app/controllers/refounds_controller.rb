@@ -1,8 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class RefoundsController < BaseController
   include BillOperate
   #GET search

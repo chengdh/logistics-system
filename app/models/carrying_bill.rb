@@ -262,27 +262,27 @@ class CarryingBill < ActiveRecord::Base
     #确认后，原票状态应显示为已退且在未提货中取消，在本地发货时增加该票
 
     def generate_return_bill
-      #TODO 设置票据操作人员信息
       override_attr = {
-        :bill_no => "TH#{self.bill_no}",
-        :goods_no => nil,
-        :bill_date => Date.today,
-        :from_org_id => self.to_org_id,
-        :to_org_id => self.from_org_id,
-        :from_customer_name => self.to_customer_name,
-        :from_customer_phone => self.to_customer_phone,
-        :to_customer_name => self.from_customer_name,
-        :to_customer_phone => self.from_customer_phone,
-        :from_customer_id => nil,
-        :to_customer_id => nil,
-        :pay_type => PAY_TYPE_TH,
-        :goods_fee => 0,
-        :carrying_fee => (pay_type == PAY_TYPE_CASH ? self.carrying_fee : 2*self.carrying_fee),
-        :note => "原运单票据号:#{self.bill_no},货号:#{self.goods_no},运费:#{self.carrying_fee},代收货款;#{self.goods_fee}"
+        "bill_no" => "TH#{self.bill_no}",
+        "bill_date"=> Date.today,
+        "from_org_id"=> self.to_org_id,
+        "to_org_id"=> self.from_org_id,
+        "from_customer_name"=> self.to_customer_name,
+        "from_customer_phone"=> self.to_customer_phone,
+        "to_customer_name"=> self.from_customer_name,
+        "to_customer_phone"=> self.from_customer_phone,
+        "from_customer_id"=> nil,
+        "to_customer_id"=> nil,
+        "pay_type"=> PAY_TYPE_TH,
+        "goods_fee"=> 0,
+        "carrying_fee"=> (pay_type == PAY_TYPE_CASH ? self.carrying_fee : 2*self.carrying_fee),
+        "note"=> "原运单票据号:#{self.bill_no},货号:#{self.goods_no},运费:#{self.carrying_fee},代收货款;#{self.goods_fee}"
       }
       #如果是中转票据,则将中转站与始发站调换
-      override_attr.merge!(:from_org_id => self.transit_org_id,:to_org_id => self.from_org_id) unless self.transit_org_id.blank?
-      self.build_return_bill(self.attributes.merge(override_attr))
+      override_attr.merge!("from_org_id"=> self.transit_org_id,"to_org_id"=> self.from_org_id) unless self.transit_org_id.blank?
+      return_attr = self.attributes.merge(override_attr)
+      return_attr.delete("goods_no")
+      self.build_return_bill(return_attr)
     end
     #重写to_s方法
     def to_s

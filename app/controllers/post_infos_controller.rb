@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class PostInfosController < BaseController
   include BillOperate
   #GET search
@@ -15,5 +12,4 @@ class PostInfosController < BaseController
       format.csv {send_data resource.to_csv}
     end
   end
-
 end

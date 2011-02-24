@@ -1,7 +1,6 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe TransitBillsController do
-  pending "add some examples to (or delete) #{__FILE__}"
+  pending "test same as computer_bills_controller_spec"
 end

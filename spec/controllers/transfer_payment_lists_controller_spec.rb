@@ -1,13 +1,20 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe TransferPaymentListsController do
   login_admin
   render_views
+
   describe "GET index" do
     it "should be success" do
       get :index
+      response.should be_success
+    end
+  end
+
+  describe "GET search" do
+    it "should be success" do
+      get :search
       response.should be_success
     end
   end

@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe RefoundsController do
@@ -13,6 +12,12 @@ describe RefoundsController do
     end
   end
 
+  describe "GET search" do
+    it "should be success" do
+      get :search
+      response.should be_success
+    end
+  end
   describe "GET show" do
     it "assigns the requested refound as @refound" do
       refound = Factory(:refound_with_bills)
@@ -52,6 +57,15 @@ describe RefoundsController do
         response.should render_template("new")
       end
     end
-
+  end
+  #启动流程处理
+  describe "PUT process_handle" do
+    before(:each) do
+      @refound ||= Factory(:refound_with_bills)
+    end
+    it "refound state should refunded_confirmed" do
+      put :process_handle,:id =>@refound 
+      response.should be_success
+    end
   end
 end

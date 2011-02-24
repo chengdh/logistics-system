@@ -1,10 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class PostInfo < ActiveRecord::Base
   belongs_to :org
   belongs_to :user
@@ -41,7 +35,7 @@ class PostInfo < ActiveRecord::Base
   end
   #余额
   def sum_rest_fee
-    amount_fee - sum_pay_fee
+    amount_fee - sum_act_pay_fee
   end
   #导出到csv
   def to_csv

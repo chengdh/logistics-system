@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class SettlementsController < BaseController
   include BillOperate
   def new

@@ -20,6 +20,7 @@ gem 'inherited_resources', '1.1.2'
 #gem 'inherited_views'
 gem 'inherited_resources_views'
 gem 'dynamic_form'
+gem 'show_for'
 #gem 'fastercsv'
 
 # Bundle edge Rails instead:

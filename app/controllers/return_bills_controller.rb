@@ -1,13 +1,10 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class ReturnBillsController <  CarryingBillsController
+  
   def before_new
   end
   def new
-    if params[:search][:bill_no_eq].blank? 
+    if params[:search].blank? or params[:search][:bill_no_eq].blank? 
       flash[:error] = "请录入原运单号码." 
       render :action => :before_new
     elsif CarryingBill.search(params[:search]).all.blank?

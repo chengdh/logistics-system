@@ -394,6 +394,9 @@ zh-CN:
         roles: "角色"  #g
         default_org_id: "默认机构"  #g
         default_role_id: "默认角色"  #g
+        current_password: "原密码"
+        password: "密码"
+        password_confirmation: "验证密码"
 
       user_role:
         is_select: "选择"  #g

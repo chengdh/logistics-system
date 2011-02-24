@@ -23,6 +23,7 @@ class Ability
     #登录时,可操作current_role_change action
     can :current_role_change,Role
 
+
     if user.is_admin?
       SystemFunctionOperate.all.each do |sfo| 
         f_obj = sfo.function_obj
@@ -68,5 +69,8 @@ class Ability
     if can? :update_all,CarryingBill
       can :update,CarryingBill,:from_org_id => user.current_ability_org_ids
     end
+
+    #FIXME 此处为测试使用
+    can :manage,:all if user.is_admin
   end
 end

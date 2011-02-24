@@ -1,6 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe PostInfosController do
@@ -11,6 +9,13 @@ describe PostInfosController do
     it "should be success" do
       Factory(:post_info_with_bills)
       get :index
+      response.should be_success
+    end
+  end
+
+  describe "GET search" do
+    it "should be success" do
+      get :search
       response.should be_success
     end
   end

@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe SettlementsController do
@@ -10,6 +9,13 @@ describe SettlementsController do
     it "should be success" do
       Factory(:settlement_with_bills)
       get :index
+      response.should be_success
+    end
+  end
+
+  describe "Get search" do
+    it "should be success" do
+      get :search
       response.should be_success
     end
   end

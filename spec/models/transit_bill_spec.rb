@@ -1,11 +1,8 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe TransitBill do
   before(:each) do
-
     @load_list = Factory(:load_list)
     @transit_bill = Factory.build(:transit_bill)
   end

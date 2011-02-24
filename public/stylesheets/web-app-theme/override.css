@@ -112,7 +112,10 @@
 #adv-query-wrap a:hover, #adv-query-wrap a:active {
   text-decoration : underline;
 }
-#user-navigation { top : 62px;}
+#user-navigation { 
+  top : 62px;
+  width : 300px;
+}
 #adv-query-wrap {
   margin-top : 7px;
 }
@@ -124,7 +127,7 @@
   display: table;
 }
 
-#errorExplanation {
+#errorExplanation,#error_explanation {
   position: relative;
   border: 2px solid red;
   padding : 5px;
@@ -132,7 +135,7 @@
   background-color: #f0f0f0;
 }
 
-#errorExplanation h2 {
+#errorExplanation h2,#error_explanation h2 {
   text-align: left;
   font-weight: bold;
   margin : 0;
@@ -141,9 +144,9 @@
   color: #c00;
 }
 
-#errorExplanation p { padding : 10px;}
+#errorExplanation p,#error_explanation p { padding : 10px;}
 
-#errorExplanation ul li {
+#errorExplanation ul li,#error_explanation ul li {
   font-size: 12px;
   list-style: square;
   left : 15px;

@@ -1,10 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class Settlement < ActiveRecord::Base
   belongs_to :user
   has_many :carrying_bills

@@ -40,7 +40,6 @@ describe ComputerBillsController do
   describe "GET edit" do
     it "assigns the requested computer_bill as @computer_bill" do
       get :edit, :id => @computer_bill
-
       response.should render_template('edit')
     end
   end

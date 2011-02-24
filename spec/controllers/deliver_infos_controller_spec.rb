@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe DeliverInfosController do
@@ -46,13 +45,12 @@ describe DeliverInfosController do
     describe "with valid params" do
       it "should success create deliver_info" do
         lambda do
-          post :create, :deliver_info => Factory.attributes_for(:deliver_info),:bill_ids => [@computer_bill.id]
+          post :create, :deliver_info => Factory.build(:deliver_info).attributes,:bill_ids => [@computer_bill.id]
         end.should change(DeliverInfo,:count).by(1)
       end
 
       it "redirects to the created deliver_info" do
-
-        post :create, :deliver_info => Factory.attributes_for(:deliver_info),:bill_ids => [@computer_bill.id]
+        post :create, :deliver_info => Factory.build(:deliver_info).attributes,:bll_ids => [@computer_bill.id]
         response.should redirect_to(assigns[:deliver_info])
       end
     end

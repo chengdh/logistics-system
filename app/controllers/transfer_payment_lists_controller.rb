@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class TransferPaymentListsController < BaseController
   table :except => :type
   include BillOperate
