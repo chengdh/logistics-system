@@ -1,6 +1,6 @@
 <ul>
   <li>
-    <%=org.name%>
+    <span><%=org.name%></span>
     <div class='float-right org-operates'> 
       <%if can? :create,Org%>
         <%= link_to image_tag('bank--plus.png'), new_branch_path("branch[parent_id]" => org.id,:format => :js),:title => "添加分理处/分公司",:class => 'fancybox' %>
