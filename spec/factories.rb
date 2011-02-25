@@ -1,6 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
 #定义一个根机构
 Factory.define :department do |dep|
   dep.name 'department'
@@ -458,4 +456,23 @@ Factory.define :admin,:parent => :user do |admin|
   admin.is_admin true
   admin.association :default_org,:factory => :zz
   admin.association :default_role,:factory => :role
+end
+#手续费设置(现金)
+Factory.define :config_cash do |config|
+  config.fee_from 0
+  config.fee_to 1000
+  config.hand_fee 1
+end
+#手续费设置(转账)
+Factory.define :config_transit do |config|
+  config.name "转账手续费设置"
+  config.rate 0.001
+end
+Factory.define :config_vip,:parent =>:config_transit do |config|
+  config.name "vip客户"
+  config.rate 0.001
+end
+Factory.define :config_common,:parent =>:config_transit do |config|
+  config.name "普通客户"
+  config.rate 0.003
 end

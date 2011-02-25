@@ -1,7 +1,17 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe ConfigCash do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确获取系统默认手续费" do
+    ConfigCash.default_hand_fee(999).should == 1.0
+    ConfigCash.default_hand_fee(1000).should == 1.0
+    ConfigCash.default_hand_fee(2000).should == 2.0
+    ConfigCash.default_hand_fee(2999).should == 3.0
+    ConfigCash.default_hand_fee(3000).should == 3.0
+    ConfigCash.default_hand_fee(3999).should == 4.0
+  end
+  it "应能正确保存手续费设置" do
+    config_cash = Factory.build(:config_cash)
+    config_cash.save!
+  end
 end

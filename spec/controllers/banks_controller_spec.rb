@@ -2,70 +2,68 @@
 require 'spec_helper'
 
 describe BanksController do
+  login_admin
+  render_views
 
-  def mock_bank(stubs={})
-    (@mock_bank ||= mock_model(Bank).as_null_object).tap do |bank|
-      bank.stub(stubs) unless stubs.empty?
-    end
+  before(:each) do
+    @bank = Factory(:icbc)
   end
+
 
   describe "GET index" do
     it "assigns all banks as @banks" do
-      Bank.stub(:all) { [mock_bank] }
       get :index
-      assigns(:banks).should eq([mock_bank])
+      response.should be_success
     end
   end
 
   describe "GET show" do
-    it "assigns the requested bank as @bank" do
-      Bank.stub(:find).with("37") { mock_bank }
-      get :show, :id => "37"
-      assigns(:bank).should be(mock_bank)
+
+    it "should be success" do
+      get :show, :id => @bank
+      response.should be_success
+    end
+
+    it "assigns the requested computer_bill as @computer_bill" do
+      get :show, :id => @bank
+      response.should render_template('show')
     end
   end
 
   describe "GET new" do
-    it "assigns a new bank as @bank" do
-      Bank.stub(:new) { mock_bank }
+    it "should be success" do
       get :new
-      assigns(:bank).should be(mock_bank)
+      response.should be_success
     end
   end
 
   describe "GET edit" do
-    it "assigns the requested bank as @bank" do
-      Bank.stub(:find).with("37") { mock_bank }
-      get :edit, :id => "37"
-      assigns(:bank).should be(mock_bank)
+    it "should render 'edit' template" do
+      get :edit, :id => @bank
+      response.should render_template('edit')
     end
   end
 
   describe "POST create" do
-
-    describe "with valid params" do
-      it "assigns a newly created bank as @bank" do
-        Bank.stub(:new).with({'these' => 'params'}) { mock_bank(:save => true) }
-        post :create, :bank => {'these' => 'params'}
-        assigns(:bank).should be(mock_bank)
+    before(:each) do
+      @attr = Factory.build(:bank).attributes
+    end
+    describe "success" do
+      it "能够成功保存银行信息" do
+        lambda do
+          post :create, :bank => @attr
+        end.should change(Bank,:count).by(1)
       end
 
       it "redirects to the created bank" do
-        Bank.stub(:new) { mock_bank(:save => true) }
-        post :create, :bank => {}
-        response.should redirect_to(bank_url(mock_bank))
+        post :create, :bank => @attr
+        response.should redirect_to(bank_path(assigns(:bank)))
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved bank as @bank" do
-        Bank.stub(:new).with({'these' => 'params'}) { mock_bank(:save => false) }
-        post :create, :bank => {'these' => 'params'}
-        assigns(:bank).should be(mock_bank)
-      end
 
       it "re-renders the 'new' template" do
-        Bank.stub(:new) { mock_bank(:save => false) }
         post :create, :bank => {}
         response.should render_template("new")
       end
@@ -74,37 +72,27 @@ describe BanksController do
   end
 
   describe "PUT update" do
+    before :each do
+      @attr = {:name => 'update bank name'}
+    end
 
     describe "with valid params" do
-      it "updates the requested bank" do
-        Bank.should_receive(:find).with("37") { mock_bank }
-        mock_bank.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :bank => {'these' => 'params'}
+      it "updates the requested computer_bill" do
+        put :update, :id => @bank, :bank => @attr 
+        @bank.reload
+        @bank.name.should == @attr[:name]
       end
 
-      it "assigns the requested bank as @bank" do
-        Bank.stub(:find) { mock_bank(:update_attributes => true) }
-        put :update, :id => "1"
-        assigns(:bank).should be(mock_bank)
-      end
 
       it "redirects to the bank" do
-        Bank.stub(:find) { mock_bank(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(bank_url(mock_bank))
+        put :update, :id => @bank,:bank => @attr
+        response.should redirect_to(bank_path(@bank))
       end
     end
 
     describe "with invalid params" do
-      it "assigns the bank as @bank" do
-        Bank.stub(:find) { mock_bank(:update_attributes => false) }
-        put :update, :id => "1"
-        assigns(:bank).should be(mock_bank)
-      end
-
       it "re-renders the 'edit' template" do
-        Bank.stub(:find) { mock_bank(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => @bank,:bank => {:name => nil}
         response.should render_template("edit")
       end
     end
@@ -113,14 +101,13 @@ describe BanksController do
 
   describe "DELETE destroy" do
     it "destroys the requested bank" do
-      Bank.should_receive(:find).with("37") { mock_bank }
-      mock_bank.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      lambda do
+        delete :destroy, :id => @bank
+      end.should change(Bank,:count).by(-1)
     end
 
     it "redirects to the banks list" do
-      Bank.stub(:find) { mock_bank }
-      delete :destroy, :id => "1"
+      delete :destroy, :id => @bank
       response.should redirect_to(banks_url)
     end
   end

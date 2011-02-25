@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 require "spec_helper"
 
 describe BanksController do
@@ -32,6 +31,5 @@ describe BanksController do
     it "recognizes and generates #destroy" do
       { :delete => "/banks/1" }.should route_to(:controller => "banks", :action => "destroy", :id => "1")
     end
-
   end
 end

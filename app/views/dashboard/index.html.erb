@@ -8,7 +8,6 @@
           <h3><%=image_tag "light-bulb.png"%>提醒</h3>
           <ul class='wat-cf'>
             <li>
-              
               <%= link_to "收货清单:(#{@shipped_load_list.to_a.sum(&:bill_count).to_i})张", arrive_load_lists_path %>
             </li>
             <li>
@@ -135,5 +134,6 @@
         </div>
       </div>
     </div>
+    <%= render :partial => "dynamic_toolbar" %>
   </div>
 </div>

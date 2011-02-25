@@ -1,5 +1,6 @@
 #coding: utf-8
 class ConfigCash < ActiveRecord::Base
+  validates_presence_of :fee_from,:fee_to,:hand_fee
   #得到默认的手续费设置
   #客户需求中
   #< 1000 1元
