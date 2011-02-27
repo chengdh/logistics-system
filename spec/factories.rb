@@ -366,6 +366,7 @@ Factory.define :vip do |vip|
   vip.association :org,:factory => :zz
   vip.association :bank,:factory => :icbc
   vip.bank_card "6222032031714562349"
+  vip.association :config_transit,:factory => :config_vip
   vip.id_number "410221197510020418"
 end
 #现金代收货款支付清单
@@ -475,4 +476,38 @@ end
 Factory.define :config_common,:parent =>:config_transit do |config|
   config.name "普通客户"
   config.rate 0.003
+end
+#短途运费管理
+Factory.define :short_fee_info do |model|
+  model.association :org,:factory => :zz
+  model.after_build do |m|
+    m.carrying_bills << Factory(:computer_bill)
+  end
+end
+#il_config
+Factory.define :il_config do |config|
+  config.key "il_key"
+  config.title "il_title"
+  config.value 'il_value'
+end
+#remittance 汇款记录
+Factory.define :remittance do |remittance|
+  remittance.association :from_org,:factory => :zz
+  remittance.association :to_org,:factory => :sjz
+  remittance.association :refound,:factory => :refound_with_bills
+  remittance.should_fee 5000
+  remittance.act_fee 5000
+end
+#goods_exception
+Factory.define :goods_exception do |gx|
+  gx.association :org,:factory => :zz
+  gx.association :carrying_bill,:factory => :computer_bill
+  gx.exception_type "LA"
+  gx.except_num 10
+end
+#gexception_authorize_info
+Factory.define :gexception_authorize_info do |authorize_info|
+  authorize_info.association :goods_exception,:factory => :goods_exception
+  authorize_info.op_type "FO"
+  authorize_info.compensation_fee 100
 end

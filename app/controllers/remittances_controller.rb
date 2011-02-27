@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class RemittancesController < BaseController
   def update
     @remittance = Remittance.find(params[:id])
@@ -14,5 +11,4 @@ class RemittancesController < BaseController
     @search = resource_class.search(params[:search])
     render :partial => "search",:object => @search
   end
-
 end

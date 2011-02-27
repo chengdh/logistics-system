@@ -1,5 +1,7 @@
 #coding: utf-8
 class IlConfig < ActiveRecord::Base
+  validates_presence_of :key
+  validates :key,:presence => true,:uniqueness => true
   #保价费设置比例
   KEY_INSURED_RATE = 'insured_rate'
   #用户名称设置

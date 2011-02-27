@@ -4,6 +4,9 @@ class GexceptionAuthorizeInfo < ActiveRecord::Base
   belongs_to :goods_exception
 
   default_value_for :bill_date,Date.today
+  validates_presence_of :goods_exception_id,:bill_date,:op_type
+  validates_numericality_of :compensation_fee
+  
 
   #赔偿方式
   COMPENSATE_TYPE_NOPAY = 'NP'
@@ -19,5 +22,4 @@ class GexceptionAuthorizeInfo < ActiveRecord::Base
       "总部处理" => COMPENSATE_TYPE_HEADQUARTERS
     }
   end
-
 end

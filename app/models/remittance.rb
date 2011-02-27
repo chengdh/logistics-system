@@ -1,10 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 #汇款记录
 class Remittance < ActiveRecord::Base
   belongs_to :from_org,:class_name => "Org"
@@ -12,6 +6,7 @@ class Remittance < ActiveRecord::Base
   belongs_to :user
   belongs_to :refound
   validates_presence_of :from_org_id,:to_org_id,:refound_id
+  validates_numericality_of :should_fee,:act_fee
   #定义状态机
   #草稿 -- 已汇款
   state_machine :initial => :draft do

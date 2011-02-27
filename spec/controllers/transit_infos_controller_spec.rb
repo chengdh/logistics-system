@@ -1,11 +1,10 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe TransitInfosController do
   login_admin
-
   render_views
+
   describe "GET index" do
     before(:each) do
       @transit_info ||= Factory(:transit_info_with_bill)

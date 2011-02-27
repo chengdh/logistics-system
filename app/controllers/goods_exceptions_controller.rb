@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class GoodsExceptionsController < BaseController
   #需要跳过对update的权限检查,在进行核销/理赔/责任鉴定时候,使用了update
   skip_authorize_resource :only => :update
