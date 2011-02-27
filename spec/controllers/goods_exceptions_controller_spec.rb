@@ -23,7 +23,6 @@ describe GoodsExceptionsController do
   end
 
   describe "GET show" do
-
     it "should be success" do
       get :show, :id => @goods_exception
       response.should be_success
