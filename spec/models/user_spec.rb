@@ -2,5 +2,13 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能正确保存user对象信息" do
+    Factory.build(:user).save!
+  end
+
+  it "应能够正确为新建用户设置默认值" do
+    user = User.new_with_roles(:username => "new_username",:password => 'password',:password_confirmation => 'password')
+    user.save!
+  end
+
 end

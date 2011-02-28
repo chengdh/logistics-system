@@ -454,6 +454,10 @@ Factory.define :user do |user|
   user.association :default_org,:factory => :zz
   user.association :default_role,:factory => :role
 end
+Factory.define :test_user,:class => :user do |user|
+  user.username "test_user"
+  user.password "test_user"
+end
 
 Factory.define :admin,:parent => :user do |admin|
   admin.username "admin"
