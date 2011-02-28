@@ -2,5 +2,8 @@
 require 'spec_helper'
 
 describe Journal do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确保存 journal信息" do
+    journal = Journal.new_with_org(Factory(:zz))
+    journal.save!
+  end
 end

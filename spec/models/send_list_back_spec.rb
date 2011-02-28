@@ -2,5 +2,8 @@
 require 'spec_helper'
 
 describe SendListBack do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确保存 send list back 对象" do
+    Factory.build(:send_list_back).save!
+  end
+
 end

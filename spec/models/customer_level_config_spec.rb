@@ -1,7 +1,8 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe CustomerLevelConfig do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确却保存 customer_level_config 对象" do
+    Factory.build(:customer_level_config).save!
+  end
 end

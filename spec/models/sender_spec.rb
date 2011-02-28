@@ -2,5 +2,8 @@
 require 'spec_helper'
 
 describe Sender do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确保存sender信息" do
+    sender = Factory.build(:sender)
+    sender.save!
+  end
 end

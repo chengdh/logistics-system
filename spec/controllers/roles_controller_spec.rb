@@ -1,72 +1,69 @@
 #coding: utf-8
-#coding: utf-8
 require 'spec_helper'
 
 describe RolesController do
+  login_admin
+  render_views
 
-  def mock_role(stubs={})
-    (@mock_role ||= mock_model(Role).as_null_object).tap do |role|
-      role.stub(stubs) unless stubs.empty?
-    end
+  before(:each) do
+    @role = Factory(:common_role)
   end
+
 
   describe "GET index" do
     it "assigns all roles as @roles" do
-      Role.stub(:all) { [mock_role] }
       get :index
-      assigns(:roles).should eq([mock_role])
+      response.should be_success
     end
   end
 
   describe "GET show" do
+
+    it "should be success" do
+      get :show, :id => @role
+      response.should be_success
+    end
+
     it "assigns the requested role as @role" do
-      Role.stub(:find).with("37") { mock_role }
-      get :show, :id => "37"
-      assigns(:role).should be(mock_role)
+      get :show, :id => @role
+      response.should render_template('show')
     end
   end
 
   describe "GET new" do
-    it "assigns a new role as @role" do
-      Role.stub(:new) { mock_role }
+    it "should be success" do
       get :new
-      assigns(:role).should be(mock_role)
+      response.should be_success
     end
   end
 
   describe "GET edit" do
     it "assigns the requested role as @role" do
-      Role.stub(:find).with("37") { mock_role }
-      get :edit, :id => "37"
-      assigns(:role).should be(mock_role)
+      get :edit, :id => @role
+      response.should render_template('edit')
     end
   end
 
   describe "POST create" do
-
-    describe "with valid params" do
-      it "assigns a newly created role as @role" do
-        Role.stub(:new).with({'these' => 'params'}) { mock_role(:save => true) }
-        post :create, :role => {'these' => 'params'}
-        assigns(:role).should be(mock_role)
+    before(:each) do
+      @attr = {:name => 'test_role'}
+    end
+    describe "success" do
+      it "能够成功保存票据信息" do
+        lambda do
+          post :create, :role => @attr
+        end.should change(Role,:count).by(1)
       end
 
       it "redirects to the created role" do
-        Role.stub(:new) { mock_role(:save => true) }
-        post :create, :role => {}
-        response.should redirect_to(role_url(mock_role))
+        post :create, :role => @attr
+        response.should redirect_to(role_path(assigns(:role)))
       end
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved role as @role" do
-        Role.stub(:new).with({'these' => 'params'}) { mock_role(:save => false) }
-        post :create, :role => {'these' => 'params'}
-        assigns(:role).should be(mock_role)
-      end
 
       it "re-renders the 'new' template" do
-        Role.stub(:new) { mock_role(:save => false) }
         post :create, :role => {}
         response.should render_template("new")
       end
@@ -75,37 +72,27 @@ describe RolesController do
   end
 
   describe "PUT update" do
+    before :each do
+      @attr = {:name => 'updated name'}
+    end
 
     describe "with valid params" do
       it "updates the requested role" do
-        Role.should_receive(:find).with("37") { mock_role }
-        mock_role.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, :id => "37", :role => {'these' => 'params'}
+        put :update, :id => @role, :role => @attr 
+        @role.reload
+        @role.name.should == @attr[:name]
       end
 
-      it "assigns the requested role as @role" do
-        Role.stub(:find) { mock_role(:update_attributes => true) }
-        put :update, :id => "1"
-        assigns(:role).should be(mock_role)
-      end
 
       it "redirects to the role" do
-        Role.stub(:find) { mock_role(:update_attributes => true) }
-        put :update, :id => "1"
-        response.should redirect_to(role_url(mock_role))
+        put :update, :id => @role,:role => @attr
+        response.should redirect_to(role_path(@role))
       end
     end
 
     describe "with invalid params" do
-      it "assigns the role as @role" do
-        Role.stub(:find) { mock_role(:update_attributes => false) }
-        put :update, :id => "1"
-        assigns(:role).should be(mock_role)
-      end
-
       it "re-renders the 'edit' template" do
-        Role.stub(:find) { mock_role(:update_attributes => false) }
-        put :update, :id => "1"
+        put :update, :id => @role,:role => {:name => nil}
         response.should render_template("edit")
       end
     end
@@ -114,16 +101,14 @@ describe RolesController do
 
   describe "DELETE destroy" do
     it "destroys the requested role" do
-      Role.should_receive(:find).with("37") { mock_role }
-      mock_role.should_receive(:destroy)
-      delete :destroy, :id => "37"
+      lambda do
+        delete :destroy, :id => @role 
+      end.should change(Role,:count).by(-1)
     end
 
     it "redirects to the roles list" do
-      Role.stub(:find) { mock_role }
-      delete :destroy, :id => "1"
+      delete :destroy, :id => @role 
       response.should redirect_to(roles_url)
     end
   end
-
 end

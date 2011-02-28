@@ -2,5 +2,7 @@
 require 'spec_helper'
 
 describe TransitCompany do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能正确保存中转物流公司信息" do
+    Factory.build(:transit_company).save!
+  end
 end

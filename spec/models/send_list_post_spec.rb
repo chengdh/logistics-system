@@ -2,5 +2,7 @@
 require 'spec_helper'
 
 describe SendListPost do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确保存send list post" do
+    Factory.build(:send_list_post).save!
+  end
 end

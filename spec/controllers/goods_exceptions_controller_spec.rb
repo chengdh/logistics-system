@@ -34,6 +34,27 @@ describe GoodsExceptionsController do
     end
   end
 
+  describe "GET show_authorize" do
+    it "should be _success" do
+      get :show_authorize ,:id => Factory(:goods_exception)
+      response.should be_success
+    end
+  end
+
+  describe "GET show_claim" do
+    it "should be _success" do
+      get :show_claim ,:id => Factory(:goods_exception)
+      response.should be_success
+    end
+  end
+
+  describe "GET show_identify" do
+    it "should be _success" do
+      get :show_identify ,:id => Factory(:goods_exception)
+      response.should be_success
+    end
+  end
+
   describe "GET new" do
     it "should be success" do
       get :new

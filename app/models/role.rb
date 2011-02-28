@@ -10,6 +10,8 @@ class Role < ActiveRecord::Base
   accepts_nested_attributes_for :role_system_function_operates,:allow_destroy => true
   accepts_nested_attributes_for :role_orgs,:allow_destroy => true
 
+  validates :name,:presence => true,:uniqueness => true
+
   #显示所有系统功能,包括当前角色具备的功能
   def all_role_system_function_operates!
     SystemFunctionOperate.where(:is_active => true).order("system_function_id").each do |sf_operate|

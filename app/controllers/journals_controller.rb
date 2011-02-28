@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class JournalsController < BaseController
   table :bill_date,:org_id,:user_id
   def new

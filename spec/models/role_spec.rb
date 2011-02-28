@@ -2,5 +2,8 @@
 require 'spec_helper'
 
 describe Role do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "应能够正确保存 role 角色信息" do
+    role = Role.new_with_default(:name => 'role')
+    role.save!
+  end
 end

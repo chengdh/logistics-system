@@ -444,6 +444,10 @@ Factory.define :role do |role|
   role.name "admin_role"
 end
 
+Factory.define :common_role,:parent => :role do |role|
+  role.name "common_role"
+end
+
 Factory.define :user do |user|
   user.username "user"
   user.password "user"
@@ -510,4 +514,46 @@ Factory.define :gexception_authorize_info do |authorize_info|
   authorize_info.association :goods_exception,:factory => :goods_exception
   authorize_info.op_type "FO"
   authorize_info.compensation_fee 100
+end
+#journal
+Factory.define :journal do |journal|
+  journal.association :org,:factory => :zz
+end
+#sender
+Factory.define :sender do |sender|
+  sender.name 'sender'
+  sender.association :org ,:factory => :zz
+end
+#send_list
+Factory.define :send_list do |sl|
+  sl.association :sender,:factory => :sender
+  sl.association :org,:factory => :zz
+end
+#send_list_line
+Factory.define :send_list_line do |sl_line|
+  sl_line.association :carrying_bill,:factory => :computer_bill
+  sl_line.association :send_list,:factory => :send_list
+end
+#send_list_post
+Factory.define :send_list_post do |sl_post|
+  sl_post.association :sender,:factory => :sender
+  sl_post.association :org,:factory => :zz
+  sl_post.after_create do |p|
+    p.send_list_lines << Factory(:send_list_line)
+  end
+end
+#send_list_back
+Factory.define :send_list_back do |sl_back|
+  sl_back.association :sender,:factory => :sender
+  sl_back.association :org,:factory => :zz
+  sl_back.after_create do |p|
+    p.send_list_lines << Factory(:send_list_line)
+  end
+end
+#customer_level_config
+Factory.define :customer_level_config do |config|
+  config.name "customer_level_config"
+  config.association :org,:factory => :zz
+  config.from_fee 0
+  config.to_fee 1000
 end

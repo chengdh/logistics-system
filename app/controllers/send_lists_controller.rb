@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class SendListsController < BaseController
   def create
     bill = resource_class.new(params[resource_class.model_name.underscore])
@@ -24,5 +21,4 @@ class SendListsController < BaseController
       format.csv {send_data resource.to_csv}
     end
   end
-
 end

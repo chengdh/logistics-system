@@ -1,13 +1,8 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class Journal < ActiveRecord::Base
   belongs_to :org
   belongs_to :user
+  validates_presence_of :org_id
   default_value_for :bill_date,Date.today
   #带org的构造函数
   def self.new_with_org(org,bill_date=Date.today)

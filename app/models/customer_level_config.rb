@@ -1,6 +1,8 @@
 #coding: utf-8
 class CustomerLevelConfig < ActiveRecord::Base
   belongs_to :org
+  validates_presence_of :org_id,:name
+  validates_numericality_of :from_fee,:to_fee
   VIP_DIAMOND = 'level_99'  #钻石
   VIP_GOLD = 'level_88'   #黄金
   VIP_SLIVER = 'level_66'  #白银
