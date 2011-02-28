@@ -1,6 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
 module CarryingBillsHelper
   #运费支付方式显示
   def pay_type_des(pay_type)
