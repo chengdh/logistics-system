@@ -21,7 +21,7 @@ gem 'inherited_resources', '1.1.2'
 gem 'inherited_resources_views'
 gem 'dynamic_form'
 gem 'show_for'
-#gem 'fastercsv'
+gem 'fastercsv'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

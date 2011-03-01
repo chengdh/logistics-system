@@ -1,11 +1,8 @@
 #coding: utf-8
 #为Array类添加导出csv方法
-require 'csv'
 require "nkf"
 class Array
-  #BOM_HEADER = ["FFFE"].pack("H*")
-  #FIXME 此处编码问题未解决
-  BOM_HEADER = ""
+  BOM_HEADER ="FFFE".gsub(/\s/,'').to_a.pack("H*")
   def to_csv(options = {})
     return '' if self.empty?
 
@@ -22,7 +19,7 @@ class Array
 
     return '' if columns.empty?
 
-    output = CSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
+    output = FasterCSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
       csv << columns.map { |column| klass.human_attribute_name(column) } unless options[:headers] == false
       self.each do |item|
         csv << columns.collect { |column| item.send(column) }
@@ -35,21 +32,25 @@ class Array
     #BOM头信息
     ret = ""
     if with_bom_header
-      ret = NKF.nkf("-w16L",self.to_csv(options))
+      #ret = NKF.nkf("--oc UTF-16LE-BOM",self.to_csv(options))
+      ret = BOM_HEADER + self.to_csv(options).utf8_to_utf16
     else
-      ret = NKF.nkf("-w16L0",self.to_csv(options))
+      ret = self.to_csv(options).utf8_to_utf16
     end
     ret
   end
   #将数组中的数据导出为一行
   def export_line_csv(with_bom_header = false)
-    output = CSV.generate(:col_sep => "\t", :row_sep => "\r\n")do |csv|
+    output = FasterCSV.generate(:col_sep => "\t", :row_sep => "\r\n")do |csv|
       csv << self
     end
     if with_bom_header
-      ret = NKF.nkf("-w16L",output)
+      ret = BOM_HEADER + output.utf8_to_utf16
+      #ret = NKF.nkf("--oc UTF-16LE-BOM",output)
     else
-      ret = NKF.nkf("-w16L0",output)
+      ret = output.utf8_to_utf16
+      #ret = NKF.nkf("--oc UTF-16LE-BOM",output)
     end
+    ret
   end
 end
