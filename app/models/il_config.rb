@@ -26,9 +26,9 @@ class IlConfig < ActiveRecord::Base
    if self.find_by_key(KEY_LOGO).blank?
      self.create(:key => KEY_LOGO,:title => '公司标志',:value => '/images/logo.png')
    end
-   logo = self.find_by_key(KEY_LOGO).value
+   logo = self.find_by_key(KEY_LOGO)
    logo.value ='/images/logo.png' if logo.value.blank?
-   logo
+   logo.value
   end
   def self.system_title
    if self.find_by_key(KEY_TITLE).blank?
