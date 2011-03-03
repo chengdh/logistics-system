@@ -18,7 +18,7 @@ class IlConfig < ActiveRecord::Base
   end
   def self.client_name
    if self.find_by_key(KEY_CLIENT_NAME).blank?
-     self.create(:key => KEY_CLIENT_NAME,:title => '公司名称',:value => '郑州市燕赵货运服务有限公司')
+     self.create(:key => KEY_CLIENT_NAME,:title => '公司名称',:value => 'XXX物流公司')
    end
    self.find_by_key(KEY_CLIENT_NAME).value
   end
@@ -26,7 +26,9 @@ class IlConfig < ActiveRecord::Base
    if self.find_by_key(KEY_LOGO).blank?
      self.create(:key => KEY_LOGO,:title => '公司标志',:value => '/images/logo.png')
    end
-   self.find_by_key(KEY_LOGO).value
+   logo = self.find_by_key(KEY_LOGO).value
+   logo.value ='/images/logo.png' if logo.value.blank?
+   logo
   end
   def self.system_title
    if self.find_by_key(KEY_TITLE).blank?
