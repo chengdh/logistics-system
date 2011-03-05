@@ -102,7 +102,8 @@ jQuery(function($) {
 		var login_form = $('#loginform_2');
 		var use_usb = $('#use_usb');
 		var usb_pin = $('#usb_pin');
-		if (use_usb.val() == 'false') {
+                //只支持ie
+		if (use_usb.val() == 'true' && $.browser.msie) {
 			if ($.ukey_read() == usb_pin) {
 				login_form.submit();
 			}
