@@ -102,7 +102,7 @@ jQuery(function($) {
 		var login_form = $('#loginform_2');
 		var use_usb = $('#use_usb');
 		var usb_pin = $('#usb_pin');
-                //只支持ie
+		//只支持ie
 		if (use_usb.val() == 'true' && $.browser.msie) {
 			if ($.ukey_read() == usb_pin) {
 				login_form.submit();
@@ -111,6 +111,22 @@ jQuery(function($) {
 		}
 		else login_form.submit();
 		return false;
+	});
+	//保存用户之前,先写入usb key
+        //FIXME 此处还有问题
+	$('.new_user').bind('ajax:before', function() {
+		var user_form = $(this);
+		var use_usb = $('#user_use_usb');
+		var usb_pin = $('#user_usb_pin');
+		//只支持ie
+		if (use_usb.val() == '1' && $.browser.msie) {
+			if ($.ukey_write(usb_pin.val())) {
+				return true;
+			}
+			else return false;
+		}
+		else return true;
+
 	});
 });
 

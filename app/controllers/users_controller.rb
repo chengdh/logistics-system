@@ -18,4 +18,11 @@ class UsersController < BaseController
       render :edit_password
     end
   end
+  #GET users/:id/reset_usb_pin
+  #重设usb pin
+  def reset_usb_pin
+    @user = User.find(params[:id])
+    @user.set_usb_pin
+    render :edit
+  end
 end

@@ -17,13 +17,13 @@ class User < ActiveRecord::Base
   belongs_to :default_org,:class_name => "Org"
   belongs_to :default_role,:class_name => "Role"
   accepts_nested_attributes_for :user_roles,:user_orgs,:allow_destroy => true
-  #创建之前,写入usb_pin
-  before_create :generate_usb_pin
 
   def self.new_with_roles(attrs= {})
     ret = User.new(attrs)
     ret.all_user_roles!
     ret.all_user_orgs!
+    #创建之前,写入usb_pin
+    ret.set_usb_pin
     ret
   end
   #显示所有部门,包括当前角色具备与不具备的部门
@@ -53,8 +53,8 @@ class User < ActiveRecord::Base
   def to_s
     self.username
   end
-  private
-  def generate_usb_pin
+  #设置usb pin
+  def set_usb_pin
     self.usb_pin = UUID.generate(:compact)
   end
 end

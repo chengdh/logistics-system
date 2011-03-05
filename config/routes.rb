@@ -59,6 +59,7 @@ IlYanzhao::Application.routes.draw do
 
   resources :users do
     get :edit_password,:on => :collection
+    get :reset_usb_pin,:on => :member
     put :update_password,:on => :collection
   end
 

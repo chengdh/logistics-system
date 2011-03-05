@@ -1,0 +1,7 @@
+<%if params[:action] == "show"%>
+  <%if can? :edit,resource_class%>
+    <li>
+      <%= link_to image_tag("auction-hammer--arrow.png",:alt => "重设usbkey") , reset_usb_pin_user_path(resource),:title => "重设usb key",:class => "tipsy"  %>
+    </li>
+  <%end%>
+<%end%>

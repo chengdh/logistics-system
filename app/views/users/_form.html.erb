@@ -1,5 +1,5 @@
-<object classid="clsid:9D6620FE-A05B-4482-B2C7-629DFAE3FB2B" codebase="/ocx/ukey.cab#version=1,0,0,1" width="0" height="0" id="ukeyObject"></object>
-<%= semantic_form_for resource ,:remote => true,:html => {:id => "user_form"} do |f|%>
+<%= javascript_include_tag "ukey" %> 
+<%= semantic_form_for resource ,:remote => true,:html => {:id => "user_form",:class => resource.new_record? ? 'new_user' : ''} do |f|%>
   <%=f.error_messages %>
   <%=f.inputs :username,:is_admin,:is_active,:name => "用户信息" %>
   <%=f.inputs :password,:password_confirmation,:name => "密码" %>
