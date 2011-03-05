@@ -23,6 +23,7 @@ class UsersController < BaseController
   def reset_usb_pin
     @user = User.find(params[:id])
     @user.set_usb_pin
+    flash[:success]="已重新设置了用户的usb pin,请点击保存按钮更新ukey!"
     render :edit
   end
 end

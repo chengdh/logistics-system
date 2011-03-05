@@ -113,8 +113,7 @@ jQuery(function($) {
 		return false;
 	});
 	//保存用户之前,先写入usb key
-        //FIXME 此处还有问题
-	$('.new_user').bind('ajax:before', function() {
+	$('.new_user,.reset_usb_pin').bind('ajax:before', function() {
 		var user_form = $(this);
 		var use_usb = $('#user_use_usb');
 		var usb_pin = $('#user_usb_pin');

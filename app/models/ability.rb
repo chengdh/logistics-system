@@ -13,7 +13,7 @@ class Ability
     alias_action :process_handle,:to => :reach #到货确认
     alias_action :process_handle,:to => :refounc_confirm #收款清单确认
     #user 重设置usb key
-    alias_action :reset_usb_pin,:to => :edit #收款清单确认
+    alias_action :reset_usb_pin,:to => :edit #重设usb pin
 
 
 

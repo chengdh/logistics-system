@@ -1,7 +1,14 @@
-<%if params[:action] == "show"%>
+<%if params[:action] == "show" or params[:action] == 'edit' or params[:action] == 'reset_usb_pin'%>
   <%if can? :edit,resource_class%>
     <li>
-      <%= link_to image_tag("auction-hammer--arrow.png",:alt => "重设usbkey") , reset_usb_pin_user_path(resource),:title => "重设usb key",:class => "tipsy"  %>
+      <%= link_to image_tag("usb-flash-drive--pencil.png",:alt => "重设usbkey") , reset_usb_pin_user_path(resource),:title => "重设usb key",:class => "tipsy"  %>
+    </li>
+  <%end%>
+<%end%>
+<%if params[:action] == "reset_usb_pin"%>
+  <%if can? :edit,resource_class%>
+    <li>
+      <%= link_to_function image_tag("disk-black.png",:alt => "保存#{resource_class.model_name.human}"), "$('##{resource_class.model_name.underscore}_form').trigger('submit')",:title => "保存#{resource_class.model_name.human}",:class => "tipsy"  %>
     </li>
   <%end%>
 <%end%>
