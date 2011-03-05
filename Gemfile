@@ -22,6 +22,8 @@ gem 'inherited_resources_views'
 gem 'dynamic_form'
 gem 'show_for'
 gem 'fastercsv'
+#uuid generator
+gem 'uuid'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

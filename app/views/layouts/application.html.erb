@@ -34,11 +34,11 @@
   <body>
     <div id="container">
       <div id="header">
-        <h1 id='client_name'><%=image_tag "#{IlConfig.client_logo}",:id => 'logo' %><%= link_to "#{IlConfig.client_name}", :root %></h1>
+        <h1 id='client_name'><%=image_tag "#{IlConfig.client_logo}",:id => 'logo' %>&nbsp;&nbsp;<%= link_to "#{IlConfig.client_name}", :root %></h1>
         <div id="util-navigation">
           <ul class="wat-cf">
             <li>
-              <%= link_to "#{current_user.username}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_user_registration_path %>
+              <%= link_to "#{current_user.username}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_password_users_path %>
             </li>
             <li><%=link_to "退出系统",destroy_user_session_path,:class => 'logout'%></li>
           </ul>

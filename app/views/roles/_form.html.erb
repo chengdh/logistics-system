@@ -4,22 +4,6 @@
     <%= f.input :name,:label => "角色名称",:hint => "无效的角色将不在用户管理中显示", :input_html => {:title => "必填字段"} %>
     <%= f.input :is_active,:label =>"有效" %>
   <% end %>
-  <div class='wat-cf'>
-    <ul id="role_tab" class='tabs'>
-      <li class='here'><a href="#role_system_functions_list" class='here'><%= image_tag('function.png') %>功能选择</a></li>
-      <li><a href="#role_org_tab"><%= image_tag('bank.png')%>部门/分理处选择</a></li>
-    </ul>
-  </div>
-  <div id="role_org_tab" style='display : none;'>
-    <ul id="role_orgs_list">
-      <li class='ui-treeList-open'>
-        <%=IlConfig.client_name%>
-        <%=f.fields_for :role_orgs,resource.all_role_orgs!.select { |role_org| role_org.org.parent.blank?} do |role_org|%>
-          <%= render "role_org_recursive",:role_org => role_org,:f => f %>
-        <%end%>
-      </li>
-    </ul>
-  </div>
   <div id="role_system_functions_list">
     <%SystemFunctionGroup.where(:is_active => true).each do |group|%>
       <h3><a href='#'><%=group.name%></a></h3>

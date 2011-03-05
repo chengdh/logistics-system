@@ -1,4 +1,9 @@
 zh-CN:
+  flash:
+    actions:
+      create:
+        notice: "{resource_name}} 保存成功!" 
+
   formtastic:
     labels:
 
@@ -397,6 +402,7 @@ zh-CN:
         current_password: "原密码"
         password: "密码"
         password_confirmation: "验证密码"
+        use_usb: "使用usb key控制用户登录"
 
       user_role:
         is_select: "选择"  #g

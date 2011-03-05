@@ -594,7 +594,7 @@ namespace :db do
     }
     SystemFunction.create_by_hash(sf_hash)
     #################################用户角色管理################################################
-    subject_title = "用户角色管理"
+    subject_title = "角色/权限管理"
     subject = "Role"
     sf_hash = {
       :group_name => group_name,

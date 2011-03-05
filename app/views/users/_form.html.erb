@@ -1,12 +1,29 @@
+<object classid="clsid:9D6620FE-A05B-4482-B2C7-629DFAE3FB2B" codebase="/ocx/ukey.cab#version=1,0,0,1" width="0" height="0" id="ukeyObject"></object>
 <%= semantic_form_for resource ,:remote => true,:html => {:id => "user_form"} do |f|%>
   <%=f.error_messages %>
   <%=f.inputs :username,:is_admin,:is_active,:name => "用户信息" %>
   <%=f.inputs :password,:password_confirmation,:name => "密码" %>
+  <%=f.inputs :name => "使用usb_key" do %>
+    <%=f.input :use_usb %>
+    <%=f.input :usb_pin,:as => :hidden %>
+  <%end%>
   <%=f.inputs "选择角色" do %>
     <%=f.semantic_fields_for :user_roles,resource.all_user_roles! do |user_role|%>
       <%=user_role.hidden_field :role_id%>
       <%=user_role.hidden_field :_destroy%>
       <%=user_role.check_box :is_select%><%=user_role.label :is_select,user_role.object.role.name%>
     <%end%>
+  <%end%>
+  <%=f.inputs "可访问机构" do %>
+    <div id="user_org_tab">
+      <ul id="user_orgs_list">
+        <li class='ui-treeList-open'>
+          <%=IlConfig.client_name%>
+          <%=f.fields_for :user_orgs,resource.all_user_orgs!.select { |user_org| user_org.org.parent.blank?} do |user_org|%>
+            <%= render "user_org_recursive",:user_org => user_org,:f => f %>
+          <%end%>
+        </li>
+      </ul>
+    </div>
   <%end%>
 <% end%>

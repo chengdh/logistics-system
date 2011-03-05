@@ -50,15 +50,8 @@ jQuery(function($) {
 	$('#role_orgs_list').treeList();
 	//组织机构列表
 	$('#orgs_list').treeList();
-	$('#role_orgs_list').treeList();
+	$('#user_orgs_list').treeList();
 	$('#role_system_functions_list').accordion();
-	$('#role_tab a').click(function() {
-		var active_el = $($(this).attr('href'));
-		$('#role_org_tab').hide();
-		$('#role_system_functions_list').hide();
-		$(active_el).show();
-
-	});
 	//根据客户编号查询查询客户信息
 	var search_customer_by_code = function() {
 		var code = $(this).val();

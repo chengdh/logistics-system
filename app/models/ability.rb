@@ -13,18 +13,12 @@ class Ability
     alias_action :process_handle,:to => :reach #到货确认
     alias_action :process_handle,:to => :refounc_confirm #收款清单确认
 
-    #设定用户对运单的操作权限
-    ability_org_ids = user.current_ability_org_ids
-
-    #定义运单的读权限
-    can :read,CarryingBill,['from_org_id in (?) or transit_org_id in (?) or to_org_id in (?)',ability_org_ids,ability_org_ids,ability_org_ids] do |bill|
-      ability_org_ids.include?(bill.from_org_id) or ability_org_ids.include?(bill.to_org_id) or ability_org_ids.include?(bill.transit_org_id)
-    end
-    #登录时,可操作current_role_change action
-    can :current_role_change,Role
 
 
     if user.is_admin?
+      #先定义可操作所有权限,在下边对权限进行覆盖
+      can :manage,:all
+
       SystemFunctionOperate.all.each do |sfo| 
         f_obj = sfo.function_obj
         if f_obj[:conditions].present?
@@ -36,13 +30,33 @@ class Ability
     else
       user.default_role.system_function_operates.each do |sfo| 
         f_obj = sfo.function_obj
+        the_model_class = f_obj[:subject].constantize
         if f_obj[:conditions].present?
-          can f_obj[:action],f_obj[:subject].constantize ,eval(f_obj[:conditions]) 
+          can f_obj[:action],the_model_class ,eval(f_obj[:conditions]) 
         else
-          can f_obj[:action],f_obj[:subject].constantize
+          can f_obj[:action],the_model_class
+        end
+        #默认情况下,如果有create,edit权限,则默认具备read权限
+        if can?(:create,the_model_class) or can?(:edit,the_model_class) or can?(:update,the_model_class)
+          can :read,the_model_class
         end
       end
     end
+
+    #设定用户对运单的操作权限
+    ability_org_ids = user.current_ability_org_ids
+
+    #定义运单的读权限
+    can :read,CarryingBill,['from_org_id in (?) or transit_org_id in (?) or to_org_id in (?)',ability_org_ids,ability_org_ids,ability_org_ids] do |bill|
+      ability_org_ids.include?(bill.from_org_id) or ability_org_ids.include?(bill.to_org_id) or ability_org_ids.include?(bill.transit_org_id)
+    end
+    #登录时,可操作current_role_change action
+    can :current_role_change,Role
+    #登录后,可修改自身密码
+    can :edit_password,User
+    #可更新自身密码
+    can :update_password,User
+
 
     #以下重新定义运单修改权限
     #重新设置运单不可修改
@@ -70,7 +84,5 @@ class Ability
       can :update,CarryingBill,:from_org_id => user.current_ability_org_ids
     end
 
-    #FIXME 此处为测试使用
-    can :manage,:all if user.is_admin
   end
 end

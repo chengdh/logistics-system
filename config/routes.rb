@@ -50,14 +50,17 @@ IlYanzhao::Application.routes.draw do
   #参见https://github.com/plataformatec/devise/wiki/How-To:-Manage-users-through-a-CRUD-interface
   devise_for :users,:controllers => {:sessions => "sessions"} do
     #登录成功后显示设置角色与部门界面
-    get "users/new_session_default",:to => "sessions#new_session_default",:as => :new_session_default
+    get "users/new_session_default",:to => "sessions#new_session_default",:as => :user_root
     #保存用户设置
     put  "users/update_session_default",:to => "sessions#update_session_default",:as => :update_session_default
   end
 
-  match "users/new_session_default",:to => "sessions#new_session_default",:as => :user_root
+  #match "users/new_session_default",:to => "sessions#new_session_default",:as => :user_root
 
-  resources :users
+  resources :users do
+    get :edit_password,:on => :collection
+    put :update_password,:on => :collection
+  end
 
   resources :transit_deliver_infos do
     resource :carrying_bill

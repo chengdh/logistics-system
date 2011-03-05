@@ -167,7 +167,7 @@
   padding : 5px;
 }
 /*角色部门列表样式*/
-#orgs_list li,#role_orgs_list li {padding : 5px;}
+#orgs_list li,#user_orgs_list li {padding : 5px;}
 .org-operates a {
   margin-right : 20px;
 }

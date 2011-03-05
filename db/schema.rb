@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110222094200) do
+ActiveRecord::Schema.define(:version => 20110305060316) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -709,6 +709,14 @@ ActiveRecord::Schema.define(:version => 20110222094200) do
   add_index "transit_infos", ["transit_company_id"], :name => "index_transit_infos_on_transit_company_id"
   add_index "transit_infos", ["user_id"], :name => "index_transit_infos_on_user_id"
 
+  create_table "user_orgs", :force => true do |t|
+    t.integer  "user_id",                       :null => false
+    t.integer  "org_id",                        :null => false
+    t.boolean  "is_select",  :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "user_roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
@@ -739,6 +747,8 @@ ActiveRecord::Schema.define(:version => 20110222094200) do
     t.datetime "updated_at"
     t.integer  "default_org_id"
     t.integer  "default_role_id"
+    t.boolean  "use_usb",                            :default => false
+    t.string   "usb_pin",             :limit => 32
   end
 
   add_index "users", ["is_active"], :name => "index_users_on_is_active"
