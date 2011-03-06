@@ -1,8 +1,10 @@
 #coding: utf-8
 #运单controller基础类
 class CarryingBillsController < BaseController
-  skip_authorize_resource :only => :update
+  #判断是否超过录单时间,超过录单时间后,不可再录入票据
+  before_filter :check_expire,:only => :new
   before_filter :pre_process_search_params,:only => [:index,:rpt_turnover,:turnover_chart]
+  skip_authorize_resource :only => :update
   belongs_to :load_list,:distribution_list,:deliver_info,:settlement,:refound,:cash_payment_list,:transfer_payment_list,:cash_pay_info,:transfer_pay_info,:post_info,:polymorphic => true,:optional => true
 
   #覆盖默认的index方法,主要是为了导出
@@ -53,5 +55,12 @@ class CarryingBillsController < BaseController
   def turnover_chart
     @search = resource_class.accessible_by(current_ability).turnover.search(params[:search])
     get_collection_ivar || set_collection_ivar(@search.all)
+  end
+  private
+  def check_expire
+    if current_user.default_org.input_expire?
+      flash[:error]="录单时间截至到#{current_user.default_org.lock_input_time},已过录单时间."
+      redirect_to :action => :index
+    end
   end
 end

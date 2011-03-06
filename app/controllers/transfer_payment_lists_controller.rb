@@ -11,6 +11,8 @@ class TransferPaymentListsController < BaseController
   def show
     super do |format|
       format.csv {send_data resource.to_csv}
+      #TODO 需明确转账格式
+      format.text {send_data '1,2,3',:filename => 'txt_file.txt'}
     end
   end
 

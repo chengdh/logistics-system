@@ -42,7 +42,7 @@ jQuery(function($) {
 	});
 
 	//form 自动获取焦点
-	$('form').livequery(function() {
+	$('#carrying_bill_form').livequery(function() {
 		$(this).focus();
 	});
 
@@ -90,6 +90,8 @@ jQuery(function($) {
 		$('#return_bill_note').attr('readonly', false);
 
 	});
+        //设定只读字段的背景色
+        $('input[readonly]').css({background : '#EDEDED'});
 
 	//绑定所有日期选择框
 	$.datepicker.setDefaults({

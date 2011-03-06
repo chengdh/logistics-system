@@ -1,10 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 require 'ruby-pinyin/pinyin'
 class Org < ActiveRecord::Base
   validates_presence_of :name
@@ -25,6 +19,11 @@ class Org < ActiveRecord::Base
   #重写to_s方法
   def to_s
     self.name
+  end
+  #是否超过录单时间
+  def input_expire?
+    self.lock_input_time = '23:59' if self.lock_input_time.blank?
+    Time.now.strftime('%H:%S') >= self.lock_input_time
   end
 
   private

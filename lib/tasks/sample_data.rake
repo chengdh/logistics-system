@@ -68,21 +68,21 @@ namespace :db do
       TransitCompany.create(:name => "中转公司_#{index}",:address => "中转公司地址_#{index} ")
     end
     role = Role.new_with_default(:name => 'admin_role')
-    role.role_orgs.each { |role_org| role_org.is_select = true }
     role.role_system_function_operates.each { |r| r.is_select = true }
     role.save!
     role = Role.new_with_default(:name => 'role_2')
-    role.role_orgs.each { |role_org| role_org.is_select = true }
     role.role_system_function_operates.each { |r| r.is_select = true }
     role.save!
 
     #管理员角色
     admin = User.new_with_roles(:username => 'admin',:password => 'admin',:is_admin => true)
+    admin.user_orgs.each { |user_org| user_org.is_select = true }
     admin.user_roles.each {|user_role| user_role.is_select = true}
     admin.save!
     #普通用户角色
     user = User.new_with_roles(:username => 'user',:password => 'user')
     user.user_roles.each {|user_role| user_role.is_select = true}
+    user.user_orgs.each { |user_org| user_org.is_select = true }
     user.save!
 
     #送货人
