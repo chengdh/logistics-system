@@ -42,9 +42,7 @@ IlYanzhao::Application.routes.draw do
 
   resources :config_transits
 
-  resources :roles do
-    get :current_role_change,:on => :collection
-  end
+  resources :roles
 
   #将devise的url与model user产生的url区分开
   #参见https://github.com/plataformatec/devise/wiki/How-To:-Manage-users-through-a-CRUD-interface

@@ -18,7 +18,9 @@ class Role < ActiveRecord::Base
   end
   #根据系统功能得到对应的role_system_function_operate
   def single_function_operates(sf)
-    self.all_role_system_function_operates!.find_all {|ops| ops.system_function_operate.system_function.id == sf.id}
+    @all_role_sfos ||= self.all_role_system_function_operates!
+    @all_role_sfos.find_all {|ops| ops.system_function_operate.system_function.id == sf.id}
+    #@all_role_sfos.search(:system_function_operate_system_function_id_eq => sf.id).all
   end
 
   def self.new_with_default(attributes = nil)

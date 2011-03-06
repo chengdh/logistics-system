@@ -23,8 +23,9 @@
         <% end %>
         <td>
           <%= link_to "查看", resource_url(resource),:class => "show_link",:style => 'display : none;'%>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <%= link_to image_tag("application--pencil.png"),  edit_resource_path(resource),:title => "修改当前记录",:class => "tipsy" if can? :update,resource%>
-
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <%= link_to image_tag("cross.png"), resource,:method => :delete,:class =>"tipsy",:title => "删除该记录",:confirm => "你确定要删除吗?" if can? :destroy,resource %>
         </td>
       </tr>
