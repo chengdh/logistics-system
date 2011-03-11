@@ -186,6 +186,22 @@ class CarryingBill < ActiveRecord::Base
       ""
       self.to_org.name unless self.to_org.nil?
     end
+    #发货人卡号
+    def from_customer_bank_card
+      return '' if self.from_customer.blank?
+      self.from_customer.bank_card
+    end
+    #发货人编号
+    def from_customer_code
+      return '' if self.from_customer.blank?
+      self.from_customer.code
+    end
+    #代收货款转账银行 
+    def from_customer_bank_name
+      return '' if self.from_customer.blank?
+      self.from_customer.bank.name
+    end
+
     #以千分数表示的保价费
     def insured_rate_disp
       self.insured_rate*1000

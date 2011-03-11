@@ -17,15 +17,14 @@ class PaymentList < ActiveRecord::Base
   default_value_for :bill_date,Date.today
   #导出到csv
   def to_csv
-    ret_array = ["清单日期:",self.bill_date,"分理处/分公司:",self.org.name,"结算员:",self.user.try(:username)]
+    ret_array = ["分理处/分公司:",self.org.name,"清单日期:",self.bill_date,"结算员:",self.user.try(:username)]
     #如果是转账清单,则需要显示银行
-    ret_array = ret_array + ["银行:",self.bank.try(:name)] if self.type == "TransferPaymentList"
+    #ret_array = ret_array + ["银行:",self.bank.try(:name)] if self.type == "TransferPaymentList"
     ret = ret_array.export_line_csv(true)
     ret = ret + ["备注:",self.note].export_line_csv
-    csv_carrying_bills = CarryingBill.to_csv(self.carrying_bills.search,PaymentList.carrying_bill_export_options,false)
+    csv_carrying_bills = CarryingBill.to_csv(self.carrying_bills.search,self.class.carrying_bill_export_options,false)
     ret + csv_carrying_bills
   end
-  private
   def self.carrying_bill_export_options
     {
         :only => [],

@@ -96,6 +96,9 @@ zh-CN:
         from_customer_name: "发货人"  #g
         from_customer_phone: "发货人电话"  #g
         from_customer_mobile: "发货人手机"  #g
+        from_customer_bank_card: "帐号"
+        from_customer_code: "客户编码"
+        from_customer_bank_name: "开户行"
         to_customer_name: "收货人"  #g
         to_customer_phone: "收货人电话"  #g
         to_customer_mobile: "收货人手机"  #g

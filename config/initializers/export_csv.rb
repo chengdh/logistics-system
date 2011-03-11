@@ -20,9 +20,9 @@ class Array
     return '' if columns.empty?
 
     output = FasterCSV.generate(:col_sep => "\t", :row_sep => "\r\n") do |csv|
-      csv << columns.map { |column| klass.human_attribute_name(column) } unless options[:headers] == false
-      self.each do |item|
-        csv << columns.collect { |column| item.send(column) }
+      csv << ["序号"] + columns.map { |column| klass.human_attribute_name(column) } unless options[:headers] == false
+      self.each_with_index do |item,index|
+        csv << [index + 1] + columns.collect { |column| item.send(column) }
       end
     end
     output

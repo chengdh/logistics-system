@@ -76,7 +76,7 @@
           </div>
         </div>    
       </div>
-      <% debug(params) if Rails.env.development? %>
+      <%= debug(params) if Rails.env.development? %>
     </body>
   </html>
   <%=notify_bar :flash => [:notice,:success,:error,:alert],:delay => 4500,:animation_speed => "slow" %>

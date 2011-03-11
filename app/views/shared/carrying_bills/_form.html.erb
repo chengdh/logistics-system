@@ -18,7 +18,7 @@
         <td>中转站</td>
         <td><%= f.select :transit_org_id,exclude_current_ability_orgs_for_select ,{},:class => 'select_org'%></td>
         <td>到货地</td>
-        <td><%= f.text_field :to_area,:size => 30 %></td>
+        <td><%= f.text_field :to_area,:size => 20 %></td>
       <%else%>
         <td>到货站</td>
         <td><%= f.select :to_org_id,exclude_current_ability_orgs_for_select ,{},:class => 'select_org'%></td>
@@ -28,46 +28,46 @@
 
     <tr>
       <td>客户编号</td>
-      <td><%= f.text_field :customer_code,:id => 'customer_code' %></td>
+      <td><%= f.text_field :customer_code,:id => 'customer_code',:size => 10 %></td>
       <td colspan='4'></td>
     </tr>
     <tr>
       <td>发货人</td>
-      <td><%= f.text_field :from_customer_name,:id => 'from_customer_name' %></td>
+      <td><%= f.text_field :from_customer_name,:id => 'from_customer_name',:size => 20  %></td>
       <td>电话</td>
-      <td><%= f.text_field :from_customer_phone,:id => 'from_customer_phone' %></td>
+      <td><%= f.text_field :from_customer_phone,:id => 'from_customer_phone',:size => 20  %></td>
       <td>手机</td>
-      <td><%= f.text_field :from_customer_mobile,:id => 'from_customer_mobile' %></td>
+      <td><%= f.text_field :from_customer_mobile,:id => 'from_customer_mobile',:size => 20  %></td>
     </tr>
     <tr>
       <td>收货人</td>
-      <td><%= f.text_field :to_customer_name,:id => 'to_customer_name' %></td>
+      <td><%= f.text_field :to_customer_name,:id => 'to_customer_name',:size => 20  %></td>
       <td>电话</td>
-      <td><%= f.text_field :to_customer_phone,:id => 'to_customer_phone' %></td>
+      <td><%= f.text_field :to_customer_phone,:id => 'to_customer_phone',:size => 20  %></td>
       <td>手机</td>
-      <td><%= f.text_field :to_customer_mobile,:id => 'to_customer_mobile' %></td>
+      <td><%= f.text_field :to_customer_mobile,:id => 'to_customer_mobile',:size => 20  %></td>
     </tr>
     <tr>
       <td>运费支付方式</td>
       <td><%= f.select :pay_type,CarryingBill.pay_types %></td>
       <td>运费</td>
-      <td><%= f.text_field :carrying_fee,:id => "carrying_fee" %></td>
+      <td><%= f.text_field :carrying_fee,:id => "carrying_fee",:size => 15  %></td>
       <td>代收货款</td>
-      <td><%= f.text_field :goods_fee,:id => "goods_fee" %></td>
+      <td><%= f.text_field :goods_fee,:id => "goods_fee",:size => 15  %></td>
     </tr>
     <tr>
       <td>保价金额</td>
-      <td><%= f.text_field :insured_amount,:id => "insured_amount" %></td>
+      <td><%= f.text_field :insured_amount,:id => "insured_amount",:size => 15  %></td>
       <td>保价比例</td>
-      <td><%= f.text_field :insured_rate_disp,:id => "insured_rate",:readonly => true %>‰</td>
+      <td><%= f.text_field :insured_rate_disp,:id => "insured_rate",:readonly => true,:size => 15  %>‰</td>
       <td>保价费</td>
-      <td><%= f.text_field :insured_fee,:id => "insured_fee",:readonly => true %></td>
+      <td><%= f.text_field :insured_fee,:id => "insured_fee",:readonly => true,:size => 15 %></td>
     </tr>
     <tr>
       <td>发货地短途运费</td>
-      <td><%= f.text_field :from_short_carrying_fee,:id => "from_short_carrying_fee" %></td>
+      <td><%= f.text_field :from_short_carrying_fee,:id => "from_short_carrying_fee",:size => 15  %></td>
       <td>到货地短途运费</td>
-      <td><%= f.text_field :to_short_carrying_fee,:id => "to_short_carrying_fee" %></td>
+      <td><%= f.text_field :to_short_carrying_fee,:id => "to_short_carrying_fee",:size => 15  %></td>
       <td colspan='2'></td>
     </tr>
     <tr>
@@ -79,19 +79,19 @@
     </tr>
     <tr>
       <td>货物名称</td>
-      <td colspan='5'><%= f.text_field :goods_info,:size => 155 %></td>
+      <td colspan='5'><%= f.text_field :goods_info,:size => 60 %></td>
     </tr>
     <tr>
       <td>数量</td>
-      <td><%= f.text_field :goods_num %></td>
+      <td><%= f.text_field :goods_num,:size => 15 %></td>
       <td>重量</td>
-      <td><%= f.text_field :goods_weight %></td>
+      <td><%= f.text_field :goods_weight,:size => 15  %></td>
       <td>体积</td>
-      <td><%= f.text_field :goods_volume %></td>
+      <td><%= f.text_field :goods_volume,:size => 15  %></td>
     </tr>
     <tr>
       <td>备注</td>
-      <td colspan='5'><%= f.text_field :note,:size => 155 %></td>
+      <td colspan='5'><%= f.text_field :note,:size => 100 %></td>
     </tr>
   </table>
 <% end%>
