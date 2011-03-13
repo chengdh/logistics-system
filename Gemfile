@@ -51,7 +51,6 @@ gem 'uuid'
 group :development do
   gem 'annotate-models', '1.0.4'
   gem 'jquery-rails'
-  gem 'faker','0.3.1'
 end
 group :development, :test do
   gem 'rspec-rails','~>2.4.1'
