@@ -190,11 +190,6 @@ class AddIndex < ActiveRecord::Migration
     add_index :roles,:is_active
     ###############roles##########################
 
-    ###############role_orgs#####################
-    add_index :role_orgs,:role_id
-    add_index :role_orgs,:org_id
-    add_index :role_orgs,:is_select
-    ###############role_orgs##########################
 
     ###############role_system_function_operates#####################
     add_index :role_system_function_operates,:role_id
@@ -503,11 +498,6 @@ class AddIndex < ActiveRecord::Migration
     remove_index :roles,:column => :is_active
     ###############roles##########################
 
-    ###############role_orgs#####################
-    remove_index :role_orgs,:column => :role_id
-    remove_index :role_orgs,:column => :org_id
-    remove_index :role_orgs,:column => :is_select
-    ###############role_orgs##########################
 
     ###############role_system_function_operates#####################
     remove_index :role_system_function_operates,:column => :role_id
