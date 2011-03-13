@@ -67,12 +67,20 @@ namespace :db do
     10.times do |index|
       TransitCompany.create(:name => "中转公司_#{index}",:address => "中转公司地址_#{index} ")
     end
+    #送货人
+    Sender.create(:name => "张三",:mobile => "1212121",:org => Org.find_by_py('xt'))
+    Sender.create(:name => "李四",:mobile => "1212121",:org => Org.find_by_py('zzgs'))
+
+    #Rake::Task['db:create_admin_user'].invoke
+  end
+  #创建系统默认用户
+  task :create_admin_user => :environment do
     role = Role.new_with_default(:name => 'admin_role')
     role.role_system_function_operates.each { |r| r.is_select = true }
     role.save!
-    role = Role.new_with_default(:name => 'role_2')
-    role.role_system_function_operates.each { |r| r.is_select = true }
-    role.save!
+    role2 = Role.new_with_default(:name => 'role_2')
+    role2.role_system_function_operates.each { |r| r.is_select = true }
+    role2.save!
 
     #管理员角色
     admin = User.new_with_roles(:username => 'admin',:password => 'admin',:is_admin => true)
@@ -84,10 +92,6 @@ namespace :db do
     user.user_roles.each {|user_role| user_role.is_select = true}
     user.user_orgs.each { |user_org| user_org.is_select = true }
     user.save!
-
-    #送货人
-    Sender.create(:name => "张三",:mobile => "1212121",:org => Org.find_by_py('xt'))
-    Sender.create(:name => "李四",:mobile => "1212121",:org => Org.find_by_py('zzgs'))
   end
   task :create_system_functions => :environment do
 

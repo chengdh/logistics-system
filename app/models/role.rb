@@ -14,6 +14,9 @@ class Role < ActiveRecord::Base
     SystemFunctionOperate.where(:is_active => true).order("system_function_id").each do |sf_operate|
       self.role_system_function_operates.build(:system_function_operate => sf_operate) unless self.role_system_function_operates.detect { |the_rsf_op| the_rsf_op.system_function_operate.id == sf_operate.id }
     end
+    #SystemFunctionOperate.where(:is_active => true).order("system_function_id").each do |sf_operate|
+    #   self.system_function_operates << sf_operate unless self.system_function_operates.include?(sf_operate)
+    # end
     self.role_system_function_operates
   end
   #根据系统功能得到对应的role_system_function_operate
@@ -25,7 +28,9 @@ class Role < ActiveRecord::Base
 
   def self.new_with_default(attributes = nil)
     role = Role.new(attributes)
-    role.all_role_system_function_operates!
+    SystemFunctionOperate.where(:is_active => true).order("system_function_id").each do |sf_operate|
+      role.role_system_function_operates.build(:system_function_operate => sf_operate)
+    end
     role
   end
   #得到被授权的system_function
