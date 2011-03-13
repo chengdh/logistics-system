@@ -24,6 +24,7 @@ gem 'show_for'
 gem 'fastercsv'
 #uuid generator
 gem 'uuid'
+
 gem 'factory_girl_rails', '1.0'
 
 # Bundle edge Rails instead:
