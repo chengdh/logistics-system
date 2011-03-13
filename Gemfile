@@ -24,6 +24,7 @@ gem 'show_for'
 gem 'fastercsv'
 #uuid generator
 gem 'uuid'
+gem 'factory_girl_rails', '1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -55,7 +56,6 @@ end
 group :development, :test do
   gem 'rspec-rails','~>2.4.1'
   gem 'web-app-theme', '>= 0.6.2'
-  gem 'factory_girl_rails', '1.0'
   #i18n_generators
   gem 'i18n_generators'
 end
