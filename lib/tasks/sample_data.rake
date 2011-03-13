@@ -1,5 +1,5 @@
 #coding: utf-8 
-require 'faker'
+#require 'faker'
 
 namespace :db do
   desc "对carrying_bills表进行分表操作"
