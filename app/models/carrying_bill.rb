@@ -311,36 +311,45 @@ class CarryingBill < ActiveRecord::Base
       #导出明细信息
       ret = search_obj.all.export_csv(options,with_bom_header)
       #导出合计信息
-      sum_array =["合计"]
+      sum_array =["合计:#{sum_info[:count]}票"]
+      options[:methods].each do |method_name|
+        sum_value = sum_info["sum_#{method_name}".to_sym]
+        if sum_value.present? and sum_value.is_a?(Numeric)
+          sum_array << sum_value
+        else
+          sum_array << ""
+        end
+      end
       #sum_array << "" if options[:methods].include?(:bill_date)
-      sum_array << "" if options[:methods].include?(:bill_no)
-      sum_array << "" if options[:methods].include?(:goods_no)
-      sum_array << "" if options[:methods].include?(:from_customer_name)
-      sum_array << "" if options[:methods].include?(:from_customer_phone)
-      sum_array << "" if options[:methods].include?(:from_customer_mobile)
-      sum_array << "" if options[:methods].include?(:to_customer_name)
-      sum_array << "" if options[:methods].include?(:to_customer_phone)
-      sum_array << "" if options[:methods].include?(:to_customer_mobile)
-      sum_array << "" if options[:methods].include?(:from_org_name)
-      sum_array << "" if options[:methods].include?(:transit_org_name)
-      sum_array << "" if options[:methods].include?(:to_org_name)
+      #sum_array << "" if options[:methods].include?(:bill_no)
+      #sum_array << "" if options[:methods].include?(:goods_no)
+      #sum_array << "" if options[:methods].include?(:from_customer_name)
+      #sum_array << "" if options[:methods].include?(:from_customer_phone)
+      #sum_array << "" if options[:methods].include?(:from_customer_mobile)
+      #sum_array << "" if options[:methods].include?(:to_customer_name)
+      #sum_array << "" if options[:methods].include?(:to_customer_phone)
+      #sum_array << "" if options[:methods].include?(:to_customer_mobile)
+      #sum_array << "" if options[:methods].include?(:from_org_name)
+      #sum_array << "" if options[:methods].include?(:transit_org_name)
+      #sum_array << "" if options[:methods].include?(:to_org_name)
       #用于显示合计票数
-      sum_array << sum_info[:count] if options[:methods].include?(:pay_type_des)
-      sum_array << sum_info[:sum_from_short_carrying_fee] if options[:methods].include?(:from_short_carrying_fee)
-      sum_array << sum_info[:sum_to_short_carrying_fee] if options[:methods].include?(:to_short_carrying_fee)
-      sum_array << sum_info[:sum_carrying_fee] if options[:methods].include?(:carrying_fee)
-      sum_array << sum_info[:sum_carrying_fee_th] if options[:methods].include?(:carrying_fee_th)
-      sum_array << sum_info[:sum_k_carrying_fee] if options[:methods].include?(:k_carrying_fee)
-      sum_array << sum_info[:sum_k_hand_fee] if options[:methods].include?(:k_hand_fee)
-      sum_array << sum_info[:sum_goods_fee] if options[:methods].include?(:goods_fee)
-      sum_array << sum_info[:sum_insured_fee] if options[:methods].include?(:insured_fee)
-      sum_array << sum_info[:sum_transit_carrying_fee] if options[:methods].include?(:transit_carrying_fee)
-      sum_array << sum_info[:sum_transit_hand_fee] if options[:methods].include?(:transit_hand_fee)
-      sum_array << sum_info[:sum_act_pay_fee] if options[:methods].include?(:act_pay_fee)
-      sum_array << sum_info[:sum_agent_carrying_fee] if options[:methods].include?(:agent_carrying_fee)
-      sum_array << sum_info[:sum_th_amount] if options[:methods].include?(:th_amount)
-      sum_array << sum_info[:sum_goods_num] if options[:methods].include?(:goods_num)
-      sum_array << "" if options[:methods].include?(:human_state_name)
+      #sum_array << "合计:#{sum_info[:count]}票"
+      #sum_array << sum_info[:sum_from_short_carrying_fee] if options[:methods].include?(:from_short_carrying_fee)
+      #sum_array << sum_info[:sum_to_short_carrying_fee] if options[:methods].include?(:to_short_carrying_fee)
+      #sum_array << sum_info[:sum_carrying_fee] if options[:methods].include?(:carrying_fee)
+      #sum_array << sum_info[:sum_carrying_fee_th] if options[:methods].include?(:carrying_fee_th)
+      #sum_array << sum_info[:sum_k_carrying_fee] if options[:methods].include?(:k_carrying_fee)
+      #sum_array << sum_info[:sum_k_hand_fee] if options[:methods].include?(:k_hand_fee)
+      #sum_array << sum_info[:sum_goods_fee] if options[:methods].include?(:goods_fee)
+      #sum_array << sum_info[:sum_insured_fee] if options[:methods].include?(:insured_fee)
+      #sum_array << sum_info[:sum_transit_carrying_fee] if options[:methods].include?(:transit_carrying_fee)
+      #sum_array << sum_info[:sum_transit_hand_fee] if options[:methods].include?(:transit_hand_fee)
+      
+      #sum_array << sum_info[:sum_act_pay_fee] if options[:methods].include?(:act_pay_fee)
+      #sum_array << sum_info[:sum_agent_carrying_fee] if options[:methods].include?(:agent_carrying_fee)
+      #sum_array << sum_info[:sum_th_amount] if options[:methods].include?(:th_amount)
+      #sum_array << sum_info[:sum_goods_num] if options[:methods].include?(:goods_num)
+      #sum_array << "" if options[:methods].include?(:human_state_name)
 
       ret = ret + sum_array.export_line_csv
       ret
