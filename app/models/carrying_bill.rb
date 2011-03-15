@@ -344,7 +344,7 @@ class CarryingBill < ActiveRecord::Base
       #sum_array << sum_info[:sum_insured_fee] if options[:methods].include?(:insured_fee)
       #sum_array << sum_info[:sum_transit_carrying_fee] if options[:methods].include?(:transit_carrying_fee)
       #sum_array << sum_info[:sum_transit_hand_fee] if options[:methods].include?(:transit_hand_fee)
-      
+
       #sum_array << sum_info[:sum_act_pay_fee] if options[:methods].include?(:act_pay_fee)
       #sum_array << sum_info[:sum_agent_carrying_fee] if options[:methods].include?(:agent_carrying_fee)
       #sum_array << sum_info[:sum_th_amount] if options[:methods].include?(:th_amount)
@@ -398,10 +398,10 @@ class CarryingBill < ActiveRecord::Base
           :transit_hand_fee,:act_pay_fee,:agent_carrying_fee,:th_amount,:goods_num,:note,:human_state_name
       ]}
     end
+    #机打运单编号从4000000开始
     #生成票据编号
     def generate_bill_no
-      #FIXME 票据号暂时设置为id
-      self.bill_no = "%07d" % (CarryingBill.count > 0 ? CarryingBill.count : 1)
+      self.bill_no = "%07d" % (CarryingBill.count > 0 ? 4000000 + CarryingBill.count : 4000000)
     end
     def generate_goods_no
       #货号规则

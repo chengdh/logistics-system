@@ -1,3 +1,4 @@
+<%= render "shared/pay_infos/form_before" %>
 <%= semantic_form_for resource ,:remote => true,:html => {:id => "#{resource_class.name.underscore}_form"} do |f|%>
   <%=f.error_messages %>
   <%= f.inputs do %>
