@@ -240,12 +240,12 @@ class CarryingBill < ActiveRecord::Base
 
     #得到提货应收金额
     def th_amount
-      amount = self.agent_carrying_fee - self.transit_hand_fee + self.goods_fee + self.to_short_carrying_fee 
+      amount = self.agent_carrying_fee - self.transit_hand_fee + self.goods_fee
       amount
     end
     #运费总计
     def carrying_fee_total
-      carrying_fee + insured_fee + from_short_carrying_fee + to_short_carrying_fee
+      carrying_fee + insured_fee
     end
     #代收货款支付方式,无客户编号时,为现金支付
     def goods_fee_cash?
@@ -380,7 +380,7 @@ class CarryingBill < ActiveRecord::Base
       #实提货款合计
       sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
       sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
-      sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]+ sum_info[:sum_to_short_carrying_fee]
+      sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]
       sum_info
     end
 

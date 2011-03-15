@@ -20,7 +20,10 @@ class Ability
 
     if user.is_admin?
       #先定义可操作所有权限,在下边对权限进行覆盖
-      can :manage,:all
+      can :read,:all
+      can :create,:all
+      can :edit,:all
+      can :destroy,:all
 
       SystemFunctionOperate.all.each do |sfo| 
         f_obj = sfo.function_obj

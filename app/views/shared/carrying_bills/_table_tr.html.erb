@@ -4,7 +4,10 @@
     <%=bill.bill_date.strftime('%y-%m-%d')%>
   </td>
   <td>
-    <%=bill.bill_no%>/<%=bill.goods_no%>
+    <%=bill.bill_no%>
+  </td>
+  <td>
+    <%=bill.goods_no%>
   </td>
   <td>
     <%=bill.from_org_name%>~<%=["TransitBill","HandTransitBill"].include?(bill.type) ? "#{bill.transit_org.name}~#{bill.to_area}" : bill.to_org_name%>
@@ -41,6 +44,6 @@
   <td class="state"><%= bill.human_state_name %></td>
   <td class='send_state' style='display :none;'><%=bill.send_state%></td>
   <td>
-    <%=link_to_function  image_tag("mouse--minus.png"),"$('#bill_#{bill.id}').remove()" %>
+    <%=link_to_function  image_tag("mouse--minus.png"),"$('#bill_#{bill.id}').remove()",:class => "tipsy",:title => '删除' %>
   </td>
 </tr>      

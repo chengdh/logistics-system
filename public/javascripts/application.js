@@ -19,11 +19,11 @@ jQuery(function($) {
 		var carrying_fee = parseFloat($('#carrying_fee').val());
 		var from_short_carrying_fee = parseFloat($('#from_short_carrying_fee').val());
 		var to_short_carrying_fee = parseFloat($('#to_short_carrying_fee').val());
-		var sum_carrying_fee = carrying_fee + from_short_carrying_fee + to_short_carrying_fee;
+		var sum_carrying_fee = carrying_fee;
 		$('#sum_carrying_fee').text(sum_carrying_fee);
 		//计算总金额合计
 		var goods_fee = parseFloat($('#goods_fee').val());
-		var sum_fee = sum_carrying_fee + goods_fee;
+		var sum_fee = sum_carrying_fee + insured_fee;
 
 		$('#sum_fee').text(sum_fee);
 
@@ -296,8 +296,7 @@ jQuery(function($) {
 	});
 
 	//生成返款清单时,收款单位变化时,列出结算清单
-	$('[name="refound[to_org_id]"],[name="refound[from_org_id]"]').live('change', function() {
-		if ($(this).val() == "") return;
+	$('#btn_refound_refresh').click(function() {
 		$.get('/settlements', {
 			"search[carrying_bills_from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
 			"search[carrying_bills_to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),

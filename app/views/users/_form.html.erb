@@ -10,8 +10,9 @@
   <%=f.inputs "选择角色" do %>
     <%=f.semantic_fields_for :user_roles,resource.all_user_roles! do |user_role|%>
       <%=user_role.hidden_field :role_id%>
-      <%=user_role.hidden_field :_destroy%>
-      <%=user_role.check_box :is_select%><%=user_role.label :is_select,user_role.object.role.name%>
+      <%=user_role.check_box :is_select%>
+      <%=user_role.hidden_field :_destroy,:value => user_role.object.is_select%>
+      <%=user_role.label :is_select,user_role.object.role.name%>
     <%end%>
   <%end%>
   <%=f.inputs "可访问机构" do %>

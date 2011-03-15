@@ -17,8 +17,8 @@
         </p>
       </div>
       <div id="signin_button">
-        <%= link_to "退出",destroy_user_session_path,:class => "sexybutton sexysimple sexylarge sexyred" %>
         <%= link_to_function "确定","",:id => 'btn_login_ok',:class => "sexybutton sexysimple sexylarge sexygreen" %>
+        <%= link_to "退出",destroy_user_session_path,:class => "sexybutton sexysimple sexylarge sexyred" %>
       </div>
     <%end%>
   </div>

@@ -3,3 +3,8 @@
     <%= link_to image_tag("document-excel-table.png"), resource_path(resource,:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
   </li>
 <%end%>
+<%if params[:action] == "new"%>
+  <li>
+    <%= link_to_function image_tag("arrow-circle-double-135.png"), :id => 'btn_refound_refresh',:title => "刷新",:class => "tipsy"  %>
+  </li>
+<%end%>
