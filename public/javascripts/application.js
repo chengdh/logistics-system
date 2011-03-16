@@ -74,6 +74,9 @@ jQuery(function($) {
 	$('form.hand_bill').livequery(function() {
 		$('#hand_bill_bill_no').attr('readonly', false);
 		$('#hand_bill_goods_no').attr('readonly', false);
+		$('#hand_bill_bill_date').removeClass('datepicker');
+		$('#hand_bill_goods_num').attr('readonly',true);
+
 
 	});
 	$('form.transit_bill').livequery(function() {
@@ -84,6 +87,9 @@ jQuery(function($) {
 	$('form.hand_transit_bill').livequery(function() {
 		$('#hand_transit_bill_bill_no').attr('readonly', false);
 		$('#hand_transit_bill_goods_no').attr('readonly', false);
+		$('#hand_transit_bill_bill_date').removeClass('datepicker');
+		$('#hand_transit_bill_goods_num').attr('readonly',true);
+
 	});
 	$('form.return_bill').livequery(function() {
 		$(this).find('input').attr('readonly', true);

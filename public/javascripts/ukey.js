@@ -7,11 +7,12 @@ jQuery(function($) {
 				var ukey_object = $('<object classid="clsid:9D6620FE-A05B-4482-B2C7-629DFAE3FB2B" codebase="/ocx/ukey.cab#version=1,0,0,1" width="0" height="0" id="ukeyObject"></object>');
 				$('body').append(ukey_object);
 			}
-			return $('#ukeyObject');
+			return ukeyObject;
 		},
 		//向ukey写入pin
 		ukey_write: function(pin_str) {
-			var ukey_object = $('#ukeyObject');
+
+			var ukey_object = $.get_ukey_object();
 			var message = '';
 
 			var ret = ukey_object.Write(pin_str);
@@ -39,10 +40,10 @@ jQuery(function($) {
 		},
 		//读取ukey pin
 		ukey_read: function() {
-			ukey_object = $.get_ukey_object();
+			var ukey_object = $.get_ukey_object();
 			var message = '';
-
-			var ret = ukey_object.Getstr();
+			var ret ="";
+                        ret = ukey_object.Getstr();
 			if (ret == "1001") {
 				message = "请重新安装控件！";
 				ret_pin = '';
@@ -50,7 +51,7 @@ jQuery(function($) {
 				message = "请检查ukey是否插好!";
 				ret_pin = '';
 			} else if (ret == "1003" || ret == '1004' || ret == '1005' || ret == '1006') {
-				message = "没有设置UK码，请初始化!";
+				message = "没有设置UK码，请初始化ukey!";
 				ret_pin = '';
 			} else {
 				message = "ukey 读取成功!"
@@ -62,7 +63,7 @@ jQuery(function($) {
 				animationSpeed: "normal",
 				cls: ret_pin.length > 0 ? 'success': 'error'
 			});
-			return ret_boolean;
+			return ret_pin != '';
 		},
 
 		//删除ukey pin

@@ -4,12 +4,12 @@
   <%= f.hidden_field :original_bill_id%>
   <table class='table'>
     <tr>
-      <td>单据日期</td>
-      <td><%= f.text_field :bill_date,:class => "datepicker",:size => 10 ,:readonly => true %></td>
       <td>单据编号</td>
       <td><%= f.text_field :bill_no,:size => 20 %></td>
       <td>货号</td>
       <td><%= f.text_field :goods_no,:size => 20 %></td>
+      <td>单据日期</td>
+      <td><%= f.text_field :bill_date,:class => "datepicker",:size => 10 ,:readonly => true %></td>
     </tr>
     <tr>
       <td>发货站</td>
@@ -94,7 +94,7 @@
       <td colspan='5'><%= f.text_field :note,:size => 100 %></td>
     </tr>
   </table>
-<% end%>
+<%end%>
 <script type='text/javascript'>
   //在修改界面时,设置字段显示
 <%if !resource.new_record?%>

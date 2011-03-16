@@ -475,18 +475,6 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
   add_index "remittances", ["to_org_id"], :name => "index_remittances_on_to_org_id"
   add_index "remittances", ["user_id"], :name => "index_remittances_on_user_id"
 
-  create_table "role_orgs", :force => true do |t|
-    t.integer  "role_id",                       :null => false
-    t.integer  "org_id",                        :null => false
-    t.boolean  "is_select",  :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "role_orgs", ["is_select"], :name => "index_role_orgs_on_is_select"
-  add_index "role_orgs", ["org_id"], :name => "index_role_orgs_on_org_id"
-  add_index "role_orgs", ["role_id"], :name => "index_role_orgs_on_role_id"
-
   create_table "role_system_function_operates", :force => true do |t|
     t.integer  "role_id",                                       :null => false
     t.integer  "system_function_operate_id",                    :null => false

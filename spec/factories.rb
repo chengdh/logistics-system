@@ -221,7 +221,7 @@ Factory.define :hand_bill do |bill|
   bill.pay_type CarryingBill::PAY_TYPE_CASH
   bill.goods_num 20
   bill.bill_no "hand_bill_bill_no"
-  bill.goods_no "hand_bill_goods_no"
+  bill.goods_no "110314"
   bill.goods_info "手工运单"
 end
 #中转票

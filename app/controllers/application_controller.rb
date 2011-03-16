@@ -1,7 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   protect_from_forgery
