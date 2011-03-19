@@ -10,7 +10,7 @@ jQuery(function($) {
 				inputs[0].focus();
 			} else {
 				inputs[idx + 1].focus(); //  handles submit buttons
-				//inputs[idx + 1].select();
+				inputs[idx + 1].select();
 			}
 			return false;
 		}

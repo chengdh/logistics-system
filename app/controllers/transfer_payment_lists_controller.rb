@@ -14,4 +14,8 @@ class TransferPaymentListsController < BaseController
       format.text {send_data resource.ccb_to_txt,:filename => '建行批量转账文件.txt'}
     end
   end
+  #导出到EXCEL
+  #GET transfer_payment_list/:id/export_excel
+  def export_excel
+  end
 end

@@ -253,7 +253,7 @@ class CarryingBill < ActiveRecord::Base
     end
     #滞留天数
     def stranded_days
-      (Date.today.end_of_day - self.bill_date.beginning_of_day) /1.day
+      ((Date.today.end_of_day - self.bill_date.beginning_of_day) /1.day).to_i
     end
 
     #定义customer_code虚拟属性

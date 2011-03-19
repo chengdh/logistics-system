@@ -1,0 +1,6 @@
+var table ='<%= escape_javascript(render "excel") %>';
+var set_style = function(work_sheet){
+  work_sheet.Columns.ColumnWidth = 7;  
+
+};
+export_excel(table,set_style);

@@ -12,6 +12,10 @@ class RefoundsController < BaseController
       format.csv {send_data resource.to_csv}
     end
   end
+  #导出到excel
+  #GET /refounds/:id/export_excel
+  def export_excel
+  end
 
 
 end

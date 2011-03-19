@@ -2,14 +2,15 @@
 // This file is automatically included by javascript_include_tag :defaults
 //自动加载validation及facebox类库
 //导出数据到excel, ie only
-var export_excel = function(table_content) {
+var export_excel = function(table_content,func_set_style) {
 	try {
 
-		window.clipboardData.setData("Text", table_content);
+		window.clipboardData.setData("Text", table_content, func_set_style);
 		ExApp = new ActiveXObject("Excel.Application");
 		var ExWBk = ExApp.Workbooks.add();
 		var ExWSh = ExWBk.ActiveSheet;
 		ExApp.DisplayAlerts = false;
+		if(func_set_style)  func_set_style(ExWSh);
 		ExApp.visible = true;
 	}
 	catch(e) {
@@ -241,6 +242,7 @@ jQuery(function($) {
 				"search[transit_org_id_eq]": $('#transit_org_id').val()
 			});
 			$.get('/carrying_bills', params, null, 'script');
+			$(this).select();
 		}).focus(function() {
 			$(this).select();
 		})

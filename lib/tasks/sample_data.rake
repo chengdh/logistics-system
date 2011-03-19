@@ -356,7 +356,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => 'simple_search_carrying_bills_path(:rpt_type => "rpt_to_me","search[to_org_id_eq]" => current_user.default_org.id,"search[bill_date_gte]" => Date.today.beginning_of_day,"search[bill_date_lte]" => Date.today.end_of_day)',
+      :default_action => 'carrying_bills_path(:rpt_type => "rpt_to_me","search[to_org_id_eq]" => current_user.default_org.id,"search[bill_date_gte]" => Date.today.beginning_of_day,"search[bill_date_lte]" => Date.today.end_of_day)',
       :subject => subject,
       :function => {
       :rpt_to_me =>{:title =>"始发地收货统计"}
@@ -532,8 +532,8 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
-    ##############################客户提款日结#############################################
-    subject_title = "客户提款日结"
+    ##############################客户提款结算清单#############################################
+    subject_title = "客户提款结算清单"
     subject = "PostInfo"
     sf_hash = {
       :group_name => group_name,

@@ -1,0 +1,43 @@
+<table style='table-layout : fixed;width : 180mm;word-break : break-all;border-collapse : collapse;'>
+  <thead>
+    <tr>
+      <th colspan='8' style='text-align : center;font-size : 14px;'>返款清单</th>
+    </tr>
+    <tr>
+      <td style='border : 1px solid #000;'>返款单位:</td>
+      <td style='border : 1px solid #000;'><%=@refound.from_org.name%></td>
+      <td style='border : 1px solid #000;'>收款单位:</td>
+      <td style='border : 1px solid #000;'><%= @refound.to_org.name %></td>
+      <td style='border : 1px solid #000;'>返款日期:</td>
+      <td style='border : 1px solid #000;'><%= @refound.bill_date.strftime('%Y-%M-%d') %></td>
+      <td style='border : 1px solid #000;'>经手人:</td>
+      <td style='border : 1px solid #000;'><%= @refound.user.username %></td>
+    </tr>
+    <tr>
+      <td style='border : 1px solid #000;'>备注:</td>
+      <td colspan='7' style='border : 1px solid #000;'><%=@refound.note %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <%@refound.carrying_bills.each_with_index do |bill,index| %>
+      <tr>
+        <td style='border : 1px solid #000;'><%= index %></td>
+        <td style='border : 1px solid #000;'><%= bill.bill_no %></td>
+        <td style='border : 1px solid #000;'><%= bill.goods_no %></td>
+        <td style='border : 1px solid #000;'><%= bill.from_customer_name %></td>
+        <td style='border : 1px solid #000;'><%= bill.to_customer_name %></td>
+        <td style='border : 1px solid #000;'><%= bill.carrying_fee_th %></td>
+        <td style='border : 1px solid #000;'><%= bill.goods_fee%></td>
+        <td style='border : 1px solid #000;'><%= bill.insured_fee%></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan='5' style='text-align : right;border : 1px solid #000;'>合计</td>
+      <td style='border : 1px solid #000;'><%=@load_list.carrying_bills.sum(:carrying_fee_th)%></td>
+      <td style='border : 1px solid #000;'><%=@load_list.carrying_bills.sum(:goods_fee)%></td>
+      <td style='border : 1px solid #000;'><%=@load_list.carrying_bills.sum(:insured_fee)%></td>
+    </tr>
+  </tfoot>
+</table>

@@ -90,12 +90,14 @@ IlYanzhao::Application.routes.draw do
 
   resources :transfer_payment_lists do
     get :search,:on => :collection
+    get :export_excel,:on => :member
     resources :carrying_bills
   end
 
 
   resources :cash_payment_lists do
     get :search,:on => :collection
+    get :export_excel,:on => :member
     resources :carrying_bills
   end
 
@@ -110,12 +112,14 @@ IlYanzhao::Application.routes.draw do
   resources :refounds do
     get :process_handle,:on => :member
     get :search,:on => :collection
+    get :export_excel,:on => :member
     resources :carrying_bills
   end
   #返款清单确认
   resources :receive_refounds do
     get :process_handle,:on => :member
     get :search,:on => :collection
+    get :export_excel,:on => :member
     resources :carrying_bills
   end
 
@@ -144,6 +148,7 @@ IlYanzhao::Application.routes.draw do
   resources :arrive_load_lists do
     get :process_handle,:on => :member
     get :search,:on => :collection
+    get :export_excel,:on => :member
     resources :carrying_bills
   end
 

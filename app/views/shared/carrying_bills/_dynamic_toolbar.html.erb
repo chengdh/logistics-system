@@ -9,7 +9,7 @@
         <%= link_to image_tag("grid-snap.png",:alt => "返程/中转#{resource_class.model_name.human}列表") , collection_path("search[from_org_id_ni]" => current_user.current_ability_org_ids),:title => "返程/中转#{resource_class.model_name.human}列表",:class => "tipsy"  %>
       </li>
       <%if self.respond_to?("search_#{controller_name.tableize}_path")%>
-        <li><%= link_to image_tag("application-search-result.png",:alt => "查询#{resource_class.model_name.human}"),self.send("search_#{controller_name.tableize}_path"),:title => "查询#{resource_class.model_name.human}",:class => "fancybox tipsy" %></li>
+        <li><%= link_to image_tag("application-search-result.png",:alt => "查询运单"),search_carrying_bills_path,:title => "查询运单",:class => "fancybox tipsy" %></li>
       <%end%>
     <%end%>
     <%if can? :create,resource_class%>
