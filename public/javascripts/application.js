@@ -2,7 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 //自动加载validation及facebox类库
 //导出数据到excel, ie only
-var export_excel = function(table_content,func_set_style) {
+var export_excel = function(table_content, func_set_style) {
 	try {
 
 		window.clipboardData.setData("Text", table_content, func_set_style);
@@ -10,7 +10,7 @@ var export_excel = function(table_content,func_set_style) {
 		var ExWBk = ExApp.Workbooks.add();
 		var ExWSh = ExWBk.ActiveSheet;
 		ExApp.DisplayAlerts = false;
-		if(func_set_style)  func_set_style(ExWSh);
+		if (func_set_style) func_set_style(ExWSh);
 		ExApp.visible = true;
 	}
 	catch(e) {
@@ -70,6 +70,44 @@ jQuery(function($) {
 			$.fancybox.showActivity();
 
 		}
+
+	});
+	//单击某条记录选中
+	$('tr[data-dblclick]').livequery('click', function() {
+		$('tr[data-dblclick]').removeClass('cur_select');
+		$(this).addClass('cur_select');
+
+	});
+	$('.btn_edit').click(function() {
+		var cur_select = $('tr[data-dblclick].cur_select .edit_link');
+		if (cur_select.length == 0) {
+			$.notifyBar({
+				html: "请先选择要编辑的数据!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+			return false;
+		}
+
+		if (cur_select.length > 0) $(this).attr('href', $(cur_select[0]).attr('href'));
+		if ($(this).attr('href') == '') return false;
+
+	});
+	$('.btn_delete').click(function() {
+		var cur_select = $('tr[data-dblclick].cur_select .edit_delete');
+		if (cur_select.length == 0) {
+			$.notifyBar({
+				html: "请先选择要编辑的数据!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+			return false;
+		}
+
+		if (cur_select.length > 0) $(this).attr('href', $(cur_select[0]).attr('href'));
+		if ($(this).attr('href') == '') return false;
 
 	});
 
@@ -162,6 +200,7 @@ jQuery(function($) {
 
 	$('#menu_bar').accordion({
 		active: get_current_menu.apply(),
+                collapsible : true,
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}

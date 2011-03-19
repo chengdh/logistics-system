@@ -281,3 +281,8 @@ ul.hint li {
 }
 
 .dashboard-group { margin-top : 30px;}
+/*当前选中数据*/
+tr.cur_select {
+  color : #0F67A1;
+  font-weight : bold;
+}

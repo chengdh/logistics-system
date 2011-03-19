@@ -12,3 +12,17 @@
     </li>
   <%end%>
 <%end%>
+
+<%if params[:action] == "index"%>
+  <%if can? :edit,resource_class%>
+    <li>
+      <%= link_to image_tag("application--pencil.png",:alt => "修改#{resource_class.model_name.human}"), "#",:title => "修改#{resource_class.model_name.human}",:class => "tipsy btn_edit"  %>
+    </li>
+  <%end%>
+  <%if can? :destroy,resource_class%>
+    <li>
+      <%= link_to image_tag("cross.png"), '#',:method => :delete,:class =>"tipsy btn_delete",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
+    </li>
+  <%end%>
+<% end %>
+

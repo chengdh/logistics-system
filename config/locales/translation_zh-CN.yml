@@ -1,4 +1,7 @@
 zh-CN:
+  "false": "否"
+  "true": "是"
+
   flash:
     actions:
       create:

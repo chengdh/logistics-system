@@ -16,6 +16,4 @@ class RefoundsController < BaseController
   #GET /refounds/:id/export_excel
   def export_excel
   end
-
-
 end
