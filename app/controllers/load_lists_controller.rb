@@ -12,4 +12,8 @@ class LoadListsController < BaseController
       format.csv {send_data resource.to_csv}
     end
   end
+  #GET load_list/1/export_excel
+  def export_excel
+    @load_list = resource_class.find(params[:id])
+  end
 end

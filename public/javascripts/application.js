@@ -1,6 +1,29 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 //自动加载validation及facebox类库
+//导出数据到excel, ie only
+var export_excel = function(table_content) {
+	try {
+
+		window.clipboardData.setData("Text", table_content);
+		ExApp = new ActiveXObject("Excel.Application");
+		var ExWBk = ExApp.Workbooks.add();
+		var ExWSh = ExWBk.ActiveSheet;
+		ExApp.DisplayAlerts = false;
+		ExApp.visible = true;
+	}
+	catch(e) {
+		$.notifyBar({
+			html: "导出失败,请确认您已安装excel软件,并调整了IE的安全设置.",
+			delay: 3000,
+			animationSpeed: "normal",
+			cls: 'error'
+		});
+		return false;
+	}
+	ExWSh.Paste();
+};
+
 jQuery(function($) {
 	//初始化formtastic_validation
 	var init_formtastic_validation = function() {
@@ -8,6 +31,14 @@ jQuery(function($) {
 		formtasticValidation.initialize();
 
 	};
+
+	//导出excel按钮绑定
+	$('.btn_export_excel').click(function() {
+		var url = $(this).attr('href');
+		$.get(url, null, null, 'script')
+		return false;
+	});
+
 	init_formtastic_validation.apply();
 	var calculate_carrying_bill = function() {
 		//计算保价费合计
@@ -74,9 +105,8 @@ jQuery(function($) {
 	$('form.hand_bill').livequery(function() {
 		$('#hand_bill_bill_no').attr('readonly', false);
 		$('#hand_bill_goods_no').attr('readonly', false);
-		$('#hand_bill_bill_date').removeClass('datepicker');
-		$('#hand_bill_goods_num').attr('readonly',true);
-
+		$('#_bill_date').removeClass('datepicker');
+		$('#goods_num').attr('readonly', true);
 
 	});
 	$('form.transit_bill').livequery(function() {
@@ -87,8 +117,8 @@ jQuery(function($) {
 	$('form.hand_transit_bill').livequery(function() {
 		$('#hand_transit_bill_bill_no').attr('readonly', false);
 		$('#hand_transit_bill_goods_no').attr('readonly', false);
-		$('#hand_transit_bill_bill_date').removeClass('datepicker');
-		$('#hand_transit_bill_goods_num').attr('readonly',true);
+		$('#bill_bill_date').removeClass('datepicker');
+		$('#goods_num').attr('readonly', true);
 
 	});
 	$('form.return_bill').livequery(function() {
@@ -96,8 +126,20 @@ jQuery(function($) {
 		$('#return_bill_note').attr('readonly', false);
 
 	});
-        //设定只读字段的背景色
-        $('input[readonly]').css({background : '#EDEDED'});
+	//设定只读字段的背景色
+	$('input[readonly]').css({
+		background: '#EDEDED'
+	});
+	//手工运单,自动解析日期和数量
+	//
+	$('#hand_bill_goods_no,#hand_transit_bill_goods_no').live('change', function() {
+		var the_goods_no = $(this).val();
+		var bill_date = /^\w{6}/.exec(the_goods_no);
+		var goods_num = /\w+$/.exec(the_goods_no);
+		$('#bill_date').val(bill_date);
+		$('#goods_num').val(goods_num);
+
+	});
 
 	//绑定所有日期选择框
 	$.datepicker.setDefaults({

@@ -9,7 +9,7 @@
       <td>货号</td>
       <td><%= f.text_field :goods_no,:size => 20 %></td>
       <td>单据日期</td>
-      <td><%= f.text_field :bill_date,:class => "datepicker",:size => 10 ,:readonly => true %></td>
+      <td><%= f.text_field :bill_date,:class => "datepicker",:size => 10 ,:readonly => true,:id => :bill_date %></td>
     </tr>
     <tr>
       <td>发货站</td>
@@ -83,7 +83,7 @@
     </tr>
     <tr>
       <td>数量</td>
-      <td><%= f.text_field :goods_num,:size => 15 %></td>
+      <td><%= f.text_field :goods_num,:size => 15,:id => :goods_num %></td>
       <td>重量</td>
       <td><%= f.text_field :goods_weight,:size => 15  %></td>
       <td>体积</td>

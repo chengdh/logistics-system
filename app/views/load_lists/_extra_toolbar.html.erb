@@ -5,7 +5,6 @@
     </li>
   <%end%>
   <li>
-    <%= link_to image_tag("document-excel-table.png",:alt => "导出为EXCEL"), resource_path(resource,:format => :csv),:title => "导出为EXCEL",:class => "tipsy"  %>
+    <%= link_to image_tag("document-excel-table.png",:alt => "导出为EXCEL"), export_excel_load_list_path(resource,:format => :js),:title => "导出为EXCEL",:class => "btn_export_excel tipsy"  %>
   </li>
-
 <%end%>

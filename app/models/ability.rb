@@ -6,7 +6,7 @@ class Ability
     #search simple_search 都看作是read权限
     #rpt_turnover运单统计
     #turnover_chart运单统计图
-    alias_action :index,:show,:search,:simple_search,:rpt_turnover,:turnover_chart,:to => :read
+    alias_action :index,:show,:search,:simple_search,:export_excel,:rpt_turnover,:turnover_chart,:to => :read
     #before_new是新建退货单的初始页面
     alias_action :new,:before_new,:to => :create
     alias_action :process_handle,:to => :ship  #发车

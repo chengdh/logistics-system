@@ -137,6 +137,7 @@ IlYanzhao::Application.routes.draw do
   resources :load_lists do
     get :process_handle,:on => :member
     get :search,:on => :collection
+    get :export_excel,:on => :member
     resources :carrying_bills
   end
 
