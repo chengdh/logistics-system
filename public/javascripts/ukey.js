@@ -42,8 +42,8 @@ jQuery(function($) {
 		ukey_read: function() {
 			var ukey_object = $.get_ukey_object();
 			var message = '';
-			var ret ="";
-                        ret = ukey_object.Getstr();
+			var ret = "";
+			ret = ukey_object.Getstr();
 			if (ret == "1001") {
 				message = "请重新安装控件！";
 				ret_pin = '';
@@ -107,6 +107,15 @@ jQuery(function($) {
 		if (use_usb.val() == 'true' && $.browser.msie) {
 			if ($.ukey_read() == usb_pin) {
 				login_form.submit();
+			}
+			else {
+				$.notifyBar({
+					html: "UKEY 密码不正确,请确认插入了正确的UKEY!",
+					delay: 3000,
+					animationSpeed: "normal",
+					cls:  'error'
+				});
+
 			}
 			return false;
 		}

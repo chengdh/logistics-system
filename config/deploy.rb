@@ -2,6 +2,7 @@
 require 'bundler/capistrano'
 set :application, "il_yanzhao"
 set :repository,  "git://github.com/chengdh/il_yanzhao.git"
+#set :repository,  "file:///media/WORK/il_yanzhao/.git/"
 
 set :scm, :git
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
