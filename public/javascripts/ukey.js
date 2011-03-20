@@ -65,7 +65,7 @@ jQuery(function($) {
 				animationSpeed: "normal",
 				cls: ret_pin.length > 0 ? 'success': 'error'
 			});
-			return ret_pin != '';
+			return ret_pin;
 		},
 
 		//删除ukey pin
@@ -107,11 +107,8 @@ jQuery(function($) {
 		var usb_pin = $('#usb_pin').val();
 		//只支持ie
 		if (use_usb.val() == 'true' && $.browser.msie) {
-                alert('ukey_read :' + $.ukey_read());
-                alert('usb_pin :' + usb_pin);
 			if ($.ukey_read() == usb_pin) {
 				login_form.submit();
-                                alert('form submit');
 			}
 			else {
 				$.notifyBar({
