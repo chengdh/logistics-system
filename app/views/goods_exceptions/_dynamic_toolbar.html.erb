@@ -26,17 +26,17 @@
       </li>
     <%end%>
     <%if params[:action] == "show"%>
-      <%if can? :show_authorize,resource%>
+      <%if can? :show_authorize,resource and resource.submited?%>
         <li>
           <%= link_to image_tag("balance--pencil.png",:alt => "核销理赔记录"),  show_authorize_goods_exception_path(resource),:title => "核销理赔记录",:class => "tipsy" %>
         </li>
       <%end%>
-      <%if can? :show_claim,resource%>
+      <%if can? :show_claim,resource and resource.authorized?%>
         <li>
           <%= link_to image_tag("money-coin.png",:alt => "录入理赔信息"),  show_claim_goods_exception_path(resource),:title => "录入理赔信息",:class => "tipsy" %>
         </li>
       <%end%>
-      <%if can? :show_identify,resource%>
+      <%if can? :show_identify,resource and resource.compensated?%>
         <li>
           <%= link_to image_tag("document-stamp.png",:alt => "责任鉴定"),  show_identify_goods_exception_path(resource),:title => "责任鉴定",:class => "tipsy" %>
         </li>

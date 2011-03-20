@@ -14,13 +14,13 @@
     <% deliver_info.carrying_bills.each do |bill|%>
       <tr>
         <td><%= deliver_info.org.name %></td>
-        <td><%= deliver_info.bill_date %></td>
+        <td><%= deliver_info.deliver_date %></td>
         <td><%= bill.bill_no %></td>
         <td><%= bill.goods_no %></td>
         <td><%= deliver_info.customer_name %></td>
         <td><%= deliver_info.customer_no %></td>
         <td><%= bill.carrying_fee_th %></td>
-        <td><%= bill.goods_fe %></td>
+        <td><%= bill.goods_fee %></td>
         <td><%= bill.th_amount %></td>
       </tr>
     <% end%>

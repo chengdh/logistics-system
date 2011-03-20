@@ -18,7 +18,7 @@
       <li>
         <%= link_to image_tag("table-sum.png",:alt => "按发货地分组核算") , resource_path(resource,:show_group => 1),:title => "按发货地分组核算",:class => "tipsy"  %>
       </li>
-      <%if can? :refound_confirm,resource%>
+      <%if can? :refound_confirm,resource and resource.refunded?%>
         <li>
           <%= link_to image_tag("auction-hammer--arrow.png",:alt => "收款确认") , process_handle_receive_refound_path(resource),:title => "收款确认",:class => "tipsy"  %>
         </li>

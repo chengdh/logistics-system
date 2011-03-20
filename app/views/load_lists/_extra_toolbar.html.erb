@@ -1,5 +1,5 @@
 <%if params[:action] == "show" or params[:action] == 'process_handle'%>
-  <%if can? :ship,resource%>
+  <%if can? :ship,resource and resource.loaded?%>
     <li>
       <%= link_to image_tag("auction-hammer--arrow.png",:alt => "发货处理") , process_handle_load_list_path(resource),:title => "发货处理",:class => "tipsy"  %>
     </li>

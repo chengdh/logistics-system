@@ -24,6 +24,7 @@ class Ability
       can :create,:all
       can :edit,:all
       can :destroy,:all
+      can :manage,:all
 
       SystemFunctionOperate.all.each do |sfo| 
         f_obj = sfo.function_obj

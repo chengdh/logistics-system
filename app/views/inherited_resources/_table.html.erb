@@ -15,8 +15,12 @@
           <%= order_no(index,params[:page]) %>
         </td>
         <% index_table_columns.each do |column| %>
-          <% value = resource.send(foreign_key_to_association(column))%>
-          <td><%= t(value,:default => [value,'无','否']) %></td>
+          <% 
+            value = resource.send(foreign_key_to_association(column))
+            value = '是' if value == true
+            value = '否' if value == false
+          %>
+          <td><%= value %></td>
         <% end %>
         <td>
           <%= link_to "查看", resource_url(resource),:class => "show_link",:style => 'display : none;'%>

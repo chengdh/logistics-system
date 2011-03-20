@@ -49,7 +49,7 @@ describe RolesController do
       @attr = {:name => 'test_role'}
     end
     describe "success" do
-      it "能够成功保存票据信息" do
+      it "能够成功保存角色信息" do
         lambda do
           post :create, :role => @attr
         end.should change(Role,:count).by(1)
@@ -62,7 +62,6 @@ describe RolesController do
     end
 
     describe "with invalid params" do
-
       it "re-renders the 'new' template" do
         post :create, :role => {}
         response.should render_template("new")
@@ -78,15 +77,15 @@ describe RolesController do
 
     describe "with valid params" do
       it "updates the requested role" do
-        put :update, :id => @role, :role => @attr 
+        put :update, :id => @role, :role => {:is_active => false} 
         @role.reload
-        @role.name.should == @attr[:name]
+        @role.should_not be_is_active
       end
 
 
       it "redirects to the role" do
         put :update, :id => @role,:role => @attr
-        response.should redirect_to(role_path(@role))
+        response.should redirect_to(role_path(assigns(:role)))
       end
     end
 

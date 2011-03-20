@@ -74,34 +74,6 @@ describe SendListsController do
     end
   end
 
-  describe "PUT update" do
-    before :each do
-      @attr = {:note => 'update send list'}
-    end
-
-    describe "with valid params" do
-      it "updates the requested send_list" do
-        put :update, :id => @send_list, :send_list => @attr 
-        @send_list.reload
-        @send_list.note.should == @attr[:note]
-      end
-
-
-      it "redirects to the send_list" do
-        put :update, :id => @send_list,:send_list => @attr
-        response.should redirect_to(send_list_path(@send_list))
-      end
-    end
-
-    describe "with invalid params" do
-      it "re-renders the 'edit' template" do
-        put :update, :id => @send_list,:send_list => {:org_id => nil}
-        response.should render_template("edit")
-      end
-    end
-
-  end
-
   describe "DELETE destroy" do
     it "destroys the requested send_list" do
       lambda do

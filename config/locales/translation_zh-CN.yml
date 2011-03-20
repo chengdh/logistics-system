@@ -464,8 +464,9 @@ zh-CN:
         note: "备注"  #g
         driver: "司机"  #g
         vehicle_no: "运输车辆"  #g
-        from_org_id: "发货地"  #g
-        to_org_id: "到货地"  #g
+        from_org: "发货地"  #g
+        to_org: "到货地"  #g
+        human_state_name: '状态'
         carrying_bills: "装车明细"  #g
 
       payment_list:

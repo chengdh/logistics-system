@@ -10,7 +10,7 @@
       <%end%>
     <%end%>
     <%if params[:action] == "show" or params[:action] == 'process_handle'%>
-      <%if can? :reach,resource%>
+      <%if can? :reach,resource and resource.shipped?%>
         <li>
           <%= link_to image_tag("auction-hammer--arrow.png",:alt => "到货确认") , process_handle_arrive_load_list_path(resource),:title => "到货确认",:class => "tipsy"  %>
         </li>

@@ -35,6 +35,10 @@ module OrgsHelper
       default_org.parent.children.each {|child_org| exclude_org_ids += [child_org.id]}  
       exclude_org_ids += [default_org.parent.id]
     end
+    if default_org.children.present?
+      default_org.children.each {|child_org| exclude_org_ids += [child_org.id]}  
+    end
+
     exclude_org_ids.uniq!
     Branch.search(:is_active_eq => true,:id_ni => exclude_org_ids).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
   end
