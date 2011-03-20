@@ -286,3 +286,7 @@ tr.cur_select {
   color : #0F67A1;
   font-weight : bold;
 }
+/*组织机构树样式重写*/
+.ui-treeList ul {
+  padding : 0;
+}

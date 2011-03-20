@@ -135,6 +135,7 @@ IlYanzhao::Application.routes.draw do
 
 
   resources :distribution_lists do
+    get :search,:on => :collection
     resources :carrying_bills
   end
 

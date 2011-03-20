@@ -1,0 +1,33 @@
+<table class='table'>
+  <tr>
+    <th>机构</th>
+    <th>提货日期</th>
+    <th>运单编号</th>
+    <th>货号</th>
+    <th>提货人</th>
+    <th>证件号码</th>
+    <th>提付运费</th>
+    <th>货款</th>
+    <th>合计</th>
+  </tr>
+  <% @deliver_infos.each do |deliver_info|%>
+    <% deliver_info.carrying_bills.each do |bill|%>
+      <tr>
+        <td><%= deliver_info.org.name %></td>
+        <td><%= deliver_info.bill_date %></td>
+        <td><%= bill.bill_no %></td>
+        <td><%= bill.goods_no %></td>
+        <td><%= deliver_info.customer_name %></td>
+        <td><%= deliver_info.customer_no %></td>
+        <td><%= bill.carrying_fee_th %></td>
+        <td><%= bill.goods_fe %></td>
+        <td><%= bill.th_amount %></td>
+      </tr>
+    <% end%>
+  <%end%>
+</table>
+<div class='actions-bar wat-cf'>
+  <div class='actions'>
+    <%= will_paginate @deliver_infos %>
+  </div>
+</div>

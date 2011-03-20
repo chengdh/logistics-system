@@ -19,13 +19,23 @@ module OrgsHelper
   #当前登录用户可使用的的org
   def current_ability_orgs_for_select
     default_org = current_user.default_org
-    ret = {"#{default_org.name}(#{default_org.py})" => default_org.id }
-    default_org.children.each {|child_org|  ret.merge!("#{child_org.name}(#{child_org.py})" => child_org.id)}
+    ret = ActiveSupport::OrderedHash.new 
+    ret["#{default_org.name}(#{default_org.py})"] = default_org.id
+    default_org.children.each {|child_org|  ret["#{child_org.name}(#{child_org.py})"] = child_org.id}
     ret
   end
 
   #当前登录用户可用之外的orgs
   def exclude_current_ability_orgs_for_select
-    Branch.search(:is_active_eq => true,:id_ni => current_ability_orgs_for_select.values).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
+    #除去当前默认org和当前org的上级机构
+
+    default_org = current_user.default_org
+    exclude_org_ids = [default_org.id]
+    if default_org.parent.present?
+      default_org.parent.children.each {|child_org| exclude_org_ids += [child_org.id]}  
+      exclude_org_ids += [default_org.parent.id]
+    end
+    exclude_org_ids.uniq!
+    Branch.search(:is_active_eq => true,:id_ni => exclude_org_ids).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
   end
 end

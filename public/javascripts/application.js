@@ -110,18 +110,54 @@ jQuery(function($) {
 		if ($(this).attr('href') == '') return false;
 
 	});
+        //组织机构修改删除按钮处理
+	$('.btn_edit_org').click(function() {
+		var cur_active = $('#orgs_list li.ui-state-active');
+		if (cur_active.length == 0) {
+			$.notifyBar({
+				html: "请先选择要编辑的组织机构!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+			return false;
+		}
+
+		if (cur_active.length > 0) $(this).attr('href', $(cur_active).data('editPath'));
+		if ($(this).attr('href') == '') return false;
+
+	});
+
+	$('.btn_delete_org').click(function() {
+		var cur_active = $('#orgs_list li.ui-state-active');
+		if (cur_active.length == 0) {
+			$.notifyBar({
+				html: "请先选择要删除的组织机构!",
+				delay: 3000,
+				animationSpeed: "normal",
+				cls: 'error'
+			});
+			return false;
+		}
+                if($(cur_active).data('deletePath') == 'undefined') return false;
+		if (cur_active.length > 0) $(this).attr('href', $(cur_active).data('deletePath'));
+		if ($(this).attr('href') == '') return false;
+
+	});
 
 	//form 自动获取焦点
 	$('#carrying_bill_form').livequery(function() {
 		$(this).focus();
 	});
 
-	//角色功能列表
-	$('#role_orgs_list').treeList();
 	//组织机构列表
 	$('#orgs_list').treeList();
 	$('#user_orgs_list').treeList();
-	$('#role_system_functions_list').accordion();
+	$('#role_system_functions_list').accordion({
+		collapsible: true,
+		active: false
+	});
+
 	//根据客户编号查询查询客户信息
 	var search_customer_by_code = function() {
 		var code = $(this).val();
@@ -144,7 +180,7 @@ jQuery(function($) {
 	$('form.hand_bill').livequery(function() {
 		$('#hand_bill_bill_no').attr('readonly', false);
 		$('#hand_bill_goods_no').attr('readonly', false);
-		$('#_bill_date').removeClass('datepicker');
+		$('#bill_date').removeClass('datepicker');
 		$('#goods_num').attr('readonly', true);
 
 	});
@@ -156,7 +192,7 @@ jQuery(function($) {
 	$('form.hand_transit_bill').livequery(function() {
 		$('#hand_transit_bill_bill_no').attr('readonly', false);
 		$('#hand_transit_bill_goods_no').attr('readonly', false);
-		$('#bill_bill_date').removeClass('datepicker');
+		$('#bill_date').removeClass('datepicker');
 		$('#goods_num').attr('readonly', true);
 
 	});
@@ -200,7 +236,7 @@ jQuery(function($) {
 
 	$('#menu_bar').accordion({
 		active: get_current_menu.apply(),
-                collapsible : true,
+		collapsible: true,
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}

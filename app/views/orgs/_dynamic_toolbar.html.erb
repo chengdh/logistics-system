@@ -6,5 +6,25 @@
         <%= link_to image_tag("grid.png",:alt => "#{resource_class.model_name.human}列表") , collection_path,:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
       </li>
     <%end%>
+    <%if can? :create,Branch%>
+      <li>
+        <%= link_to image_tag("bank--plus.png",:alt => "新建分理处/分公司"), new_branch_path,:title => "新建分理处/分公司",:class => "tipsy fancybox"  %>
+      </li>
+    <%end%>
+    <%if can? :create,Department%>
+      <li>
+        <%= link_to image_tag("chair--plus.png",:alt => "新建科室"), new_department_path,:title => "新建科室",:class => "tipsy fancybox"  %>
+      </li>
+    <%end%>
+    <%if can? :edit,Org %>
+      <li>
+        <%= link_to image_tag("application--pencil.png",:alt => "修改#{resource_class.model_name.human}"), "#",:title => "修改#{resource_class.model_name.human}",:class => "tipsy btn_edit_org fancybox"  %>
+      </li>
+    <%end%>
+    <%if can? :destroy,Org%>
+      <li>
+        <%= link_to image_tag("cross.png",:alt => "删除该记录"), '#',:method => :delete,:class =>"tipsy btn_delete_org",:title => "删除该记录",:confirm => "你确定要删除吗?" %>
+      </li>
+    <%end%>
   </ul>
 </div>   

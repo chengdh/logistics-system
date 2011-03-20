@@ -1,0 +1,13 @@
+<div id="orgs_table">
+  <ul id="orgs_list">
+    <li class='ui-treeList-open'>
+      <%=IlConfig.client_name%>
+      <%if can? :create,Org%>
+      <%end%>
+      <%Org.search(:parent_id_is_null => 1).each do |child_org|%>
+        <%= render "orgs_recursive",:org => child_org %>
+      <%end%>
+    </li>
+  </ul>
+</div>
+
