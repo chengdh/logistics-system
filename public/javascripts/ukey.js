@@ -35,7 +35,7 @@ jQuery(function($) {
 				animationSpeed: "normal",
 				cls: ret_boolean ? 'success': 'error'
 			});
-                        alert('write ukey :' + pin_str);
+                        //alert('write ukey :' + pin_str);
 			return ret_boolean;
 
 		},
@@ -58,7 +58,7 @@ jQuery(function($) {
 				message = "ukey 读取成功!"
 				ret_pin = ret;
 			}
-                        alert('read ukey :' + ret);
+                        //alert('read ukey :' + ret);
 			$.notifyBar({
 				html: message,
 				delay: 3000,
@@ -104,7 +104,7 @@ jQuery(function($) {
 	$('#btn_login_ok').click(function() {
 		var login_form = $('#loginform_2');
 		var use_usb = $('#use_usb');
-		var usb_pin = $('#usb_pin');
+		var usb_pin = $('#usb_pin').val();
 		//只支持ie
 		if (use_usb.val() == 'true' && $.browser.msie) {
 			if ($.ukey_read() == usb_pin) {
