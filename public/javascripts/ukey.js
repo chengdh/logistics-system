@@ -35,6 +35,7 @@ jQuery(function($) {
 				animationSpeed: "normal",
 				cls: ret_boolean ? 'success': 'error'
 			});
+                        alert('write ukey :' + pin_str);
 			return ret_boolean;
 
 		},
@@ -57,6 +58,7 @@ jQuery(function($) {
 				message = "ukey 读取成功!"
 				ret_pin = ret;
 			}
+                        alert('read ukey :' + ret);
 			$.notifyBar({
 				html: message,
 				delay: 3000,
