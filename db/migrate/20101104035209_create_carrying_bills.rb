@@ -47,7 +47,7 @@ class CreateCarryingBills < ActiveRecord::Migration
       t.string :type,:limit => 20 #票据类别,rails使用
       t.string :state,:limit => 20 #票据状态
       #添加的运单是否完成标志,用于mysql 分区表
-      t.boolean :completed, :boolean,:default => false #处理完成标志
+      t.boolean :completed,:default => false #处理完成标志
       t.references :user
 
 

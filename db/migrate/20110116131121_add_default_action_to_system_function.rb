@@ -2,7 +2,7 @@
 #coding: utf-8
 class AddDefaultActionToSystemFunction < ActiveRecord::Migration
   def self.up
-    add_column :system_functions, :default_action, :string
+    add_column :system_functions, :default_action, :text
   end
 
   def self.down

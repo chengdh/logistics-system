@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
     t.string   "type",                             :limit => 20
     t.string   "state",                            :limit => 20
     t.boolean  "completed",                                                                     :default => false
-    t.boolean  "boolean",                                                                       :default => false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -643,7 +642,7 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
     t.boolean  "is_active",                              :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "default_action"
+    t.text     "default_action"
   end
 
   add_index "system_functions", ["is_active"], :name => "index_system_functions_on_is_active"
