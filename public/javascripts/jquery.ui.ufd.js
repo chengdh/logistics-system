@@ -134,7 +134,7 @@ $.widget(widgetName, {
 				case keyCodes.UP:
 				case keyCodes.PAGE_UP:
 				case keyCodes.ENTER:
-					self.stopEvent(event);
+					//self.stopEvent(event);
 				default:
 			}
 			
