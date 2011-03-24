@@ -110,7 +110,7 @@ jQuery(function($) {
 		if ($(this).attr('href') == '') return false;
 
 	});
-        //组织机构修改删除按钮处理
+	//组织机构修改删除按钮处理
 	$('.btn_edit_org').click(function() {
 		var cur_active = $('#orgs_list li.ui-state-active');
 		if (cur_active.length == 0) {
@@ -139,7 +139,7 @@ jQuery(function($) {
 			});
 			return false;
 		}
-                if($(cur_active).data('deletePath') == 'undefined') return false;
+		if ($(cur_active).data('deletePath') == 'undefined') return false;
 		if (cur_active.length > 0) $(this).attr('href', $(cur_active).data('deletePath'));
 		if ($(this).attr('href') == '') return false;
 
@@ -240,6 +240,12 @@ jQuery(function($) {
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}
+	});
+	$('#menu_bar .navigation a').click(function() {
+		$.fancybox.showActivity();
+	});
+	$('.secondary-navigation a').click(function() {
+		$.fancybox.showActivity();
 	});
 
 	$('.fancybox').livequery(function() {
