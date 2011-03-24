@@ -1,5 +1,5 @@
 jQuery(function($) {
-	$('form input:visible,form select:visible,form textarea:visible').live("keypress", function(e) {
+	$('form input:visible,form select:visible,form textarea:visible').livequery("keypress", function(e) {
 		/* ENTER PRESSED*/
 		if (e.keyCode == 13) {
 
@@ -11,7 +11,8 @@ jQuery(function($) {
 				inputs[0].focus();
 			} else {
 				inputs[idx + 1].focus(); //  handles submit buttons
-				if ($(inputs[idx + 1]).attr('tagName') == 'input' || $(inputs[idx + 1]).attr('tagName') == 'textarea') inputs[idx + 1].select();
+                                var tag_name = $(inputs[idx + 1]).attr('tagName').toLowerCase();
+				if ( tag_name == 'input' || tag_name == 'textarea') inputs[idx + 1].select();
 			}
 			return false;
 		}
