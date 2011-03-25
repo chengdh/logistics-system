@@ -5,7 +5,7 @@ class LoadList < ActiveRecord::Base
   belongs_to :user
   has_many :carrying_bills
 
-  validates_presence_of :from_org_id,:to_org_id
+  validates_presence_of :from_org_id,:to_org_id,:bill_no
   #待确认收货清单
   scope :shipped,lambda {|to_org_ids| select("sum(1) as bill_count").where(:state => :shipped,:to_org_id => to_org_ids)}
   #定义状态机

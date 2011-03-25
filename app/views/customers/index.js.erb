@@ -9,6 +9,7 @@ $('#customer_code').html('');
 $('#from_customer_id').val('');
 $('#from_customer_name').val('');
 $('#from_customer_phone').val('');
+$('#from_customer_mobile').val('');
 $('#customer_code').html('');
 $('#customer_code').focus();
 <%else%>
@@ -16,4 +17,5 @@ $('#customer_code').focus();
 $('#from_customer_id').val('<%=collection.first.id%>');
 $('#from_customer_name').val('<%=collection.first.name%>');
 $('#from_customer_phone').val('<%=collection.first.phone%>');
+$('#from_customer_mobile').val('<%=collection.first.mobile%>');
 <%end%>

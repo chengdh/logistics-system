@@ -19,7 +19,7 @@
   <tbody>
     <%@load_list.carrying_bills.each_with_index do |bill,index| %>
       <tr>
-        <td style='border : 1px solid #000;'><%= index %></td>
+        <td style='border : 1px solid #000;'><%= index + 1 %></td>
         <td style='border : 1px solid #000;'><%= bill.bill_no %></td>
         <td style='border : 1px solid #000;'><%= bill.goods_no %></td>
         <td style='border : 1px solid #000;'><%= bill.from_customer_name %></td>

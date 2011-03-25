@@ -5,7 +5,7 @@
   <% end%>
   <%= f.inputs :name,:phone,:mobile,:address,:id_number %>
   <%= f.inputs do %>
-    <%= f.input :bank_id,:as => :select,:collection => Bank.where(:is_active => true),:include_blank => false %>
+    <%= f.input :bank_id,:as => :select,:collection => Bank.where(:is_active => true),:include_blank => true %>
     <%= f.input :bank_card %>
     <%= f.input :config_transit_id,:as => :select,:collection => ConfigTransit.where(:is_active => true),:include_blank => false %>
     <%= f.input :is_active %>
