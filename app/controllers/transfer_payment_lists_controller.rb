@@ -17,5 +17,6 @@ class TransferPaymentListsController < BaseController
   #导出到EXCEL
   #GET transfer_payment_list/:id/export_excel
   def export_excel
+    @transfer_payment_list = resource_class.find(params[:id])
   end
 end

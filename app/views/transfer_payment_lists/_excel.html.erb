@@ -9,7 +9,7 @@
       <td style='border : 1px solid #000;'>经手人:</td>
       <td style='border : 1px solid #000;'><%= @transfer_payment_list.user.username %></td>
       <td style='border : 1px solid #000;'>清单日期:</td>
-      <td colspan='5' style='border : 1px solid #000;'><%= @refound.bill_date.strftime('%Y-%M-%d') %></td>
+      <td colspan='5' style='border : 1px solid #000;'><%= @transfer_payment_list.bill_date.strftime('%Y-%M-%d') %></td>
     </tr>
     <tr>
       <td style='border : 1px solid #000;'>备注:</td>
@@ -35,10 +35,10 @@
         <td style='border : 1px solid #000;'><%= index + 1 %></td>
         <td style='border : 1px solid #000;'><%= bill.bill_no %></td>
         <td style='border : 1px solid #000;'><%= bill.act_pay_fee %></td>
-        <td style='border : 1px solid #000;'><%= bill.customer.bank_card %></td>
-        <td style='border : 1px solid #000;'><%= bill.customer.name %></td>
-        <td style='border : 1px solid #000;'><%= bill.customer.code %></td>
-        <td style='border : 1px solid #000;'><%= bill.customer.bank.name%></td>
+        <td style='border : 1px solid #000;'><%= bill.from_customer.bank_card %></td>
+        <td style='border : 1px solid #000;'><%= bill.from_customer.name %></td>
+        <td style='border : 1px solid #000;'><%= bill.from_customer.code %></td>
+        <td style='border : 1px solid #000;'><%= bill.from_customer.bank.name%></td>
         <td style='border : 1px solid #000;'><%= bill.goods_fee%></td>
         <td style='border : 1px solid #000;'><%= bill.k_carrying_fee%></td>
         <td style='border : 1px solid #000;'><%= bill.k_hand_fee%></td>
@@ -49,13 +49,13 @@
   <tfoot>
     <tr>
       <td colspan='2' style='text-align : right;border : 1px solid #000;'>合计</td>
-      <td style='border : 1px solid #000;'><%=@transfer_payment_list.carrying_bills.sum(:act_pay_fee)%></td>
+      <td style='border : 1px solid #000;'><%=@transfer_payment_list.carrying_bills.to_a.sum(&:act_pay_fee)%></td>
       <td style='text-align : right;border : 1px solid #000;'></td>
       <td style='text-align : right;border : 1px solid #000;'></td>
       <td style='text-align : right;border : 1px solid #000;'></td>
       <td style='text-align : right;border : 1px solid #000;'></td>
       <td style='border : 1px solid #000;'><%=@transfer_payment_list.carrying_bills.sum(:goods_fee)%></td>
-      <td style='border : 1px solid #000;'><%=@transfer_payment_list.carrying_bills.sum(:k_carrying_fee)%></td>
+      <td style='border : 1px solid #000;'><%=@transfer_payment_list.carrying_bills.to_a.sum(&:k_carrying_fee)%></td>
       <td style='border : 1px solid #000;'><%=@transfer_payment_list.carrying_bills.sum(:k_hand_fee)%></td>
       <td style='border : 1px solid #000;'></td>
     </tr>

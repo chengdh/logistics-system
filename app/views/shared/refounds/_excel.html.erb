@@ -35,9 +35,9 @@
   <tfoot>
     <tr>
       <td colspan='5' style='text-align : right;border : 1px solid #000;'>合计</td>
-      <td style='border : 1px solid #000;'><%=@load_list.carrying_bills.sum(:carrying_fee_th)%></td>
-      <td style='border : 1px solid #000;'><%=@load_list.carrying_bills.sum(:goods_fee)%></td>
-      <td style='border : 1px solid #000;'><%=@load_list.carrying_bills.sum(:insured_fee)%></td>
+      <td style='border : 1px solid #000;'><%=@refound.carrying_bills.to_a.sum(&:carrying_fee_th)%></td>
+      <td style='border : 1px solid #000;'><%=@refound.carrying_bills.sum(:goods_fee)%></td>
+      <td style='border : 1px solid #000;'><%=@refound.carrying_bills.sum(:insured_fee)%></td>
     </tr>
   </tfoot>
 </table>
