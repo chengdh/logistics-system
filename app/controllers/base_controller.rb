@@ -1,5 +1,6 @@
 #coding: utf-8
 class BaseController < InheritedResources::Base
+
   authorize_resource
 
   before_filter :pre_process_search_params,:only => [:index]

@@ -8,6 +8,4 @@ class HandBill < CarryingBill
     :with =>/(\d{6})?((?:\xe4[\xb8-\xbf][\x80-\xbf]|[\xe5-\xe8][\x80-\xbf][\x80-\xbf]|\xe9[\x80-\xbd][\x80-\xbf]|\xe9\xbe[\x80-\xa5])*)?(\d{1,10})-(\d{1,10})/
     #默认货号
   default_value_for :goods_no,Date.today.strftime('%y%m%d')
-
-
 end

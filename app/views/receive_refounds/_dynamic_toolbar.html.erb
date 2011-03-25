@@ -3,7 +3,7 @@
   <ul class="wat-cf">
     <%if can? :read_arrive,resource_class%>
       <li class="first">
-        <%= link_to image_tag("grid.png",:alt => "#{resource_class.model_name.human}列表") , collection_path,:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
+        <%= link_to image_tag("grid.png",:alt => "#{resource_class.model_name.human}列表") , collection_path("search[state_eq]" => "refunded"),:title => "#{resource_class.model_name.human}列表",:class => "tipsy"  %>
       </li>
       <li class="first">
         <%= link_to image_tag("grid-snap.png",:alt => "待确认收款清单") , collection_path(:state_eq => :refunded),:title => "待确认收款清单",:class => "tipsy"  %>

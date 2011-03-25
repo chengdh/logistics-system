@@ -24,7 +24,7 @@ class Org < ActiveRecord::Base
   #是否超过录单时间
   def input_expire?
     self.lock_input_time = '21:30' if self.lock_input_time.blank?
-    Time.now.strftime('%H:%S') >= self.lock_input_time
+    Time.now.strftime('%H:%M') >= self.lock_input_time
   end
 
   private

@@ -209,8 +209,8 @@ jQuery(function($) {
 	//
 	$('#hand_bill_goods_no,#hand_transit_bill_goods_no').live('change', function() {
 		var the_goods_no = $(this).val();
-		var bill_date = /^\w{6}/.exec(the_goods_no);
-		var goods_num = /\w+$/.exec(the_goods_no);
+		var bill_date = '20' + /^\d{6}/.exec(the_goods_no);
+		var goods_num = /\d+$/.exec(the_goods_no);
 		$('#bill_date').val(bill_date);
 		$('#goods_num').val(goods_num);
 
@@ -242,9 +242,6 @@ jQuery(function($) {
 		}
 	});
 	$('#menu_bar .navigation a').click(function() {
-		$.fancybox.showActivity();
-	});
-	$('.secondary-navigation a').click(function() {
 		$.fancybox.showActivity();
 	});
 
@@ -329,7 +326,7 @@ jQuery(function($) {
 		})
 	});
 	//绑定提货/提款/中转/中转提货处理的ajax:before
-	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info_form,#transit_info_form,#transit_deliver_info_form,#short_fee_info_form,#goods_exception_form,#send_list_form,#send_list_post_form').livequery(function() {
+	$('#deliver_info_form,#cash_pay_info_form,#transfer_pay_info_form,#transit_info_form,#transit_deliver_info_form,#short_fee_info_form,#goods_exception_form,#send_list_form,#send_list_post_form,#post_info_form').livequery(function() {
 		$(this).bind('ajax:before', function() {
 			var bill_els = $('[data-bill]');
 			var bill_ids = [];
@@ -430,7 +427,7 @@ jQuery(function($) {
 	$('#btn_refound_refresh').click(function() {
 		$.get('/settlements', {
 			"search[carrying_bills_from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
-			"search[carrying_bills_to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
+			"search[carrying_bills_to_org_id_or_carrying_bills_transit_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
 			"search[carrying_bills_type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[carrying_bills_state_eq]": "settlemented",
 			"search[carrying_bills_completed_eq]": 0,

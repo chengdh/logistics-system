@@ -1,7 +1,7 @@
 #coding: utf-8
 #退货单
 class ReturnBill < CarryingBill
-  before_create :generate_goods_no
+  before_save :generate_goods_no
   validates_presence_of :to_org_id
 
   #根据原始运单生成退货单

@@ -166,24 +166,7 @@ namespace :db do
     }
     }
     SystemFunction.create_by_hash(sf_hash)
-    ##############################退货单#################################################
-    subject_title = "退货单管理"
-    subject = "ReturnBill"
-    sf_hash = {
-      :group_name => group_name,
-      :subject_title => subject_title,
-      :default_action => 'before_new_return_bills_path',
-      :subject => subject,
-      :function => {
-      :create => {:title => "新建"},
-      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
-      :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
-      :re_print => {:title => "票据重打",:conditions =>"{:state => 'billed'}"},
-      :export => {:title => "导出"}
-    }
-    }
-    SystemFunction.create_by_hash(sf_hash)
-
+    
 
 
 
@@ -210,7 +193,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => 'arrive_load_lists_path',
+      :default_action => 'arrive_load_lists_path("search[state_eq]" => "shipped")',
       :subject => subject,
       :function => {
       :read_arrive =>{:title => "查看",:conditions =>"{:state => ['shipped','reached'],:to_org_id => user.current_ability_org_ids}"} ,
@@ -287,6 +270,24 @@ namespace :db do
 
     }
     SystemFunction.create_by_hash(sf_hash)
+    ##############################退货单#################################################
+    subject_title = "退货单管理"
+    subject = "ReturnBill"
+    sf_hash = {
+      :group_name => group_name,
+      :subject_title => subject_title,
+      :default_action => 'before_new_return_bills_path',
+      :subject => subject,
+      :function => {
+      :create => {:title => "新建"},
+      :update =>{:title =>"修改",:conditions =>"{:from_org_id => user.current_ability_org_ids}"},
+      :destroy => {:title => "删除",:conditions =>"{:state => ['loaded','billed']}"},
+      :re_print => {:title => "票据重打",:conditions =>"{:state => 'billed'}"},
+      :export => {:title => "导出"}
+    }
+    }
+    SystemFunction.create_by_hash(sf_hash)
+
     ##############################短途运费管理#############################################
     subject_title = "短途运费管理"
     subject = "ShortFeeInfo"
@@ -474,7 +475,7 @@ namespace :db do
     sf_hash = {
       :group_name => group_name,
       :subject_title => subject_title,
-      :default_action => 'receive_refounds_path',
+      :default_action => 'receive_refounds_path("search[state_eq]" => "refunded")',
       :subject => subject,
       :function => {
       :read_arrive =>{:title => "查看",:conditions =>"{:state =>['refunded_confirmed','refunded'] ,:to_org_id => user.current_ability_org_ids}"} ,
