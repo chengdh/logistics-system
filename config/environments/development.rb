@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 IlYanzhao::Application.configure do
   # Settings specified here will take precedence over those in config/environment.rb
 
@@ -24,5 +23,25 @@ IlYanzhao::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+  config.after_initialize do
+    Bullet.enable = false
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    Bullet.rails_logger = true
+    Bullet.disable_browser_cache = true
+  end
+end
+# the notify message will be notified to rails logger, customized logger, growl or xmpp.
+UniformNotifier.active_notifiers.each do |notifier|
+  notifier.out_of_channel_notify(args.join("\n"))
 end
 
+# the notify message will be wrapped by <script type="text/javascript">...</script>,
+# you should append the javascript_str at the bottom of http response body.
+# for more information, please check https://github.com/flyerhzm/bullet/blob/master/lib/bullet/rack.rb
+responses = []
+UniformNotifier.active_notifiers.each do |notifier|
+  responses << notifier.inline_notify(notify_message)
+end
+javascript_str = responses.join("\n")

@@ -11,30 +11,23 @@ class IlConfig < ActiveRecord::Base
   #title 
   KEY_TITLE = 'system_title'
   def self.insured_rate
-   if self.find_by_key(KEY_INSURED_RATE).blank?
-     self.create(:key => KEY_INSURED_RATE,:title => '保价费比例设置',:value => '0.003')
-   end
-   self.find_by_key(KEY_INSURED_RATE).value.to_f
+    @@insured_rate ||= self.find_by_key(KEY_INSURED_RATE)
+    @@insured_rate ||= self.create(:key => KEY_INSURED_RATE,:title => '保价费比例设置',:value => '0.003')
+    @@insured_rate.value
   end
   def self.client_name
-   if self.find_by_key(KEY_CLIENT_NAME).blank?
-     self.create(:key => KEY_CLIENT_NAME,:title => '公司名称',:value => 'XXX物流公司')
-   end
-   self.find_by_key(KEY_CLIENT_NAME).value
+    @@client_name ||=self.find_by_key(KEY_CLIENT_NAME)
+    @@client_name ||= self.create(:key => KEY_CLIENT_NAME,:title => '公司名称',:value => 'XXX物流公司')
+    @@client_name.value
   end
   def self.client_logo
-   if self.find_by_key(KEY_LOGO).blank?
-     self.create(:key => KEY_LOGO,:title => '公司标志',:value => '/images/logo.png')
-   end
-   logo = self.find_by_key(KEY_LOGO)
-   logo.value ='/images/logo.png' if logo.value.blank?
-   logo.value
+    @@client_logo ||= self.find_by_key(KEY_LOGO)
+    @@client_logo ||= self.create(:key => KEY_LOGO,:title => '公司标志',:value => '/images/logo.png')
+    @@client_logo.value
   end
   def self.system_title
-   if self.find_by_key(KEY_TITLE).blank?
-     self.create(:key => KEY_TITLE,:title => '系统名称',:value => 'IL综合物流业务系统')
-   end
-   self.find_by_key(KEY_TITLE).value
+    @@system_title ||= self.find_by_key(KEY_TITLE)
+    @@system_title ||= self.create(:key => KEY_TITLE,:title => '系统名称',:value => 'IL综合物流业务系统')
+    @@system_title.value
   end
-
 end

@@ -1,7 +1,7 @@
 <ul>
   <li data-editPath='<%=edit_org_path(org,:format => :js) %>' data-deletePath='<%=org_path(org,:format => :js) %>'>
     <span><%=org.name%></span>
-    <%org.children.each do |child_org|%>
+    <%@orgs.select {|the_org| org.id == the_org.parent_id }.each do |child_org|%>
       <%= render "orgs_recursive",:org => child_org %>
     <%end%>
   </li>

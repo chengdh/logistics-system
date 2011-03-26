@@ -25,6 +25,8 @@ class CarryingBill < ActiveRecord::Base
   #待提款票据 
   scope :ready_pay,lambda {|from_org_ids| search(:from_customer_id_is_null => 1).where(:from_org_id => from_org_ids,:state => :payment_listed).select('sum(goods_fee) as goods_fee,sum(1) as bill_count')}
 
+  default_scope :include => [:from_org,:to_org,:transit_org,:send_list_line,:user]
+
 
   before_validation :set_customer
   #保存成功后,设置原始费用
@@ -377,13 +379,12 @@ class CarryingBill < ActiveRecord::Base
         :sum_to_short_carrying_fee => search.relation.sum(:to_short_carrying_fee),
         :sum_goods_num => search.relation.sum(:goods_num)
       }
-      #实提货款合计
+      #实提货款合计 
       sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
       sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
       sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]
       sum_info
     end
-
 
     protected
     #导出选项

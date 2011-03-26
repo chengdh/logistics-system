@@ -1,4 +1,5 @@
-<table class="table <%=params[:rpt_type]%>" id="bills_table" data-ids='<%=search_ids%>' data-sum = '<%=search_sum.to_json%>'>
+<% sum_info = search_sum%>
+<table class="table <%=params[:rpt_type]%>" id="bills_table" data-ids='<%=search_ids%>' data-sum = '<%=sum_info.to_json%>'>
   <thead>
     <tr class='select_bill_bar' style='display : none;'>
       <th colspan="7">
@@ -122,20 +123,20 @@
       <td>&nbsp;</td>
       <td>&nbsp;</td>
       <td>总计</td>
-      <td><%=search_sum[:count]%>票</td>
-      <td class="carrying_fee"><%=search_sum[:sum_carrying_fee]%></td>
-      <td class="carrying_fee_th" style='display : none;'><%=search_sum[:sum_carrying_fee_th]%></td>
-      <td class="goods_fee"><%=search_sum[:sum_goods_fee]%></td>
-      <td class="k_hand_fee" style='display : none;'><%=search_sum[:sum_k_hand_fee]%></td>
-      <td class="k_carrying_fee" style='display : none;'><%= search_sum[:sum_k_carrying_fee] %></td>
-      <td class="act_pay_fee" style='display : none;'><%= search_sum[:sum_act_pay_fee] %></td>
-      <td class="insured_fee"><%=search_sum[:sum_insured_fee]%></td>
-      <td class="transit_carrying_fee" style='display : none;'><%=search_sum[:sum_transit_carrying_fee]%></td>
-      <td class="transit_hand_fee" style='display : none;'><%=search_sum[:sum_transit_hand_fee]%></td>
-      <td class="agent_carrying_fee" style='display : none;'><%=search_sum[:sum_agent_carrying_fee]%></td>
-      <td class="th_amount" style='display : none;'><%=search_sum[:sum_th_amount]%></td>
-      <td class="from_short_carrying_fee" style='display : none;'><%= search_sum[:sum_from_short_carrying_fee] %></td>
-      <td class="to_short_carrying_fee" style='display : none;'><%= search_sum[:sum_to_short_carrying_fee] %></td>
+      <td><%=sum_info[:count]%>票</td>
+      <td class="carrying_fee"><%=sum_info[:sum_carrying_fee]%></td>
+      <td class="carrying_fee_th" style='display : none;'><%=sum_info[:sum_carrying_fee_th]%></td>
+      <td class="goods_fee"><%=sum_info[:sum_goods_fee]%></td>
+      <td class="k_hand_fee" style='display : none;'><%=sum_info[:sum_k_hand_fee]%></td>
+      <td class="k_carrying_fee" style='display : none;'><%= sum_info[:sum_k_carrying_fee] %></td>
+      <td class="act_pay_fee" style='display : none;'><%= sum_info[:sum_act_pay_fee] %></td>
+      <td class="insured_fee"><%=sum_info[:sum_insured_fee]%></td>
+      <td class="transit_carrying_fee" style='display : none;'><%=sum_info[:sum_transit_carrying_fee]%></td>
+      <td class="transit_hand_fee" style='display : none;'><%=sum_info[:sum_transit_hand_fee]%></td>
+      <td class="agent_carrying_fee" style='display : none;'><%=sum_info[:sum_agent_carrying_fee]%></td>
+      <td class="th_amount" style='display : none;'><%=sum_info[:sum_th_amount]%></td>
+      <td class="from_short_carrying_fee" style='display : none;'><%= sum_info[:sum_from_short_carrying_fee] %></td>
+      <td class="to_short_carrying_fee" style='display : none;'><%= sum_info[:sum_to_short_carrying_fee] %></td>
       <td class='note'>&nbsp;</td>
       <td class='state'>&nbsp;</td>
       <td class='short_fee_state' style='display :none;'>&nbsp;</td>

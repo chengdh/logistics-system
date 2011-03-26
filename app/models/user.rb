@@ -1,18 +1,19 @@
 #coding: utf-8
 class User < ActiveRecord::Base
+  attr_accessor :all_user_orgs
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable,#:registerable,
-         :rememberable, :trackable #:recoverable
+    :rememberable, :trackable #:recoverable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:username,:is_admin,:default_role_id,:default_org_id,:is_active,:user_roles_attributes,:user_orgs_attributes,:use_usb,:usb_pin
 
   validates_presence_of :username
   validates :password,:confirmation => true
-  has_many :user_roles
+  has_many :user_roles,:include => :role
   has_many :roles,:through => :user_roles
-  has_many :user_orgs
+  has_many :user_orgs,:include => :org
   has_many :orgs,:through => :user_orgs
   belongs_to :default_org,:class_name => "Org"
   belongs_to :default_role,:class_name => "Role"
@@ -35,10 +36,12 @@ class User < ActiveRecord::Base
   end
   #显示所有部门,包括当前角色具备与不具备的部门
   def all_user_orgs!
-    Org.where(:is_active => true).order("name ASC").each do |org|
-      self.user_orgs.build(:org => org) unless self.user_orgs.detect { |the_user_org| the_user_org.org.id == org.id } 
+    if self.all_user_orgs.blank?
+      Org.where(:is_active => true).order("name ASC").each do |org|
+        self.user_orgs.build(:org => org) unless self.user_orgs.detect { |the_user_org| the_user_org.org.id == org.id } 
+      end 
     end
-    self.user_orgs.sort! {|x,y| x.org.id <=> y.org.id }
+    self.all_user_orgs ||= self.user_orgs 
   end
 
   #得到当前用户可访问的部门

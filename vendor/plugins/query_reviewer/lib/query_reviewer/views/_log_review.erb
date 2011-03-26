@@ -1,0 +1,41 @@
+[<%= Time.now.to_s(:db) %>] <%= controller.class.name %>#<%= controller.action_name %>
+
+  Total queries:       <%= @queries.query_count %>
+  <%- if @total_time -%>
+  Total time:          <%= '%.3f' % (@total_time - @queries.overhead_time) %>s
+  <%- end -%>
+  MySQL Database Time: <%= '%.3f' % @queries.total_duration %>s
+
+    With warnings:     <%= @queries.total_with_warnings %> (<%= @queries.percent_with_warnings %>%)
+    Without warnings:  <%= @queries.total_without_warnings %> (<%= @queries.percent_without_warnings %>%)
+
+  Type:
+  <%- QueryReviewer::SqlQueryCollection::COMMANDS.each do |command| -%>
+    <%- next if @queries.count_of_command(command).zero? -%>
+    * <%= @queries.count_of_command(command) %> <%= command %>s
+  <%- end -%>
+
+  <%- if warnings_no_query_sorted.length + queries_with_warnings_sorted.length > 0 -%>
+  <%- if warnings_no_query_sorted_nonignored.length + queries_with_warnings_sorted_nonignored.length > 0 -%>
+  <%= warnings_no_query_sorted_nonignored.length + queries_with_warnings_sorted_nonignored.length %> Errors:
+  <%- warnings_no_query_sorted_nonignored.each do |warning_no_query| -%>
+    * [Severity: <%= warning_no_query.severity %> out of 10] <%= warning_no_query.problem %>: 
+      - <%= warning_no_query.desc %>
+  <%- end -%>
+  <%- queries_with_warnings_sorted_nonignored.each do |query_with_warning| -%>
+    * [Severity: <%= query_with_warning.max_severity %> out of 10] - <%- if query_with_warning.count > 1 %><%= query_with_warning.count  -%> identical queries - <%- end -%> Table <%= (query_with_warning.warnings.detect {|w| !w.table.blank? } || query_with_warning.warnings.last).table %>:
+    <%- query_with_warning.warnings.sort{|a,b| a.severity <=> b.severity}.reverse.each do |warn| -%>
+      -- <%= warn.problem %> (<%= warn.desc%>)
+    <%- end -%>
+    
+      SQL: 
+        <%= query_with_warning.sql %>
+    
+      EXPLAIN:
+<%= subqueires_table(query_with_warning.subqueries) %>
+  <%- end -%>
+  <%- end -%>
+  <%- end -%>
+
+  
+    

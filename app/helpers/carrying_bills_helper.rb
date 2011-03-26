@@ -12,7 +12,7 @@ module CarryingBillsHelper
   end
   #得到查询对象的id数组
   def search_ids
-    @search.select("carrying_bills.id").map {|bill| bill.id }.to_json
+    @search.select("carrying_bills.id,carrying_bills.from_org_id,carrying_bills.to_org_id,carrying_bills.transit_org_id,carrying_bills.user_id").map {|bill| bill.id }.to_json
   end
   #得到票据合计信息
   def search_sum
