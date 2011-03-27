@@ -21,7 +21,7 @@
     </tr>
     <tr>
       <td>运单号:</td>
-      <td><%= link_to "#{resource.carrying_bill.bill_no}/#{resource.carrying_bill.goods_no}",resource.carrying_bill,:class => 'fancybox'%></td>
+      <td><%= link_to "#{resource.carrying_bill.bill_no}/#{resource.carrying_bill.goods_no}",carrying_bill_path(resource.carrying_bill,:format => :js),:class => 'fancybox'%></td>
       <td>备注:</td>
       <td colspan="3"><%=resource.note%></td>
     </tr>

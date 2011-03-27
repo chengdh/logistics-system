@@ -469,7 +469,7 @@ jQuery(function($) {
 
 		var params = {
 			"search[from_org_id_eq]": $('[name="refound[to_org_id]"]').val(),
-			"search[to_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
+			"search[to_org_id_or_transit_org_id_eq]": $('[name="refound[from_org_id]"]').val(),
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
 			"search[state_eq]": "settlemented",
 			"search[completed_eq]": 0,
@@ -498,7 +498,7 @@ jQuery(function($) {
 			"search[completed_eq]": 0,
 			//运单列表显示的字段
 			"hide_fields": ".carrying_fee,.insured_fee",
-			"show_fields": ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
+			"show_fields": ".k_carrying_fee,.k_hand_fee,.transit_hand_fee,.act_pay_fee"
 		};
 		if (evt.data.is_cash) {
 			params["search[from_customer_id_is_null"] = "1";

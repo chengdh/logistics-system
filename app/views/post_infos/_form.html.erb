@@ -4,7 +4,7 @@
   <table class='table'>
     <tr>
       <td>结算员:</td>
-      <td></td>
+      <td><%= current_user %></td>
       <td>结算单位:</td>
       <td>
         <%=f.select :org_id,current_ability_orgs_for_select,{},{:class => "select_org",:id => "from_org_id"} %>

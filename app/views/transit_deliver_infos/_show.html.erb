@@ -1,5 +1,5 @@
 <div id="table_wrap"></div>
-<table class='table' data-detailUrl='<%=carrying_bill_path(resource.carrying_bill)%>' data-params='{"hide_fields": ".carrying_fee,.insured_fee","show_fields": ".transit_carrying_fee,.transit_hand_fee,.carrying_fee_th,.th_amount"}'>
+<table class='table'>
   <tbody>
     <tr>
       <td>中转部门:</td>
@@ -8,12 +8,12 @@
       <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
       <td>中转手续费:</td>
       <td><%=resource.transit_hand_fee%></td>
-      <td>运单号</td>
-      <td><%=resource.carrying_bill%></td>
+      <td>运单号:</td>
+      <td><%= link_to "#{resource.carrying_bill.bill_no}/#{resource.carrying_bill.goods_no}",carrying_bill_path(resource.carrying_bill,:format => :js),:class => 'fancybox'%></td>
     </tr>
     <tr>
       <td>备注:</td>
-      <td colspan="6"><%=resource.note%></td>
+      <td colspan="7"><%=resource.note%></td>
     </tr>
   </tbody>
 </table>
