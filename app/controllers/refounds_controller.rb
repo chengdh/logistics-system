@@ -1,6 +1,7 @@
 #coding: utf-8
 class RefoundsController < BaseController
   include BillOperate
+  table :bill_date,:from_org,:to_org,:human_state_name,:user,:sum_goods_fee,:sum_carrying_fee,:note
   #GET search
   #显示查询窗口
   def search

@@ -63,4 +63,10 @@ class CarryingBillsController < BaseController
       redirect_to :action => :index
     end
   end
+  protected
+  def collection
+    @search = end_of_association_chain.accessible_by(current_ability).search(params[:search])
+    get_collection_ivar || set_collection_ivar(@search.select("DISTINCT #{resource_class.table_name}.*").with_association.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
+  end
+
 end

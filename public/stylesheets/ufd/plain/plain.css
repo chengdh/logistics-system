@@ -34,7 +34,7 @@ span.ufd.plain-focus {
     width: 18px;
     height: 18px;
     margin-left: 1px; /* for divider */
-    background: url(icon.gif) no-repeat 0px 0px;
+    background: url(/stylesheets/ufd/plain/icon.gif) no-repeat 0px 0px;
 }
 
 .ufd.plain button.focus {

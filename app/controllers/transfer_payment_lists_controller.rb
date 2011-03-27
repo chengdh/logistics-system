@@ -1,6 +1,6 @@
 #coding: utf-8
 class TransferPaymentListsController < BaseController
-  table :except => :type
+  table :bill_date,:bank,:user,:note
   include BillOperate
   #GET search
   #显示查询窗口

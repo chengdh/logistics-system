@@ -1,4 +1,4 @@
-<table class='table'>
+<table class='table' data-detailUrl='<%=settlement_carrying_bills_path(resource)%>' data-params='{"hide_fields": ".carrying_fee,.insured_fee","show_fields": ".carrying_fee_th,.th_amount"}'>
   <tr>
     <td>结算员:</td>
     <td><%=resource.user.try(:username)%></td>
@@ -25,12 +25,3 @@
   </tr>
 </table>
 <div id="table_wrap"></div>
-<script>
-  //获取清单明细数据
-  jQuery(function($) {$.get('<%=settlement_carrying_bills_path(resource)%>',
-    {
-      "hide_fields": ".carrying_fee,.insured_fee",
-      "show_fields": ".carrying_fee_th,.th_amount"
-  },
-  null,'script');});
-</script>

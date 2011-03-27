@@ -1,4 +1,4 @@
-<table class='table'>
+<table class='table' data-detailUrl='<%=load_list_carrying_bills_path(resource)%>'>
   <tr>
     <td>日期:</td>
     <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
@@ -14,7 +14,3 @@
   </tr>
 </table>
 <div id="table_wrap"></div>
-<script>
-  //获取清单明细数据
-  jQuery(function($) {$.get('<%=load_list_carrying_bills_path(resource)%>',null,null,'script');});
-</script>

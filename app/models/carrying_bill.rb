@@ -25,7 +25,7 @@ class CarryingBill < ActiveRecord::Base
   #待提款票据 
   scope :ready_pay,lambda {|from_org_ids| search(:from_customer_id_is_null => 1).where(:from_org_id => from_org_ids,:state => :payment_listed).select('sum(goods_fee) as goods_fee,sum(1) as bill_count')}
 
-  default_scope :include => [:from_org,:to_org,:transit_org,:send_list_line,:user]
+  scope :with_association,:include => [:from_org,:to_org,:transit_org,:send_list_line,:user]
 
 
   before_validation :set_customer

@@ -1,5 +1,6 @@
 #coding: utf-8
 class SettlementsController < BaseController
+  table :org,:bill_date,:sum_goods_fee,:sum_carrying_fee,:user,:human_state_name,:note
   include BillOperate
   def new
     @settlement = Settlement.new

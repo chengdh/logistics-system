@@ -1,6 +1,6 @@
 #coding: utf-8
 class CashPaymentListsController < BaseController
-  table :except => [:bank_id,:type]
+  table :bill_date,:org,:user,:note
   include BillOperate
   #GET search
   #显示查询窗口

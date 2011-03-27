@@ -698,5 +698,12 @@ jQuery(function($) {
 
 	});
 
+	//自动获取明细信息
+	$('[data-detailUrl]').livequery(function() {
+		var url = $(this).data('detailUrl');
+                var params = $(this).data('params');
+		$.get(url, params, null, 'script');
+	});
+
 });
 

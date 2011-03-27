@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
   belongs_to :default_org,:class_name => "Org"
   belongs_to :default_role,:class_name => "Role"
   accepts_nested_attributes_for :user_roles,:user_orgs,:allow_destroy => true
+  scope :with_association,:include => [:user_roles,:user_orgs]
 
   def self.new_with_roles(attrs= {})
     ret = User.new(attrs)

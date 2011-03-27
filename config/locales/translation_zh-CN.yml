@@ -81,6 +81,9 @@ zh-CN:
         bill_date: "单据日期"
         note: "备注"
         is_active: "有效标志"
+        human_state_name: "状态"
+        user: "操作员"
+        bank: "银行"
 
       bank:
         name: "名称"  #g
@@ -326,6 +329,8 @@ zh-CN:
         bill_date: "日期"  #g
         carrying_bills: "运单"  #g
         org: "所属机构"  #g
+        user: "结算员"
+        human_state_name: "状态"
 
       short_fee_info:
         bill_date: "日期"  #g

@@ -4,6 +4,9 @@ class UsersController < BaseController
   def new
     @user = User.new_with_roles
   end
+  def edit
+    @user = User.with_association.find(params[:id])
+  end
   # GET users/edit_password
   # 修改当前登录用户的密码
   def edit_password
