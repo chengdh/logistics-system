@@ -8,14 +8,12 @@
       <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
       <td>中转手续费:</td>
       <td><%=resource.transit_hand_fee%></td>
+      <td>运单号</td>
+      <td><%=resource.carrying_bill%></td>
     </tr>
     <tr>
       <td>备注:</td>
-      <td colspan="6"><%=resource.note%></td>
+      <td colspan="8"><%=resource.note%></td>
     </tr>
   </tbody>
 </table>
-<script>
-  //获取清单明细数据
-  jQuery(function($) {$.get('<%=carrying_bill_path(resource.carrying_bill)%>',null,null,'script');});
-</script>

@@ -456,6 +456,7 @@ class CarryingBill < ActiveRecord::Base
     def reset_bill
       self.update_attributes(:load_list_id => nil,:distribution_list_id => nil,:deliver_info_id => nil,:settlement_id => nil,:refound_id => nil,:payment_list_id => nil,:pay_info_id => nil,:post_info_id => nil,:transit_info_id => nil)
     end
+
     #根据运单不同情况设置completed标志
     #提货付款/无代收货款
     def set_completed_settlemented

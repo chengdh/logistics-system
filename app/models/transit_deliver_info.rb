@@ -4,6 +4,7 @@ class TransitDeliverInfo < ActiveRecord::Base
   belongs_to :user
   has_one :carrying_bill
   validates_presence_of :org_id
+  default_scope :include => :carrying_bill
   #定义状态机
   state_machine :initial => :billed do
     after_transition do |deliver,transition|
