@@ -483,9 +483,9 @@ jQuery(function($) {
 		$($.bill_selector).bind('select:change', function() {
 			$('#refound_sum_goods_fee').val($.bill_selector.sum_info.sum_goods_fee);
 			$('#refound_sum_carrying_fee').val($.bill_selector.sum_info.sum_carrying_fee_th);
-			$('#refound_sum_transit_carrying_fee').val(sum_info.sum_transit_carrying_fee);
-			$('#refound_sum_transit_hand_fee').val(sum_info.sum_transit_hand_fee);
-			$('#refound_sum_fee').html(parseFloat(sum_info.sum_goods_fee) + parseFloat(sum_info.sum_carrying_fee_th) - parseFloat(sum_info.sum_transit_carrying_fee) - parseFloat(sum_info.sum_transit_hand_fee));
+			$('#refound_sum_transit_carrying_fee').val($.bill_selector.sum_info.sum_transit_carrying_fee);
+			$('#refound_sum_transit_hand_fee').val($.bill_selector.sum_info.sum_transit_hand_fee);
+			$('#refound_sum_fee').html($.bill_selector.sum_info.sum_th_amount);
 		});
 
 	});

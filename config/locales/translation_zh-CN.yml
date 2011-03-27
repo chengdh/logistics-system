@@ -88,6 +88,7 @@ zh-CN:
         org: "机构"
         from_org: "发货地"
         to_org: "到货地"
+        
 
       bank:
         name: "名称"  #g

@@ -20,13 +20,10 @@
       <td><%=resource.to_station_phone%></td>
     </tr>
     <tr>
+      <td>运单号:</td>
+      <td><%= link_to "#{resource.carrying_bill.bill_no}/#{resource.carrying_bill.goods_no}",resource.carrying_bill,:class => 'fancybox'%></td>
       <td>备注:</td>
       <td colspan="3"><%=resource.note%></td>
     </tr>
   </tbody>
 </table>
-<script>
-  //获取清单明细数据
-  $.get('<%=carrying_bill_path(resource.carrying_bill)%>',null,null,'script');
-</script>
-

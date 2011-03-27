@@ -54,8 +54,8 @@ namespace :db do
 
     #生成示例票据数据
     #各种票据生成50张
-    50.times do |index|
-      Factory(:computer_bill,:pay_type =>"TH",:from_org => Branch.first,:to_org => Branch.last,:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
+    #50.times do |index|
+    #  Factory(:computer_bill,:pay_type =>"TH",:from_org => Branch.first,:to_org => Branch.last,:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
     #  Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('A'),:to_org => Org.find_by_py('hd'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
     #  Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('B'),:to_org => Org.find_by_py('qx'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
     #  Factory(:computer_bill,:pay_type =>"TH",:from_org => Org.find_by_py('C'),:to_org => Org.find_by_py('dm'),:from_customer => Vip.first,:from_customer_name => Vip.first.name,:from_customer_phone => Vip.first.phone)
@@ -63,7 +63,6 @@ namespace :db do
     #  Factory(:hand_bill,:from_org => Branch.first,:to_org => Branch.last,:bill_no => "hand_bill_no_#{index}",:goods_no => "hand_goods_no_#{index}")
     #  Factory(:transit_bill,:from_org => Branch.find_by_py('sjz'),:transit_org => Branch.find_by_py('zzgs'),:to_area => "开封")
     #  Factory(:hand_transit_bill,:from_org => Branch.find_by_py('sjz'),:transit_org => Branch.find_by_py('zzgs'),:to_area => "开封",:bill_no => "hand_transit_bill_no_#{index}",:goods_no => "hand_transit_goods_no_#{index}")
-    end
     10.times do |index|
       TransitCompany.create(:name => "中转公司_#{index}",:address => "中转公司地址_#{index} ")
     end
@@ -183,7 +182,7 @@ namespace :db do
       :read =>{:title => "查看",:conditions =>"{:from_org_id => user.current_ability_org_ids }"} ,
       :create => {:title => "新建"},
       :export => {:title => "导出"},
-      :ship => {:title => "发车",:conditions =>"{:from_org_id => user.current_ability_org_ids,:state => 'loaded'}"},
+      :ship => {:title => "发车",:conditions =>"{:from_org_id => user.current_ability_org_ids,:state => 'loaded'}"}
     }
     }
     SystemFunction.create_by_hash(sf_hash)
@@ -214,7 +213,7 @@ namespace :db do
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
       :create => {:title => "新建"},
-      :export => {:title => "导出"},
+      :export => {:title => "导出"}
     }
 
     }
@@ -230,7 +229,7 @@ namespace :db do
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"} ,
       :create => {:title => "新建"},
-      :export => {:title => "导出"},
+      :export => {:title => "导出"}
     }
 
     }
@@ -250,7 +249,7 @@ namespace :db do
       :batch_deliver => {:title => "批量提货"},
       :print_deliver => {:title => "打印提货"},
       :print => {:title => "仅打印提货单"},
-      :export => {:title => "导出"},
+      :export => {:title => "导出"}
     }
 
     }
@@ -266,7 +265,7 @@ namespace :db do
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids}"},
       :create => {:title => "新建"},
-      :export => {:title => "导出"},
+      :export => {:title => "导出"}
     }
 
     }
@@ -435,7 +434,7 @@ namespace :db do
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"},
       :create => {:title => "新建"},
-      :export => {:title => "导出"},
+      :export => {:title => "导出"}
       }
     }
     SystemFunction.create_by_hash(sf_hash)
