@@ -357,6 +357,8 @@ jQuery(function($) {
 		var sum_goods_fee = 0;
 		var sum_carrying_fee_th = 0;
 		var sum_k_carrying_fee = 0;
+		var sum_transit_carrying_fee = 0;
+		var sum_transit_hand_fee = 0;
 		var sum_k_hand_fee = 0;
 		var sum_act_pay_fee = 0;
 		var sum_from_short_carrying_fee = 0;
@@ -369,6 +371,8 @@ jQuery(function($) {
 			sum_carrying_fee += parseFloat(the_bill.carrying_fee);
 			sum_carrying_fee_th += parseFloat(the_bill.carrying_fee_th);
 			sum_k_carrying_fee += parseFloat(the_bill.k_carrying_fee);
+			sum_transit_carrying_fee += parseFloat(the_bill.transit_carrying_fee);
+			sum_transit_hand_fee += parseFloat(the_bill.transit_hand_fee);
 			sum_th_amount += parseFloat(the_bill.th_amount);
 			sum_k_hand_fee += parseFloat(the_bill.k_hand_fee);
 			sum_act_pay_fee += parseFloat(the_bill.act_pay_fee);
@@ -384,6 +388,8 @@ jQuery(function($) {
 		$('#sum_from_short_carrying_fee').html(sum_from_short_carrying_fee);
 		$('#sum_to_short_carrying_fee').html(sum_to_short_carrying_fee);
 		$('#sum_k_carrying_fee').html(sum_k_carrying_fee);
+		$('#sum_transit_hand_fee').html(sum_transit_hand_fee);
+		$('#sum_transit_carrying_fee').html(sum_transit_carrying_fee);
 		$('#sum_carrying_fee_th').html(sum_carrying_fee_th);
 		$('#sum_hand_fee').html(sum_k_hand_fee);
 		$('#sum_act_pay_fee').html(sum_act_pay_fee);
@@ -408,7 +414,7 @@ jQuery(function($) {
 			"search[type_in][]": ['ComputerBill', 'HandBill', 'ReturnBill', 'TransitBill', 'HandTransitBill'],
 			//以下设定运单列表中的显示及隐藏字段,设定为css选择符
 			"hide_fields": ".carrying_fee,.insured_fee",
-			"show_fields": ".carrying_fee_th,.th_amount"
+			"show_fields": ".transit_carrying_fee,.transit_hand_fee,.carrying_fee_th,.th_amount"
 		};
 		$(this).data('params', params);
 	}).bind('ajax:complete', function() {
@@ -417,7 +423,9 @@ jQuery(function($) {
 		var ids = $('#bills_table').data('ids');
 		$('#settlement_sum_carrying_fee').val(sum_info.sum_carrying_fee_th);
 		$('#settlement_sum_goods_fee').val(sum_info.sum_goods_fee);
-		$('#settlement_sum_fee').html(parseFloat(sum_info.sum_goods_fee) + parseFloat(sum_info.sum_carrying_fee_th));
+		$('#settlement_sum_transit_carrying_fee').val(sum_info.sum_transit_carrying_fee);
+		$('#settlement_sum_transit_hand_fee').val(sum_info.sum_transit_hand_fee);
+		$('#settlement_sum_fee').html(parseFloat(sum_info.sum_goods_fee) + parseFloat(sum_info.sum_carrying_fee_th) - parseFloat(sum_info.sum_transit_carrying_fee) - parseFloat(sum_info.sum_transit_hand_fee));
 		$('#settlement_form').data('params', {
 			'bill_ids[]': ids
 		});
@@ -468,14 +476,16 @@ jQuery(function($) {
 			"search[goods_fee_or_carrying_fee_gt]": 0,
 			"search[settlement_id_in][]": selected_bill_ids,
 			"hide_fields": ".carrying_fee,.insured_fee",
-			'show_fields': ".carrying_fee_th,.th_amount"
+			'show_fields': ".carrying_fee_th,.th_amount,.transit_hand_fee,.transit_carrying_fee"
 		};
 		$(this).data('params', params);
 		//选定单据改变时,修改对应返款清单相关金额字段
 		$($.bill_selector).bind('select:change', function() {
 			$('#refound_sum_goods_fee').val($.bill_selector.sum_info.sum_goods_fee);
 			$('#refound_sum_carrying_fee').val($.bill_selector.sum_info.sum_carrying_fee_th);
-			$('#refound_sum_fee').html(parseFloat($.bill_selector.sum_info.sum_carrying_fee) + parseFloat($.bill_selector.sum_info.sum_goods_fee));
+			$('#refound_sum_transit_carrying_fee').val(sum_info.sum_transit_carrying_fee);
+			$('#refound_sum_transit_hand_fee').val(sum_info.sum_transit_hand_fee);
+			$('#refound_sum_fee').html(parseFloat(sum_info.sum_goods_fee) + parseFloat(sum_info.sum_carrying_fee_th) - parseFloat(sum_info.sum_transit_carrying_fee) - parseFloat(sum_info.sum_transit_hand_fee));
 		});
 
 	});
@@ -555,7 +565,7 @@ jQuery(function($) {
 			"search[from_customer_id_is_null]": 1,
 			"search[type_in][]": ['ComputerBill', 'HandBill', 'TransitBill', 'HandTransitBill'],
 			"hide_fields": ".carrying_fee,.insured_fee",
-			"show_fields": ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
+			"show_fields": ".k_carrying_fee,.transit_hand_fee,.k_hand_fee,.act_pay_fee"
 
 		};
 		$(this).data('params', params);
@@ -566,6 +576,7 @@ jQuery(function($) {
 		$('#sum_goods_fee').val(sum_info.sum_goods_fee);
 		$('#sum_k_carrying_fee').val(sum_info.sum_k_carrying_fee);
 		$('#sum_k_hand_fee').val(sum_info.sum_k_hand_fee);
+		$('#sum_transit_hand_fee').val(sum_info.sum_transit_hand_fee);
 		//计算实际提款及余额
 		$('#sum_pay_fee').val(sum_info.sum_act_pay_fee);
 		$('#pay_info_form').data('params', {
@@ -701,9 +712,34 @@ jQuery(function($) {
 	//自动获取明细信息
 	$('[data-detailUrl]').livequery(function() {
 		var url = $(this).data('detailUrl');
-                var params = $(this).data('params');
+		var params = $(this).data('params');
 		$.get(url, params, null, 'script');
 	});
+
+	//根据参数显示或隐藏字段
+	$('[data-showFields]').livequery(function() {
+		$($(this).data('showFields')).show();
+
+	});
+	$('[data-hideFields]').livequery(function() {
+		$($(this).data('hideFields')).hide();
+
+	});
+	//运单修改时,判断权限
+	$('.update_all').livequery(function() {
+		$('#carrying_bill_form :input,#carrying_bill_form select').attr('readonly', false);
+	});
+	$('.update_carrying_fee').livequery(function() {
+		$('#carrying_bill_form :input').attr('readonly', true);
+		$('#carrying_bill_form select').attr('disabled', true);
+		$('#carrying_fee').attr('readonly', false);
+	});
+	$('.edit_lock_time').livequery(function() {
+		$(this).find(':input').attr('readonly', true);
+		$(this).find('select').attr('disabled', true);
+		$(this).find('[name*="lock_time"]').attr('readonly', false);
+	});
+
 
 });
 

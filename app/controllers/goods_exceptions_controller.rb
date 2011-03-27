@@ -37,4 +37,10 @@ class GoodsExceptionsController < BaseController
     get_resource_ivar || set_resource_ivar(goods_exception)
     goods_exception.build_goods_exception_identify
   end
+  #显示查询窗口
+  def search
+    @search = resource_class.search(params[:search])
+    render :partial => "search",:object => @search
+  end
+
 end

@@ -32,6 +32,7 @@ IlYanzhao::Application.routes.draw do
     get :show_authorize,:on => :member
     get :show_claim,:on => :member
     get :show_identify,:on => :member
+    get :search,:on => :collection
   end
 
   resources :short_fee_infos
@@ -62,6 +63,7 @@ IlYanzhao::Application.routes.draw do
   end
 
   resources :transit_deliver_infos do
+    get :search,:on => :collection
     resource :carrying_bill
   end
 

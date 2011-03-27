@@ -27,6 +27,7 @@ Factory.define :zz,:parent => :branch do |org|
   org.manager  '张三'
   org.location  '南三环燕赵物流园'
   org.code  "A"
+  org.is_yard true
   org.lock_input_time  "23:59"
 end
 Factory.define :ay,:parent => :branch do |org|
@@ -450,12 +451,14 @@ end
 
 Factory.define :user do |user|
   user.username "user"
+  user.real_name "操作员"
   user.password "user"
   user.association :default_org,:factory => :zz
   user.association :default_role,:factory => :role
 end
 Factory.define :test_user,:class => :user do |user|
   user.username "test_user"
+  user.real_name "测试操作员"
   user.password "test_user"
 end
 

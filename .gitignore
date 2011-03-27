@@ -10,3 +10,6 @@ doc/app
 *.sw?
 *~
 .DS_Store
+public/javascripts/il.js
+public/javascripts/all.js
+public/stylesheets/il.css

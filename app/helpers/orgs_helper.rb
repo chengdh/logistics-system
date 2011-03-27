@@ -7,6 +7,10 @@ module OrgsHelper
   def branches_for_select
     Branch.where(:is_active => true).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
   end
+  #中转中心
+  def yards_for_select
+    Org.where(:is_active => true,:is_yard => true).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
+  end
   #根据当前登录用户的选择机构
   def current_org_for_select
     {current_user.default_org.name => current_user.default_org.id}

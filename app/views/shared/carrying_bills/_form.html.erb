@@ -1,4 +1,10 @@
-<%= semantic_form_for resource ,:remote=> true,:html => {:id => "carrying_bill_form",:class => "wat-cf carrying_bill"} do |f|%>
+<% 
+  can_update =''
+  can_update = 'update_carrying_fee'if can?(:update_carrying_fee_20,resource) or can?(:update_carrying_fee_50,resource) or can?(:update_carrying_fee_100,resource)
+  can_update='update_all' if can?(:update_all,resource)
+  can_update='' if resource.new_record?
+%>
+<%= semantic_form_for resource ,:remote=> true,:html => {:id => "carrying_bill_form",:class => "wat-cf carrying_bill #{can_update} "} do |f|%>
   <%= f.error_messages %>
   <%= f.hidden_field :user_id,:value => current_user.id if f.object.new_record?%>
   <%= f.hidden_field :original_bill_id%>
@@ -16,7 +22,7 @@
       <td><%= f.select :from_org_id,current_ability_orgs_for_select,{},:class => 'select_org' %></td>
       <% if ["TransitBill","HandTransitBill"].include? f.object.type %>
         <td>中转站</td>
-        <td><%= f.select :transit_org_id,exclude_current_ability_orgs_for_select ,{},:class => 'select_org'%></td>
+        <td><%= f.select :transit_org_id,yards_for_select ,{},:class => 'select_org'%></td>
         <td>到货地</td>
         <td><%= f.text_field :to_area,:size => 20 %></td>
       <%else%>
@@ -95,17 +101,3 @@
     </tr>
   </table>
 <%end%>
-<script type='text/javascript'>
-  //在修改界面时,设置字段显示
-<%if !resource.new_record?%>
-  jQuery(function($){$('#carrying_bill_form :input').attr('readonly',true);});
-  //如果只能更新运费
-  <%if can?(:update_carrying_fee_20,resource) or can?(:update_carrying_fee_50,resource) or can?(:update_carrying_fee_100,resource) %>
-    jQuery(function($){$('#carrying_fee').attr('readonly',false);});
-  <%end%>
-  //如果可以更新全部字段
-  <%if can?(:update_all,resource) %>
-    jQuery(function($){$('#carrying_bill_form :input').attr('readonly',false);});
-  <%end%>
-<%end%>
-</script>

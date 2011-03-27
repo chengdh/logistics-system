@@ -5,7 +5,7 @@
     <td>上报日期</td>
     <td><%=resource.bill_date.strftime("%Y-%m-%d")%></td>
     <td>上报人</td>
-    <td><%=resource.user.try(:username)%></td>
+    <td><%=resource.user%></td>
   </tr>
   <tr>
     <td>异常类型</td>
@@ -36,7 +36,7 @@
       <td>备注</td>
       <td colspan='3'><%=resource.gexception_authorize_info.note %></td>
       <td>核销人</td>
-      <td><%=resource.gexception_authorize_info.user.try(:username)%></td>
+      <td><%=resource.gexception_authorize_info.user%></td>
     </tr>
   <%end%>
   <%if resource.claim.present?%>
@@ -46,7 +46,7 @@
       <td>实赔金额</td>
       <td><%=resource.claim.act_compensate_fee %></td>
       <td>理赔人</td>
-      <td><%=resource.claim.user.try(:username) %></td>
+      <td><%=resource.claim.user %></td>
     </tr>
     <tr>
       <td>备注</td>
@@ -66,7 +66,7 @@
       <td>备注</td>
       <td colspan='3'><%=resource.goods_exception_identify.note %></td>
       <td>鉴定人</td>
-      <td><%=resource.goods_exception_identify.user.try(:username) %></td>
+      <td><%=resource.goods_exception_identify.user %></td>
     </tr>
   <%end%>
 

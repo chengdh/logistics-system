@@ -9,20 +9,18 @@
       <td>
         <%=f.select :org_id,current_ability_orgs_for_select,{},{:class => "select_org",:id => "to_org_id"} %>
       </td>
-      <td>结算日期:</td>
-      <td> <%=Date.today().strftime('%Y-%m-%d')%></td>
+      <td>结算日期:<%=Date.today().strftime('%Y-%m-%d')%></td>
     </tr>
     <tr>
-      <td>返程货款:</td>
-      <td><%=f.text_field :sum_goods_fee ,:readonly => true,:size => 10 %></td>
-      <td>提货付运费:</td>
-      <td><%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
-      <td>合计:</td>
-      <td><span id='settlement_sum_fee'><%=resource.sum_fee %></span></td>
+      <td>返程货款:<%=f.text_field :sum_goods_fee ,:readonly => true,:size => 10 %></td>
+      <td>提货付运费:<%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
+      <td>中转运费:<%=f.text_field :sum_transit_carrying_fee ,:readonly => true,:size => 10 %></td>
+      <td>中转手续费:<%=f.text_field :sum_transit_hand_fee ,:readonly => true,:size => 10 %></td>
+      <td>合计:<span id='settlement_sum_fee'><%=resource.sum_fee %></span></td>
     </tr>
     <tr>
       <td>备注</td>
-      <td colspan='5'>
+      <td colspan='4'>
         <%=f.text_field :note %>
       </td>
     </tr>

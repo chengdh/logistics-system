@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305060316) do
+ActiveRecord::Schema.define(:version => 20110327130652) do
 
   create_table "banks", :force => true do |t|
     t.string   "name",                                       :null => false
@@ -359,11 +359,11 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
   add_index "load_lists", ["user_id"], :name => "index_load_lists_on_user_id"
 
   create_table "orgs", :force => true do |t|
-    t.string   "name",            :limit => 60,                   :null => false
+    t.string   "name",            :limit => 60,                    :null => false
     t.string   "simp_name",       :limit => 20
     t.integer  "parent_id"
     t.string   "phone",           :limit => 60
-    t.boolean  "is_active",                     :default => true, :null => false
+    t.boolean  "is_active",                     :default => true,  :null => false
     t.string   "manager",         :limit => 20
     t.string   "location",        :limit => 60
     t.string   "code",            :limit => 20
@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "py",              :limit => 20
+    t.boolean  "is_yard",                       :default => false
   end
 
   add_index "orgs", ["code"], :name => "index_orgs_on_code"
@@ -435,16 +436,18 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
   add_index "post_infos", ["user_id"], :name => "index_post_infos_on_user_id"
 
   create_table "refounds", :force => true do |t|
-    t.date     "bill_date",                                                                      :null => false
-    t.integer  "from_org_id",                                                                    :null => false
-    t.integer  "to_org_id",                                                                      :null => false
-    t.string   "state",            :limit => 20
+    t.date     "bill_date",                                                                              :null => false
+    t.integer  "from_org_id",                                                                            :null => false
+    t.integer  "to_org_id",                                                                              :null => false
+    t.string   "state",                    :limit => 20
     t.integer  "user_id"
     t.text     "note"
-    t.decimal  "sum_goods_fee",                  :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "sum_carrying_fee",               :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "sum_goods_fee",                          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "sum_carrying_fee",                       :precision => 15, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "sum_transit_carrying_fee",               :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "sum_transit_hand_fee",                   :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "refounds", ["bill_date"], :name => "index_refounds_on_bill_date"
@@ -580,16 +583,18 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
   add_index "senders", ["org_id"], :name => "index_senders_on_org_id"
 
   create_table "settlements", :force => true do |t|
-    t.string   "title",            :limit => 60
-    t.integer  "org_id",                                                                         :null => false
-    t.decimal  "sum_goods_fee",                  :precision => 15, :scale => 2, :default => 0.0
-    t.decimal  "sum_carrying_fee",               :precision => 15, :scale => 2, :default => 0.0
+    t.string   "title",                    :limit => 60
+    t.integer  "org_id",                                                                                 :null => false
+    t.decimal  "sum_goods_fee",                          :precision => 15, :scale => 2, :default => 0.0
+    t.decimal  "sum_carrying_fee",                       :precision => 15, :scale => 2, :default => 0.0
     t.integer  "user_id"
     t.text     "note"
-    t.string   "state",            :limit => 20
+    t.string   "state",                    :limit => 20
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.date     "bill_date",                                                                      :null => false
+    t.date     "bill_date",                                                                              :null => false
+    t.decimal  "sum_transit_carrying_fee",               :precision => 10, :scale => 2, :default => 0.0
+    t.decimal  "sum_transit_hand_fee",                   :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "settlements", ["bill_date"], :name => "index_settlements_on_bill_date"
@@ -736,6 +741,7 @@ ActiveRecord::Schema.define(:version => 20110305060316) do
     t.integer  "default_role_id"
     t.boolean  "use_usb",                            :default => false
     t.string   "usb_pin",             :limit => 32
+    t.string   "real_name",           :limit => 20
   end
 
   add_index "users", ["is_active"], :name => "index_users_on_is_active"

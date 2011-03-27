@@ -261,6 +261,7 @@ zh-CN:
         parent: "上级机构"  #g
         children: "下级机构"  #g
         customer_level_configs: "VIP分级设置"  #g
+        is_yard: "中心货场"
 
       distribution_list:
         bill_date: "清单日期"  #g
@@ -410,6 +411,7 @@ zh-CN:
         is_active: "有效"  #g
         is_admin: "管理员"  #g
         username: "用户名"  #g
+        real_name: "姓名"
         user_roles: "用户角色"  #g
         roles: "角色"  #g
         default_org_id: "默认机构"  #g

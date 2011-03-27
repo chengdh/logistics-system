@@ -57,12 +57,12 @@ describe LoadListsController do
     describe "with valid params" do
       it "the load_list should success create" do
         lambda do
-          post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids=> [@computer_bill.id]
+          post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay),:bill_no => "bill_no"},:bill_ids=> [@computer_bill.id]
         end.should change(LoadList,:count).by(1)
       end
 
       it "redirects to the created load_list" do
-        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay)},:bill_ids => [@computer_bill.id]
+        post :create,:load_list => {:from_org_id => Factory(:zz),:to_org_id => Factory(:ay),:bill_no => "bill_no"},:bill_ids => [@computer_bill.id]
         response.should redirect_to(assigns[:load_list])
       end
     end

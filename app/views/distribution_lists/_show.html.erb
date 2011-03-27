@@ -1,4 +1,4 @@
-<table class='table'>
+<table class='table' data-detailUrl='<%=distribution_list_carrying_bills_path(resource)%>'>
   <tr>
     <td>日期:</td>
     <td><%=resource.bill_date.strftime('%Y-%m-%d')%></td>
@@ -6,10 +6,8 @@
     <td><%=resource.org.name%></td>
     <td>状态:</td>
     <td><%=resource.human_state_name%></td>
+    <td>操作员:</td>
+    <td><%=resource.user%></td>
   </tr>
 </table>
 <div id="table_wrap"></div>
-<script>
-  //获取清单明细数据
-  jQuery(function($) {$.get('<%=distribution_list_carrying_bills_path(resource)%>',null,null,'script');});
-</script>

@@ -1,14 +1,14 @@
 <table class='table' data-detailUrl='<%=post_info_carrying_bills_path(resource)%>' data-params='{"hide_fields": ".carrying_fee,.insured_fee","show_fields": ".k_carrying_fee,.k_hand_fee,.act_pay_fee"}'>
   <tr>
     <td>结算员:</td>
-    <td></td>
+    <td><%=resource.user%></td>
     <td>结算单位:</td>
     <td><%= resource.org.name %></td>
-    <td colspan="3">结算日期:</td>
+    <td colspan="5">结算日期:</td>
     <td> <%=resource.bill_date.strftime('%Y-%m-%d')%></td>
   </tr>
   <tr>
-    <td colspan="7" class='text-right'>实领金额:</td>
+    <td colspan="9" class='text-right'>实领金额:</td>
     <td><%=resource.amount_fee %></td>
   </tr>
   <tr>
@@ -18,16 +18,18 @@
     <td><%=resource.sum_k_carrying_fee%></td>
     <td>扣手续费:</td>
     <td><%=resource.sum_k_hand_fee %></td>
+    <td>中转手续费:</td>
+    <td><%=resource.sum_transit_hand_fee %></td>
     <td>实际提款:</td>
     <td><%=resource.sum_act_pay_fee %></td>
   </tr>
   <tr>
-    <td colspan="7" class='text-right'>余额:</td>
+    <td colspan="9" class='text-right'>余额:</td>
     <td><%=resource.sum_rest_fee %></td>
   </tr>
   <tr>
     <td>备注</td>
-    <td colspan='7'>
+    <td colspan='9'>
       <%=resource.note %>
     </td>
   </tr>

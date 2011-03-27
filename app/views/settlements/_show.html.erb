@@ -1,7 +1,7 @@
 <table class='table' data-detailUrl='<%=settlement_carrying_bills_path(resource)%>' data-params='{"hide_fields": ".carrying_fee,.insured_fee","show_fields": ".carrying_fee_th,.th_amount"}'>
   <tr>
     <td>结算员:</td>
-    <td><%=resource.user.try(:username)%></td>
+    <td><%=resource.user%></td>
     <td>结算单位:</td>
     <td>
       <%=resource.org.name %>

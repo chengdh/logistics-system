@@ -7,7 +7,7 @@ describe User do
   end
 
   it "应能够正确为新建用户设置默认值" do
-    user = User.new_with_roles(:username => "new_username",:password => 'password',:password_confirmation => 'password')
+    user = User.new_with_roles(:username => "new_username",:real_name => "test_user",:password => 'password',:password_confirmation => 'password')
     user.save!
   end
 

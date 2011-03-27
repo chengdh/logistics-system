@@ -1,5 +1,5 @@
 <div id="table_wrap"></div>
-<table class='table'>
+<table class='table' data-detailUrl='<%=carrying_bill_path(resource.carrying_bill)%>' data-params='{"hide_fields": ".carrying_fee,.insured_fee","show_fields": ".transit_carrying_fee,.transit_hand_fee,.carrying_fee_th,.th_amount"}'>
   <tbody>
     <tr>
       <td>中转部门:</td>
@@ -13,7 +13,7 @@
     </tr>
     <tr>
       <td>备注:</td>
-      <td colspan="8"><%=resource.note%></td>
+      <td colspan="6"><%=resource.note%></td>
     </tr>
   </tbody>
 </table>

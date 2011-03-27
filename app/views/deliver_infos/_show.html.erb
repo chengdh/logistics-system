@@ -1,4 +1,4 @@
-<table class='table'>
+<table class='table' data-detailUrl='<%=deliver_info_carrying_bills_path(resource)%>' data-params='{hide_fields : ".carrying_fee,.insured_fee",show_fields : ".carrying_fee_th,.th_amount"}'>
   <tr>
     <td>提货日期:</td>
     <td><%= resource.deliver_date.strftime('%Y-%m-%d') %></td>
@@ -22,11 +22,3 @@
     <%= render "shared/carrying_bills/show",:show => bill  %>
   <%end%>
 </div>
-<script>
-  //获取清单明细数据
-  jQuery(function($) {$.get('<%=deliver_info_carrying_bills_path(resource)%>',
-    {
-      hide_fields : ".carrying_fee,.insured_fee",
-      show_fields : ".carrying_fee_th,.th_amount"
-  },null,'script');});
-</script>

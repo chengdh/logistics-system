@@ -13,4 +13,7 @@ module GoodsExceptionsHelper
     GexceptionAuthorizeInfo.op_types.each {|des,code| op_type_des = des if code == op_type }
     op_type_des
   end
+  def goods_exception_states_for_select
+    GoodsException.state_machine.states.collect{|state| [state.human_name,state.value] }
+  end
 end

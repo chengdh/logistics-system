@@ -29,6 +29,7 @@ namespace :db do
                                :simp_name => "郑",
                                :manager => "李保庆",
                                :code => "zz",
+                               :is_yard => true,
                                :location => "南四环十八里河")
     ('A'..'Z').each do |n|
       branch = Branch.new(:name => n,:simp_name => n,:code => n)
@@ -82,12 +83,12 @@ namespace :db do
     role2.save!
 
     #管理员角色
-    admin = User.new_with_roles(:username => 'admin',:password => 'admin',:is_admin => true)
+    admin = User.new_with_roles(:username => 'admin',:real_name => "管理员",:password => 'admin',:is_admin => true)
     admin.user_orgs.each { |user_org| user_org.is_select = true }
     admin.user_roles.each {|user_role| user_role.is_select = true}
     admin.save!
     #普通用户角色
-    user = User.new_with_roles(:username => 'user',:password => 'user')
+    user = User.new_with_roles(:username => 'user',:real_name => "操作员",:password => 'user')
     user.user_roles.each {|user_role| user_role.is_select = true}
     user.user_orgs.each { |user_org| user_org.is_select = true }
     user.save!
@@ -592,7 +593,8 @@ namespace :db do
       :read =>{:title => "查看"} ,
       :create => {:title => "新建"},
       :update =>{:title =>"修改"},
-      :destroy => {:title => "删除"}
+      :destroy => {:title => "删除"},
+      :edit_lock_time => {:title => "修改录单截至时间"}
     }
     }
     SystemFunction.create_by_hash(sf_hash)
@@ -631,21 +633,21 @@ namespace :db do
 
     group_name ="客户关系管理"
     #################################客户关系管理################################################
-    subject_title = "客户资料管理"
-    subject = "Customer"
-    sf_hash = {
-      :group_name => group_name,
-      :subject_title => subject_title,
-      :default_action => 'customers_path',
-      :subject => subject,
-      :function => {
-      :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
-      :create => {:title => "新建"},
-      :update =>{:title =>"修改",:conditions =>"{:org_id => user.current_ability_org_ids }"},
-      :destroy => {:title => "删除",:conditions =>"{:org_id => user.current_ability_org_ids }"}
-    }
-    }
-    SystemFunction.create_by_hash(sf_hash)
+    #subject_title = "客户资料管理"
+    #subject = "Customer"
+    #sf_hash = {
+    #  :group_name => group_name,
+    #  :subject_title => subject_title,
+    #  :default_action => 'customers_path',
+    #  :subject => subject,
+    #  :function => {
+    #  :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
+    #  :create => {:title => "新建"},
+    #  :update =>{:title =>"修改",:conditions =>"{:org_id => user.current_ability_org_ids }"},
+    #  :destroy => {:title => "删除",:conditions =>"{:org_id => user.current_ability_org_ids }"}
+    #}
+    #}
+    #SystemFunction.create_by_hash(sf_hash)
 
     #################################客户关系管理################################################
     subject_title = "转账客户管理"

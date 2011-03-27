@@ -29,9 +29,14 @@ class PostInfo < ActiveRecord::Base
   def sum_k_hand_fee
     self.carrying_bills.sum(:k_hand_fee)
   end
+  #扣中转手续费合计
+  def sum_transit_hand_fee
+    self.carrying_bills.sum(:transit_hand_fee)
+  end
+
   #实际支付运费
   def sum_act_pay_fee
-    sum_goods_fee - sum_k_carrying_fee - sum_k_hand_fee
+    sum_goods_fee - sum_k_carrying_fee - sum_k_hand_fee - sum_transit_hand_fee
   end
   #余额
   def sum_rest_fee

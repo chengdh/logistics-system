@@ -45,7 +45,7 @@ describe UsersController do
 
   describe "POST create" do
     before(:each) do
-      @attr = {:username => 'username',:password => 'password',:password_confirmation => 'password'}
+      @attr = {:username => 'username',:real_name => 'test user',:password => 'password',:password_confirmation => 'password'}
     end
     describe "success" do
       it "能够成功保存票据信息" do

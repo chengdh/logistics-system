@@ -230,7 +230,7 @@ class CarryingBill < ActiveRecord::Base
     end
     #实提货款 原货款 - 扣运费 - 扣手续费
     def act_pay_fee
-      ret = self.goods_fee - self.k_hand_fee - self.k_carrying_fee
+      ret = self.goods_fee - self.k_hand_fee - self.k_carrying_fee - self.transit_hand_fee
     end
     #代收运费解释：原票运费支付方式为提货付的，代收运费=原运费—中转运费；
     #原票运费支付方式为现金付的，代收运费为0
@@ -386,12 +386,11 @@ class CarryingBill < ActiveRecord::Base
       end
       sum_info.merge!(sum_info_tmp)
       #实提货款合计 
-      sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
+      sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee] - sum_info[:sum_transit_hand_fee]
       sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]
       sum_info[:sum_th_amount] = sum_info[:sum_agent_carrying_fee] - sum_info[:sum_transit_hand_fee] + sum_info[:sum_goods_fee]
       sum_info
     end
-
     protected
     #导出选项
     def self.export_options

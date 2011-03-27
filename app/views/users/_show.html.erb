@@ -3,9 +3,9 @@
     <td>用户名:</td>
     <td><%=resource.username%></td>
     <td>有效:</td>
-    <td><%=resource.is_active%></td>
+    <td><%=resource.is_active? ? '是' : '否'%></td>
     <td>管理员:</td>
-    <td><%= resource.is_admin %></td>
+    <td><%= resource.is_admin? ? '是' : '否' %></td>
 
   </tr>
   <tr>

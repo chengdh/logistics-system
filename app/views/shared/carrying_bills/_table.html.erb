@@ -1,5 +1,5 @@
 <% sum_info = search_sum%>
-<table class="table <%=params[:rpt_type]%>" id="bills_table" data-ids='<%=search_ids%>' data-sum = '<%=sum_info.to_json%>'>
+<table class="table <%=params[:rpt_type]%>" id="bills_table" data-ids='<%=search_ids%>' data-sum = '<%=sum_info.to_json%>' data-showFields='<%=params[:show_fields]%>' data-hideFields='<%=params[:hide_fields]%>'>
   <thead>
     <tr class='select_bill_bar' style='display : none;'>
       <th colspan="7">
@@ -150,6 +150,3 @@
     <%=will_paginate collection%>
   </div>
 </div>
-<script>
-  jQuery(function($) {$('<%=params[:show_fields]%>').show();$('<%=params[:hide_fields]%>').hide();});
-</script>

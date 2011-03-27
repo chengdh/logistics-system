@@ -9,11 +9,11 @@
       <td>
         <%=f.select :org_id,current_ability_orgs_for_select,{},{:class => "select_org",:id => "from_org_id"} %>
       </td>
-      <td colspan="3">结算日期:</td>
+      <td colspan="5">结算日期:</td>
       <td> <%=Date.today().strftime('%Y-%m-%d')%></td>
     </tr>
     <tr>
-      <td colspan="7" class='text-right'>实领金额:</td>
+      <td colspan="9" class='text-right'>实领金额:</td>
       <td><%=f.text_field :amount_fee ,:size => 10 %></td>
     </tr>
     <tr>
@@ -23,16 +23,18 @@
       <td><%=text_field_tag :sum_k_carrying_fee,0,:readonly => true,:size => 10%></td>
       <td>扣手续费:</td>
       <td><%=text_field_tag :sum_k_hand_fee,0,:readonly => true,:size => 10 %></td>
+      <td>中转手续费:</td>
+      <td><%=text_field_tag :sum_transit_hand_fee,0,:readonly => true,:size => 10 %></td>
       <td>实际提款:</td>
       <td><%=text_field_tag :sum_pay_fee,0,:readonly => true,:size => 10 %></td>
     </tr>
     <tr>
-      <td colspan="7" class='text-right'>余额:</td>
+      <td colspan="9" class='text-right'>余额:</td>
       <td><%=text_field_tag :sum_rest_fee,"",:readonly => true,:size => 10 %></td>
     </tr>
     <tr>
       <td>备注</td>
-      <td colspan='7'>
+      <td colspan='9'>
         <%=f.text_field :note %>
       </td>
     </tr>

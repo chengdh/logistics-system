@@ -1,7 +1,7 @@
 #coding: utf-8
 class LoadListsController < BaseController
   include BillOperate
-  table :bill_date,:bill_no,:from_org,:to_org,:human_state_name,:note
+  table :bill_date,:bill_no,:from_org,:to_org,:human_state_name,:user,:note
   #GET search
   #显示查询窗口
   def search

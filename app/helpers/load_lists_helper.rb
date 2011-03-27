@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 module LoadListsHelper
   #票据状态
   def load_list_states_for_select

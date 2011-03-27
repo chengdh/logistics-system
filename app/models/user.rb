@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
     :rememberable, :trackable #:recoverable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:username,:is_admin,:default_role_id,:default_org_id,:is_active,:user_roles_attributes,:user_orgs_attributes,:use_usb,:usb_pin
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:username,:is_admin,:default_role_id,:default_org_id,:is_active,:user_roles_attributes,:user_orgs_attributes,:use_usb,:usb_pin,:real_name
 
-  validates_presence_of :username
+  validates_presence_of :username,:real_name
   validates :password,:confirmation => true
   has_many :user_roles,:include => :role
   has_many :roles,:through => :user_roles
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
     self.current_ability_orgs.map {|org| org.id}
   end
   def to_s
-    self.username
+    self.real_name
   end
   #设置usb pin
   def set_usb_pin

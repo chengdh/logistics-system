@@ -15,7 +15,7 @@
         <div id="util-navigation">
           <ul class="wat-cf">
             <li>
-              <%= link_to "#{current_user.username}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_password_users_path %>
+              <%= link_to "#{current_user.real_name}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_password_users_path %>
             </li>
             <li><%=link_to "退出系统",destroy_user_session_path,:class => 'logout'%></li>
           </ul>
@@ -58,6 +58,4 @@
   <%= javascript_include_tag :defaults,'jquery-ui-1.8.7.custom.min','jquery.ui.datepicker-zh-CN','jquery.fancybox-1.3.4.pack','jquery.tipswift','livevalidation-1.3.min','formtastic_validation-0.1.3.min','jquery.ui.ufd','jquery-impromptu.3.1.min','jquery.livequery','jquery.notifyBar','bill_selector','jquery.watermark.min','widgetTreeList','jquery.cookies.2.2.0.min','chart/visualize.jQuery','jquery.printElement.min','enter2tab',:cache => 'il' %>
   <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
   <!--[if IE]><%= javascript_include_tag "ukey","chart/excanvas",:cache => true %><![endif]-->
-
   <%=notify_bar :flash => [:notice,:success,:error,:alert],:delay => 4500,:animation_speed => "slow" %>
-  <%=query_review_output%>
