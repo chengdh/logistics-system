@@ -59,7 +59,7 @@ zh-CN:
       org: "组织机构"  #g
       payment_list: "代收货款支付清单"  #g
       pay_info: "代收货款支付信息"  #g
-      post_info: "结算信息"  #g
+      post_info: "客户提款结算清单"  #g
       refound: "返款清单"  #g
       remittance: "汇款记录"   #g
       return_bill: "退货单"  #g
@@ -84,6 +84,10 @@ zh-CN:
         human_state_name: "状态"
         user: "操作员"
         bank: "银行"
+        carrying_bill: "运单"
+        org: "机构"
+        from_org: "发货地"
+        to_org: "到货地"
 
       bank:
         name: "名称"  #g
@@ -144,7 +148,7 @@ zh-CN:
         refound: "返款清单"  #g
         payment_list: "代收货款支付清单"  #g
         pay_info: "代收货款支付信息"  #g
-        post_info: "结算信息"  #g
+        post_info: "客户提款结算清单"  #g
         transit_info: "货物中转信息"  #g
         transit_deliver_info: "中转提货信息"  #g
         original_bill: "原始运单信息"  #g
@@ -502,6 +506,10 @@ zh-CN:
       post_info:
         note: "备注"  #g
         bill_date: "日期"  #g
+        sum_goods_fee: "原代收货款"
+        sum_k_carrying_fee: "扣运费"
+        sum_k_hand_fee: "扣手续费"
+        sum_act_pay_fee: "实付货款"
         amount_fee: "合计金额"  #g
         state: "状态"  #g
         org: "所属机构"  #g
@@ -544,6 +552,7 @@ zh-CN:
         bill_date: "日期"  #g
         state: "状态"  #g
         except_num: "异常数量"  #g
+        except_des: "异常类别"
         note: "备注"  #g
         carrying_bill_id: "运单"  #g
         user: "操作员"  #g

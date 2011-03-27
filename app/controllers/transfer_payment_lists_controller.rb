@@ -10,8 +10,8 @@ class TransferPaymentListsController < BaseController
   end
   def show
     super do |format|
-      format.csv {send_data resource.to_csv,:filename => '浦发批量转账文件.csv'}
-      format.text {send_data resource.ccb_to_txt,:filename => '建行批量转账文件.txt'}
+      format.csv {send_data resource.to_csv,:filename => 'pufa.csv'}
+      format.text {send_data resource.ccb_to_txt,:filename => 'icbc.txt'}
     end
   end
   #导出到EXCEL

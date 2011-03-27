@@ -1,4 +1,4 @@
-<table class='table'>
+<table class='table' data-detailUrl='<%=refound_carrying_bills_path(resource.refound,:show_group => params[:show_group]) %>' data-params='{"hide_fields": ".carrying_fee,.insured_fee","show_fields": ".carrying_fee_th,.th_amount"}'>
   <tr>
     <td>付款机构</td>
     <td><%= resource.from_org.try(:name )%></td>
@@ -26,3 +26,4 @@
     <td><%= resource.user.try(:username) %></td>
   </tr>
 </table>
+<div id="table_wrap"></div>

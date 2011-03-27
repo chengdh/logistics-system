@@ -359,8 +359,8 @@ class CarryingBill < ActiveRecord::Base
     #得到票据合计信息
     def self.search_sum(search)
       sum_info = {
-        :count => search.count,
-        :sum_carrying_fee => search.relation.sum(:carrying_fee),
+        #:count => search.count,
+        #:sum_carrying_fee => search.relation.sum(:carrying_fee),
         #现金付运费合计
         :sum_carrying_fee_cash => search.where(:pay_type => CarryingBill::PAY_TYPE_CASH).sum(:carrying_fee),
         #提货付运费合计
@@ -368,17 +368,23 @@ class CarryingBill < ActiveRecord::Base
         #回执付运费合计
         :sum_carrying_fee_re => search.where(:pay_type => CarryingBill::PAY_TYPE_RETURN).sum(:carrying_fee),
         #自货款扣除运费合计
-        :sum_k_carrying_fee => search.where(:pay_type => CarryingBill::PAY_TYPE_K_GOODSFEE).sum(:carrying_fee),
+        :sum_k_carrying_fee => search.where(:pay_type => CarryingBill::PAY_TYPE_K_GOODSFEE).sum(:carrying_fee)
         #扣手续费合计
-        :sum_k_hand_fee => search.relation.sum(:k_hand_fee),
-        :sum_goods_fee => search.relation.sum(:goods_fee),
-        :sum_insured_fee => search.relation.sum(:insured_fee),
-        :sum_transit_carrying_fee => search.relation.sum(:transit_carrying_fee),
-        :sum_transit_hand_fee => search.relation.sum(:transit_hand_fee),
-        :sum_from_short_carrying_fee => search.relation.sum(:from_short_carrying_fee),
-        :sum_to_short_carrying_fee => search.relation.sum(:to_short_carrying_fee),
-        :sum_goods_num => search.relation.sum(:goods_num)
+        #:sum_k_hand_fee => search.relation.sum(:k_hand_fee),
+        #:sum_goods_fee => search.relation.sum(:goods_fee),
+        #:sum_insured_fee => search.relation.sum(:insured_fee),
+        #:sum_transit_carrying_fee => search.relation.sum(:transit_carrying_fee),
+        #:sum_transit_hand_fee => search.relation.sum(:transit_hand_fee),
+        #:sum_from_short_carrying_fee => search.relation.sum(:from_short_carrying_fee),
+        #:sum_to_short_carrying_fee => search.relation.sum(:to_short_carrying_fee),
+        #:sum_goods_num => search.relation.sum(:goods_num)
       }
+      sum_info_tmp = search.select('sum(1) as count,sum(carrying_fee) as sum_carrying_fee,sum(k_hand_fee) as sum_k_hand_fee,sum(goods_fee) as sum_goods_fee,sum(insured_fee) as sum_insured_fee,sum(transit_carrying_fee) as sum_transit_carrying_fee,sum(transit_hand_fee) as sum_transit_hand_fee,sum(from_short_carrying_fee) as sum_from_short_carrying_fee,sum(to_short_carrying_fee) as sum_to_short_carrying_fee,sum(goods_num) as sum_goods_num').first.attributes
+      sum_info_tmp.each do |key,value|
+        sum_info_tmp.delete(key)
+        sum_info_tmp[key.to_sym] = value.blank? ? 0 : value
+      end
+      sum_info.merge!(sum_info_tmp)
       #实提货款合计 
       sum_info[:sum_act_pay_fee] = sum_info[:sum_goods_fee] - sum_info[:sum_k_carrying_fee] - sum_info[:sum_k_hand_fee]
       sum_info[:sum_agent_carrying_fee] = sum_info[:sum_carrying_fee_th] - sum_info[:sum_transit_carrying_fee]

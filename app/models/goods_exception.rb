@@ -30,8 +30,14 @@ class GoodsException < ActiveRecord::Base
   def self.exception_types
     {
       "少货" => EXCEPT_LACK,          #少货
-      "短缺" => EXCEPT_SHORTAGE,      #短缺
+      "丢缺" => EXCEPT_SHORTAGE,      #短缺
       "破损" => EXCEPT_DAMAGED        #破损
     }
   end
+  def except_des
+      except_des = ""
+      GoodsException.exception_types.each {|des,code| except_des = des if code == self.exception_type }
+      except_des
+  end
+
 end
