@@ -15,7 +15,6 @@ class TransitInfosController < BaseController
   #GET search
   #显示查询窗口
   def search
-    @search = resource_class.search(params[:search])
-    render :partial => "search",:object => @search
+    render :partial => "search"
   end
 end

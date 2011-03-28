@@ -1,4 +1,4 @@
-<%= semantic_form_for search,:remote => true,:html => {:id => "search_bill_form",:method => :get,:style => "width : 300px;" } do |f|%>
+<%= semantic_form_for CarryingBill.search,:remote => true,:html => {:id => "search_bill_form",:method => :get,:style => "width : 300px;" } do |f|%>
   <%= hidden_field_tag :direction,params[:direction] %>
   <%= hidden_field_tag :sort,params[:sort] %>
   <%= hidden_field_tag :show_fields,params[:show_fields] %>

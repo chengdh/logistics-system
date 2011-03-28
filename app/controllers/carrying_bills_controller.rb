@@ -17,8 +17,7 @@ class CarryingBillsController < BaseController
   #GET search
   #显示查询窗口
   def search
-    @search = resource_class.search(params[:search])
-    render :partial => "shared/carrying_bills/search",:object => @search
+    render :partial => "shared/carrying_bills/search"
   end
   #简单查询,用于报表统计
   def simple_search

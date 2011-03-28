@@ -5,8 +5,7 @@ class CashPayInfosController < BaseController
   #GET search
   #显示查询窗口
   def search
-    @search = resource_class.search(params[:search])
-    render :partial => "shared/pay_infos/search",:object => @search
+    render :partial => "shared/pay_infos/search"
   end
   def index
     super do |format|
