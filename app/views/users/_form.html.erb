@@ -14,16 +14,19 @@
       <%=user_role.label :is_select,user_role.object.role.name%>
     <%end%>
   <%end%>
-  <%=f.inputs "可访问机构" do %>
-    <div id="user_org_tab">
-      <ul id="user_orgs_list">
-        <li class='ui-treeList-open'>
-          <%=IlConfig.client_name%>
-          <%=f.fields_for :user_orgs,resource.all_user_orgs!.select { |user_org| user_org.org.parent_id.blank?} do |user_org|%>
-            <%= render "user_org_recursive",:user_org => user_org,:f => f %>
-          <%end%>
-        </li>
-      </ul>
-    </div>
+
+  <% cache "user_orgs_#{resource.id}_#{resource.updated_at.to_i}" do %>
+    <%=f.inputs "可访问机构" do %>
+      <div id="user_org_tab">
+        <ul id="user_orgs_list">
+          <li class='ui-treeList-open'>
+            <%=IlConfig.client_name%>
+            <%=f.fields_for :user_orgs,resource.all_user_orgs!.select { |user_org| user_org.org.parent_id.blank?} do |user_org|%>
+              <%= render "user_org_recursive",:user_org => user_org,:f => f %>
+            <%end%>
+          </li>
+        </ul>
+      </div>
+    <%end%>
   <%end%>
 <% end%>

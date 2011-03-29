@@ -15,6 +15,6 @@ class RefoundsController < BaseController
   #导出到excel
   #GET /refounds/:id/export_excel
   def export_excel
-    @refound = resource_class.find(params[:id])
+    @refound = resource_class.find(params[:id],:include => [:from_org,:to_org,:user,:carrying_bills])
   end
 end

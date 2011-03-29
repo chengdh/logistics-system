@@ -11,14 +11,14 @@ class User < ActiveRecord::Base
 
   validates_presence_of :username,:real_name
   validates :password,:confirmation => true
-  has_many :user_roles,:include => :role
+  has_many :user_roles
   has_many :roles,:through => :user_roles
-  has_many :user_orgs,:include => :org
+  has_many :user_orgs
   has_many :orgs,:through => :user_orgs
   belongs_to :default_org,:class_name => "Org"
   belongs_to :default_role,:class_name => "Role"
   accepts_nested_attributes_for :user_roles,:user_orgs,:allow_destroy => true
-  scope :with_association,:include => [:user_roles,:user_orgs]
+  default_scope :include => [:default_role,:default_org]
 
   def self.new_with_roles(attrs= {})
     ret = User.new(attrs)

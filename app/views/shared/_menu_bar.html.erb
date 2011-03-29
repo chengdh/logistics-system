@@ -1,4 +1,4 @@
-<%cache current_user do %>
+<% cache "menu_bar_#{current_user.default_role.id}_#{current_user.default_role.updated_at.to_i}" do %>
   <div id='menu_bar' class="block">
     <%current_user.default_role.system_function_groups.each do |f_group,functions|%>
       <h3><%=link_to f_group.name,'#'%></h3>

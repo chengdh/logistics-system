@@ -311,7 +311,7 @@ class CarryingBill < ActiveRecord::Base
       options = self.export_options if options.blank?
       sum_info = self.search_sum(search_obj)
       #导出明细信息
-      ret = search_obj.all.export_csv(options,with_bom_header)
+      ret = search_obj.where('1=1').with_association.export_csv(options,with_bom_header)
       #导出合计信息
       sum_array =["合计:#{sum_info[:count]}票"]
       options[:methods].each do |method_name|

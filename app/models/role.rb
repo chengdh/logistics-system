@@ -15,7 +15,7 @@ class Role < ActiveRecord::Base
   def all_role_system_function_operates!
     if self.all_role_sfos.blank?
       SystemFunctionOperate.where(:is_active => true).order("system_function_id").each do |sf_operate|
-        self.role_system_function_operates.build(:system_function_operate => sf_operate) unless self.role_system_function_operates.detect { |the_rsf_op| the_rsf_op.system_function_operate.id == sf_operate.id }
+        self.role_system_function_operates.build(:system_function_operate => sf_operate) unless self.role_system_function_operates.detect { |the_rsf_op| the_rsf_op.system_function_operate_id == sf_operate.id }
       end
       self.all_role_sfos = self.role_system_function_operates
     end
@@ -26,7 +26,7 @@ class Role < ActiveRecord::Base
   end
   #根据系统功能得到对应的role_system_function_operate
   def single_function_operates(sf)
-    self.all_role_system_function_operates!.select {|ops| ops.system_function_operate.system_function.id == sf.id}
+    self.all_role_system_function_operates!.select {|ops| ops.system_function_operate.system_function_id == sf.id}
     #@all_role_sfos.search(:system_function_operate_system_function_id_eq => sf.id).all
   end
 
@@ -39,11 +39,12 @@ class Role < ActiveRecord::Base
   end
   #得到被授权的system_function
   def system_functions
-    @system_functions ||= self.system_function_operates.group_by(&:system_function).collect {|sf,sfo_array| sf}
+    ids = self.system_function_operates.collect {|sfo| sfo.system_function_id}.uniq!
+    @system_functions ||= SystemFunction.find(ids,:include => [:system_function_group])
   end
   #得到被授权的system_function_group
   def system_function_groups
-    @system_function_groups ||= self.system_functions.group_by(&:system_function_group)
+     @system_function_groups ||= self.system_functions.group_by(&:system_function_group)
   end
   #重写to_s方法
   def to_s

@@ -5,7 +5,7 @@
 var export_excel = function(table_content, func_set_style) {
 	try {
 
-		window.clipboardData.setData("Text", table_content, func_set_style);
+		window.clipboardData.setData("Text", table_content);
 		ExApp = new ActiveXObject("Excel.Application");
 		var ExWBk = ExApp.Workbooks.add();
 		var ExWSh = ExWBk.ActiveSheet;

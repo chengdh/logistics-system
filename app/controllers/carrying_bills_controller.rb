@@ -24,7 +24,7 @@ class CarryingBillsController < BaseController
     @search = resource_class.search(params[:search])
   end
   def show
-    bill = get_resource_ivar || set_resource_ivar(resource_class.find(params[:id]))
+    bill = get_resource_ivar || set_resource_ivar(resource_class.find(params[:id],:include => [:from_org,:to_org,:transit_org,:user]))
     respond_with(bill) do |format|
       format.html
       format.js { render :partial => "shared/carrying_bills/show",:object => bill}
@@ -67,5 +67,4 @@ class CarryingBillsController < BaseController
     @search = end_of_association_chain.accessible_by(current_ability).search(params[:search])
     get_collection_ivar || set_collection_ivar(@search.select("DISTINCT #{resource_class.table_name}.*").with_association.order(sort_column + ' ' + sort_direction).paginate(:page => params[:page]))
   end
-
 end

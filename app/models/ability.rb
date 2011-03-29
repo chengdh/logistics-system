@@ -18,9 +18,6 @@ class Ability
     alias_action :reset_usb_pin,:to => :edit #重设usb pin
 
     if user.is_admin?
-      #先定义可操作所有权限,在下边对权限进行覆盖
-      can :manage,:all
-
       SystemFunctionOperate.all.each do |sfo| 
         f_obj = sfo.function_obj
         if f_obj[:conditions].present?
@@ -86,5 +83,8 @@ class Ability
       cannot :update,CarryingBill
       can :update,CarryingBill,:from_org_id => user.current_ability_org_ids
     end
+    #管理员可操作所有
+    can :manage,:all if user.is_admin?
+
   end
 end

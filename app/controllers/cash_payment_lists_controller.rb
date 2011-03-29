@@ -13,6 +13,6 @@ class CashPaymentListsController < BaseController
     end
   end
   def export_excel
-    @cash_payment_list = resource_class.find(params[:id])
+    @cash_payment_list = resource_class.find(params[:id],:include => [:org,:user,:carrying_bills])
   end
 end

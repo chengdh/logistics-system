@@ -1,9 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 class PayInfo < ActiveRecord::Base
   has_many :carrying_bills
   belongs_to :org
@@ -47,7 +42,7 @@ class PayInfo < ActiveRecord::Base
   end
   #导出
   def self.to_csv(search_obj)
-      search_obj.all.export_csv(self.export_options)
+      search_obj.export_csv(self.export_options)
   end
   private
   def self.export_options
