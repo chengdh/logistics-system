@@ -71,6 +71,7 @@ zh-CN:
           states:
             billed: "草稿"
             payment_listed: "准备支付"
+            transfered: "已转账"
             
       pay_info:
         state:

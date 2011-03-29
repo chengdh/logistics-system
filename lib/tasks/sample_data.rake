@@ -510,6 +510,7 @@ namespace :db do
       :function => {
       :read =>{:title => "查看",:conditions =>"{:org_id => user.current_ability_org_ids }"} ,
       :create => {:title => "新建"},
+      :transfer => {:title => "转账确认"},
       :export => {:title => "导出"}
     }
     }

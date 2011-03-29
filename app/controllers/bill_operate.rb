@@ -1,8 +1,4 @@
 #coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
-#coding: utf-8
 module BillOperate
   def create
     bill = resource_class.new(params[resource_class.model_name.underscore])

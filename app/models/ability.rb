@@ -12,11 +12,10 @@ class Ability
     alias_action :process_handle,:to => :ship  #发车
     alias_action :process_handle,:to => :reach #到货确认
     alias_action :process_handle,:to => :refounc_confirm #收款清单确认
+    #代收货款支付清单(转账)转账确认
+    alias_action :process_handle,:to => :transfer  #转账确认
     #user 重设置usb key
     alias_action :reset_usb_pin,:to => :edit #重设usb pin
-
-
-
 
     if user.is_admin?
       #先定义可操作所有权限,在下边对权限进行覆盖

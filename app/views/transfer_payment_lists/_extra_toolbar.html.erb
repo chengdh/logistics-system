@@ -1,9 +1,14 @@
-<%if params[:action] == "show"%>
+<%if params[:action] == "show" or params[:action] == 'process_handle'%>
+  <%if can? :transfer,resource and resource.payment_listed?%>
+    <li>
+      <%= link_to image_tag("tick-octagon-frame.png",:alt => "转账确认") , process_handle_transfer_payment_list_path(resource),:title => "转账确认",:class => "tipsy"  %>
+    </li>
+  <%end%>
+
   <li>
     <%= link_to image_tag("pufa_logo.jpg",:size => '18x18',:alt => "导出为浦发转账EXCEL"), export_excel_transfer_payment_list_path(resource),:title => "导出为浦发转账EXCEL",:class => "tipsy btn_export_excel"  %>
   </li>
   <li>
     <%= link_to image_tag("ccb_logo.gif",:size => '18x18',:alt => "导出为建设银行转账文本"), resource_path(resource,:format => :text),:title => "导出为建设银行转账文本",:class => "tipsy"  %>
   </li>
-
 <%end%>

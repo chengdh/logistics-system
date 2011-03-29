@@ -9,6 +9,7 @@
         <%=f.text_field :bill_date_lte,:value => Date.today,:readonly => true,:class => "datepicker",:size => 10%>
         <%=f.hidden_field :carrying_bills_from_customer_id_is_not_null,:value => "1"%>
         <%=f.hidden_field :carrying_bills_state_eq,:value => "payment_listed"%>
+        <%=f.hidden_field :state_eq,:value => "transfered"%>
         <%=image_submit_tag "arrow-circle-double-135.png",:class => "tipsy",:title => "查询还有未提款的代收货款转账支付清单" %>
       <%end%>
     </div>

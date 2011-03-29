@@ -539,10 +539,10 @@ jQuery(function($) {
 		}
 		var params = {
 			"search[type_in][]": ["ComputerBill", "HandBill", "TransitBill", "HandTransitBill"],
-			"search[state_eq]": "payment_listed",
+			"search[state_eq]": "transfered",
 			"search[payment_list_id_in][]": selected_bill_ids,
 			"hide_fields": ".carrying_fee,.insured_fee",
-			"show_fields": ".k_carrying_fee,.k_hand_fee,.act_pay_fee"
+			"show_fields": ".k_carrying_fee,.k_hand_fee,.transit_hand_fee,.act_pay_fee"
 		};
 		$(this).data('params', params);
 	});

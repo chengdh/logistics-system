@@ -12,5 +12,7 @@ class CashPaymentListsController < BaseController
       format.csv {send_data resource.to_csv}
     end
   end
-
+  def export_excel
+    @cash_payment_list = resource_class.find(params[:id])
+  end
 end

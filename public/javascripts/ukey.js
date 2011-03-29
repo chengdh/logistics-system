@@ -130,7 +130,7 @@ jQuery(function($) {
 		var use_usb = $('#user_use_usb');
 		var usb_pin = $('#user_usb_pin');
 		//只支持ie
-		if (use_usb.val() == '1' && $.browser.msie) {
+		if (use_usb.attr('checked') && $.browser.msie) {
 			if ($.ukey_write(usb_pin.val())) {
 				return true;
 			}
