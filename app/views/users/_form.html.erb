@@ -10,23 +10,17 @@
     <%=f.semantic_fields_for :user_roles,resource.all_user_roles! do |user_role|%>
       <%=user_role.hidden_field :role_id%>
       <%=user_role.check_box :is_select%>
-      <%=user_role.hidden_field :_destroy,:value => !user_role.object.is_select%>
       <%=user_role.label :is_select,user_role.object.role.name%>
     <%end%>
   <%end%>
 
   <% cache "user_orgs_#{resource.id}_#{resource.updated_at.to_i}" do %>
     <%=f.inputs "可访问机构" do %>
-      <div id="user_org_tab">
-        <ul id="user_orgs_list">
-          <li class='ui-treeList-open'>
-            <%=IlConfig.client_name%>
-            <%=f.fields_for :user_orgs,resource.all_user_orgs!.select { |user_org| user_org.org.parent_id.blank?} do |user_org|%>
-              <%= render "user_org_recursive",:user_org => user_org,:f => f %>
-            <%end%>
-          </li>
-        </ul>
-      </div>
+      <table class="table">
+        <%=f.fields_for :user_orgs,resource.all_user_orgs!.select { |user_org| user_org.org.parent_id.blank?} do |user_org|%>
+          <%= render "user_org_recursive",:user_org => user_org,:f => f %>
+        <%end%>
+      </table>
     <%end%>
   <%end%>
-<% end%>
+<%end%>

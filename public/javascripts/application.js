@@ -151,15 +151,12 @@ jQuery(function($) {
 	});
 
 	//组织机构列表
-	$('#orgs_list').treeList();
-	$('#user_orgs_list').treeList();
-	//$('#role_system_functions_list').accordion({
-	//	collapsible: true,
-         //       autoHeight : false,
-         //       animated : false,
-	//	active: false
-	//});
-
+	$('#role_system_functions_list').accordion({
+		collapsible: true,
+	       autoHeight : false,
+	       animated : false,
+		active: false
+	});
 	//根据客户编号查询查询客户信息
 	var search_customer_by_code = function() {
 		var code = $(this).val();
@@ -239,8 +236,8 @@ jQuery(function($) {
 	$('#menu_bar').accordion({
 		active: get_current_menu.apply(),
 		collapsible: true,
-                autoHeight : false,
-                animated : false,
+		autoHeight: false,
+		animated: false,
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}
@@ -602,11 +599,6 @@ jQuery(function($) {
 			$('[name*="transit_company_attributes"]').attr('disabled', true);
 		}
 	});
-	//用户新建及修改界面,处理删除角色
-	$('input[name*="is_select"][type="checkbox"]').livequery('click', function() {
-		$(this).next().val(!$(this).attr('checked'));
-
-	});
 
 	//送货清单,查询运单后,自动清除已核销或正在送货中的运单记录
 	$('#send_list_form_after_wrap tr[data-bill]').livequery(function() {
@@ -743,7 +735,6 @@ jQuery(function($) {
 		$(this).find('select').attr('disabled', true);
 		$(this).find('[name*="lock_time"]').attr('readonly', false);
 	});
-
 
 });
 

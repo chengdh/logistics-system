@@ -1,12 +1,14 @@
 <!--此处是个递归-->
-<ul>
-  <li>
-    <%=user_org.hidden_field :org_id%>
+<tr>
+  <td colspan='10'>
+    <%if user_org.object.org.parent_id.present?%>
+      &nbsp;&nbsp;
+    <%end%>
     <%=label_tag "select_org_#{user_org.object.org.id}",user_org.object.org.name%>
     <%=user_org.check_box :is_select,:id => "select_org_#{user_org.object.org.id}"%>
-    <%=user_org.hidden_field :_destroy,:value => !user_org.object.is_select%>
-    <%=f.fields_for :user_orgs,resource.all_user_orgs!.select {|the_user_org| the_user_org.org.parent_id == user_org.object.org.id} do |child_user_org|%>
-      <%= render "user_org_recursive",:user_org => child_user_org,:f => f %>
-    <%end%>
-  </li>
-</ul>
+    <%=user_org.hidden_field :org_id%>
+  </td>
+</tr>
+<%=f.fields_for :user_orgs,resource.all_user_orgs!.select {|the_user_org| the_user_org.org.parent_id == user_org.object.org.id} do |child_user_org|%>
+  <%= render "user_org_recursive",:user_org => child_user_org,:f => f %>
+<%end%>

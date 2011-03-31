@@ -8,7 +8,6 @@ class Org < ActiveRecord::Base
   has_many :customer_level_configs
 
   accepts_nested_attributes_for :customer_level_configs
-  default_value_for :lock_input_time,'23:30'
 
   def self.new_with_config(attrs)
     org = self.new(attrs)
@@ -23,7 +22,7 @@ class Org < ActiveRecord::Base
   end
   #是否超过录单时间
   def input_expire?
-    self.lock_input_time = '23:30' if self.lock_input_time.blank?
+    return !self.lock_input_time.blank?
     Time.now.strftime('%H:%M') >= self.lock_input_time
   end
 

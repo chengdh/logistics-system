@@ -1,8 +1,18 @@
-<ul>
-  <li data-editPath='<%=edit_org_path(org,:format => :js) %>' data-deletePath='<%=org_path(org,:format => :js) %>'>
-    <span><%=org.name%></span>
-    <%@orgs.select {|the_org| org.id == the_org.parent_id }.each do |child_org|%>
-      <%= render "orgs_recursive",:org => child_org %>
-    <%end%>
-  </li>
-</ul>
+<tr>
+  <td style='padding-left : <%="#{@cur_level*30}px"%>;'>
+    <%=link_to org.name,edit_org_path(org,:format => :js),:class => 'fancybox'%>
+  </td>
+  <td><%=org.simp_name %></td>
+  <td><%=org.code %></td>
+  <td><%=org.phone %></td>
+  <td><%=org.manager %></td>
+  <td><%=org.location %></td>
+  <td><%=org.lock_input_time %></td>
+  <td>
+  </td>
+</tr>
+<%@orgs.select {|the_org| org.id == the_org.parent_id }.each do |child_org|%>
+  <% @cur_level+=1 %>
+  <%= render "orgs_recursive",:org => child_org %>
+  <% @cur_level-=1 %>
+<%end%>

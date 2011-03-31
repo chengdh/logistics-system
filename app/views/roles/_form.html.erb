@@ -17,8 +17,7 @@
                 <%=f.fields_for :role_system_function_operates,resource.single_function_operates(sf) do |opt|%>
                   <span style='width : 250px;padding-right : 20px;'>
                     <%=opt.hidden_field :system_function_operate_id%>
-                    <%=opt.check_box :is_select%>
-                    <%=opt.hidden_field :_destroy,:value => !opt.object.is_select%>
+                    <%=opt.check_box :is_select %>
                     <%=opt.label :is_select,opt.object.system_function_operate.name%>
                   </span>
                 <%end%>
