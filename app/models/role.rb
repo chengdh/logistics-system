@@ -40,7 +40,11 @@ class Role < ActiveRecord::Base
   #得到被授权的system_function
   def system_functions
     ids = self.system_function_operates.collect {|sfo| sfo.system_function_id}.uniq!
-    @system_functions ||= SystemFunction.find(ids,:include => [:system_function_group])
+    if ids.blank?
+      @system_finctions =[]
+    else
+      @system_functions ||= SystemFunction.find(ids,:include => [:system_function_group]) if ids.present?
+    end
   end
   #得到被授权的system_function_group
   def system_function_groups

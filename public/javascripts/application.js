@@ -153,10 +153,12 @@ jQuery(function($) {
 	//组织机构列表
 	$('#orgs_list').treeList();
 	$('#user_orgs_list').treeList();
-	$('#role_system_functions_list').accordion({
-		collapsible: true,
-		active: false
-	});
+	//$('#role_system_functions_list').accordion({
+	//	collapsible: true,
+         //       autoHeight : false,
+         //       animated : false,
+	//	active: false
+	//});
 
 	//根据客户编号查询查询客户信息
 	var search_customer_by_code = function() {
@@ -237,6 +239,8 @@ jQuery(function($) {
 	$('#menu_bar').accordion({
 		active: get_current_menu.apply(),
 		collapsible: true,
+                autoHeight : false,
+                animated : false,
 		change: function(e, ui) {
 			$.cookies.set(cookieName, "cur_il_menu_" + $(this).find('h3').index(ui.newHeader[0]));
 		}

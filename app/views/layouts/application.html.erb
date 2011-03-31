@@ -10,40 +10,38 @@
   </head>
   <body>
     <div id="container">
-      <% cache current_user do %>
-        <div id="header">
-          <h1 id='client_name'><%=image_tag "#{IlConfig.client_logo}",:id => 'logo' %>&nbsp;&nbsp;<%= link_to "#{IlConfig.client_name}", :root %></h1>
-          <div id="util-navigation">
-            <ul class="wat-cf">
-              <li>
-                <%= link_to "#{current_user.real_name}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_password_users_path %>
-              </li>
-              <li><%=link_to "退出系统",destroy_user_session_path,:class => 'logout'%></li>
-            </ul>
-          </div>
+      <div id="header">
+        <h1 id='client_name'><%=image_tag "#{IlConfig.client_logo}",:id => 'logo' %>&nbsp;&nbsp;<%= link_to "#{IlConfig.client_name}", :root %></h1>
+        <div id="util-navigation">
+          <ul class="wat-cf">
+            <li>
+              <%= link_to "#{current_user.real_name}(#{current_user.default_role.name}) | #{current_user.default_org.name} ", edit_password_users_path %>
+            </li>
+            <li><%=link_to "退出系统",destroy_user_session_path,:class => 'logout'%></li>
+          </ul>
+        </div>
 
-          <div id="user-navigation">
-            <ul class="wat-cf">
-              <li>
-                <div id='home-search-box-wrap'>
-                  <%=form_tag carrying_bills_path(:show_multi => ""),:id => 'home-search-form',:remote => true,:method => :get do%>
-                    <%=text_field_tag "search[bill_no_or_goods_no_like]","",:id => 'home-search-box'%>
-                    <%=image_submit_tag 'magnifier.png',:id => "btn_home_search" %>
-                  <%end%>
-                </div>
-              </li>
-              <li id='adv-query-wrap'>
-                <%=link_to "高级查询",search_carrying_bills_path,:class => 'fancybox' %>
-              </li>
-            </ul>
-          </div>
-          <div id="main-navigation">
-            <ul class="wat-cf">
-              <li class='first active'><%= link_to image_tag('home.png') + "业务看板", root_path %></li>
-            </ul>
-          </div>
-        </div>    
-      <%end%>
+        <div id="user-navigation">
+          <ul class="wat-cf">
+            <li>
+              <div id='home-search-box-wrap'>
+                <%=form_tag carrying_bills_path(:show_multi => ""),:id => 'home-search-form',:remote => true,:method => :get do%>
+                  <%=text_field_tag "search[bill_no_or_goods_no_like]","",:id => 'home-search-box'%>
+                  <%=image_submit_tag 'magnifier.png',:id => "btn_home_search" %>
+                <%end%>
+              </div>
+            </li>
+            <li id='adv-query-wrap'>
+              <%=link_to "高级查询",search_carrying_bills_path,:class => 'fancybox' %>
+            </li>
+          </ul>
+        </div>
+        <div id="main-navigation">
+          <ul class="wat-cf">
+            <li class='first active'><%= link_to image_tag('home.png') + "业务看板", root_path %></li>
+          </ul>
+        </div>
+      </div>    
       <div id="wrapper" class="wat-cf">
         <div id="main">
           <%= yield %>

@@ -5,4 +5,5 @@ class Customer < ActiveRecord::Base
   #所对应的银行转账手续费设置
   belongs_to :config_transit
   validates_presence_of :name
+  default_scope :include => [:org,:bank]
 end

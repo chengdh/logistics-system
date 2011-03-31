@@ -1,6 +1,7 @@
 #coding: utf-8
 #运单controller基础类
 class CarryingBillsController < BaseController
+  http_cache :new,:last_modified => Proc.new {|c| c.send(:last_modified,Org.order('updated_at DESC').first)},:etag => Proc.new {|c| c.send(:etag,"carrying_bill_new")}
   #判断是否超过录单时间,超过录单时间后,不可再录入票据
   before_filter :check_expire,:only => :new
   before_filter :pre_process_search_params,:only => [:index,:rpt_turnover,:turnover_chart]

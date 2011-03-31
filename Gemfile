@@ -25,6 +25,7 @@ gem 'fastercsv'
 #uuid generator
 gem 'uuid'
 gem 'factory_girl_rails', '1.0'
+gem 'easy_http_cache'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

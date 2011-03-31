@@ -47,4 +47,23 @@ class BaseController < InheritedResources::Base
     params[:search].merge!(new_search_params) if new_search_params.present?
     params[:search]
   end
+
+  protected
+  #根据传入参数判断哪个是最近日期,如果什么都不传,则返回当前时间
+  def last_modified(objs = [])
+    if objs.blank?
+      [current_user,current_user.default_role,current_user.default_org].collect {|obj| obj.send(:updated_at)}.max
+    else
+      #控制当前页面是否刷新缓存的因素有三个:当前用户/当前用户默认机构/当前用户默认角色,三个页面中任何一个发生改变,都要重新缓存
+      tmp_obj = objs.is_a?(Array) ? objs : [objs] 
+      ([current_user,current_user.default_role,current_user.default_org] + tmp_obj).collect {|obj| obj.send(:updated_at)}.max
+    end
+  end
+  #生成etag,用于缓存页面
+  def etag(prefix = "")
+    ret = "#{current_user.id}_#{current_user.default_role}_#{current_user.default_org}"
+    ret = "#{prefix}_#{ret}" if prefix.present?
+    ret
+  end
+
 end
