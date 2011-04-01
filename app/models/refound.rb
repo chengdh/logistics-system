@@ -23,7 +23,7 @@ class Refound < ActiveRecord::Base
   default_value_for :bill_date,Date.today
 
   def sum_fee
-    self.sum_goods_fee + self.sum_carrying_fee
+    self.sum_goods_fee + self.sum_carrying_fee - self.sum_transit_hand_fee - self.sum_transit_carrying_fee
   end
   #导出到csv
   def to_csv

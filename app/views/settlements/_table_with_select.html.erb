@@ -7,6 +7,8 @@
       <th>结算员</th>
       <th>返程运费</th>
       <th>代收货款</th>
+      <th>中转运费</th>
+      <th>中转手续费</th>
       <th>合计</th>
   </tr>
   <% collection.each_with_index do |resource,index| %>
@@ -15,9 +17,11 @@
       <td><%= order_no(index,params[:page]) %></td>
       <td><%= resource.created_at.strftime('%Y-%m-%d') %></td>
       <td><%= resource.org.name %></td>
-      <td>&nbsp;</td>
+      <td><%= resource.user%></td>
       <td><%= resource.sum_goods_fee %></td>
       <td><%= resource.sum_carrying_fee %></td>
+      <td><%= resource.sum_transit_carrying_fee %></td>
+      <td><%= resource.sum_transit_hand_fee %></td>
       <td><%= resource.sum_fee %></td>
     </tr>
   <% end %>

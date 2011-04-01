@@ -6,7 +6,8 @@
       <td>返款日期:</td>
       <td> <%=f.text_field :bill_date,:class => "datepicker",:size => 10%></td>
       <td>结算员:</td>
-      <td colspan='2'><%=current_user.username%></td>
+      <td><%=current_user%></td>
+      <td colspan='6'>&nbsp;</td>
     </tr>
     <tr>
       <td>付款单位:</td>
@@ -14,20 +15,29 @@
         <%=f.select :from_org_id,current_ability_orgs_for_select,{},{:class => "select_org",:id => "from_org_id"} %>
       </td>
       <td>收款单位:</td>
-      <td colspan='2'>
+      <td>
         <%=f.select :to_org_id,exclude_current_ability_orgs_for_select,{:prompt => "--选择收款单位--"},:class => "select_org",:id => "to_org_id" %>
       </td>
+      <td>
+        <%= link_to_function image_tag("arrow-circle-double-135.png"), :id => 'btn_refound_refresh',:title => "刷新",:class => "tipsy"  %>
+      </td>
+      <td colspan='5'>&nbsp;</td>
     </tr>
     <tr>
-      <td>返程货款:<%=f.text_field :sum_goods_fee ,:readonly => true,:size => 10 %></td>
-      <td>提货付运费:<%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
-      <td>中转运费:<%=f.text_field :sum_transit_carrying_fee ,:readonly => true,:size => 10 %></td>
-      <td>中转手续费:<%=f.text_field :sum_transit_hand_fee ,:readonly => true,:size => 10 %></td>
-      <td>合计:<span id='refound_sum_fee'><%=resource.sum_fee %></span></td>
+      <td>返程货款:</td>
+      <td><%=f.text_field :sum_goods_fee ,:readonly => true,:size => 10 %></td>
+      <td>提货付运费:</td>
+      <td><%=f.text_field :sum_carrying_fee ,:readonly => true,:size => 10 %></td>
+      <td>中转运费:</td>
+      <td><%=f.text_field :sum_transit_carrying_fee ,:readonly => true,:size => 10 %></td>
+      <td>中转手续费:</td>
+      <td><%=f.text_field :sum_transit_hand_fee ,:readonly => true,:size => 10 %></td>
+      <td>合计:</td>
+      <td><span id='refound_sum_fee'><%=resource.sum_fee %></span></td>
     </tr>
     <tr>
       <td>备注</td>
-      <td colspan='4'>
+      <td colspan='9'>
         <%=f.text_field :note,:size => 50 %>
       </td>
     </tr>

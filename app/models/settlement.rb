@@ -26,7 +26,7 @@ class Settlement < ActiveRecord::Base
   end
   #合计
   def sum_fee
-    self.sum_carrying_fee + self.sum_goods_fee
+    self.sum_carrying_fee + self.sum_goods_fee - self.sum_transit_carrying_fee - self.sum_transit_hand_fee
   end
   #导出到csv
   def to_csv
