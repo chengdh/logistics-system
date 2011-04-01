@@ -11,5 +11,5 @@ doc/app
 *~
 .DS_Store
 public/javascripts/il.js
-public/javascripts/all.js
+public/javascripts/il-ukey.js
 public/stylesheets/il.css

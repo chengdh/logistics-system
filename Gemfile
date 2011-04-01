@@ -10,10 +10,10 @@ gem "cancan",'1.5.0'
 gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
 #form 显示组件
 gem "validation_reflection"
-gem 'formtastic', '~>1.1.0'
+gem 'formtastic', '~>1.2.3'
 #gem 'rails3-jquery-autocomplete'
 #gem 'formtastic_jquery_ui'
-gem 'formtastic_validation'
+#gem 'formtastic_validation'
 #state_machine
 gem 'state_machine'
 gem 'inherited_resources', '1.1.2'
@@ -26,6 +26,7 @@ gem 'fastercsv'
 gem 'uuid'
 gem 'factory_girl_rails', '1.0'
 gem 'easy_http_cache'
+gem 'client_side_validations', '~> 3.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

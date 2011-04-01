@@ -27,12 +27,12 @@ var export_excel = function(table_content, func_set_style) {
 
 jQuery(function($) {
 	//初始化formtastic_validation
-	var init_formtastic_validation = function() {
-		var formtasticValidation = new FormtasticValidation;
-		formtasticValidation.initialize();
+	//var init_formtastic_validation = function() {
+	//	var formtasticValidation = new FormtasticValidation;
+	//	formtasticValidation.initialize();
+	//};
 
-	};
-
+	//init_formtastic_validation.apply();
 	//导出excel按钮绑定
 	$('.btn_export_excel').click(function() {
 		var url = $(this).attr('href');
@@ -40,7 +40,6 @@ jQuery(function($) {
 		return false;
 	});
 
-	init_formtastic_validation.apply();
 	var calculate_carrying_bill = function() {
 		//计算保价费合计
 		var insured_amount = parseFloat($('#insured_amount').val());
