@@ -7,7 +7,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
       #t.recoverable
       t.rememberable
       t.trackable
-      t.encryptable 
       t.boolean :is_active,:default => true
       t.boolean :is_admin,:default => false
       t.string :username,:limit => 20,:null => false
