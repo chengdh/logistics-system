@@ -38,9 +38,9 @@ class BaseController < InheritedResources::Base
     new_search_params ={}
     params[:search].each do |key,value|
       if  ['carrying_bills_from_org_id_eq','carrying_bills_to_org_id_eq','carrying_bills_transit_org_id_eq','carrying_bills_to_org_id_or_transit_org_id_eq',
-        'from_org_id_eq','to_org_id_eq','transit_org_id_eq','to_org_id_or_transit_org_id_eq'].include?(key) and value.present? and Org.find(value).children.present?
+        'from_org_id_eq','to_org_id_eq','transit_org_id_eq','to_org_id_or_transit_org_id_eq'].include?(key) and value.present? and (the_org = Org.includes(:children).find(value)).children.present?
         change_key = key.to_s.gsub(/_eq/,'_in')
-        new_search_params[change_key] = [value] + Org.find(value).children.collect {|child_org| child_org.id}
+        new_search_params[change_key] = [value] + the_org.children.collect(&:id)
         new_search_params[key]= nil
       end
     end
@@ -51,12 +51,13 @@ class BaseController < InheritedResources::Base
   protected
   #根据传入参数判断哪个是最近日期,如果什么都不传,则返回当前时间
   def last_modified(objs = [])
+    default_array = [current_user,current_user.default_role,current_user.default_org]
     if objs.blank?
-      [current_user,current_user.default_role,current_user.default_org].collect {|obj| obj.send(:updated_at)}.max
+      default_array.collect {|obj| obj.send(:updated_at)}.max
     else
       #控制当前页面是否刷新缓存的因素有三个:当前用户/当前用户默认机构/当前用户默认角色,三个页面中任何一个发生改变,都要重新缓存
       tmp_obj = objs.is_a?(Array) ? objs : [objs] 
-      ([current_user,current_user.default_role,current_user.default_org] + tmp_obj).collect {|obj| obj.send(:updated_at)}.max
+      (default_array + tmp_obj).collect {|obj| obj.send(:updated_at)}.max
     end
   end
   #生成etag,用于缓存页面

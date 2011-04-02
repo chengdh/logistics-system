@@ -32,18 +32,12 @@ module OrgsHelper
   #当前登录用户可用之外的orgs
   def exclude_current_ability_orgs_for_select
     #除去当前默认org和当前org的上级机构
-
-    default_org = current_user.default_org
-    exclude_org_ids = [default_org.id]
-    if default_org.parent.present?
-      default_org.parent.children.each {|child_org| exclude_org_ids += [child_org.id]}  
-      exclude_org_ids += [default_org.parent.id]
-    end
-    if default_org.children.present?
-      default_org.children.each {|child_org| exclude_org_ids += [child_org.id]}  
-    end
-
-    exclude_org_ids.uniq!
-    Branch.search(:is_active_eq => true,:id_ni => exclude_org_ids).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
+    default_org_id = current_user.default_org.id
+    parent_id = current_user.default_org.parent_id
+    exclude_ids =[current_user.default_org.id]
+    exclude_ids << parent_id += Org.where(:parent_id => parent_id).collect(&:id) if parent_id.present?
+    exclude_ids += Org.where(:parent_id => default_org_id).collect(&:id)
+    exclude_ids.uniq!
+    Branch.search(:is_active_eq => true,:id_ni => exclude_ids).all.map {|b| ["#{b.name}(#{b.py})",b.id]}
   end
 end

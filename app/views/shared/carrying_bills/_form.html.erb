@@ -4,7 +4,7 @@
   can_update='update_all' if can?(:update_all,resource)
   can_update='' if resource.new_record?
 %>
-<%= semantic_form_for resource ,:remote=> true,:html => {:id => "carrying_bill_form",:class => "wat-cf carrying_bill #{can_update} "} do |f|%>
+<%= semantic_form_for resource,:validate=> false,:remote=> true,:html => {:id => "carrying_bill_form",:class => "wat-cf carrying_bill #{can_update} "} do |f|%>
   <%= f.error_messages %>
   <%= f.hidden_field :user_id,:value => current_user.id if f.object.new_record?%>
   <%= f.hidden_field :original_bill_id%>

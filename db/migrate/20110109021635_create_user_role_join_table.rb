@@ -1,5 +1,4 @@
 #coding: utf-8
-#coding: utf-8
 class CreateUserRoleJoinTable < ActiveRecord::Migration
   def self.up
     create_table :user_roles do |t|

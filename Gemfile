@@ -3,7 +3,6 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.3'
 gem 'mysql2'
 gem "will_paginate", "~> 3.0.pre2"
-gem "meta_search","0.9.11"
 gem "devise"
 gem "cancan",'1.5.0'
 #表单中的树形结构选择
@@ -11,13 +10,9 @@ gem 'acts_as_tree',:git => 'git://github.com/parasew/acts_as_tree.git'
 #form 显示组件
 gem "validation_reflection"
 gem 'formtastic', '~>1.2.3'
-#gem 'rails3-jquery-autocomplete'
-#gem 'formtastic_jquery_ui'
-#gem 'formtastic_validation'
 #state_machine
 gem 'state_machine'
 gem 'inherited_resources', '1.1.2'
-#gem 'inherited_views'
 gem 'inherited_resources_views'
 gem 'dynamic_form'
 gem 'show_for'
@@ -26,7 +21,7 @@ gem 'fastercsv'
 gem 'uuid'
 gem 'factory_girl_rails', '1.0'
 gem 'easy_http_cache'
-gem 'client_side_validations', '~> 3.0.0'
+gem "meta_search"
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
